@@ -1,13 +1,15 @@
-V3 7
+V3 9
 FL C:/hlocal/proyecto/PracticaTeclado/registro.vhd 2013/10/17.09:04:30 P.15xf
-EN work/registro 1382026769 FL C:/hlocal/proyecto/PracticaTeclado/registro.vhd \
+FL C:/hlocal/proyecto/PracticaTeclado/teclado.vhd 2013/10/17.18:19:22 P.15xf
+FL C:/hlocal/TOC/PracticaTeclado/registro.vhd 2013/10/22.13:23:59 P.15xf
+EN work/registro 1382441066 FL C:/hlocal/TOC/PracticaTeclado/registro.vhd \
       PB ieee/std_logic_1164 1335251622 PB ieee/std_logic_arith 1335251623 \
       PB ieee/STD_LOGIC_UNSIGNED 1335251625
-AR work/registro/estructural 1382026770 \
-      FL C:/hlocal/proyecto/PracticaTeclado/registro.vhd EN work/registro 1382026769 \
+AR work/registro/estructural 1382441067 \
+      FL C:/hlocal/TOC/PracticaTeclado/registro.vhd EN work/registro 1382441066 \
       CP conversor
-FL C:/hlocal/proyecto/PracticaTeclado/teclado.vhd 2013/10/17.18:19:22 P.15xf
-EN work/conversor 1382026767 FL C:/hlocal/proyecto/PracticaTeclado/teclado.vhd \
+FL C:/hlocal/TOC/PracticaTeclado/teclado.vhd 2013/10/22.12:38:59 P.15xf
+EN work/conversor 1382441064 FL C:/hlocal/TOC/PracticaTeclado/teclado.vhd \
       PB ieee/std_logic_1164 1335251622
-AR work/conversor/Behavioral 1382026768 \
-      FL C:/hlocal/proyecto/PracticaTeclado/teclado.vhd EN work/conversor 1382026767
+AR work/conversor/Behavioral 1382441065 \
+      FL C:/hlocal/TOC/PracticaTeclado/teclado.vhd EN work/conversor 1382441064

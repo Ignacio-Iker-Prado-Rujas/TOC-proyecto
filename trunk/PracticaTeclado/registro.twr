@@ -45,7 +45,7 @@ Setup/Hold to clock PS2CLK
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-PS2DATA     |    0.868(R)|    0.740(R)|PS2CLK_BUFGP      |   0.000|
+PS2DATA     |    0.953(R)|    0.626(R)|PS2CLK_BUFGP      |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock PS2CLK to Pad
@@ -53,13 +53,13 @@ Clock PS2CLK to Pad
              | clk (edge) |                  | Clock  |
 Destination  |   to PAD   |Internal Clock(s) | Phase  |
 -------------+------------+------------------+--------+
-displayout<0>|   16.855(R)|PS2CLK_BUFGP      |   0.000|
-displayout<1>|   16.533(R)|PS2CLK_BUFGP      |   0.000|
-displayout<2>|   16.360(R)|PS2CLK_BUFGP      |   0.000|
-displayout<3>|   16.550(R)|PS2CLK_BUFGP      |   0.000|
-displayout<4>|   15.787(R)|PS2CLK_BUFGP      |   0.000|
-displayout<5>|   15.537(R)|PS2CLK_BUFGP      |   0.000|
-displayout<6>|   16.215(R)|PS2CLK_BUFGP      |   0.000|
+displayout<0>|   16.529(R)|PS2CLK_BUFGP      |   0.000|
+displayout<1>|   15.017(R)|PS2CLK_BUFGP      |   0.000|
+displayout<2>|   16.170(R)|PS2CLK_BUFGP      |   0.000|
+displayout<3>|   16.009(R)|PS2CLK_BUFGP      |   0.000|
+displayout<4>|   15.163(R)|PS2CLK_BUFGP      |   0.000|
+displayout<5>|   17.284(R)|PS2CLK_BUFGP      |   0.000|
+displayout<6>|   16.721(R)|PS2CLK_BUFGP      |   0.000|
 -------------+------------+------------------+--------+
 
 Clock to Setup on destination clock PS2CLK
@@ -67,11 +67,11 @@ Clock to Setup on destination clock PS2CLK
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-PS2CLK         |    1.788|         |         |         |
+PS2CLK         |    2.365|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Thu Oct 17 18:19:46 2013 
+Analysis completed Tue Oct 22 13:24:45 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:
