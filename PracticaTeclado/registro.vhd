@@ -35,30 +35,33 @@ component conversor is
 port (var: in std_logic_vector (7 downto 0);
 		display : out std_logic_vector (6 downto 0));
 end component;
+--component contador is
+--	port(clk, reset, as: in std_logic; cuenta: out std_logic_vector(3 downto 0));
+--end contador;
 
 	signal F: std_logic_vector(10 downto 0); 
-	signal rout, invert: std_logic_vector(7 downto 0);
+	signal rout: std_logic_vector(7 downto 0);
 	signal aux: std_logic;
 	begin
-		rout <= F(9 downto 2);
+		rout <= F(8 downto 1);
 		aux<=PS2DATA;
-		invert(0) <= rout(7);
-		invert(1) <= rout(6);
-		invert(2) <= rout(5);
-		invert(3) <= rout(4);
-		invert(4) <= rout(3);		
-		invert(5) <= rout(2);
-		invert(6) <= rout(1);
-		invert(7) <= rout(0);
+--		invert(0) <= rout(7);
+--		invert(1) <= rout(6);
+--		invert(2) <= rout(5);
+--		invert(3) <= rout(4);
+--		invert(4) <= rout(3);		
+--		invert(5) <= rout(2);
+--		invert(6) <= rout(1);
+--		invert(7) <= rout(0);
 		
-		u: conversor port map(invert, displayout);
+		u: conversor port map(rout, displayout);
 		
 		process(PS2CLK, reset, aux, PS2DATA, F)
 		
 		begin
 		
 		if (PS2CLK'event and PS2CLK='1') then
-			F<=  F(9 downto 0) & aux; 
+			F<=  aux & F(10 downto 1); 
 		end if;
 		end process;
 		

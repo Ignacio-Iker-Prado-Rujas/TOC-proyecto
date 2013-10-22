@@ -3,14 +3,14 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.07 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 1.00 secs
-Total CPU time to Xst completion: 0.07 secs
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
  
 --> Reading design: registro.prj
 
@@ -68,7 +68,7 @@ Automatic Register Balancing       : No
 
 ---- Target Options
 Add IO Buffers                     : YES
-Global Maximum Fanout              : 500
+Global Maximum Fanout              : 100000
 Add Generic Clock Buffer(BUFG)     : 8
 Register Duplication               : YES
 Slice Packing                      : YES
@@ -104,11 +104,11 @@ Slice Utilization Ratio Delta      : 5
 =========================================================================
 *                          HDL Compilation                              *
 =========================================================================
-Compiling vhdl file "C:/hlocal/proyecto/PracticaTeclado/teclado.vhd" in Library work.
-Entity <conversor> compiled.
-Entity <conversor> (Architecture <behavioral>) compiled.
-Compiling vhdl file "C:/hlocal/proyecto/PracticaTeclado/registro.vhd" in Library work.
-Architecture estructural of Entity registro is up to date.
+Compiling vhdl file "C:/hlocal/TOC/PracticaTeclado/teclado.vhd" in Library work.
+Architecture behavioral of Entity conversor is up to date.
+Compiling vhdl file "C:/hlocal/TOC/PracticaTeclado/registro.vhd" in Library work.
+Entity <registro> compiled.
+Entity <registro> (Architecture <estructural>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
@@ -135,14 +135,14 @@ Entity <conversor> analyzed. Unit <conversor> generated.
 Performing bidirectional port resolution...
 
 Synthesizing Unit <conversor>.
-    Related source file is "C:/hlocal/proyecto/PracticaTeclado/teclado.vhd".
+    Related source file is "C:/hlocal/TOC/PracticaTeclado/teclado.vhd".
 Unit <conversor> synthesized.
 
 
 Synthesizing Unit <registro>.
-    Related source file is "C:/hlocal/proyecto/PracticaTeclado/registro.vhd".
+    Related source file is "C:/hlocal/TOC/PracticaTeclado/registro.vhd".
 WARNING:Xst:647 - Input <reset> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:646 - Signal <F<10>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:646 - Signal <F<0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
     Found 11-bit register for signal <F>.
     Summary:
 	inferred  11 D-type flip-flop(s).
@@ -162,8 +162,8 @@ Macro Statistics
 *                       Advanced HDL Synthesis                          *
 =========================================================================
 
-WARNING:Xst:2677 - Node <F_10> of sequential type is unconnected in block <registro>.
-WARNING:Xst:2677 - Node <F_10> of sequential type is unconnected in block <registro>.
+WARNING:Xst:2677 - Node <F_0> of sequential type is unconnected in block <registro>.
+WARNING:Xst:2677 - Node <F_0> of sequential type is unconnected in block <registro>.
 
 =========================================================================
 Advanced HDL Synthesis Report
@@ -183,28 +183,25 @@ Optimizing unit <registro> ...
 Mapping all equations...
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block registro, actual ratio is 0.
-FlipFlop F_3 has been replicated 1 time(s)
+FlipFlop F_2 has been replicated 1 time(s)
 FlipFlop F_4 has been replicated 1 time(s)
-FlipFlop F_5 has been replicated 1 time(s)
-FlipFlop F_6 has been replicated 1 time(s)
-FlipFlop F_7 has been replicated 1 time(s)
-FlipFlop F_8 has been replicated 1 time(s)
 
 Final Macro Processing ...
 
 Processing Unit <registro> :
-	Found 3-bit shift register for signal <F_2>.
-	Found 2-bit shift register for signal <F_9>.
+	Found 2-bit shift register for signal <F_1>.
+	Found 2-bit shift register for signal <F_3>.
+	Found 3-bit shift register for signal <F_8>.
 Unit <registro> processed.
 
 =========================================================================
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 11
- Flip-Flops                                            : 11
-# Shift Registers                                      : 2
- 2-bit shift register                                  : 1
+# Registers                                            : 5
+ Flip-Flops                                            : 5
+# Shift Registers                                      : 3
+ 2-bit shift register                                  : 2
  3-bit shift register                                  : 1
 
 =========================================================================
@@ -234,17 +231,17 @@ Design Statistics
 # IOs                              : 10
 
 Cell Usage :
-# BELS                             : 72
+# BELS                             : 66
 #      GND                         : 1
-#      LUT2                        : 7
+#      LUT2                        : 4
 #      LUT3                        : 8
-#      LUT4                        : 46
-#      MUXF5                       : 9
+#      LUT4                        : 44
+#      MUXF5                       : 8
 #      VCC                         : 1
-# FlipFlops/Latches                : 13
-#      FD                          : 13
-# Shift Registers                  : 2
-#      SRL16                       : 2
+# FlipFlops/Latches                : 8
+#      FD                          : 8
+# Shift Registers                  : 3
+#      SRL16                       : 3
 # Clock Buffers                    : 1
 #      BUFGP                       : 1
 # IO Buffers                       : 8
@@ -257,11 +254,11 @@ Device utilization summary:
 
 Selected Device : 3s1000ft256-5 
 
- Number of Slices:                       37  out of   7680     0%  
- Number of Slice Flip Flops:             13  out of  15360     0%  
- Number of 4 input LUTs:                 63  out of  15360     0%  
-    Number used as logic:                61
-    Number used as Shift registers:       2
+ Number of Slices:                       34  out of   7680     0%  
+ Number of Slice Flip Flops:              8  out of  15360     0%  
+ Number of 4 input LUTs:                 59  out of  15360     0%  
+    Number used as logic:                56
+    Number used as Shift registers:       3
  Number of IOs:                          10
  Number of bonded IOBs:                   9  out of    173     5%  
  Number of GCLKs:                         1  out of      8    12%  
@@ -287,7 +284,7 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-PS2CLK                             | BUFGP                  | 15    |
+PS2CLK                             | BUFGP                  | 11    |
 -----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
@@ -300,7 +297,7 @@ Speed Grade: -5
 
    Minimum period: 2.956ns (Maximum Frequency: 338.295MHz)
    Minimum input arrival time before clock: 1.778ns
-   Maximum output required time after clock: 14.197ns
+   Maximum output required time after clock: 12.791ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -310,20 +307,20 @@ All values displayed in nanoseconds (ns)
 =========================================================================
 Timing constraint: Default period analysis for Clock 'PS2CLK'
   Clock period: 2.956ns (frequency: 338.295MHz)
-  Total number of paths / destination ports: 14 / 14
+  Total number of paths / destination ports: 10 / 10
 -------------------------------------------------------------------------
 Delay:               2.956ns (Levels of Logic = 0)
-  Source:            Mshreg_F_2 (FF)
-  Destination:       F_2 (FF)
+  Source:            Mshreg_F_8 (FF)
+  Destination:       F_8 (FF)
   Source Clock:      PS2CLK rising
   Destination Clock: PS2CLK rising
 
-  Data Path: Mshreg_F_2 to F_2
+  Data Path: Mshreg_F_8 to F_8
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     SRL16:CLK->Q          1   2.780   0.000  Mshreg_F_2 (Mshreg_F_2)
-     FD:D                      0.176          F_2
+     SRL16:CLK->Q          1   2.780   0.000  Mshreg_F_8 (Mshreg_F_8)
+     FD:D                      0.176          F_8
     ----------------------------------------
     Total                      2.956ns (2.956ns logic, 0.000ns route)
                                        (100.0% logic, 0.0% route)
@@ -334,53 +331,52 @@ Timing constraint: Default OFFSET IN BEFORE for Clock 'PS2CLK'
 -------------------------------------------------------------------------
 Offset:              1.778ns (Levels of Logic = 1)
   Source:            PS2DATA (PAD)
-  Destination:       Mshreg_F_2 (FF)
+  Destination:       Mshreg_F_8 (FF)
   Destination Clock: PS2CLK rising
 
-  Data Path: PS2DATA to Mshreg_F_2
+  Data Path: PS2DATA to Mshreg_F_8
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O             1   0.715   0.681  PS2DATA_IBUF (PS2DATA_IBUF)
-     SRL16:D                   0.382          Mshreg_F_2
+     SRL16:D                   0.382          Mshreg_F_8
     ----------------------------------------
     Total                      1.778ns (1.097ns logic, 0.681ns route)
                                        (61.7% logic, 38.3% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'PS2CLK'
-  Total number of paths / destination ports: 308 / 7
+  Total number of paths / destination ports: 324 / 7
 -------------------------------------------------------------------------
-Offset:              14.197ns (Levels of Logic = 7)
-  Source:            F_3 (FF)
-  Destination:       displayout<0> (PAD)
+Offset:              12.791ns (Levels of Logic = 6)
+  Source:            F_4 (FF)
+  Destination:       displayout<3> (PAD)
   Source Clock:      PS2CLK rising
 
-  Data Path: F_3 to displayout<0>
+  Data Path: F_4 to displayout<3>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q              22   0.626   1.655  F_3 (F_3)
-     LUT2:I0->O            2   0.479   0.768  u/display_2_mux001031_SW0 (N50)
-     LUT4:I3->O            2   0.479   0.745  u/display_2_mux001031 (N21)
-     MUXF5:S->O            1   0.540   0.976  u/display_3_mux0011249_f5 (u/display_3_mux0011249)
-     LUT4:I0->O            3   0.479   1.066  u/display_3_mux0011278 (N4)
-     LUT4:I0->O            1   0.479   0.000  u/display_0_mux0013791 (u/display_0_mux001379)
-     MUXF5:I1->O           1   0.314   0.681  u/display_0_mux001379_f5 (displayout_0_OBUF)
-     OBUF:I->O                 4.909          displayout_0_OBUF (displayout<0>)
+     FD:C->Q              23   0.626   1.616  F_4 (F_4)
+     LUT4:I1->O            4   0.479   0.838  u/display_3_mux0011211 (N18)
+     LUT3:I2->O            1   0.479   0.851  u/display_3_mux00115 (u/display_3_mux00115)
+     LUT4:I1->O            2   0.479   1.040  u/display_3_mux001166 (u/display_3_mux001166)
+     LUT4:I0->O            1   0.479   0.000  u/display_3_mux0011147_F (N72)
+     MUXF5:I0->O           1   0.314   0.681  u/display_3_mux0011147 (displayout_3_OBUF)
+     OBUF:I->O                 4.909          displayout_3_OBUF (displayout<3>)
     ----------------------------------------
-    Total                     14.197ns (8.305ns logic, 5.892ns route)
-                                       (58.5% logic, 41.5% route)
+    Total                     12.791ns (7.765ns logic, 5.026ns route)
+                                       (60.7% logic, 39.3% route)
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 4.22 secs
+Total REAL time to Xst completion: 4.00 secs
+Total CPU time to Xst completion: 4.29 secs
  
 --> 
 
-Total memory usage is 255512 kilobytes
+Total memory usage is 255384 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    4 (   0 filtered)
