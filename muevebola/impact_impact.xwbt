@@ -1,8 +1,8 @@
 INTSTYLE=impact
-INFILE=C:\hlocal\muevebola\impact.xsl
-OUTFILE=C:\hlocal\muevebola\impact.xsl
+INFILE=C:\hlocal\toc-proyecto\muevebola\impact.xsl
+OUTFILE=C:\hlocal\toc-proyecto\muevebola\impact.xsl
 FAMILY=Single
 PART=Single
-WORKINGDIR=C:\hlocal\muevebola
+WORKINGDIR=C:\hlocal\toc-proyecto\muevebola
 LICENSE=iMPACT
 USER_INFO=iMPACT
