@@ -4,7 +4,7 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
 C:\software\electronica\xilinx\14.1\ISE_DS\ISE\bin\nt64\unwrapped\trce.exe
 -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o
-vgacore.twr vgacore.pcf
+vgacore.twr vgacore.pcf -ucf pines.ucf
 
 Design file:              vgacore.ncd
 Physical constraint file: vgacore.pcf
@@ -45,7 +45,7 @@ Setup/Hold to clock clock
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-reset       |    3.602(R)|   -1.383(R)|clock_BUFGP       |   0.000|
+reset       |    3.946(R)|   -1.210(R)|clock_BUFGP       |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clock
@@ -53,11 +53,11 @@ Clock to Setup on destination clock clock
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clock          |    3.365|         |         |         |
+clock          |    3.585|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Mon Nov 18 15:20:08 2013 
+Analysis completed Mon Nov 18 15:31:48 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:
