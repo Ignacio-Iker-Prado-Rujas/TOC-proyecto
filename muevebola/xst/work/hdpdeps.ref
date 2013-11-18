@@ -1,0 +1,18 @@
+V3 11
+FL C:/hlocal/divisor.vhd 2013/11/18.15:00:44 P.15xf
+EN work/divisor 1384784387 FL C:/hlocal/divisor.vhd PB ieee/std_logic_1164 1335251622 \
+      PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor/divisor_arch 1384784388 \
+      FL C:/hlocal/divisor.vhd EN work/divisor 1384784387
+FL C:/hlocal/muevebola/bolamueve.vhd 2013/11/18.15:18:56 P.15xf
+EN work/vgacore 1384784391 FL C:/hlocal/muevebola/bolamueve.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
+      PB ieee/std_logic_arith 1335251623
+AR work/vgacore/vgacore_arch 1384784392 \
+      FL C:/hlocal/muevebola/bolamueve.vhd EN work/vgacore 1384784391 CP divisor \
+      CP divisor_bola
+FL C:/hlocal/muevebola/divisor_bola.vhd 2013/11/18.15:17:21 P.15xf
+EN work/divisor_bola 1384784389 FL C:/hlocal/muevebola/divisor_bola.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_bola/divisor_arch 1384784390 \
+      FL C:/hlocal/muevebola/divisor_bola.vhd EN work/divisor_bola 1384784389
