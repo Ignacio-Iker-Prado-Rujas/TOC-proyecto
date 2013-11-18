@@ -2,21 +2,21 @@ V3 14
 FL C:/hlocal/divisor.vhd 2013/11/18.15:00:44 P.15xf
 FL C:/hlocal/muevebola/bolamueve.vhd 2013/11/18.15:18:56 P.15xf
 FL C:/hlocal/muevebola/divisor_bola.vhd 2013/11/18.15:17:21 P.15xf
-FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd 2013/11/18.15:18:56 P.15xf
-EN work/vgacore 1384784981 FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd \
+FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd 2013/11/18.17:46:15 P.15xf
+EN work/vgacore 1384793185 FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd \
       PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
       PB ieee/std_logic_arith 1335251623
-AR work/vgacore/vgacore_arch 1384784982 \
-      FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd EN work/vgacore 1384784981 \
+AR work/vgacore/vgacore_arch 1384793186 \
+      FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd EN work/vgacore 1384793185 \
       CP divisor CP divisor_bola
-FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd 2013/11/18.15:00:44 P.15xf
-EN work/divisor 1384784977 FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd \
+FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd 2013/11/18.17:06:49 P.15xf
+EN work/divisor 1384793181 FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd \
       PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
-AR work/divisor/divisor_arch 1384784978 \
-      FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd EN work/divisor 1384784977
-FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd 2013/11/18.15:29:30 P.15xf
-EN work/divisor_bola 1384784979 \
+AR work/divisor/divisor_arch 1384793182 \
+      FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd EN work/divisor 1384793181
+FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd 2013/11/18.17:21:53 P.15xf
+EN work/divisor_bola 1384793183 \
       FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd PB ieee/std_logic_1164 1335251622 \
       PB ieee/STD_LOGIC_UNSIGNED 1335251625
-AR work/divisor_bola/divisor_arch 1384784980 \
-      FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd EN work/divisor_bola 1384784979
+AR work/divisor_bola/divisor_arch 1384793184 \
+      FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd EN work/divisor_bola 1384793183

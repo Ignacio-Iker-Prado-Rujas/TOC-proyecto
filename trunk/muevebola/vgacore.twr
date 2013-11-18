@@ -45,7 +45,7 @@ Setup/Hold to clock clock
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-reset       |    3.946(R)|   -1.210(R)|clock_BUFGP       |   0.000|
+reset       |    4.138(R)|   -1.763(R)|clock_BUFGP       |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock to Setup on destination clock clock
@@ -53,18 +53,18 @@ Clock to Setup on destination clock clock
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clock          |    3.585|         |         |         |
+clock          |    4.678|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Mon Nov 18 15:31:48 2013 
+Analysis completed Mon Nov 18 17:46:42 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 156 MB
+Peak Memory Usage: 157 MB
 
 
 
