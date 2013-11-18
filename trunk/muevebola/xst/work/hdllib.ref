@@ -1,6 +1,6 @@
-AR vgacore vgacore_arch C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd sub00/vhpl01 1384793186
-EN divisor_bola NULL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd sub00/vhpl04 1384793183
-EN divisor NULL C:/hlocal/toc-proyecto/muevebola/divisor.vhd sub00/vhpl02 1384793181
-AR divisor divisor_arch C:/hlocal/toc-proyecto/muevebola/divisor.vhd sub00/vhpl03 1384793182
-AR divisor_bola divisor_arch C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd sub00/vhpl05 1384793184
-EN vgacore NULL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd sub00/vhpl00 1384793185
+AR vgacore vgacore_arch C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd sub00/vhpl01 1384800387
+EN divisor_bola NULL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd sub00/vhpl04 1384800384
+EN divisor NULL C:/hlocal/toc-proyecto/muevebola/divisor.vhd sub00/vhpl02 1384800382
+AR divisor divisor_arch C:/hlocal/toc-proyecto/muevebola/divisor.vhd sub00/vhpl03 1384800383
+AR divisor_bola divisor_arch C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd sub00/vhpl05 1384800385
+EN vgacore NULL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd sub00/vhpl00 1384800386
