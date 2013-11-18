@@ -36,13 +36,18 @@ component divisor is
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
+--Component del divisor de la bola
+component divisor_bola is 
+port (reset, clk_entrada: in STD_LOGIC;
+		clk_salida: out STD_LOGIC);
+end component;
 begin
 --Descomentar para implementación
 
 Nuevo_reloj: divisor port map(reset, clk_100M, clk_1);
 clk_100M <= clock;
 clk <= clk_1;
-RelojPelota <= clk;
+Otro_reloj: divisor_bola port map(reset, clk_100M, RelojPelota);
 
 RP: process (RelojPelota)
 begin

@@ -1,4 +1,6 @@
-AR vgacore vgacore_arch C:/hlocal/muevebola/bolamueve.vhd sub00/vhpl01 1384783280
-EN divisor NULL C:/hlocal/divisor.vhd sub00/vhpl02 1384783277
-AR divisor divisor_arch C:/hlocal/divisor.vhd sub00/vhpl03 1384783278
-EN vgacore NULL C:/hlocal/muevebola/bolamueve.vhd sub00/vhpl00 1384783279
+AR vgacore vgacore_arch C:/hlocal/muevebola/bolamueve.vhd sub00/vhpl01 1384784392
+EN divisor_bola NULL C:/hlocal/muevebola/divisor_bola.vhd sub00/vhpl04 1384784389
+EN divisor NULL C:/hlocal/divisor.vhd sub00/vhpl02 1384784387
+AR divisor divisor_arch C:/hlocal/divisor.vhd sub00/vhpl03 1384784388
+AR divisor_bola divisor_arch C:/hlocal/muevebola/divisor_bola.vhd sub00/vhpl05 1384784390
+EN vgacore NULL C:/hlocal/muevebola/bolamueve.vhd sub00/vhpl00 1384784391
