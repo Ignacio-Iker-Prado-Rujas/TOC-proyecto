@@ -1,7 +1,7 @@
 Release 14.1 par P.15xf (nt64)
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
-PTO0716::  Mon Nov 18 15:20:02 2013
+PTO0716::  Mon Nov 18 15:31:42 2013
 
 par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
 
@@ -44,7 +44,7 @@ Device Utilization Summary:
    Number of External IOBs                  13 out of 173     7%
       Number of LOCed IOBs                  13 out of 13    100%
 
-   Number of Slices                         96 out of 7680    1%
+   Number of Slices                         97 out of 7680    1%
       Number of SLICEMs                      0 out of 3840    0%
 
 
@@ -63,34 +63,34 @@ Total REAL time at the beginning of Placer: 1 secs
 Total CPU  time at the beginning of Placer: 0 secs 
 
 Phase 1.1  Initial Placement Analysis
-Phase 1.1  Initial Placement Analysis (Checksum:468ed673) REAL time: 1 secs 
+Phase 1.1  Initial Placement Analysis (Checksum:468ed6e1) REAL time: 1 secs 
 
 Phase 2.7  Design Feasibility Check
-Phase 2.7  Design Feasibility Check (Checksum:468ed673) REAL time: 1 secs 
+Phase 2.7  Design Feasibility Check (Checksum:468ed6e1) REAL time: 1 secs 
 
 Phase 3.31  Local Placement Optimization
-Phase 3.31  Local Placement Optimization (Checksum:468ed673) REAL time: 1 secs 
+Phase 3.31  Local Placement Optimization (Checksum:468ed6e1) REAL time: 1 secs 
 
 Phase 4.2  Initial Clock and IO Placement
 
-Phase 4.2  Initial Clock and IO Placement (Checksum:c88104d3) REAL time: 1 secs 
+Phase 4.2  Initial Clock and IO Placement (Checksum:c8810541) REAL time: 1 secs 
 
 Phase 5.36  Local Placement Optimization
-Phase 5.36  Local Placement Optimization (Checksum:c88104d3) REAL time: 1 secs 
+Phase 5.36  Local Placement Optimization (Checksum:c8810541) REAL time: 1 secs 
 
 Phase 6.8  Global Placement
 ...
 ..
-Phase 6.8  Global Placement (Checksum:74c156e4) REAL time: 2 secs 
+Phase 6.8  Global Placement (Checksum:59f7c972) REAL time: 2 secs 
 
 Phase 7.5  Local Placement Optimization
-Phase 7.5  Local Placement Optimization (Checksum:74c156e4) REAL time: 2 secs 
+Phase 7.5  Local Placement Optimization (Checksum:59f7c972) REAL time: 2 secs 
 
 Phase 8.18  Placement Optimization
-Phase 8.18  Placement Optimization (Checksum:617efed7) REAL time: 2 secs 
+Phase 8.18  Placement Optimization (Checksum:cf3f7ee7) REAL time: 2 secs 
 
 Phase 9.5  Local Placement Optimization
-Phase 9.5  Local Placement Optimization (Checksum:617efed7) REAL time: 2 secs 
+Phase 9.5  Local Placement Optimization (Checksum:cf3f7ee7) REAL time: 2 secs 
 
 Total REAL time to Placer completion: 2 secs 
 Total CPU  time to Placer completion: 2 secs 
@@ -101,13 +101,13 @@ Writing design to file vgacore.ncd
 Starting Router
 
 
-Phase  1  : 646 unrouted;      REAL time: 2 secs 
+Phase  1  : 652 unrouted;      REAL time: 2 secs 
 
-Phase  2  : 610 unrouted;      REAL time: 2 secs 
+Phase  2  : 616 unrouted;      REAL time: 3 secs 
 
-Phase  3  : 119 unrouted;      REAL time: 2 secs 
+Phase  3  : 112 unrouted;      REAL time: 3 secs 
 
-Phase  4  : 124 unrouted; (Par is working to improve performance)     REAL time: 3 secs 
+Phase  4  : 119 unrouted; (Par is working to improve performance)     REAL time: 3 secs 
 
 Phase  5  : 0 unrouted; (Par is working to improve performance)     REAL time: 3 secs 
 
@@ -148,13 +148,13 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|         clock_BUFGP |      BUFGMUX0| No   |    6 |  0.102     |  0.988      |
+|         clock_BUFGP |      BUFGMUX0| No   |    6 |  0.060     |  0.976      |
 +---------------------+--------------+------+------+------------+-------------+
-|  Otro_reloj/clk_aux |         Local|      |   11 |  0.037     |  3.392      |
+|  Otro_reloj/clk_aux |         Local|      |   11 |  0.091     |  3.315      |
 +---------------------+--------------+------+------+------------+-------------+
-|         hsyncb_OBUF |         Local|      |    7 |  0.037     |  2.169      |
+|         hsyncb_OBUF |         Local|      |    7 |  0.063     |  2.188      |
 +---------------------+--------------+------+------+------------+-------------+
-| Nuevo_reloj/clk_aux |         Local|      |    7 |  0.019     |  3.275      |
+| Nuevo_reloj/clk_aux |         Local|      |    7 |  0.018     |  3.270      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -174,17 +174,17 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net Otr | SETUP       |         N/A|     3.830ns|     N/A|           0
-  o_reloj/clk_aux                           | HOLD        |     1.347ns|            |       0|           0
+  Autotimespec constraint for clock net Otr | SETUP       |         N/A|     3.991ns|     N/A|           0
+  o_reloj/clk_aux                           | HOLD        |     1.329ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net hsy | SETUP       |         N/A|     6.187ns|     N/A|           0
-  ncb_OBUF                                  | HOLD        |     1.364ns|            |       0|           0
+  Autotimespec constraint for clock net hsy | SETUP       |         N/A|     6.281ns|     N/A|           0
+  ncb_OBUF                                  | HOLD        |     1.354ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net Nue | SETUP       |         N/A|     5.549ns|     N/A|           0
-  vo_reloj/clk_aux                          | HOLD        |     1.041ns|            |       0|           0
+  Autotimespec constraint for clock net Nue | SETUP       |         N/A|     5.613ns|     N/A|           0
+  vo_reloj/clk_aux                          | HOLD        |     1.218ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
-  Autotimespec constraint for clock net clo | SETUP       |         N/A|     3.365ns|     N/A|           0
-  ck_BUFGP                                  | HOLD        |     0.825ns|            |       0|           0
+  Autotimespec constraint for clock net clo | SETUP       |         N/A|     3.585ns|     N/A|           0
+  ck_BUFGP                                  | HOLD        |     0.888ns|            |       0|           0
 ----------------------------------------------------------------------------------------------------------
 
 

@@ -5,29 +5,38 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">52</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/vgacore</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/vgacore/vgacore_arch</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/divisor</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/divisor.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/divisor.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/divisor/divisor_arch</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/divisor.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/divisor.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/divisor_bola</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/muevebola/divisor_bola.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="HDLParsers" num="3607" delta="new" >Unit <arg fmt="%s" index="1">work/divisor_bola/divisor_arch</arg> is now defined in a different file.  It was defined in &quot;<arg fmt="%s" index="2">C:/hlocal/muevebola/divisor_bola.vhd</arg>&quot;, and is now defined in &quot;<arg fmt="%s" index="3">C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd</arg>&quot;.
+</msg>
+
+<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">52</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
 <arg fmt="%s" index="3">&lt;reset&gt;</arg>
 </msg>
 
-<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">159</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">159</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
 <arg fmt="%s" index="3">&lt;r_px&gt;, &lt;r_py&gt;</arg>
 </msg>
 
-<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">169</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">169</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
 <arg fmt="%s" index="3">&lt;r_px&gt;, &lt;r_py&gt;</arg>
 </msg>
 
-<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">191</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+<msg type="warning" file="Xst" num="819" delta="new" >&quot;<arg fmt="%s" index="1">C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd</arg>&quot; line <arg fmt="%d" index="2">191</arg>: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
 <arg fmt="%s" index="3">&lt;bola&gt;</arg>
-</msg>
-
-<msg type="warning" file="Xst" num="1710" delta="new" >FF/Latch &lt;<arg fmt="%s" index="1">Otro_reloj/cuenta_3</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">vgacore</arg>&gt;. This FF/Latch will be trimmed during the optimization process.
-</msg>
-
-<msg type="warning" file="Xst" num="1710" delta="new" >FF/Latch &lt;<arg fmt="%s" index="1">Otro_reloj/cuenta_3</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">vgacore</arg>&gt;. This FF/Latch will be trimmed during the optimization process.
-</msg>
-
-<msg type="warning" file="Xst" num="1710" delta="new" >FF/Latch &lt;<arg fmt="%s" index="1">Otro_reloj/cuenta_3</arg>&gt; (without init value) has a constant value of <arg fmt="%d" index="2">0</arg> in block &lt;<arg fmt="%s" index="3">vgacore</arg>&gt;. This FF/Latch will be trimmed during the optimization process.
 </msg>
 
 <msg type="info" file="Xst" num="2169" delta="old" >HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.

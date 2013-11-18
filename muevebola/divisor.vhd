@@ -14,15 +14,15 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 USE IEEE.std_logic_unsigned.ALL;
 
-entity divisor_bola is
+entity divisor is
     port (
         reset: in STD_LOGIC;
         clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
         clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
     );
-end divisor_bola;
+end divisor;
 
-architecture divisor_arch of divisor_bola is
+architecture divisor_arch of divisor is
  SIGNAL cuenta: std_logic_vector(3 downto 0);
  SIGNAL clk_aux, clk: std_logic;
   
@@ -36,7 +36,7 @@ clk_salida <= clk_aux;
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
     ELSIF(clk'EVENT AND clk = '1') THEN
-      IF (cuenta="1111") THEN 
+      IF (cuenta="0011") THEN 
 			clk_aux <= not clk_aux;
         cuenta <= (OTHERS=>'0');
       ELSE
