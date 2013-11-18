@@ -1,0 +1,4 @@
+AR vgacore vgacore_arch C:/hlocal/arcanoid/vga.vhd sub00/vhpl03 1384778928
+EN divisor NULL C:/hlocal/arcanoid/divisor.vhd sub00/vhpl00 1384778925
+AR divisor divisor_arch C:/hlocal/arcanoid/divisor.vhd sub00/vhpl01 1384778926
+EN vgacore NULL C:/hlocal/arcanoid/vga.vhd sub00/vhpl02 1384778927
