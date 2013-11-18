@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<document OS="nt64" product="ISE" version="14.1">
+
+  <!--The data in this file is primarily intended for consumption by Xilinx tools.
+    The structure and the elements are likely to change over the next few releases.
+    This means code written to parse this file will need to be revisited each subsequent release.-->
+
+  <application stringID="NgdBuild" timeStamp="Mon Nov 18 15:01:26 2013">
+    <section stringID="User_Env">
+      <table stringID="User_EnvVar">
+        <column stringID="variable"/>
+        <column stringID="value"/>
+        <row stringID="row" value="0">
+          <item stringID="variable" value="Path"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\ISE\\lib\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\ISE\\bin\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\ISE\bin\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\ISE\lib\nt64;C:\software\electronica\xilinx\Vivado\2012.1\bin;C:\software\electronica\xilinx\14.1\ISE_DS\PlanAhead\bin;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\bin\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\lib\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\gnu\microblaze\nt64\bin;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\gnu\powerpc-eabi\nt64\bin;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\gnuwin\bin;C:\software\electronica\xilinx\14.1\ISE_DS\EDK\gnu\arm\nt64\bin;C:\software\electronica\xilinx\14.1\ISE_DS\common\bin\nt64;C:\software\electronica\xilinx\14.1\ISE_DS\common\lib\nt64;c:\windows\system32;c:\windows;c:\windows\system32\wbem;c:\windows\system32\windowspowershell\v1.0\;c:\Python27\Lib\site-packages\PyQt4;c:\software\programacion\CollabNet\SVNClient;C:\software\utilidades\LyX\MiKTeX-2.9\miktex\bin;C:\software\utilidades\LyX20\MiKTeX 2.9\miktex\bin;C:\software\bbdd\oracle\Ora11gr2_x64\cliente\bin;c:\software\PROGRA~1\CBUILD~1\Bin;c:\jdk\jdk1.6.0_24-32bits\javafx-sdk1.3\bin;c:\jdk\jdk1.6.0_24-32bits\javafx-sdk1.3\emulator\bin;c:\software\utilidades\LEd\MiKTeX 2.9\miktex\bin;C:\Program Files\Intel\DMIX;C:\Program Files (x86)\Pico Technology\PicoScope6\;C:\software\MATLABr2010b\runtime\win64;C:\software\MATLABr2010b\bin;C:\software\electronica\OrCAD\OrCAD_15.7\tools\pcb\bin;C:\software\electronica\OrCAD\OrCAD_15.7\tools\fet\bin;C:\software\electronica\OrCAD\OrCAD_15.7\tools\specctra\bin;C:\software\electronica\OrCAD\OrCAD_15.7\tools\bin;C:\software\electronica\OrCAD\OrCAD_15.7\tools\PSpice;C:\software\electronica\OrCAD\OrCAD_15.7\tools\PSpice\Library;C:\software\electronica\OrCAD\OrCAD_15.7\tools\Capture;C:\software\electronica\OrCAD\OrCAD_15.7\OpenAccess\bin\win32\opt;C:\software\programacion\Protege_3.4.8\Graphviz\bin;C:\Python27;C:\Python27\DLLs;C:\Python27\Scripts;c:\Python27\Lib\site-packages\vtk;c:\Python27\gnuplot\binary;c:\software\programacion\pythonxy\SciTE-3.1.0;c:\software\programacion\pythonxy\console;C:\MinGW32-xy\bin;c:\software\programacion\pythonxy\swig;c:\software\programacion\pythonxy\gettext\bin;C:\software\electronica\modelsim\win64;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files (x86)\Microsoft ASP.NET\ASP.NET Web Pages\v1.0\;C:\Program Files (x86)\Windows Kits\8.0\Windows Performance Toolkit\;C:\Program Files\Microsoft SQL Server\110\Tools\Binn\;C:\software\programacion\TortoiseSVN\bin"/>
+        </row>
+        <row stringID="row" value="1">
+          <item stringID="variable" value="PATHEXT"/>
+          <item stringID="value" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC"/>
+        </row>
+        <row stringID="row" value="2">
+          <item stringID="variable" value="XILINX"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\ISE\"/>
+        </row>
+        <row stringID="row" value="3">
+          <item stringID="variable" value="XILINXD_LICENSE_FILE"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\common\licenses\xilinx.lic"/>
+        </row>
+        <row stringID="row" value="4">
+          <item stringID="variable" value="XILINX_DSP"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\ISE"/>
+        </row>
+        <row stringID="row" value="5">
+          <item stringID="variable" value="XILINX_EDK"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\EDK"/>
+        </row>
+        <row stringID="row" value="6">
+          <item stringID="variable" value="XILINX_PLANAHEAD"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\14.1\ISE_DS\PlanAhead"/>
+        </row>
+        <row stringID="row" value="7">
+          <item stringID="variable" value="XILINX_VIVADO"/>
+          <item stringID="value" value="C:\software\electronica\xilinx\Vivado\2012.1"/>
+        </row>
+      </table>
+      <item stringID="User_EnvOs" value="OS Information">
+        <item stringID="User_EnvOsname" value="Microsoft Windows 7 , 64-bit"/>
+        <item stringID="User_EnvOsrelease" value="Service Pack 1  (build 7601)"/>
+      </item>
+      <item stringID="User_EnvHost" value="PTO0716"/>
+      <table stringID="User_EnvCpu">
+        <column stringID="arch"/>
+        <column stringID="speed"/>
+        <row stringID="row" value="0">
+          <item stringID="arch" value="Intel(R) Core(TM) i7-2600 CPU @ 3.40GHz"/>
+          <item stringID="speed" value="3392 MHz"/>
+        </row>
+      </table>
+    </section>
+    <task stringID="NGDBUILD_OPTION_SUMMARY">
+      <section stringID="NGDBUILD_OPTION_SUMMARY">
+        <item DEFAULT="None" label="-intstyle" stringID="NGDBUILD_intstyle" value="ise"/>
+        <item DEFAULT="None" label="-dd" stringID="NGDBUILD_output_dir" value="_ngo"/>
+        <item DEFAULT="None" label="-p" stringID="NGDBUILD_partname" value="xc3s1000l-ft256-4"/>
+        <item DEFAULT="None" label="-uc" stringID="NGDBUILD_ucf_file" value="C:/hlocal/pines.ucf"/>
+      </section>
+    </task>
+    <task stringID="NGDBUILD_REPORT">
+      <section stringID="NGDBUILD_DESIGN_SUMMARY">
+        <item dataType="int" stringID="NGDBUILD_NUM_ERRORS" value="0"/>
+        <item dataType="int" stringID="NGDBUILD_FILTERED_WARNINGS" value="0"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_WARNINGS" value="0"/>
+        <item dataType="int" stringID="NGDBUILD_FILTERED_INFOS" value="0"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_INFOS" value="0"/>
+      </section>
+      <section stringID="NGDBUILD_PRE_UNISIM_SUMMARY">
+        <item dataType="int" stringID="NGDBUILD_NUM_BUFG" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_BUFGP" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDC" value="40"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDE" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDP" value="4"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_GND" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_IBUF" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_INV" value="21"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT1" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT2" value="30"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT2_L" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT3" value="27"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4" value="82"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4_D" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4_L" value="3"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_MUXCY" value="72"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_MUXF5" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_OBUF" value="11"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_VCC" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_XORCY" value="38"/>
+      </section>
+      <section stringID="NGDBUILD_POST_UNISIM_SUMMARY">
+        <item dataType="int" stringID="NGDBUILD_NUM_BUFG" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDC" value="40"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDE" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_FDP" value="4"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_GND" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_IBUF" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_IBUFG" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_INV" value="21"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT1" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT2" value="30"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT2_L" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT3" value="27"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4" value="82"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4_D" value="2"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_LUT4_L" value="3"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_MUXCY" value="72"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_MUXF5" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_OBUF" value="11"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_VCC" value="1"/>
+        <item dataType="int" stringID="NGDBUILD_NUM_XORCY" value="38"/>
+      </section>
+      <section stringID="NGDBUILD_CORE_GENERATION_SUMMARY">
+        <section stringID="NGDBUILD_CORE_INSTANCES"/>
+      </section>
+    </task>
+  </application>
+
+</document>
