@@ -17,15 +17,13 @@ end vgacore;
 
 architecture vgacore_arch of vgacore is
 
-type mov_hor is (Xpositivo, Xnegativo);
-type mov_ver is (Ypositivo, Ynegativo);
+type estado_movimiento is (XpositivoYpositivo, XpositivoYnegativo, XnegativoYpositivo, XnegativoYnegativo);
 
 signal hcnt, px, r_px: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, py, r_py: std_logic_vector(9 downto 0);	-- vertical line counter
 signal rectangulo: std_logic;					-- rectangulo signal
 signal bola: std_logic;
-signal mhor, auxhor: mov_hor;
-signal mver, auxver: mov_ver;
+signal movimiento_pelota, aux_movimiento: estado_movimiento;
 
 
 --Añadir las señales intermedias necesarias
@@ -55,15 +53,13 @@ Otro_reloj: divisor_bola port map(reset, clk_100M, RelojPelota);
 RP: process (RelojPelota)
 begin
 	if reset='1' then--inicializacion de las coordenadas
-		r_px <= "000000100";
+		r_px <= "000111100";
 		r_py <= "0010000000";
-		mhor <= Xnegativo;
-		mver <= Ynegativo;
+		movimiento_pelota <= XnegativoYpositivo;
 	elsif RelojPelota'event and RelojPelota = '1' then 
 		r_px <= px;
 		r_py <= py;
-		mhor <= auxhor;
-		mver <= auxver;
+		movimiento_pelota <= aux_movimiento;
 	end if;
 end process;
 ---------------------------------
@@ -174,35 +170,59 @@ begin
 	end if;
 end process pinta_bola;
 
-mueve_bola: process(hcnt, vcnt)
+mueve_bola: process(hcnt, vcnt, movimiento_pelota)
 begin
 	--EstadoPelota <= XnegativoYnegativo;
 
-	if mhor = Xpositivo then
+	if movimiento_pelota = XpositivoYpositivo then
 		px <= r_px+1;
-	elsif mhor = Xnegativo then
-		px <= r_px-1;
-	end if;
-	if mver = Ynegativo then
-		py <= r_py-1;
-	elsif mver = Ypositivo then 
 		py <= r_py+1;
+	elsif movimiento_pelota = XnegativoYpositivo then
+		px <= r_px-1;
+		py <= r_py+1;
+	elsif movimiento_pelota = XpositivoYnegativo then
+		py <= r_py-1;
+		px <= r_px+1;
+	elsif movimiento_pelota = XnegativoYnegativo then 
+		py <= r_py-1;
+		px <= r_px-1;
 	end if;
 end process mueve_bola;
 
-estado_bola:process(hcnt, vcnt)
+choque_bola:process(hcnt, vcnt, movimiento_pelota)
 begin
-	if r_px = 260 then
-		auxhor <= Xnegativo;
-	elsif r_px = 4 then
-		auxhor <= Xpositivo;
+	if r_px >= 260 then 
+		if movimiento_pelota = XpositivoYnegativo then
+			aux_movimiento <= XnegativoYnegativo;
+		elsif movimiento_pelota = XpositivoYpositivo then
+			aux_movimiento <= XnegativoYpositivo;
+		else aux_movimiento <= movimiento_pelota;
+		end if;
+	elsif r_px <= 4 then
+		if movimiento_pelota = XnegativoYnegativo then
+			aux_movimiento <= XpositivoYnegativo;
+		elsif movimiento_pelota = XnegativoYpositivo then
+			aux_movimiento <= XpositivoYpositivo;
+		else aux_movimiento <= movimiento_pelota;
+		end if;
+	elsif r_py <= 110 then 
+		if movimiento_pelota = XpositivoYnegativo then
+			aux_movimiento <= XpositivoYpositivo;
+		elsif movimiento_pelota = XnegativoYnegativo then
+			aux_movimiento <= XnegativoYpositivo;
+		else aux_movimiento <= movimiento_pelota;
+		end if;
+	elsif r_py >= 366 then
+		if movimiento_pelota = XnegativoYpositivo then
+			aux_movimiento <= XnegativoYnegativo;
+		elsif movimiento_pelota = XpositivoYpositivo then
+			aux_movimiento <= XpositivoYnegativo;
+		else aux_movimiento <= movimiento_pelota;
+		end if;
+	else aux_movimiento <= movimiento_pelota;
 	end if;
-	if r_py = 110 then 
-		auxver <= Ynegativo;
-	elsif r_py = 366 then
-		auxver <= Ypositivo;
-	end if;
-end process estado_bola;
+end process choque_bola;
+
 
 
 

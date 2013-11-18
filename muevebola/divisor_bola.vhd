@@ -23,9 +23,10 @@ entity divisor_bola is
 end divisor_bola;
 
 architecture divisor_arch of divisor_bola is
- SIGNAL cuenta: std_logic_vector(6 downto 0);
+ SIGNAL cuenta, division: std_logic_vector(20 downto 0);
  SIGNAL clk_aux, clk: std_logic;
-  
+ signal aumentar: std_logic_vector(2 downto 0);
+
   begin
 
 clk <= clk_entrada; 
@@ -35,10 +36,18 @@ clk_salida <= clk_aux;
   BEGIN
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
+		division <= "000111111111111111111";
+		aumentar <= "000";
+		
     ELSIF(clk'EVENT AND clk = '1') THEN
-      IF (cuenta="1111111") THEN 
+      IF (cuenta = division) THEN 
 			clk_aux <= not clk_aux;
-        cuenta <= (OTHERS=>'0');
+			cuenta <= (OTHERS=>'0');
+			aumentar <= aumentar + 1;
+			if aumentar = 7 then
+				division <= division - 100;
+			end if;
+			
       ELSE
         cuenta <= cuenta + '1';
       END IF;
