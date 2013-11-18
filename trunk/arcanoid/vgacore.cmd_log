@@ -1,0 +1,12 @@
+xst -intstyle ise -ifn "C:/hlocal/arcanoid/vgacore.xst" -ofn "C:/hlocal/arcanoid/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000-ft256-5 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000-ft256-5 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/arcanoid/vgacore.xst" -ofn "C:/hlocal/arcanoid/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000-ft256-5 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000-ft256-5 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 5 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 

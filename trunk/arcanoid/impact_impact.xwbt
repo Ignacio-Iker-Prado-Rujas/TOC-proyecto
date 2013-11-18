@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=C:\hlocal\arcanoid\impact.xsl
+OUTFILE=C:\hlocal\arcanoid\impact.xsl
+FAMILY=Single
+PART=Single
+WORKINGDIR=C:\hlocal\arcanoid
+LICENSE=iMPACT
+USER_INFO=iMPACT
