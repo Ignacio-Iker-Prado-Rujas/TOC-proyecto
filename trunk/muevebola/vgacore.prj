@@ -1,0 +1,3 @@
+vhdl work "divisor_bola.vhd"
+vhdl work "../divisor.vhd"
+vhdl work "bolamueve.vhd"
