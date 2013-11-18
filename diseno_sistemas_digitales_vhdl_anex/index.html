@@ -1,0 +1,408 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="es">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Diseño de sistemas digitales con VHDL - Felipe Machado</title>
+<style>
+<!--
+div.Section1
+  {page:Section1;}
+-->
+</style>
+</head>
+
+<body>
+
+<div>
+  <div align="center">
+    <table border="0" width="76%" id="table2">
+   <tr><td>Por favor, lee el <A HREF="disclaimer.htm">descargo de responsabilidades</A> <BR>
+           Please, read our <A HREF="disclaimer.htm">disclaimer</A>
+           <HR>
+   </td</tr>
+   <tr>
+    <td style="border-color:#FFFFFF; border-style:solid; border-width: medium">
+     <A NAME=VHDL>
+     <H1>Diseño de sistemas digitales con VHDL</H1> 
+      <FONT SIZE = 2> 
+      <A HREF="http://eciencia.urjc.es/dspace/handle/10115/5700"> 
+         http://eciencia.urjc.es/dspace/handle/10115/5700</A><BR>
+      <A HREF="http://hdl.handle.net/10115/5700 ">http://hdl.handle.net/10115/5700</A><BR><BR>
+      </FONT>
+      <BR>
+
+      <FONT SIZE = 3> 
+      Capítulo 7: <A HREF="#vhdl_uart">Transmisión en serie por RS-232</A><BR> 
+      Capítulo 8: Circuitos aritméticos
+      <FONT SIZE = 2> 
+      <UL>
+       <LI> <A HREF="#vhdl_multcomb4b">Multiplicador combinacional de 4 bits</A></LI>
+       <LI> <A HREF="#vhdl_multcombgen">Multiplicador combinacional genérico</A></LI>
+       <LI> <A HREF="#vhdl_multstruct4b">Multiplicador estructural de 4 bits</A></LI>
+       <LI> <A HREF="#vhdl_multstructgen">Multiplicador estructural genérico</A></LI>
+       <LI> <A HREF="#vhdl_multseggen">Multiplicador segmentado genérico</A></LI>
+       <LI> <A HREF="#vhdl_multseqgen">Multiplicador secuencial genérico</A></LI>
+      </UL>
+      </FONT>
+      Capítulo 9: <A HREF="#vhdl_vga">Controlador de pantalla VGA</A><BR> 
+      Capítulo 12: <A HREF="#vhdl_memo">Memorias</A>
+      <FONT SIZE = 2> 
+      <UL>
+       <LI> <A HREF="#vhdl_rom">Memoria ROM</A></LI>
+       <LI> <A HREF="#img2rom">Pasar imágenes a memoria ROM en VHDL</A></LI>
+       <LI> <A HREF="#img_gris">Imagen en escala de grises 100x100</A></LI>
+       <LI> <A HREF="#img_color">Imagen en color 100x100</A></LI>
+      </UL>
+      </FONT>
+      Capítulo 13: <A HREF="#vhdl_char">Mostrar caracteres por pantalla</A>
+      <FONT SIZE = 2> 
+      <UL>
+       <LI> <A HREF="#vhdl_rom_char">Memoria ROM con mapa de bits de caracteres</A></LI>
+      </UL>
+      </FONT>
+      Capítulo 15: <A HREF="#vhdl_pacman">Videojuego del Pac-Man</A>
+      <FONT SIZE = 2> 
+      <UL>
+       <LI> <A HREF="#vhdl_rom_pacman">Memoria ROM con mapa de bits del Pac-Man</A></LI>
+       <LI> <A HREF="#vhdl_rom_laberinto">Memoria ROM con el laberinto</A></LI>
+       <LI> <A HREF="#vhdl_rom_pared">Memoria ROM que indica los tipos de pared</A></LI>
+      </UL>
+      </FONT>
+      </FONT>
+         <HR> 
+     </td>
+     </tr>
+
+    <tr><td>
+      <table border="0" width="80%">
+
+       <tr> <td colspan=2>
+         <HR> 
+          <A NAME=vhdl_uart>
+         <b><big> &nbsp; Capítulo 7: Transmisión en serie por RS-232</big></b>
+       </td> </tr>
+       
+
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <UL>
+           <LI>Paquete de funciones para la UART: 
+           <A HREF="vhdl/uart/uart_pkg_fun.vhd">uart_pkg_fun.vhd</A>
+           </LI>
+           <LI>Paquete de la UART: 
+           <A HREF="vhdl/uart/uart_pkg.vhd">uart_pkg.vhd</A>
+           </LI>
+          </UL>
+        </td>
+      </tr>
+
+       <tr> <td colspan=2>
+         <HR> 
+         <b><big> &nbsp; Capítulo 8: Circuitos aritméticos</big></b>
+       </td> </tr>
+       
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+        <HR>
+        <A NAME=vhdl_multcomb4b>
+         Multiplicador combinacional de 4 bits
+         <UL>
+          <LI>Módulo: 
+          <A HREF="vhdl/math_mult_comb1.vhd">math_mult_comb1.vhd</A>
+          </LI>
+          <LI>Banco de pruebas: 
+           <A HREF="vhdl/tb_mult_comb1.vhd">tb_mult_comb1.vhd</A>
+          </LI>
+         </UL>
+         <HR>
+       </td> </tr>
+
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+         <A NAME=vhdl_multcombgen>
+         Multiplicador combinacional genérico
+         <UL>
+          <LI>Módulo: 
+          <A HREF="vhdl/math_mult_comb_gen_libro.vhd">math_mult_comb_gen_libro.vhd</A>
+          </LI>
+          <LI>Banco de pruebas:
+          <A HREF="vhdl/tb_mult_comb_gen_libro.vhd">tb_mult_comb_gen_libro.vhd</A>
+          </LI>
+         </UL>
+         <HR>
+       </td> </tr>
+
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+         <A NAME=vhdl_multstruct4b>
+         Multiplicador estructural de 4 bits
+         <UL>
+          <LI>Módulo: 
+          <A HREF="vhdl/math_mult_struct.vhd">math_mult_struct.vhd</A>
+          </LI>
+          <LI>Submódulo: 
+          <A HREF="vhdl/math_suma_and.vhd">math_suma_and.vhd</A>
+          </LI>
+          <LI>Banco de pruebas:
+          <A HREF="vhdl/tb_mult_struct.vhd">tb_mult_struct.vhd</A>
+          </LI>
+         </UL>
+         <HR>
+       </td> </tr>
+
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+         <A NAME=vhdl_multstructgen>
+         Multiplicador estructural genérico
+         <UL>
+          <LI>Módulo: 
+          <A HREF="vhdl/math_mult_struct_gen/math_mult_struct_gen.vhd">math_mult_struct_gen.vhd</A>
+          </LI>
+          <LI>Submódulo (no cambia): 
+          <A HREF="vhdl/math_mult_struct_gen/math_suma_and.vhd">math_suma_and.vhd</A>
+          </LI>
+          <LI>Banco de pruebas:
+          <A HREF="vhdl/math_mult_struct_gen/tb_mult_struct_gen.vhd">tb_mult_struct_gen.vhd</A>
+          </LI>
+          </UL>
+          <HR>
+        </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <A NAME=vhdl_multseggen>
+          Multiplicador segmentado genérico
+          <UL>
+           <LI>Módulo: 
+           <A HREF="vhdl/math_mult_combgen_clkpipe/math_mult_comb_gen_clkpipe.vhd">math_mult_comb_gen_clkpipe.vhd</A>
+           </LI>
+           <LI>Banco de pruebas:
+           <A HREF="vhdl/math_mult_combgen_clkpipe/tb_mult_comb_gen_clkpipe.vhd">tb_mult_comb_gen_clkpipe.vhd</A>
+           </LI>
+          </UL>
+          <HR>
+        </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <A NAME=vhdl_multseqgen>
+          Multiplicador secuencial genérico
+          <UL>
+           <LI>Módulo: 
+           <A HREF="vhdl/math_mult_seq/math_mult_seq.vhd">math_mult_seq.vhd</A>
+           </LI>
+           <LI>Paquete: 
+           <A HREF="vhdl/math_mult_seq/mult_pkg.vhd">mult_pkg.vhd</A>
+           </LI>
+           <LI>Banco de pruebas:
+           <A HREF="vhdl/math_mult_seq/tb_mult_seq.vhd">tb_mult_seq.vhd</A>
+           </LI>
+          </UL>
+          <HR>
+        </td> </tr>
+     
+       <tr> <td colspan=2>
+         <HR> 
+          <A NAME=vhdl_vga>
+         <b><big> &nbsp; Capítulo 9: Controlador de pantalla VGA</big></b>
+       </td> </tr>
+       
+
+       <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <UL>
+           <LI>Paquete VGA: 
+           <A HREF="vhdl/vga_simple/vga_pkg.vhd">vga_pkg.vhd</A>
+           </LI>
+           <LI>Paquete general de funciones: 
+           <A HREF="vhdl/vga_simple/dcse_pkg.vhd">dcse_pkg.vhd</A>
+           </LI>
+           <LI>pinta barras para XUPV2P:  
+           <A HREF="vhdl/vga_simple/pinta_barras.vhd">pinta_barras.vhd</A>
+           </LI>
+           <LI>pinta barras para Nexys2:  
+           <A HREF="vhdl/vga_simple_nexys/pinta_barras.vhd">pinta_barras.vhd</A>
+           </LI>
+          </UL>
+        </td>
+      </tr>
+
+       <tr> <td colspan=2>
+         <HR> 
+          <A NAME=vhdl_memo>
+         <b><big> &nbsp; Capítulo 12: Memorias</big></b>
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <A NAME=vhdl_rom>
+          Memoria ROM
+          <UL>
+           <LI>Memoria ROM, Imagen 16x16 y 1bit (blanco y negro): 
+           <A HREF="vhdl/pintarom2/rom1b_16x16.vhd">rom1b_16x16.vhd</A>
+           </LI>
+           <LI>Memoria ROM, Imagen 16 filas y 16 bits dato 
+               (los 16píxeles de una fila en una dirección de memoria, blanco y negro) : 
+           <A HREF="vhdl/pintarom3_linmem/rom16b_16.vhd">rom16b_16.vhd</A>
+           </LI>
+           <LI>Memoria ROM, Imagen 10x10, 8 bits: 256 niveles de gris :
+           <A HREF="vhdl/pintarom4_10x10_8b_gris/rom8b_pacman10x10.vhd">rom8b_pacman10x10.vhd</A> 
+           <IMG SRC="./vhdl/pintarom4_10x10_8b_gris/pacman10x10gris.png">
+           <LI>Memoria ROM, Imagen 10x10, 8 bits: 256 colores :
+           <A HREF="vhdl/pintarom5_10x10_8b_color/rom_rgb_8b_pacman10x10.vhd">rom_rgb_8b_pacman10x10.vhd</A> 
+           <IMG SRC="./vhdl/pintarom5_10x10_8b_color/pacman10x10.png">
+           </LI>
+          </UL>
+          <HR>
+        </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <A NAME=img2rom>
+          Imágenes a memoria ROM en VHDL
+          <UL>
+           <LI> 
+           <A HREF="img2rom.htm">Programa que pasa de una imagen a una ROM en VHDL</A>
+           </LI>
+
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <TABLE>
+          <TR><TD>
+          <A NAME=img_gris>
+          Imagen en escala de grises 100x100 <A HREF="vhdl/memsgris/patron_100x100_gris.png">patron_100x100_gris.png</A>
+          <UL>
+           <LI>Memoria ROM, Imagen 100x100, 8 bits por palabra: 256 grises.<BR>
+           <A HREF="vhdl/memsgris/rom8b_patron_100x100_gris.vhd">rom8b_patron_100x100_gris.vhd</A> 
+           </LI><LI>
+           <A HREF="vhdl/memsgris/patron_100x100_gris.pgm">patron_100x100_gris.pgm</A>
+           PGM guarda en 8 bits, escala de grises
+           </LI><LI>
+           <A HREF="vhdl/memsgris/patron_100x100_gris.raw">patron_100x100_gris.raw</A>
+           En 8 bits en escala de grises 100x100.<BR>
+           Sin cabecera. Para enviar por la UART
+
+           </LI>
+           </LI>
+          </UL>
+          </TD><TD>
+             <A HREF="vhdl/memsgris/patron_100x100_gris.png">
+             <IMG SRC="./vhdl/memsgris/patron_100x100_gris.png"></A> 
+          </TD><TR>
+          </TABLE>
+        </td>
+      </tr>
+
+
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <TABLE>
+          <TR><TD>
+          <A NAME=img_color>
+          Imagen en color 100x100 <A HREF="vhdl/mems/patron_100x100_color.png">patron_100x100_color.png</A>
+          <UL>
+           <LI>Memoria ROM, Imagen 100x100, 8 bits por palabra: 256 colores.<BR>
+            <B><FONT COLOR="red">RRR</FONT>
+               <FONT COLOR="GREEN">GGG</FONT>
+               <FONT COLOR="BLUE">BB</FONT></B>:
+                 Rojo: (7:5), Verde (4:2), Azul (1:0)<BR>
+           <A HREF="vhdl/mems/rom_rgb_8b_patron_100x100_color.vhd">rom_rgb_8b_patron_100x100_color.vhd</A> 
+           </LI><LI>
+           <A HREF="vhdl/mems/patron_100x100_color.ppm">patron_100x100_color.ppm</A>
+           PPM guarda en 24 bits, 8 bits para cada color
+           </LI><LI>
+           <A HREF="vhdl/mems/patron_100x100_color.raw">patron_100x100_color.raw</A>
+           En 24 bits, 8 bits para cada color. RGB 100x100.<BR>
+           Sin cabecera. Para enviar por la UART
+
+           </LI>
+           </LI>
+          </UL>
+          </TD><TD>
+             <A HREF="vhdl/mems/patron_100x100_color.png"><IMG SRC="./vhdl/mems/patron_100x100_color.png"></A> 
+          </TD><TR>
+          </TABLE>
+        </td>
+      </tr>
+
+
+
+
+
+      <tr> <td colspan=2>
+         <HR> 
+          <A NAME=vhdl_char>
+         <b><big> &nbsp; Capítulo 13: Mostrar caracteres por pantalla</big></b>
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <A NAME=vhdl_rom_char>
+          <UL>
+           <LI>Memoria ROM con mapa de bits de los 127 caracteres ASCII.
+               Están los caracteres alfanuméricos y algunos signos de puntuación.
+               Pero no están todos. Las letras minúsculas están en mayúsculas
+               por lo que hay dos "A", dos "B",... 
+           <A HREF="vhdl/charvga/romchar.vhd">romchar.vhd</A>
+           </LI>
+        <HR>
+       </td> </tr>
+
+
+      <tr> <td colspan=2>
+         <HR> 
+          <A NAME=vhdl_pacman>
+         <b><big> &nbsp; Capítulo 15: Videojuego del Pac-Man</big></b>
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <A NAME=vhdl_rom_pacman>
+          <UL>
+           <LI> Memoria ROM del muñeco del Pac-Man, Imagen 16 filas y 16 bits dato 
+               (los 16píxeles de una fila en una dirección de memoria, blanco y negro) : 
+           <A HREF="vhdl/pacman/rom_pacman16b16.vhd">rom_pacman16b16.vhd</A>
+           </LI>
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <A NAME=vhdl_rom_laberinto>
+          <UL>
+           <LI> Memoria ROM del laberinto del Pac-Man, Imagen 30 filas y 16 bits dato 
+               (los 16píxeles de una fila en una dirección de memoria, blanco y negro).
+               El laberinto está a la mitad, hay que formar la imagen simétrica de la parte
+               derecha para que sea de 30 filas y 32 columnas : 
+           <A HREF="vhdl/pacman/rom_laberin30b16.vhd">rom_laberin30b16.vhd</A>
+           </LI>
+       </td> </tr>
+
+        <tr> <td>&nbsp; &nbsp; &nbsp;</td><td>
+          <HR>
+          <A NAME=vhdl_rom_pared>
+          <UL>
+           <LI> Memoria ROM que indica los tipos de celdas de la pared del laberinto, basados del laberinto del Pac-Man, Imagen 30 filas y 16 bits dato 
+               (los 16píxeles de una fila en una dirección de memoria, blanco y negro).
+               El laberinto está a la mitad, hay que formar la imagen simétrica de la parte
+               derecha para que sea de 30 filas y 32 columnas
+           <A HREF="vhdl/pacman/rom_laberin30b16.vhd">rom_laberin30b16.vhd</A><BR>
+               Los siete tipos de datos (en binario) representan los cuatro tipos de esquinas,
+               lineas verticales y horizontales, y puntos interiores
+               (o de pasillo del laberinto):<BR>
+                <IMG SRC="imgs/tipospared.png">
+           </LI>
+       </td> </tr>
+
+     </table>
+     <HR>
+    
+       </td> </tr>
+
+  </table>
+</div
+
+</div>
+<p align="center">
+ [<A HREF="http://gtebim.es">Departamento de Tecnología Electrónica</A>] |
+ [<A HREF="http://www.urjc.es">Universidad Rey Juan Carlos</A>]
+&nbsp;</p>
+
+
+</body>
+
+</html>
