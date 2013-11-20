@@ -1,0 +1,15 @@
+-------Convertir imagen a formato .raw para pasarla a la fpga-------
+Irfanview
+ImageMagik
+
+-------Antes de convertir la imagen a raw convertirla primero a 
+-PGM: opara escala de grises (1 byte: 8 bits)
+-PPM: a color (3 bytes: 24 bits)
+Y posteriormente convertir una de estas dos a raw
+----Envio de la imagen------
+Página 232
+
+
+
+-----Controlador de pantalla-------
+Página 181
