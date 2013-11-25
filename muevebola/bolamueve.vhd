@@ -50,7 +50,7 @@ clk <= clk_1;
 Otro_reloj: divisor_bola port map(reset, clk_100M, RelojPelota);
 
 -------------------------------
-RP: process (RelojPelota)
+RP: process (RelojPelota, reset)
 begin
 	if reset='1' then--inicializacion de las coordenadas
 		r_px <= "000111100";
@@ -170,7 +170,7 @@ begin
 	end if;
 end process pinta_bola;
 
-mueve_bola: process(hcnt, vcnt, movimiento_pelota)
+mueve_bola: process(movimiento_pelota)
 begin
 	--EstadoPelota <= XnegativoYnegativo;
 
@@ -189,7 +189,7 @@ begin
 	end if;
 end process mueve_bola;
 
-choque_bola:process(hcnt, vcnt, movimiento_pelota)
+choque_bola:process(hcnt, vcnt, movimiento_pelota,r_px,r_py)
 begin
 	if r_px >= 260 then 
 		if movimiento_pelota = XpositivoYnegativo then
@@ -226,7 +226,7 @@ end process choque_bola;
 
 
 
-colorear: process(rectangulo, hcnt, vcnt)
+colorear: process(rectangulo, hcnt, vcnt, bola)
 begin
 	if rectangulo = '1' then rgb <= "110110000";
 	elsif bola = '1' then rgb <= "111111111";
