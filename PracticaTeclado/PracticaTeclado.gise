@@ -108,20 +108,11 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="_xmsgs/xst.xmsgs"/>
-      <outfile xil_pn:name="registro.lso"/>
-      <outfile xil_pn:name="registro.ngc"/>
-      <outfile xil_pn:name="registro.ngr"/>
-      <outfile xil_pn:name="registro.prj"/>
-      <outfile xil_pn:name="registro.stx"/>
-      <outfile xil_pn:name="registro.syr"/>
-      <outfile xil_pn:name="registro.xst"/>
-      <outfile xil_pn:name="registro_vhdl.prj"/>
-      <outfile xil_pn:name="registro_xst.xrpt"/>
-      <outfile xil_pn:name="webtalk_pn.xml"/>
-      <outfile xil_pn:name="xst"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441068" xil_pn:in_ck="162138854071659" xil_pn:name="TRAN_compileBCD2" xil_pn:prop_ck="6771278761688111336" xil_pn:start_ts="1382441068">
       <status xil_pn:value="SuccessfullyRun"/>
@@ -130,63 +121,56 @@
     <transform xil_pn:end_ts="1382441074" xil_pn:in_ck="3825114157501212320" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="-9050515847987016901" xil_pn:start_ts="1382441068">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="_ngo"/>
-      <outfile xil_pn:name="_xmsgs/ngdbuild.xmsgs"/>
-      <outfile xil_pn:name="registro.bld"/>
-      <outfile xil_pn:name="registro.ngd"/>
-      <outfile xil_pn:name="registro_ngdbuild.xrpt"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441077" xil_pn:in_ck="3825114157501212321" xil_pn:name="TRANEXT_map_spartan3" xil_pn:prop_ck="1502724157172790344" xil_pn:start_ts="1382441074">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="_xmsgs/map.xmsgs"/>
-      <outfile xil_pn:name="registro.pcf"/>
-      <outfile xil_pn:name="registro_map.map"/>
-      <outfile xil_pn:name="registro_map.mrp"/>
-      <outfile xil_pn:name="registro_map.ncd"/>
-      <outfile xil_pn:name="registro_map.ngm"/>
-      <outfile xil_pn:name="registro_map.xrpt"/>
-      <outfile xil_pn:name="registro_summary.xml"/>
-      <outfile xil_pn:name="registro_usage.xml"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441086" xil_pn:in_ck="7478126018753371706" xil_pn:name="TRANEXT_par_spartan3" xil_pn:prop_ck="5592077876867041805" xil_pn:start_ts="1382441077">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="_xmsgs/par.xmsgs"/>
-      <outfile xil_pn:name="registro.ncd"/>
-      <outfile xil_pn:name="registro.pad"/>
-      <outfile xil_pn:name="registro.par"/>
-      <outfile xil_pn:name="registro.ptwx"/>
-      <outfile xil_pn:name="registro.unroutes"/>
-      <outfile xil_pn:name="registro.xpi"/>
-      <outfile xil_pn:name="registro_pad.csv"/>
-      <outfile xil_pn:name="registro_pad.txt"/>
-      <outfile xil_pn:name="registro_par.xrpt"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441097" xil_pn:in_ck="5921422731400958002" xil_pn:name="TRANEXT_bitFile_spartan3" xil_pn:prop_ck="-2672950586390118423" xil_pn:start_ts="1382441086">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="_xmsgs/bitgen.xmsgs"/>
-      <outfile xil_pn:name="registro.bgn"/>
-      <outfile xil_pn:name="registro.bit"/>
-      <outfile xil_pn:name="registro.drc"/>
-      <outfile xil_pn:name="registro.ut"/>
-      <outfile xil_pn:name="usage_statistics_webtalk.html"/>
-      <outfile xil_pn:name="webtalk.log"/>
-      <outfile xil_pn:name="webtalk_pn.xml"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441099" xil_pn:in_ck="5921422731400945148" xil_pn:name="TRAN_configureTargetDevice" xil_pn:prop_ck="-6745644827150672321" xil_pn:start_ts="1382441097">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="InputRemoved"/>
     </transform>
     <transform xil_pn:end_ts="1382441086" xil_pn:in_ck="3825114157501212189" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416187" xil_pn:start_ts="1382441083">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="_xmsgs/trce.xmsgs"/>
-      <outfile xil_pn:name="registro.twr"/>
-      <outfile xil_pn:name="registro.twx"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
   </transforms>
 
