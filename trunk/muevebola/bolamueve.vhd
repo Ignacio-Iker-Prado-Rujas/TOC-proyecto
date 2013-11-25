@@ -7,6 +7,8 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 entity vgacore is
 	port
 	(
+		PS2CLK: in std_logic;
+		PS2DATA: in std_logic;
 		reset: in std_logic;	-- reset
 		clock: in std_logic;
 		hsyncb: inout std_logic;	-- horizontal (line) sync
@@ -19,10 +21,10 @@ architecture vgacore_arch of vgacore is
 
 type estado_movimiento is (XpositivoYpositivo, XpositivoYnegativo, XnegativoYpositivo, XnegativoYnegativo);
 
-signal hcnt, px, r_px: std_logic_vector(8 downto 0);	-- horizontal pixel counter
+signal hcnt, px, r_px, r_bx, bx: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, py, r_py: std_logic_vector(9 downto 0);	-- vertical line counter
 signal rectangulo: std_logic;					-- rectangulo signal
-signal bola: std_logic;
+signal bola, barra: std_logic;
 signal movimiento_pelota, aux_movimiento: estado_movimiento;
 
 
@@ -55,10 +57,12 @@ begin
 	if reset='1' then--inicializacion de las coordenadas
 		r_px <= "000111100";
 		r_py <= "0010000000";
+		r_bx <= "000100000";
 		movimiento_pelota <= XnegativoYpositivo;
 	elsif RelojPelota'event and RelojPelota = '1' then 
 		r_px <= px;
 		r_py <= py;
+		r_bx <= bx;
 		movimiento_pelota <= aux_movimiento;
 	end if;
 end process;
@@ -160,6 +164,7 @@ begin
 	end if;
 end process pinta_rectangulo;
 
+--pinta la bola
 pinta_bola: process(hcnt, vcnt)
 begin
 	bola <= '0';
@@ -169,6 +174,37 @@ begin
 		end if;
 	end if;
 end process pinta_bola;
+
+--pinta la barra
+pinta_barra: process(hcnt, vcnt)
+begin
+	barra <= '0';
+	if vcnt < 365 and vcnt > 359 then
+		if hcnt > r_bx - 10 and hcnt < r_bx + 10 then
+			barra <= '1';
+		end if;
+	end if;
+end process pinta_barra;
+
+
+
+mueve_barra: process(PS2CLK)
+begin
+--	if pulsado = '1' then
+--		if direccion = '0' then
+--			bx <= r_bx - 2;
+--		else bx <= r_bx + 2;
+--		end if;
+--	else bx <= r_bx;
+--	end if;
+	bx <= r_bx + 2;
+	if r_bx >= 155 then
+		bx <= "000000100";
+--	elsif r_bx <= 4 then
+--		bx <= r_bx + 2;
+	end if;
+end process mueve_barra;
+
 
 mueve_bola: process(movimiento_pelota)
 begin
@@ -230,6 +266,7 @@ colorear: process(rectangulo, hcnt, vcnt, bola)
 begin
 	if rectangulo = '1' then rgb <= "110110000";
 	elsif bola = '1' then rgb <= "111111111";
+	elsif barra = '1' then rgb <= "111111111";
 	else rgb <= "000000000";
 	end if;
 end process colorear;
