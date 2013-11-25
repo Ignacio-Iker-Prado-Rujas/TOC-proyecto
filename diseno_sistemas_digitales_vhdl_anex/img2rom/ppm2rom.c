@@ -64,9 +64,10 @@ void creacabeceravhdl (FILE *pFichvhdl, int NumCol, int NumFil, int bitsprof, ch
   printf ("Numero de bits de las direcciones: %i\n", lognumdir);
 
   fprintf(pFichvhdl, "------- ROM creada automaticamente por ppm2rom -----------\n");
-  fprintf(pFichvhdl, "------- Felipe Machado -----------------------------------\n");
-  fprintf(pFichvhdl, "------- Departamento de Tecnologia Electronica -----------\n");
-  fprintf(pFichvhdl, "------- Universidad Rey Juan Carlos ----------------------\n");
+  fprintf(pFichvhdl, "------- Pikey Team -----------------------------------\n");
+  fprintf(pFichvhdl, "------- Tecnología de Organización de Computadores -----------\n");
+  fprintf(pFichvhdl, "------- Universidad Complutense ----------------------\n");
+  fprintf(pFichvhdl, "------- Aplicación creada por Felipe Machado, Universidad Rey Juan Carlos ----------------------\n");
   fprintf(pFichvhdl, "------- http://gtebim.es ---------------------------------\n");
   fprintf(pFichvhdl, "----------------------------------------------------------\n");
   fprintf(pFichvhdl, "--------Datos de la imagen -------------------------------\n");
