@@ -4,7 +4,7 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
 
 Total REAL time to Xst completion: 0.00 secs
-Total CPU time to Xst completion: 0.08 secs
+Total CPU time to Xst completion: 0.07 secs
  
 --> Parameter xsthdpdir set to xst
 
@@ -107,10 +107,10 @@ Slice Utilization Ratio Delta      : 5
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/divisor.vhd" in Library work.
 Architecture divisor_arch of Entity divisor is up to date.
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd" in Library work.
-Entity <divisor_bola> compiled.
-Entity <divisor_bola> (Architecture <divisor_arch>) compiled.
+Architecture divisor_arch of Entity divisor_bola is up to date.
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" in Library work.
-Architecture vgacore_arch of Entity vgacore is up to date.
+Entity <vgacore> compiled.
+Entity <vgacore> (Architecture <vgacore_arch>) compiled.
 
 =========================================================================
 *                     Design Hierarchy Analysis                         *
@@ -132,10 +132,6 @@ WARNING:Xst:819 - "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" line 163: One
    <r_px>, <r_py>
 WARNING:Xst:819 - "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" line 173: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
    <r_px>, <r_py>
-WARNING:Xst:819 - "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" line 192: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
-   <r_px>, <r_py>
-WARNING:Xst:819 - "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" line 229: One or more signals are missing in the process sensitivity list. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
-   <bola>
 Entity <vgacore> analyzed. Unit <vgacore> generated.
 
 Analyzing Entity <divisor> in library <work> (Architecture <divisor_arch>).
@@ -762,13 +758,13 @@ Offset:              18.310ns (Levels of Logic = 8)
 
 
 Total REAL time to Xst completion: 6.00 secs
-Total CPU time to Xst completion: 5.49 secs
+Total CPU time to Xst completion: 5.69 secs
  
 --> 
 
-Total memory usage is 266456 kilobytes
+Total memory usage is 266904 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :    9 (   0 filtered)
+Number of warnings :    7 (   0 filtered)
 Number of infos    :    2 (   0 filtered)
 

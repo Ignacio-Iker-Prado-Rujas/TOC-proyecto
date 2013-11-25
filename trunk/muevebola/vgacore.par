@@ -1,7 +1,7 @@
 Release 14.1 par P.15xf (nt64)
 Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
-PTO0716::  Mon Nov 18 19:46:37 2013
+PTO0715::  Mon Nov 25 13:53:29 2013
 
 par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
 
@@ -106,7 +106,7 @@ Starting Router
 
 Phase  1  : 1118 unrouted;      REAL time: 2 secs 
 
-Phase  2  : 1045 unrouted;      REAL time: 2 secs 
+Phase  2  : 1045 unrouted;      REAL time: 3 secs 
 
 Phase  3  : 196 unrouted;      REAL time: 3 secs 
 
