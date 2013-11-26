@@ -20,11 +20,11 @@ architecture vgacore_arch of vgacore is
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo: std_logic;					-- rectangulo signal
-signal dir_mem: std_logic_vector(15 downto 0);
+signal dir_mem, cuenta_pantalla: std_logic_vector(17 downto 0);
 signal color: std_logic_vector(8 downto 0);
-signal posx, posy: std_logic_vector(7 downto 0);
+signal posx, posy, n_posx: std_logic_vector(8 downto 0);
 --Añadir las señales intermedias necesarias
-signal clk: std_logic;
+signal clk, relojPantalla: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 
  
@@ -34,18 +34,25 @@ port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
-component ROM_RGB_9b_prueba256x256 is
+component divisor_pantalla is 
+port (reset, clk_entrada: in STD_LOGIC;
+		clk_salida: out STD_LOGIC);
+end component;
+
+component ROM_RGB_9b_prueba_obstaculos is
   port (
     clk  : in  std_logic;   -- reloj
-    addr : in  std_logic_vector(16-1 downto 0);
+    addr : in  std_logic_vector(18-1 downto 0);
     dout : out std_logic_vector(9-1 downto 0) 
   );
-end component ROM_RGB_9b_prueba256x256;
+end component ROM_RGB_9b_prueba_obstaculos;
 --Descomentar para implementación
 
 begin
 Nuevo_reloj: divisor port map(reset, clk_100M, clk_1);
-Rom: ROM_RGB_9b_prueba256x256 port map(clk, dir_mem, color);
+Reloj_de_pantalla: divisor_pantalla port map(reset, clk_100M, relojPantalla);
+Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, color);
+
 clk_100M <= clock;
 clk <= clk_1;
 
@@ -133,8 +140,17 @@ end process;
 ----------------------------------------------------------------------------
 --
 posy <= vcnt-110;
-posx <= hcnt-4;
+posx <= hcnt-4+cuenta_pantalla;
 dir_mem <=  posy & posx;
+
+mueve_pantalla: process(reset,relojPantalla)
+begin
+	if reset='1' then
+		cuenta_pantalla <= "000000000000000000";
+	elsif (relojPantalla'event and relojPantalla='1') then
+		cuenta_pantalla <= cuenta_pantalla + 1;
+	end if;
+end process mueve_pantalla;
 
 pinta_dibujo: process(hcnt, vcnt)
 begin
