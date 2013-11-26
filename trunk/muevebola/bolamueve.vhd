@@ -26,7 +26,7 @@ signal vcnt, py, r_py: std_logic_vector(9 downto 0);	-- vertical line counter
 signal rectangulo: std_logic;					-- rectangulo signal
 signal bola, barra: std_logic;
 signal movimiento_pelota, aux_movimiento: estado_movimiento;
-
+signal saltado: std_logic;--señal que recibe pulsado
 
 --Añadir las señales intermedias necesarias
 signal clk: std_logic;
@@ -43,14 +43,20 @@ component divisor_bola is
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
+--Component del controlador del teclado para dar al espacio
+component control_teclado is
+	port (PS2CLK, reset, PS2DATA: in std_logic;
+	pulsado: out std_logic);
+end component;
 begin
 --Descomentar para implementación
-
 Nuevo_reloj: divisor port map(reset, clk_100M, clk_1);
 clk_100M <= clock;
 clk <= clk_1;
 Otro_reloj: divisor_bola port map(reset, clk_100M, RelojPelota);
 
+
+Teclado: control_teclado port map(PS2CLK, reset, PS2DATA, saltado);
 -------------------------------
 RP: process (RelojPelota, reset)
 begin
@@ -165,7 +171,7 @@ begin
 end process pinta_rectangulo;
 
 --pinta la bola
-pinta_bola: process(hcnt, vcnt)
+pinta_bola: process(hcnt, vcnt, r_px, r_py)
 begin
 	bola <= '0';
 	if hcnt > r_px-1 and hcnt < r_px+1 then
@@ -176,7 +182,7 @@ begin
 end process pinta_bola;
 
 --pinta la barra
-pinta_barra: process(hcnt, vcnt)
+pinta_barra: process(hcnt, vcnt, r_bx)
 begin
 	barra <= '0';
 	if vcnt < 365 and vcnt > 359 then
@@ -188,8 +194,19 @@ end process pinta_barra;
 
 
 
-mueve_barra: process(PS2CLK)
+mueve_barra: process(PS2CLK, saltado, r_bx)
 begin
+if saltado = '1' then
+	if r_bx >= 155 then
+		bx <= r_bx;
+	else bx <= r_bx +2;
+	end if;
+else
+	if r_bx <= 4 then
+		bx <= r_bx;
+	else bx <= r_bx -2;
+	end if;
+end if;
 --	if pulsado = '1' then
 --		if direccion = '0' then
 --			bx <= r_bx - 2;
@@ -197,16 +214,16 @@ begin
 --		end if;
 --	else bx <= r_bx;
 --	end if;
-	bx <= r_bx + 2;
-	if r_bx >= 155 then
-		bx <= "000000100";
+--	bx <= r_bx + 2;
+--	if r_bx >= 155 then
+--		bx <= "000000100";
 --	elsif r_bx <= 4 then
 --		bx <= r_bx + 2;
-	end if;
+	--end if;
 end process mueve_barra;
 
 
-mueve_bola: process(movimiento_pelota)
+mueve_bola: process(movimiento_pelota, r_px, r_py)
 begin
 	--EstadoPelota <= XnegativoYnegativo;
 
@@ -262,7 +279,7 @@ end process choque_bola;
 
 
 
-colorear: process(rectangulo, hcnt, vcnt, bola)
+colorear: process(rectangulo, hcnt, vcnt, bola, barra)
 begin
 	if rectangulo = '1' then rgb <= "110110000";
 	elsif bola = '1' then rgb <= "111111111";

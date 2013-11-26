@@ -9,33 +9,34 @@ Target Device  : xc3s1000l
 Target Package : ft256
 Target Speed   : -4
 Mapper Version : spartan3 -- $Revision: 1.55 $
-Mapped Date    : Mon Nov 25 14:34:53 2013
+Mapped Date    : Tue Nov 26 13:23:13 2013
 
 Design Summary
 --------------
 Number of errors:      0
 Number of warnings:    2
 Logic Utilization:
-  Total Number Slice Registers:         117 out of  15,360    1%
-    Number used as Flip Flops:           98
+  Total Number Slice Registers:         128 out of  15,360    1%
+    Number used as Flip Flops:          109
     Number used as Latches:              19
-  Number of 4 input LUTs:               323 out of  15,360    2%
+  Number of 4 input LUTs:               341 out of  15,360    2%
 Logic Distribution:
-  Number of occupied Slices:            182 out of   7,680    2%
-    Number of Slices containing only related logic:     182 out of     182 100%
-    Number of Slices containing unrelated logic:          0 out of     182   0%
+  Number of occupied Slices:            198 out of   7,680    2%
+    Number of Slices containing only related logic:     198 out of     198 100%
+    Number of Slices containing unrelated logic:          0 out of     198   0%
       *See NOTES below for an explanation of the effects of unrelated logic.
-  Total Number of 4 input LUTs:         326 out of  15,360    2%
-    Number used as logic:               323
+  Total Number of 4 input LUTs:         344 out of  15,360    2%
+    Number used as logic:               340
     Number used as a route-thru:          3
+    Number used as Shift registers:       1
 
   The Slice Logic Distribution report is not meaningful if the design is
   over-mapped for a non-slice resource or if Placement fails.
 
-  Number of bonded IOBs:                 13 out of     173    7%
-  Number of BUFGMUXs:                     2 out of       8   25%
+  Number of bonded IOBs:                 15 out of     173    8%
+  Number of BUFGMUXs:                     3 out of       8   37%
 
-Average Fanout of Non-Clock Nets:                3.69
+Average Fanout of Non-Clock Nets:                3.63
 
 Peak Memory Usage:  233 MB
 Total REAL time to MAP completion:  1 secs 
@@ -102,11 +103,6 @@ INFO:Security:50 - The XILINXD_LICENSE_FILE environment variable is set to
 INFO:Security:52 - The LM_LICENSE_FILE environment variable is set to
 '1717@licencias.fdi.ucm.es;2100@licencias.fdi.ucm.es'.
 INFO:Security:54 - 'xc3s1000l' is a WebPack part.
-INFO:LIT:243 - Logical network PS2DATA has no load.
-INFO:LIT:395 - The above info message is repeated 1 more times for the following
-   (max. 5 shown):
-   PS2CLK
-   To see the details of these info messages, please use the -detail switch.
 INFO:MapLib:562 - No environment variables are currently set.
 INFO:LIT:244 - All of the single ended outputs in this design are using slew
    rate limited output drivers. The delay on speed critical single ended outputs
@@ -114,7 +110,7 @@ INFO:LIT:244 - All of the single ended outputs in this design are using slew
 
 Section 4 - Removed Logic Summary
 ---------------------------------
-   2 block(s) optimized away
+   3 block(s) optimized away
 
 Section 5 - Removed Logic
 -------------------------
@@ -134,6 +130,8 @@ Section 6 - IOB Properties
 | IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew | Reg (s)      | Resistor | IOB      |
 |                                    |                  |           |                      | Term  | Strength | Rate |              |          | Delay    |
 +---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| PS2CLK                             | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
+| PS2DATA                            | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
 | clock                              | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |
 | hsyncb                             | IOB              | OUTPUT    | LVCMOS25             |       | 12       | SLOW |              |          |          |
 | reset                              | IOB              | INPUT     | LVCMOS25             |       |          |      |              |          |          |

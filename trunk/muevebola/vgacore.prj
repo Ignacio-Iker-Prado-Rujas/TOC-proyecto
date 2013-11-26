@@ -1,3 +1,4 @@
 vhdl work "divisor_bola.vhd"
 vhdl work "divisor.vhd"
+vhdl work "control_teclado.vhd"
 vhdl work "bolamueve.vhd"

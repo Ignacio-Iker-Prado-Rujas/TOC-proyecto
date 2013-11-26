@@ -40,31 +40,47 @@ Data Sheet report:
 -----------------
 All values displayed in nanoseconds (ns)
 
+Setup/Hold to clock PS2CLK
+------------+------------+------------+------------------+--------+
+            |Max Setup to|Max Hold to |                  | Clock  |
+Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
+------------+------------+------------+------------------+--------+
+PS2DATA     |    1.623(R)|   -0.517(R)|PS2CLK_BUFGP      |   0.000|
+------------+------------+------------+------------------+--------+
+
 Setup/Hold to clock clock
 ------------+------------+------------+------------------+--------+
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-reset       |    5.427(R)|   -1.607(R)|clock_BUFGP       |   0.000|
+reset       |    6.387(R)|   -1.405(R)|clock_BUFGP       |   0.000|
 ------------+------------+------------+------------------+--------+
+
+Clock to Setup on destination clock PS2CLK
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+PS2CLK         |    2.022|         |         |         |
+---------------+---------+---------+---------+---------+
 
 Clock to Setup on destination clock clock
 ---------------+---------+---------+---------+---------+
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clock          |    7.789|         |         |         |
+clock          |    7.779|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Mon Nov 25 14:35:04 2013 
+Analysis completed Tue Nov 26 13:23:23 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:
 -------------------------
 Trace Settings 
 
-Peak Memory Usage: 159 MB
+Peak Memory Usage: 160 MB
 
 
 

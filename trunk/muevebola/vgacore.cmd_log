@@ -205,3 +205,38 @@ map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacor
 par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
 trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
 bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 
+xst -intstyle ise -ifn "C:/hlocal/toc-proyecto/muevebola/vgacore.xst" -ofn "C:/hlocal/toc-proyecto/muevebola/vgacore.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc pines.ucf -p xc3s1000l-ft256-4 vgacore.ngc vgacore.ngd  
+map -intstyle ise -p xc3s1000l-ft256-4 -cm area -ir off -pr off -c 100 -o vgacore_map.ncd vgacore.ngd vgacore.pcf 
+par -w -intstyle ise -ol high -t 1 vgacore_map.ncd vgacore.ncd vgacore.pcf 
+trce -intstyle ise -v 3 -s 4 -n 3 -fastpaths -xml vgacore.twx vgacore.ncd -o vgacore.twr vgacore.pcf -ucf pines.ucf 
+bitgen -intstyle ise -f vgacore.ut vgacore.ncd 

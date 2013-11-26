@@ -1,27 +1,33 @@
-V3 17
+V3 21
 FL C:/hlocal/dasfiowejogiawejgh/muevebola/bolamueve.vhd 2013/11/25.14:34:37 P.15xf
-EN work/vgacore 1385386485 \
-      FL C:/hlocal/dasfiowejogiawejgh/muevebola/bolamueve.vhd \
-      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
-      PB ieee/std_logic_arith 1335251623
-AR work/vgacore/vgacore_arch 1385386486 \
-      FL C:/hlocal/dasfiowejogiawejgh/muevebola/bolamueve.vhd EN work/vgacore 1385386485 \
-      CP divisor CP divisor_bola
 FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor.vhd 2013/11/25.13:47:52 P.15xf
-EN work/divisor 1385386481 FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor.vhd \
-      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
-AR work/divisor/divisor_arch 1385386482 \
-      FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor.vhd EN work/divisor 1385386481
 FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor_bola.vhd 2013/11/25.13:47:51 P.15xf
-EN work/divisor_bola 1385386483 \
-      FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor_bola.vhd \
-      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
-AR work/divisor_bola/divisor_arch 1385386484 \
-      FL C:/hlocal/dasfiowejogiawejgh/muevebola/divisor_bola.vhd \
-      EN work/divisor_bola 1385386483
 FL C:/hlocal/divisor.vhd 2013/11/18.15:00:44 P.15xf
 FL C:/hlocal/muevebola/bolamueve.vhd 2013/11/18.15:18:56 P.15xf
 FL C:/hlocal/muevebola/divisor_bola.vhd 2013/11/18.15:17:21 P.15xf
-FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd 2013/11/25.13:53:00 P.15xf
-FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd 2013/11/25.13:36:38 P.15xf
-FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd 2013/11/25.13:36:38 P.15xf
+FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd 2013/11/26.13:16:56 P.15xf
+EN work/vgacore 1385468587 FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
+      PB ieee/std_logic_arith 1335251623
+AR work/vgacore/vgacore_arch 1385468588 \
+      FL C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd EN work/vgacore 1385468587 \
+      CP divisor CP divisor_bola CP control_teclado
+FL C:/hlocal/toc-proyecto/muevebola/control_teclado.vhd 2013/11/26.13:22:50 P.15xf
+EN work/control_teclado 1385468585 \
+      FL C:/hlocal/toc-proyecto/muevebola/control_teclado.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/std_logic_arith 1335251623 \
+      PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/control_teclado/estructural 1385468586 \
+      FL C:/hlocal/toc-proyecto/muevebola/control_teclado.vhd \
+      EN work/control_teclado 1385468585
+FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd 2013/11/26.12:32:55 P.15xf
+EN work/divisor 1385468581 FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor/divisor_arch 1385468582 \
+      FL C:/hlocal/toc-proyecto/muevebola/divisor.vhd EN work/divisor 1385468581
+FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd 2013/11/26.12:32:55 P.15xf
+EN work/divisor_bola 1385468583 \
+      FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd PB ieee/std_logic_1164 1335251622 \
+      PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_bola/divisor_arch 1385468584 \
+      FL C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd EN work/divisor_bola 1385468583
