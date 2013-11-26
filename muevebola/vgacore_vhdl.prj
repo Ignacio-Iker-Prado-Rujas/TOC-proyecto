@@ -1,3 +1,4 @@
-vhdl work "C:\hlocal\dasfiowejogiawejgh\muevebola\divisor_bola.vhd"
-vhdl work "C:\hlocal\dasfiowejogiawejgh\muevebola\divisor.vhd"
-vhdl work "C:\hlocal\dasfiowejogiawejgh\muevebola\bolamueve.vhd"
+vhdl work "C:\hlocal\toc-proyecto\muevebola\divisor_bola.vhd"
+vhdl work "C:\hlocal\toc-proyecto\muevebola\divisor.vhd"
+vhdl work "C:\hlocal\toc-proyecto\muevebola\control_teclado.vhd"
+vhdl work "C:\hlocal\toc-proyecto\muevebola\bolamueve.vhd"
