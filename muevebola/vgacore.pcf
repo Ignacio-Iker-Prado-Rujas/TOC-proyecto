@@ -1,11 +1,14 @@
 //! **************************************************************************
-// Written by: Map P.15xf on Tue Nov 26 13:23:14 2013
+// Written by: Map P.15xf on Wed Nov 27 13:24:40 2013
 //! **************************************************************************
 
 SCHEMATIC START;
 COMP "hsyncb" LOCATE = SITE "B7" LEVEL 1;
 COMP "clock" LOCATE = SITE "T9" LEVEL 1;
 COMP "reset" LOCATE = SITE "K4" LEVEL 1;
+COMP "PS2CLK" LOCATE = SITE "B16" LEVEL 1;
+PIN PS2CLK_pin<0> = BEL "PS2CLK" PINNAME PAD;
+PIN "PS2CLK_pin<0>" CLOCK_DEDICATED_ROUTE = FALSE;
 COMP "rgb<0>" LOCATE = SITE "C9" LEVEL 1;
 COMP "rgb<1>" LOCATE = SITE "E7" LEVEL 1;
 COMP "rgb<2>" LOCATE = SITE "D5" LEVEL 1;
@@ -16,6 +19,7 @@ COMP "rgb<6>" LOCATE = SITE "C8" LEVEL 1;
 COMP "rgb<7>" LOCATE = SITE "D6" LEVEL 1;
 COMP "rgb<8>" LOCATE = SITE "B1" LEVEL 1;
 COMP "vsyncb" LOCATE = SITE "D8" LEVEL 1;
+COMP "PS2DATA" LOCATE = SITE "E13" LEVEL 1;
 NET "clock_BUFGP/IBUFG" BEL "clock_BUFGP/BUFG.GCLKMUX" USELOCALCONNECT;
 NET "PS2CLK_BUFGP/IBUFG" BEL "PS2CLK_BUFGP/BUFG.GCLKMUX" USELOCALCONNECT;
 SCHEMATIC END;

@@ -35,7 +35,7 @@ architecture estructural of control_teclado is
 	begin
 		rout <= F(8 downto 1);
 		aux <= PS2DATA;
-process(F)
+process(F, rout)
 	begin
 	if rout="00101001" then pulsado <= '1';
 	else pulsado <= '0';
