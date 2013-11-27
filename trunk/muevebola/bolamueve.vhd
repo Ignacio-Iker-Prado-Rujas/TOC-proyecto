@@ -63,7 +63,7 @@ begin
 	if reset='1' then--inicializacion de las coordenadas
 		r_px <= "000111100";
 		r_py <= "0010000000";
-		r_bx <= "000100000";
+		r_bx <= "000110000";
 		movimiento_pelota <= XnegativoYpositivo;
 	elsif RelojPelota'event and RelojPelota = '1' then 
 		r_px <= px;
@@ -156,8 +156,13 @@ end process;
 ----------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------
---
--- Ejemplo
+
+
+---------------------------
+--pintar
+---------------------------
+
+-- pinta rectangulo
 pinta_rectangulo: process(hcnt, vcnt)
 begin
 	rectangulo <= '0';
@@ -170,16 +175,6 @@ begin
 	end if;
 end process pinta_rectangulo;
 
---pinta la bola
-pinta_bola: process(hcnt, vcnt, r_px, r_py)
-begin
-	bola <= '0';
-	if hcnt > r_px-1 and hcnt < r_px+1 then
-		if vcnt > r_py-2 and vcnt < r_py+2 then
-			bola<='1';
-		end if;
-	end if;
-end process pinta_bola;
 
 --pinta la barra
 pinta_barra: process(hcnt, vcnt, r_bx)
@@ -193,16 +188,31 @@ begin
 end process pinta_barra;
 
 
+--pinta la bola
+pinta_bola: process(hcnt, vcnt, r_px, r_py)
+begin
+	bola <= '0';
+	if hcnt > r_px-1 and hcnt < r_px+1 then
+		if vcnt > r_py-2 and vcnt < r_py+2 then
+			bola<='1';
+		end if;
+	end if;
+end process pinta_bola;
 
+
+----------------------
+
+
+--BARRA
 mueve_barra: process(PS2CLK, saltado, r_bx)
 begin
 if saltado = '1' then
-	if r_bx >= 155 then
+	if r_bx >= 250 then
 		bx <= r_bx;
 	else bx <= r_bx +2;
 	end if;
 else
-	if r_bx <= 4 then
+	if r_bx <= 14 then
 		bx <= r_bx;
 	else bx <= r_bx -2;
 	end if;
@@ -223,6 +233,7 @@ end if;
 end process mueve_barra;
 
 
+--BOLA
 mueve_bola: process(movimiento_pelota, r_px, r_py)
 begin
 	--EstadoPelota <= XnegativoYnegativo;
@@ -277,7 +288,7 @@ begin
 end process choque_bola;
 
 
-
+------------------------------------------------------------------
 
 colorear: process(rectangulo, hcnt, vcnt, bola, barra)
 begin
@@ -287,5 +298,7 @@ begin
 	else rgb <= "000000000";
 	end if;
 end process colorear;
----------------------------------------------------------------------------
+
+------------------------------------------------------------------
+------------------------------------------------------------------
 end vgacore_arch;
