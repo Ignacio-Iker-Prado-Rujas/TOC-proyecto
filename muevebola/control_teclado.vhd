@@ -29,15 +29,20 @@ end control_teclado;
 
 architecture estructural of control_teclado is
 
-	signal F: std_logic_vector(10 downto 0); 
-	signal rout: std_logic_vector(7 downto 0);
+	signal F: std_logic_vector(21 downto 0); 
+	signal rout, levanta: std_logic_vector(7 downto 0);
 	signal aux: std_logic;
 	begin
 		rout <= F(8 downto 1);
+		levanta <= F(19 downto 12);
 		aux <= PS2DATA;
 process(F, rout)
-	begin
-	if rout="00101001" then pulsado <= '1';
+	begin	
+	if rout="00100011" then 
+		if levanta = "11110000" then 
+			pulsado <= '0';
+		else pulsado <= '1';
+		end if;
 	else pulsado <= '0';
 	end if;
 
@@ -47,7 +52,7 @@ process(PS2CLK, reset, aux, PS2DATA, F)
 	begin
 	
 	if (PS2CLK'event and PS2CLK='1') then
-		F <=  aux & F(10 downto 1); 
+		F <=  aux & F(21 downto 1); 
 	end if;
 end process;
 		
