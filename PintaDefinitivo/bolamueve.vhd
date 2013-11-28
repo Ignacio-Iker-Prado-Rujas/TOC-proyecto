@@ -19,12 +19,13 @@ architecture vgacore_arch of vgacore is
 
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
-signal dibujo: std_logic;					-- rectangulo signal
-signal dir_mem, cuenta_pantalla: std_logic_vector(17 downto 0);
+signal dibujo, bordes: std_logic;					-- rectangulo signal
+signal dir_mem: std_logic_vector(18-1 downto 0);
 signal color: std_logic_vector(8 downto 0);
-signal posx, posy, n_posx: std_logic_vector(8 downto 0);
+signal posy: std_logic_vector(7 downto 0);
+signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
 --Añadir las señales intermedias necesarias
-signal clk, relojPantalla: std_logic;
+signal clk, relojMovimiento: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 
  
@@ -49,8 +50,8 @@ end component ROM_RGB_9b_prueba_obstaculos;
 --Descomentar para implementación
 
 begin
-Nuevo_reloj: divisor port map(reset, clk_100M, clk_1);
-Reloj_de_pantalla: divisor_pantalla port map(reset, clk_100M, relojPantalla);
+Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
+Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
 Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, color);
 
 clk_100M <= clock;
@@ -143,12 +144,13 @@ posy <= vcnt-110;
 posx <= hcnt-4+cuenta_pantalla;
 dir_mem <=  posy & posx;
 
-mueve_pantalla: process(reset,relojPantalla)
+mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
 begin
 	if reset='1' then
-		cuenta_pantalla <= "000000000000000000";
-	elsif (relojPantalla'event and relojPantalla='1') then
+		cuenta_pantalla <= "0000000000";
+	elsif (relojMovimiento'event and relojMovimiento='1') then
 		cuenta_pantalla <= cuenta_pantalla + 1;
+		-- el reloj a usar es relojDeVelocidadPantalla
 	end if;
 end process mueve_pantalla;
 
@@ -160,9 +162,23 @@ begin
 	end if;
 end process pinta_dibujo;
 
-colorear: process(hcnt, vcnt, dibujo, color)
+-- pinta bordes
+pinta_bordes: process(hcnt, vcnt)
 begin
-	if dibujo = '1' then rgb <= color;
+	bordes <= '0';
+	if hcnt > 2 and hcnt < 263 then
+		if vcnt >106 and vcnt < 370 then
+			if hcnt <= 4 or hcnt > 260 or vcnt < 110 or vcnt > 366 then
+					bordes <= '1';
+			end if;
+		end if;
+	end if;
+end process pinta_bordes;
+
+colorear: process(hcnt, vcnt, dibujo, color, bordes)
+begin
+	if bordes = '1' then rgb <= "110110000";
+	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
 	end if;
 end process colorear;
