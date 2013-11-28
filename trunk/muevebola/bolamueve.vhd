@@ -408,16 +408,16 @@ end process choque_bola;
 -- TODO: Estaria bien cambiar los nombres de los estados a NO,NE, SE, SO, menos lioso no?
 -- 
 -- -- Pinta el obstaculo
--- pinta_obstaculo: process(hcnt, vcnt)
--- begin
--- 	obstaculo <= '0';
--- 	if hcnt > 100 and hcnt < 150 then
--- 		if vcnt > 100 and vcnt < 200 then
--- 			obstaculo <= '1';
--- 		end if;
--- 	end if;
--- end process pinta_obstaculo;
--- 
+pinta_obstaculo: process(hcnt, vcnt)
+begin
+	obstaculo <= '0';
+	if hcnt > 100 and hcnt < 150 then
+		if vcnt > 100 and vcnt < 200 then
+		obstaculo <= '1';
+		end if;
+	end if;
+end process pinta_obstaculo;
+ 
 -- 
 -- 
 -- 
@@ -441,7 +441,7 @@ begin
 	if rectangulo = '1' then rgb <= "110110000";
 	elsif bola = '1' then rgb <= "111111111";
 	elsif barra = '1' then rgb <= "111111111";
-	-- elsif obstaculo = '1' then rgb <= "000111000; -- Verde creo
+	elsif obstaculo = '1' then rgb <= "000111000; -- Verde creo
 	else rgb <= "000000000";
 	end if;
 end process colorear;
