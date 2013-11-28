@@ -79,11 +79,11 @@ begin
 
 	if reset='1' then--inicializacion de las coordenadas
 
-		r_px <= "000111100";
+		r_px <= "000111100"; -- 60 en decimal
 
-		r_py <= "0010000000";
+		r_py <= "0010000000"; -- 128 en decimal
 
-		r_bx <= "000110000";
+		r_bx <= "000110000"; -- 48 en decimal
 
 		movimiento_pelota <= XnegativoYpositivo;
 
