@@ -45,7 +45,7 @@ Setup/Hold to clock PS2CLK
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-PS2DATA     |    0.026(R)|    1.608(R)|PS2CLK_BUFGP      |   0.000|
+PS2DATA     |   -0.317(R)|    1.888(R)|PS2CLK_BUFGP      |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Setup/Hold to clock clock
@@ -53,7 +53,7 @@ Setup/Hold to clock clock
             |Max Setup to|Max Hold to |                  | Clock  |
 Source      | clk (edge) | clk (edge) |Internal Clock(s) | Phase  |
 ------------+------------+------------+------------------+--------+
-reset       |    6.105(R)|   -1.829(R)|clock_BUFGP       |   0.000|
+reset       |    5.479(R)|   -1.814(R)|clock_BUFGP       |   0.000|
 ------------+------------+------------+------------------+--------+
 
 Clock to Setup on destination clock PS2CLK
@@ -61,7 +61,7 @@ Clock to Setup on destination clock PS2CLK
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-PS2CLK         |    1.943|         |         |         |
+PS2CLK         |    2.734|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 Clock to Setup on destination clock clock
@@ -69,11 +69,11 @@ Clock to Setup on destination clock clock
                | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
 Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
 ---------------+---------+---------+---------+---------+
-clock          |    7.638|         |         |         |
+clock          |    7.639|         |         |         |
 ---------------+---------+---------+---------+---------+
 
 
-Analysis completed Wed Nov 27 13:24:52 2013 
+Analysis completed Tue Dec 03 12:59:19 2013 
 --------------------------------------------------------------------------------
 
 Trace Settings:

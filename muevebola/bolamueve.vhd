@@ -436,12 +436,12 @@ end process pinta_obstaculo;
 ------------------------------------------------------------------
 
 
-colorear: process(rectangulo, hcnt, vcnt, bola, barra)
+colorear: process(rectangulo, hcnt, vcnt, bola, barra, obstaculo)
 begin
 	if rectangulo = '1' then rgb <= "110110000";
 	elsif bola = '1' then rgb <= "111111111";
 	elsif barra = '1' then rgb <= "111111111";
-	elsif obstaculo = '1' then rgb <= "000111000; -- Verde creo
+	elsif obstaculo = '1' then rgb <= "000111000"; -- Verde creo
 	else rgb <= "000000000";
 	end if;
 end process colorear;
