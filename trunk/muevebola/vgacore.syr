@@ -3,13 +3,13 @@ Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 --> Parameter TMPDIR set to xst/projnav.tmp
 
 
-Total REAL time to Xst completion: 1.00 secs
+Total REAL time to Xst completion: 0.00 secs
 Total CPU time to Xst completion: 0.07 secs
  
 --> Parameter xsthdpdir set to xst
 
 
-Total REAL time to Xst completion: 1.00 secs
+Total REAL time to Xst completion: 0.00 secs
 Total CPU time to Xst completion: 0.07 secs
  
 --> Reading design: vgacore.prj
@@ -109,7 +109,8 @@ Architecture divisor_arch of Entity divisor is up to date.
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/divisor_bola.vhd" in Library work.
 Architecture divisor_arch of Entity divisor_bola is up to date.
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/control_teclado.vhd" in Library work.
-Architecture estructural of Entity control_teclado is up to date.
+Entity <control_teclado> compiled.
+Entity <control_teclado> (Architecture <estructural>) compiled.
 Compiling vhdl file "C:/hlocal/toc-proyecto/muevebola/bolamueve.vhd" in Library work.
 Entity <vgacore> compiled.
 Entity <vgacore> (Architecture <vgacore_arch>) compiled.
@@ -178,9 +179,9 @@ Synthesizing Unit <control_teclado>.
     Related source file is "C:/hlocal/toc-proyecto/muevebola/control_teclado.vhd".
 WARNING:Xst:647 - Input <reset> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:646 - Signal <F<0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
-    Found 11-bit register for signal <F>.
+    Found 22-bit register for signal <F>.
     Summary:
-	inferred  11 D-type flip-flop(s).
+	inferred  22 D-type flip-flop(s).
 Unit <control_teclado> synthesized.
 
 
@@ -205,54 +206,58 @@ WARNING:Xst:737 - Found 9-bit latch for signal <px>. Latches may be generated fr
 WARNING:Xst:737 - Found 10-bit latch for signal <py>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
     Found 1-bit register for signal <hsyncb>.
     Found 1-bit register for signal <vsyncb>.
-    Found 9-bit subtractor for signal <barra$addsub0000> created at line 184.
-    Found 9-bit adder for signal <barra$addsub0001> created at line 184.
-    Found 11-bit comparator greater for signal <barra$cmp_gt0000> created at line 183.
-    Found 9-bit comparator greater for signal <barra$cmp_gt0001> created at line 184.
-    Found 11-bit comparator less for signal <barra$cmp_lt0000> created at line 183.
-    Found 9-bit comparator less for signal <barra$cmp_lt0001> created at line 184.
-    Found 10-bit subtractor for signal <bola$addsub0000> created at line 196.
-    Found 10-bit adder for signal <bola$addsub0001> created at line 196.
-    Found 9-bit comparator greater for signal <bola$cmp_gt0000> created at line 195.
-    Found 10-bit comparator greater for signal <bola$cmp_gt0001> created at line 196.
-    Found 9-bit comparator less for signal <bola$cmp_lt0000> created at line 195.
-    Found 10-bit comparator less for signal <bola$cmp_lt0001> created at line 196.
-    Found 10-bit comparator greatequal for signal <bx$cmp_ge0000> created at line 210.
-    Found 10-bit comparator lessequal for signal <bx$cmp_le0000> created at line 215.
-    Found 9-bit addsub for signal <bx$share0000> created at line 209.
+    Found 9-bit subtractor for signal <barra$addsub0000> created at line 224.
+    Found 9-bit adder for signal <barra$addsub0001> created at line 224.
+    Found 11-bit comparator greater for signal <barra$cmp_gt0000> created at line 223.
+    Found 9-bit comparator greater for signal <barra$cmp_gt0001> created at line 224.
+    Found 11-bit comparator less for signal <barra$cmp_lt0000> created at line 223.
+    Found 9-bit comparator less for signal <barra$cmp_lt0001> created at line 224.
+    Found 10-bit subtractor for signal <bola$addsub0000> created at line 238.
+    Found 10-bit adder for signal <bola$addsub0001> created at line 238.
+    Found 9-bit comparator greater for signal <bola$cmp_gt0000> created at line 237.
+    Found 10-bit comparator greater for signal <bola$cmp_gt0001> created at line 238.
+    Found 9-bit comparator less for signal <bola$cmp_lt0000> created at line 237.
+    Found 10-bit comparator less for signal <bola$cmp_lt0001> created at line 238.
+    Found 10-bit comparator greatequal for signal <bx$cmp_ge0000> created at line 260.
+    Found 10-bit comparator lessequal for signal <bx$cmp_le0000> created at line 270.
+    Found 9-bit addsub for signal <bx$share0000> created at line 258.
     Found 9-bit up counter for signal <hcnt>.
-    Found 10-bit comparator less for signal <hcnt$cmp_lt0000> created at line 85.
-    Found 10-bit comparator greatequal for signal <hsyncb$cmp_ge0000> created at line 120.
-    Found 10-bit comparator less for signal <hsyncb$cmp_lt0000> created at line 120.
-    Found 10-bit comparator greatequal for signal <movimiento_pelota$cmp_ge0000> created at line 258.
-    Found 11-bit comparator greatequal for signal <movimiento_pelota$cmp_ge0001> created at line 277.
-    Found 10-bit comparator lessequal for signal <movimiento_pelota$cmp_le0000> created at line 263.
-    Found 11-bit comparator lessequal for signal <movimiento_pelota$cmp_le0001> created at line 270.
-    Found 9-bit adder for signal <mux0000$add0000> created at line 242.
-    Found 9-bit subtractor for signal <mux0000$sub0000> created at line 245.
+    Found 10-bit comparator less for signal <hcnt$cmp_lt0000> created at line 115.
+    Found 10-bit comparator greatequal for signal <hsyncb$cmp_ge0000> created at line 153.
+    Found 10-bit comparator less for signal <hsyncb$cmp_lt0000> created at line 153.
+    Found 10-bit comparator greatequal for signal <movimiento_pelota$cmp_ge0000> created at line 341.
+    Found 11-bit comparator greatequal for signal <movimiento_pelota$cmp_ge0001> created at line 379.
+    Found 10-bit comparator lessequal for signal <movimiento_pelota$cmp_le0000> created at line 351.
+    Found 11-bit comparator lessequal for signal <movimiento_pelota$cmp_le0001> created at line 365.
+    Found 9-bit adder for signal <mux0000$add0000> created at line 312.
+    Found 9-bit subtractor for signal <mux0000$sub0000> created at line 318.
     Found 10-bit adder for signal <mux0001$share0000>.
-    Found 10-bit subtractor for signal <mux0001$sub0000> created at line 248.
+    Found 10-bit subtractor for signal <mux0001$sub0000> created at line 324.
+    Found 10-bit comparator greater for signal <obstaculo$cmp_gt0000> created at line 414.
+    Found 11-bit comparator greater for signal <obstaculo$cmp_gt0001> created at line 415.
+    Found 10-bit comparator less for signal <obstaculo$cmp_lt0000> created at line 414.
+    Found 11-bit comparator less for signal <obstaculo$cmp_lt0001> created at line 415.
     Found 9-bit register for signal <r_bx>.
     Found 9-bit register for signal <r_px>.
     Found 10-bit register for signal <r_py>.
-    Found 10-bit comparator greater for signal <rectangulo$cmp_gt0000> created at line 169.
-    Found 11-bit comparator greater for signal <rectangulo$cmp_gt0001> created at line 170.
-    Found 10-bit comparator greater for signal <rectangulo$cmp_gt0002> created at line 171.
-    Found 11-bit comparator greater for signal <rectangulo$cmp_gt0003> created at line 171.
-    Found 10-bit comparator less for signal <rectangulo$cmp_lt0000> created at line 169.
-    Found 11-bit comparator less for signal <rectangulo$cmp_lt0001> created at line 170.
-    Found 10-bit comparator less for signal <rectangulo$cmp_lt0002> created at line 171.
-    Found 11-bit comparator less for signal <rectangulo$cmp_lt0003> created at line 171.
+    Found 10-bit comparator greater for signal <rectangulo$cmp_gt0000> created at line 207.
+    Found 11-bit comparator greater for signal <rectangulo$cmp_gt0001> created at line 208.
+    Found 10-bit comparator greater for signal <rectangulo$cmp_gt0002> created at line 209.
+    Found 11-bit comparator greater for signal <rectangulo$cmp_gt0003> created at line 209.
+    Found 10-bit comparator less for signal <rectangulo$cmp_lt0000> created at line 207.
+    Found 11-bit comparator less for signal <rectangulo$cmp_lt0001> created at line 208.
+    Found 10-bit comparator less for signal <rectangulo$cmp_lt0002> created at line 209.
+    Found 11-bit comparator less for signal <rectangulo$cmp_lt0003> created at line 209.
     Found 10-bit up counter for signal <vcnt>.
-    Found 11-bit comparator less for signal <vcnt$cmp_lt0000> created at line 101.
-    Found 11-bit comparator greatequal for signal <vsyncb$cmp_ge0000> created at line 136.
-    Found 11-bit comparator less for signal <vsyncb$cmp_lt0000> created at line 136.
+    Found 11-bit comparator less for signal <vcnt$cmp_lt0000> created at line 131.
+    Found 11-bit comparator greatequal for signal <vsyncb$cmp_ge0000> created at line 169.
+    Found 11-bit comparator less for signal <vsyncb$cmp_lt0000> created at line 169.
     Summary:
 	inferred   1 Finite State Machine(s).
 	inferred   2 Counter(s).
 	inferred   2 D-type flip-flop(s).
 	inferred   9 Adder/Subtractor(s).
-	inferred  28 Comparator(s).
+	inferred  32 Comparator(s).
 Unit <vgacore> synthesized.
 
 INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
@@ -278,19 +283,19 @@ Macro Statistics
 # Registers                                            : 8
  1-bit register                                        : 4
  10-bit register                                       : 1
- 11-bit register                                       : 1
+ 22-bit register                                       : 1
  9-bit register                                        : 2
 # Latches                                              : 2
  10-bit latch                                          : 1
  9-bit latch                                           : 1
-# Comparators                                          : 30
+# Comparators                                          : 34
  10-bit comparator greatequal                          : 3
- 10-bit comparator greater                             : 3
- 10-bit comparator less                                : 5
+ 10-bit comparator greater                             : 4
+ 10-bit comparator less                                : 6
  10-bit comparator lessequal                           : 2
  11-bit comparator greatequal                          : 2
- 11-bit comparator greater                             : 3
- 11-bit comparator less                                : 5
+ 11-bit comparator greater                             : 4
+ 11-bit comparator less                                : 6
  11-bit comparator lessequal                           : 1
  21-bit comparator equal                               : 1
  21-bit comparator not equal                           : 1
@@ -335,19 +340,19 @@ Macro Statistics
  9-bit up counter                                      : 1
 # Accumulators                                         : 1
  21-bit down accumulator                               : 1
-# Registers                                            : 42
- Flip-Flops                                            : 42
+# Registers                                            : 53
+ Flip-Flops                                            : 53
 # Latches                                              : 2
  10-bit latch                                          : 1
  9-bit latch                                           : 1
-# Comparators                                          : 30
+# Comparators                                          : 34
  10-bit comparator greatequal                          : 3
- 10-bit comparator greater                             : 3
- 10-bit comparator less                                : 5
+ 10-bit comparator greater                             : 4
+ 10-bit comparator less                                : 6
  10-bit comparator lessequal                           : 2
  11-bit comparator greatequal                          : 2
- 11-bit comparator greater                             : 3
- 11-bit comparator less                                : 5
+ 11-bit comparator greater                             : 4
+ 11-bit comparator less                                : 6
  11-bit comparator lessequal                           : 1
  21-bit comparator equal                               : 1
  21-bit comparator not equal                           : 1
@@ -374,17 +379,19 @@ FlipFlop r_py_1 has been replicated 1 time(s)
 Final Macro Processing ...
 
 Processing Unit <vgacore> :
-	Found 3-bit shift register for signal <Teclado/F_8>.
+	Found 3-bit shift register for signal <Teclado/F_19>.
+	Found 4-bit shift register for signal <Teclado/F_8>.
 Unit <vgacore> processed.
 
 =========================================================================
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 108
- Flip-Flops                                            : 108
-# Shift Registers                                      : 1
+# Registers                                            : 115
+ Flip-Flops                                            : 115
+# Shift Registers                                      : 2
  3-bit shift register                                  : 1
+ 4-bit shift register                                  : 1
 
 =========================================================================
 
@@ -413,33 +420,33 @@ Design Statistics
 # IOs                              : 15
 
 Cell Usage :
-# BELS                             : 542
+# BELS                             : 554
 #      GND                         : 1
 #      INV                         : 26
 #      LUT1                        : 3
-#      LUT2                        : 81
+#      LUT2                        : 80
 #      LUT2_D                      : 1
 #      LUT2_L                      : 2
-#      LUT3                        : 76
-#      LUT3_D                      : 1
+#      LUT3                        : 74
+#      LUT3_D                      : 2
 #      LUT3_L                      : 1
-#      LUT4                        : 149
-#      LUT4_D                      : 5
-#      LUT4_L                      : 6
+#      LUT4                        : 164
+#      LUT4_D                      : 4
+#      LUT4_L                      : 5
 #      MUXCY                       : 122
-#      MUXF5                       : 8
+#      MUXF5                       : 9
 #      VCC                         : 1
 #      XORCY                       : 59
-# FlipFlops/Latches                : 128
-#      FD                          : 8
+# FlipFlops/Latches                : 136
+#      FD                          : 16
 #      FDC                         : 61
 #      FDCE                        : 12
 #      FDE                         : 2
 #      FDP                         : 7
 #      FDPE                        : 19
 #      LDCP                        : 19
-# Shift Registers                  : 1
-#      SRL16                       : 1
+# Shift Registers                  : 2
+#      SRL16                       : 2
 # Clock Buffers                    : 3
 #      BUFG                        : 1
 #      BUFGP                       : 2
@@ -453,11 +460,11 @@ Device utilization summary:
 
 Selected Device : 3s1000lft256-4 
 
- Number of Slices:                      190  out of   7680     2%  
- Number of Slice Flip Flops:            128  out of  15360     0%  
- Number of 4 input LUTs:                352  out of  15360     2%  
-    Number used as logic:               351
-    Number used as Shift registers:       1
+ Number of Slices:                      198  out of   7680     2%  
+ Number of Slice Flip Flops:            136  out of  15360     0%  
+ Number of 4 input LUTs:                364  out of  15360     2%  
+    Number used as logic:               362
+    Number used as Shift registers:       2
  Number of IOs:                          15
  Number of bonded IOBs:                  15  out of    173     8%  
  Number of GCLKs:                         3  out of      8    37%  
@@ -488,7 +495,7 @@ hsyncb_OBUF                                                | NONE(vsyncb)       
 clock                                                      | BUFGP                  | 49    |
 Otro_reloj/clk_aux1                                        | BUFG                   | 31    |
 movimiento_pelota_cmp_eq0000(movimiento_pelota_FSM_Out01:O)| NONE(*)(py_0)          | 19    |
-PS2CLK                                                     | BUFGP                  | 9     |
+PS2CLK                                                     | BUFGP                  | 18    |
 -----------------------------------------------------------+------------------------+-------+
 (*) This 1 clock signal(s) are generated by combinatorial logic,
 and XST is not able to identify which are the primary clock signals.
@@ -547,7 +554,7 @@ Speed Grade: -4
 
    Minimum period: 9.407ns (Maximum Frequency: 106.299MHz)
    Minimum input arrival time before clock: 5.218ns
-   Maximum output required time after clock: 18.788ns
+   Maximum output required time after clock: 21.389ns
    Maximum combinational path delay: No path found
 
 Timing Detail:
@@ -556,10 +563,10 @@ All values displayed in nanoseconds (ns)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'Nuevo_reloj/clk_aux'
-  Clock period: 7.209ns (frequency: 138.715MHz)
-  Total number of paths / destination ports: 422 / 10
+  Clock period: 7.261ns (frequency: 137.722MHz)
+  Total number of paths / destination ports: 420 / 10
 -------------------------------------------------------------------------
-Delay:               7.209ns (Levels of Logic = 12)
+Delay:               7.261ns (Levels of Logic = 12)
   Source:            hcnt_3 (FF)
   Destination:       hcnt_8 (FF)
   Source Clock:      Nuevo_reloj/clk_aux rising
@@ -569,8 +576,8 @@ Delay:               7.209ns (Levels of Logic = 12)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q             12   0.720   1.457  hcnt_3 (hcnt_3)
-     LUT4_D:I0->LO         1   0.551   0.126  hcnt_not0001_inv1_SW0 (N62)
+     FDC:C->Q             13   0.720   1.509  hcnt_3 (hcnt_3)
+     LUT4_D:I0->LO         1   0.551   0.126  hcnt_not0001_inv1_SW0 (N86)
      LUT4:I3->O            6   0.551   1.198  hcnt_not00011 (hcnt_not0001)
      LUT2:I1->O            1   0.551   0.000  Mcount_hcnt_lut<0> (Mcount_hcnt_lut<0>)
      MUXCY:S->O            1   0.500   0.000  Mcount_hcnt_cy<0> (Mcount_hcnt_cy<0>)
@@ -584,15 +591,15 @@ Delay:               7.209ns (Levels of Logic = 12)
      XORCY:CI->O           1   0.904   0.000  Mcount_hcnt_xor<8> (Mcount_hcnt8)
      FDC:D                     0.203          hcnt_8
     ----------------------------------------
-    Total                      7.209ns (4.428ns logic, 2.781ns route)
-                                       (61.4% logic, 38.6% route)
+    Total                      7.261ns (4.428ns logic, 2.833ns route)
+                                       (61.0% logic, 39.0% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'hsyncb_OBUF'
-  Clock period: 8.748ns (frequency: 114.312MHz)
+  Clock period: 8.809ns (frequency: 113.520MHz)
   Total number of paths / destination ports: 703 / 11
 -------------------------------------------------------------------------
-Delay:               8.748ns (Levels of Logic = 13)
+Delay:               8.809ns (Levels of Logic = 13)
   Source:            vcnt_5 (FF)
   Destination:       vcnt_9 (FF)
   Source Clock:      hsyncb_OBUF rising
@@ -602,7 +609,7 @@ Delay:               8.748ns (Levels of Logic = 13)
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              8   0.720   1.422  vcnt_5 (vcnt_5)
+     FDC:C->Q             11   0.720   1.483  vcnt_5 (vcnt_5)
      LUT2_L:I0->LO         1   0.551   0.126  vcnt_not0001_inv215 (vcnt_not0001_inv215)
      LUT4:I3->O            4   0.551   0.943  vcnt_not0001_inv220 (vcnt_not0001_inv220)
      LUT4:I3->O            8   0.551   1.278  vcnt_not00011 (vcnt_not0001)
@@ -618,8 +625,8 @@ Delay:               8.748ns (Levels of Logic = 13)
      XORCY:CI->O           1   0.904   0.000  Mcount_vcnt_xor<9> (Mcount_vcnt9)
      FDC:D                     0.203          vcnt_9
     ----------------------------------------
-    Total                      8.748ns (4.979ns logic, 3.769ns route)
-                                       (56.9% logic, 43.1% route)
+    Total                      8.809ns (4.979ns logic, 3.830ns route)
+                                       (56.5% logic, 43.5% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'clock'
@@ -678,47 +685,46 @@ Delay:               9.407ns (Levels of Logic = 34)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'Otro_reloj/clk_aux1'
-  Clock period: 8.530ns (frequency: 117.233MHz)
-  Total number of paths / destination ports: 336 / 20
+  Clock period: 8.640ns (frequency: 115.741MHz)
+  Total number of paths / destination ports: 322 / 20
 -------------------------------------------------------------------------
-Delay:               8.530ns (Levels of Logic = 5)
-  Source:            r_px_4 (FF)
-  Destination:       movimiento_pelota_FSM_FFd1 (FF)
+Delay:               8.640ns (Levels of Logic = 4)
+  Source:            r_bx_4 (FF)
+  Destination:       r_bx_7 (FF)
   Source Clock:      Otro_reloj/clk_aux1 rising
   Destination Clock: Otro_reloj/clk_aux1 rising
 
-  Data Path: r_px_4 to movimiento_pelota_FSM_FFd1
+  Data Path: r_bx_4 to r_bx_7
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDP:C->Q             15   0.720   1.383  r_px_4 (r_px_4)
-     LUT2:I1->O            1   0.551   0.827  movimiento_pelota_cmp_le0000212 (movimiento_pelota_cmp_le0000212)
-     LUT4_D:I3->LO         1   0.551   0.295  movimiento_pelota_cmp_le0000217 (N60)
-     LUT2:I1->O            2   0.551   0.945  movimiento_pelota_cmp_le0000233 (movimiento_pelota_cmp_le0000)
-     LUT4_L:I2->LO         1   0.551   0.126  movimiento_pelota_not00014 (movimiento_pelota_not00014)
-     LUT4:I3->O            2   0.551   0.877  movimiento_pelota_not000124 (movimiento_pelota_not0001)
-     FDPE:CE                   0.602          movimiento_pelota_FSM_FFd1
+     FDPE:C->Q            11   0.720   1.483  r_bx_4 (r_bx_4)
+     LUT4:I0->O            1   0.551   0.869  bx_cmp_ge00001_SW0 (N6)
+     LUT4:I2->O            1   0.551   0.869  bx_cmp_ge00001 (bx_cmp_ge0000)
+     LUT3_D:I2->O          1   0.551   0.827  bx<0>21 (N36)
+     LUT4:I3->O            7   0.551   1.066  bx<0>11 (N01)
+     FDCE:CE                   0.602          r_bx_7
     ----------------------------------------
-    Total                      8.530ns (4.077ns logic, 4.453ns route)
-                                       (47.8% logic, 52.2% route)
+    Total                      8.640ns (3.526ns logic, 5.114ns route)
+                                       (40.8% logic, 59.2% route)
 
 =========================================================================
 Timing constraint: Default period analysis for Clock 'PS2CLK'
   Clock period: 3.398ns (frequency: 294.291MHz)
-  Total number of paths / destination ports: 8 / 8
+  Total number of paths / destination ports: 17 / 17
 -------------------------------------------------------------------------
 Delay:               3.398ns (Levels of Logic = 0)
-  Source:            Teclado/Mshreg_F_8 (FF)
-  Destination:       Teclado/F_8 (FF)
+  Source:            Teclado/Mshreg_F_19 (FF)
+  Destination:       Teclado/F_19 (FF)
   Source Clock:      PS2CLK rising
   Destination Clock: PS2CLK rising
 
-  Data Path: Teclado/Mshreg_F_8 to Teclado/F_8
+  Data Path: Teclado/Mshreg_F_19 to Teclado/F_19
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     SRL16:CLK->Q          1   3.195   0.000  Teclado/Mshreg_F_8 (Teclado/Mshreg_F_8)
-     FD:D                      0.203          Teclado/F_8
+     SRL16:CLK->Q          1   3.195   0.000  Teclado/Mshreg_F_19 (Teclado/Mshreg_F_19)
+     FD:D                      0.203          Teclado/F_19
     ----------------------------------------
     Total                      3.398ns (3.398ns logic, 0.000ns route)
                                        (100.0% logic, 0.0% route)
@@ -749,107 +755,107 @@ Timing constraint: Default OFFSET IN BEFORE for Clock 'PS2CLK'
 -------------------------------------------------------------------------
 Offset:              2.061ns (Levels of Logic = 1)
   Source:            PS2DATA (PAD)
-  Destination:       Teclado/Mshreg_F_8 (FF)
+  Destination:       Teclado/Mshreg_F_19 (FF)
   Destination Clock: PS2CLK rising
 
-  Data Path: PS2DATA to Teclado/Mshreg_F_8
+  Data Path: PS2DATA to Teclado/Mshreg_F_19
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
      IBUF:I->O             1   0.821   0.801  PS2DATA_IBUF (PS2DATA_IBUF)
-     SRL16:D                   0.439          Teclado/Mshreg_F_8
+     SRL16:D                   0.439          Teclado/Mshreg_F_19
     ----------------------------------------
     Total                      2.061ns (1.260ns logic, 0.801ns route)
                                        (61.1% logic, 38.9% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'Nuevo_reloj/clk_aux'
-  Total number of paths / destination ports: 784 / 10
+  Total number of paths / destination ports: 835 / 10
 -------------------------------------------------------------------------
-Offset:              18.788ns (Levels of Logic = 9)
+Offset:              18.385ns (Levels of Logic = 8)
   Source:            hcnt_2 (FF)
-  Destination:       rgb<8> (PAD)
+  Destination:       rgb<6> (PAD)
   Source Clock:      Nuevo_reloj/clk_aux rising
 
-  Data Path: hcnt_2 to rgb<8>
+  Data Path: hcnt_2 to rgb<6>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q             12   0.720   1.457  hcnt_2 (hcnt_2)
-     LUT4:I0->O            1   0.551   0.000  rectangulo94_SW01 (rectangulo94_SW0)
-     MUXF5:I0->O           1   0.360   0.827  rectangulo94_SW0_f5 (N46)
-     LUT4:I3->O            1   0.551   0.996  rectangulo94 (rectangulo94)
-     LUT4:I1->O            1   0.551   0.827  rectangulo130 (rectangulo130)
-     LUT4:I3->O            1   0.551   1.140  rectangulo143 (rectangulo143)
-     LUT2:I0->O            2   0.551   0.903  rectangulo348 (rectangulo)
-     LUT4:I3->O            1   0.551   1.140  rgb<5>81 (rgb<5>81)
-     LUT3:I0->O            4   0.551   0.917  rgb<5>103 (rgb_5_OBUF)
-     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+     FDC:C->Q             15   0.720   1.527  hcnt_2 (hcnt_2)
+     LUT4:I0->O            2   0.551   0.945  obstaculo_cmp_gt00001 (obstaculo_cmp_gt00001)
+     LUT3:I2->O            1   0.551   0.827  rectangulo91_SW0 (N64)
+     LUT4:I3->O            1   0.551   1.140  rectangulo91 (rectangulo91)
+     LUT2:I0->O            1   0.551   0.869  rectangulo116 (rectangulo116)
+     LUT4:I2->O            1   0.551   0.827  rectangulo333_SW0 (N46)
+     LUT4:I3->O            4   0.551   1.112  rectangulo333 (rectangulo)
+     LUT2:I1->O            4   0.551   0.917  rgb<1>2 (rgb_1_OBUF)
+     OBUF:I->O                 5.644          rgb_6_OBUF (rgb<6>)
     ----------------------------------------
-    Total                     18.788ns (10.581ns logic, 8.207ns route)
-                                       (56.3% logic, 43.7% route)
+    Total                     18.385ns (10.221ns logic, 8.164ns route)
+                                       (55.6% logic, 44.4% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'hsyncb_OBUF'
-  Total number of paths / destination ports: 703 / 10
+  Total number of paths / destination ports: 790 / 10
 -------------------------------------------------------------------------
-Offset:              18.747ns (Levels of Logic = 8)
-  Source:            vcnt_3 (FF)
-  Destination:       rgb<8> (PAD)
+Offset:              18.354ns (Levels of Logic = 8)
+  Source:            vcnt_1 (FF)
+  Destination:       rgb<6> (PAD)
   Source Clock:      hsyncb_OBUF rising
 
-  Data Path: vcnt_3 to rgb<8>
+  Data Path: vcnt_1 to rgb<6>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDC:C->Q              9   0.720   1.463  vcnt_3 (vcnt_3)
-     LUT4:I0->O            1   0.551   1.140  rectangulo161 (rectangulo161)
-     LUT4:I0->O            1   0.551   0.827  rectangulo176_SW0 (N48)
-     LUT4:I3->O            1   0.551   1.140  rectangulo176 (rectangulo176)
-     LUT4:I0->O            1   0.551   0.996  rectangulo334 (rectangulo334)
-     LUT2:I1->O            2   0.551   0.903  rectangulo348 (rectangulo)
-     LUT4:I3->O            1   0.551   1.140  rgb<5>81 (rgb<5>81)
-     LUT3:I0->O            4   0.551   0.917  rgb<5>103 (rgb_5_OBUF)
-     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+     FDC:C->Q             10   0.720   1.473  vcnt_1 (vcnt_1)
+     LUT3_D:I0->O          4   0.551   1.112  rectangulo_cmp_lt000331 (N10)
+     LUT4:I1->O            1   0.551   0.827  rectangulo111_SW0 (N66)
+     LUT4:I3->O            1   0.551   0.996  rectangulo111 (rectangulo111)
+     LUT2:I1->O            1   0.551   0.869  rectangulo116 (rectangulo116)
+     LUT4:I2->O            1   0.551   0.827  rectangulo333_SW0 (N46)
+     LUT4:I3->O            4   0.551   1.112  rectangulo333 (rectangulo)
+     LUT2:I1->O            4   0.551   0.917  rgb<1>2 (rgb_1_OBUF)
+     OBUF:I->O                 5.644          rgb_6_OBUF (rgb<6>)
     ----------------------------------------
-    Total                     18.747ns (10.221ns logic, 8.526ns route)
-                                       (54.5% logic, 45.5% route)
+    Total                     18.354ns (10.221ns logic, 8.133ns route)
+                                       (55.7% logic, 44.3% route)
 
 =========================================================================
 Timing constraint: Default OFFSET OUT AFTER for Clock 'Otro_reloj/clk_aux1'
   Total number of paths / destination ports: 3456 / 9
 -------------------------------------------------------------------------
-Offset:              18.411ns (Levels of Logic = 8)
-  Source:            r_bx_1 (FF)
-  Destination:       rgb<8> (PAD)
+Offset:              21.389ns (Levels of Logic = 9)
+  Source:            r_px_0 (FF)
+  Destination:       rgb<6> (PAD)
   Source Clock:      Otro_reloj/clk_aux1 rising
 
-  Data Path: r_bx_1 to rgb<8>
+  Data Path: r_px_0 to rgb<6>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FDCE:C->Q            17   0.720   1.540  r_bx_1 (r_bx_1)
-     LUT2_D:I1->O          3   0.551   1.102  Msub_barra_addsub0000_cy<2>11 (Msub_barra_addsub0000_cy<2>)
-     LUT4:I1->O            5   0.551   0.947  Msub_barra_addsub0000_cy<5>11 (Msub_barra_addsub0000_cy<5>)
-     LUT4:I3->O            1   0.551   1.140  Msub_barra_addsub0000_xor<8>11 (barra_addsub0000<8>)
-     LUT2:I0->O            1   0.551   0.000  Mcompar_barra_cmp_gt0001_lut<8> (Mcompar_barra_cmp_gt0001_lut<8>)
-     MUXCY:S->O            2   0.739   1.216  Mcompar_barra_cmp_gt0001_cy<8> (Mcompar_barra_cmp_gt0001_cy<8>)
-     LUT4:I0->O            1   0.551   1.140  rgb<5>81 (rgb<5>81)
-     LUT3:I0->O            4   0.551   0.917  rgb<5>103 (rgb_5_OBUF)
-     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+     FDC:C->Q             19   0.720   1.645  r_px_0 (r_px_0)
+     LUT2:I1->O            3   0.551   1.102  Msub_mux0000_sub0000_cy<1>11 (Msub_mux0000_sub0000_cy<1>)
+     LUT4:I1->O            7   0.551   1.261  Msub_mux0000_sub0000_cy<4>11 (Msub_mux0000_sub0000_cy<4>)
+     LUT3:I1->O            4   0.551   0.985  Msub_mux0000_sub0000_cy<6>11 (Msub_mux0000_sub0000_cy<6>)
+     LUT3:I2->O            3   0.551   0.907  Msub_mux0000_sub0000_xor<8>11 (mux0000_sub0000<8>)
+     MUXCY:DI->O           1   1.128   1.140  Mcompar_bola_cmp_gt0000_cy<8> (Mcompar_bola_cmp_gt0000_cy<8>)
+     LUT4:I0->O            1   0.551   0.827  rgb<1>1143_SW0 (N361)
+     LUT4:I3->O            4   0.551   1.256  rgb<1>1143 (N18)
+     LUT2:I0->O            4   0.551   0.917  rgb<1>2 (rgb_1_OBUF)
+     OBUF:I->O                 5.644          rgb_6_OBUF (rgb<6>)
     ----------------------------------------
-    Total                     18.411ns (10.409ns logic, 8.002ns route)
-                                       (56.5% logic, 43.5% route)
+    Total                     21.389ns (11.349ns logic, 10.040ns route)
+                                       (53.1% logic, 46.9% route)
 
 =========================================================================
 
 
 Total REAL time to Xst completion: 6.00 secs
-Total CPU time to Xst completion: 5.98 secs
+Total CPU time to Xst completion: 6.02 secs
  
 --> 
 
-Total memory usage is 268696 kilobytes
+Total memory usage is 268440 kilobytes
 
 Number of errors   :    0 (   0 filtered)
 Number of warnings :    8 (   0 filtered)
