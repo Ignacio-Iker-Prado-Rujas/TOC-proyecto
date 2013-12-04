@@ -32,6 +32,10 @@ NET reset LOC=K4;
 #NET pushb3 LOC=N2;
 #NET pushb4 LOC=M3;
 
+#Teclado
+NET PS2CLK LOC = B16;
+NET PS2DATA LOC = E13;
+NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
 
 #barra de leds placa extendida
 
