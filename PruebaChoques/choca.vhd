@@ -47,7 +47,7 @@ port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
-component divisor_bola is 
+component divisor_munyeco is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
@@ -70,7 +70,7 @@ begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
 Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, color);
-Reloj_pelota: divisor_bola port map(reset, clk_100M, relojMunyeco);
+Reloj_munyeco: divisor_munyeco port map(reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
 clk_100M <= clock;
 clk <= clk_1;
