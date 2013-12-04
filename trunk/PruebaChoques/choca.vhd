@@ -3,10 +3,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
+--Pasos: Arreglar el teclado. Hacer los choques. Independizar relojes. Estado quieto.
 
 entity vgacore is
 	port
-	(
+	(	
+		PS2CLK: in std_logic;
+		PS2DATA: in std_logic;
 		reset: in std_logic;	-- reset
 		clock: in std_logic;
 		hsyncb: inout std_logic;	-- horizontal (line) sync
@@ -17,21 +20,21 @@ end vgacore;
 
 architecture vgacore_arch of vgacore is
 
-type estado_movimiento is (sureste, noreste, suroeste, noroeste);
+type estado_movimiento is (quieto, arriba, abajo);
 
-signal movimiento_pelota, next_movimiento: estado_movimiento;
+signal movimiento_munyeco, next_movimiento: estado_movimiento;
 
-signal hcnt, px, r_px: std_logic_vector(8 downto 0);	-- horizontal pixel counter
-signal vcnt, py, r_py: std_logic_vector(9 downto 0);	-- vertical line counter
-signal dibujo, bordes, bola: std_logic;					-- rectangulo signal
+signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
+signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
+signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
 signal dir_mem: std_logic_vector(18-1 downto 0);
 signal color: std_logic_vector(8 downto 0);
 signal posy: std_logic_vector(7 downto 0);
 signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
 --Añadir las señales intermedias necesarias
-signal clk, relojMovimiento, relojPelota: std_logic;
+signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
-
+signal pulsado: std_logic;
  
 --Descomentar para implementación
 component divisor is 
@@ -49,6 +52,11 @@ port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
+component control_teclado is
+	port (PS2CLK, reset, PS2DATA: in std_logic;
+	pulsado: out std_logic);
+end component;
+
 component ROM_RGB_9b_prueba_obstaculos is
   port (
     clk  : in  std_logic;   -- reloj
@@ -62,7 +70,8 @@ begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
 Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, color);
-Reloj_pelota: divisor_bola port map(reset, clk_100M, relojPelota);
+Reloj_pelota: divisor_bola port map(reset, clk_100M, relojMunyeco);
+Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
 clk_100M <= clock;
 clk <= clk_1;
 
@@ -163,126 +172,50 @@ begin
 	end if;
 end process mueve_pantalla;
 
-mueve_pelota: process (relojPelota, reset)
+mueve_munyeco: process (relojMunyeco, reset)
 
 begin
 
-	if reset='1' then--inicializacion de las coordenadas
-
-		r_px <= "000111100"; -- 60 en decimal
-
-		r_py <= "0010000000"; -- 128 en decimal
-
-		movimiento_pelota <= suroeste;
-
-	elsif RelojPelota'event and RelojPelota = '1' then 
-
-		r_px <= px;
-
-		r_py <= py;
-
-		movimiento_pelota <= next_movimiento;
-
+	if reset='1' then
+		r_my <= "0100000000"; -- 128 en decimal
+		movimiento_munyeco <= quieto;
+	elsif RelojMunyeco'event and RelojMunyeco = '1' then 
+		r_my <= my;
+		movimiento_munyeco <= next_movimiento;
 	end if;
 
 end process;
 
-mueve_bola: process(movimiento_pelota, r_px, r_py)
+mov_munyeco: process(movimiento_munyeco, r_my)
 begin
-
-	--EstadoPelota <= XnegativoYnegativo;
-
-
-
-	if movimiento_pelota = sureste then
-
-		px <= r_px+1;
-
-		py <= r_py+1;
-
-	elsif movimiento_pelota = suroeste then
-
-		px <= r_px-1;
-
-		py <= r_py+1;
-
-	elsif movimiento_pelota = noreste then
-
-		py <= r_py-1;
-
-		px <= r_px+1;
-
-	elsif movimiento_pelota = noroeste then 
-
-		py <= r_py-1;
-
-		px <= r_px-1;
-
+	if movimiento_munyeco = quieto then
+		my <= r_my;
+	elsif movimiento_munyeco = arriba then
+		my <= r_my-1;
+	else --movimiento_munyeco = abajo
+		my <= r_my+1;
 	end if;
-end process mueve_bola;
+end process mov_munyeco;
 
-choque_bola:process(hcnt, vcnt, movimiento_pelota,r_px,r_py, color)
+choque_munyeco:process(hcnt, vcnt,r_my, pulsado, color)
 begin
-	if r_px >= 260 then 
-
-		if movimiento_pelota = noreste then
-
-			next_movimiento <= noroeste;
-
-		elsif movimiento_pelota = sureste then
-
-			next_movimiento <= suroeste;
-
-		else next_movimiento <= movimiento_pelota;
-
+	if r_my <= 110+6 then 
+		if pulsado = '1' then
+			next_movimiento <= quieto;
+		else next_movimiento <= abajo;
 		end if;
-
-	elsif r_px <= 4 then
-
-		if movimiento_pelota = noroeste then
-
-			next_movimiento <= noreste;
-
-		elsif movimiento_pelota = suroeste then
-
-			next_movimiento <= sureste;
-
-		else next_movimiento <= movimiento_pelota;
-
+	elsif r_my >= 366-6 then
+		if pulsado = '0' then
+			next_movimiento <= quieto;
+		else next_movimiento <= arriba;
 		end if;
-
-	elsif r_py <= 110 then 
-
-		if movimiento_pelota = noreste then
-
-			next_movimiento <= sureste;
-
-		elsif movimiento_pelota = noroeste then
-
-			next_movimiento <= suroeste;
-
-		else next_movimiento <= movimiento_pelota;
-
-		end if;
-
-	elsif r_py >= 366 then
-
-		if movimiento_pelota = suroeste then
-
-			next_movimiento <= noroeste;
-
-		elsif movimiento_pelota = sureste then
-
-			next_movimiento <= noreste;
-
-		else next_movimiento <= movimiento_pelota;
-
-		end if;
-	else next_movimiento <= movimiento_pelota;
-	
+	elsif pulsado = '1' then
+	next_movimiento <= arriba;
+	else
+	next_movimiento <= abajo;
 	end if;
 	--Choque: color(dirreccionMemoria(r_px,r_py)) = amarillo.Vale ver que chocan
-end process choque_bola;
+end process choque_munyeco;
 
 ------------------------------------------------------
 --Pintar:
@@ -308,24 +241,24 @@ begin
 	end if;
 end process pinta_bordes;
 
---pinta la bola
-pinta_bola: process(hcnt, vcnt, r_px, r_py)
+
+pinta_munyeco: process(hcnt, vcnt, r_my)
 begin
-	bola <= '0';
-	if hcnt > r_px-1 and hcnt < r_px+1 then
-		if vcnt > r_py-2 and vcnt < r_py+2 then
-			bola<='1';
+	munyeco <= '0';
+	if hcnt > 15 and hcnt < 21 then
+		if vcnt > r_my-6 and vcnt < r_my+6 then
+			munyeco<='1';
 		end if;
 	end if;
-end process pinta_bola;
+end process pinta_munyeco;
 
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
-colorear: process(hcnt, vcnt, dibujo, color, bordes, bola)
+colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco)
 begin
 	if bordes = '1' then rgb <= "110110000";
-	elsif bola = '1' then rgb <= "111001100";
+	elsif munyeco = '1' then rgb <= "111001100";
 	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
 	end if;
