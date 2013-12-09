@@ -39,17 +39,16 @@ NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
 
 #barra de leds placa extendida
 
-#NET leds<1> LOC=L5;
-#NET leds<2> LOC=N2;
-#NET leds<3> LOC=M3;
-#NET leds<4> LOC=N1;
-#NET leds<5> LOC=T13;
-#NET leds<6> LOC=L15;
-#NET leds<7> LOC=J13;
-#NET leds<8> LOC=H15;
-#NET leds<9> LOC=J16;
-#NET leds<10> LOC=J14;
-
+#NET rout<0> LOC=L5;
+#NET rout<1> LOC=N2;
+#NET rout<2> LOC=M3;
+#NET rout<3> LOC=N1;
+#NET rout<4> LOC=T13;
+#NET rout<5> LOC=L15;
+#NET rout<6> LOC=J13;
+#NET rout<7> LOC=H15;
+#NET levanta<9> LOC=J16;
+#NET levanta<10> LOC=J14;
  
 
 #Display 7-segmentos 
@@ -77,20 +76,20 @@ NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
 
 #Display 7-segmentos de la parte izquierda de la placa extendida:
 
-#NET displayi<0> LOC=H14;
-#NET displayi<1> LOC=M4;
-#NET displayi<2> LOC=P1;
-#NET displayi<3> LOC=N3;
-#NET displayi<4> LOC=M15;
-#NET displayi<5> LOC=H13;
-#NET displayi<6> LOC=G16;
+#NET levanta<0> LOC=H14;
+###NET levanta<1> LOC=M4;
+#NET levanta<2> LOC=P1;
+#NET levanta<3> LOC=N3;
+#NET levanta<4> LOC=M15;
+#NET levanta<5> LOC=H13;
+#NET levanta<6> LOC=G16;
 
 
 
 
 #Display 7-segmentos de la parte derecha de la placa extendida
 
-#NET displayd<0> loc=E2;
+#NET levanta<7> loc=E2;
 #NET displayd<1> loc=E1;
 #NET displayd<2> loc=F3;
 #NET displayd<3> loc=F2;
