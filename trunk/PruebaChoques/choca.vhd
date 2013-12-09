@@ -20,15 +20,15 @@ end vgacore;
 
 architecture vgacore_arch of vgacore is
 
-type estado_movimiento is (quieto, arriba, abajo);
+type estado_movimiento is (quieto, arriba, abajo, fin);
 
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
 
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-signal dir_mem: std_logic_vector(18-1 downto 0);
-signal color: std_logic_vector(8 downto 0);
+signal dir_mem, dir_mem_choque: std_logic_vector(18-1 downto 0);
+signal color, color_choque: std_logic_vector(8 downto 0);
 signal posy: std_logic_vector(7 downto 0);
 signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
 --Añadir las señales intermedias necesarias
@@ -64,8 +64,8 @@ end component;
 component ROM_RGB_9b_prueba_obstaculos is
   port (
     clk  : in  std_logic;   -- reloj
-    addr : in  std_logic_vector(18-1 downto 0);
-    dout : out std_logic_vector(9-1 downto 0) 
+    addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
+    dout, doyt_munyeco : out std_logic_vector(9-1 downto 0) 
   );
 end component ROM_RGB_9b_prueba_obstaculos;
 
@@ -73,7 +73,7 @@ end component ROM_RGB_9b_prueba_obstaculos;
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
-Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, color);
+Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, dir_mem_choque, color, color_choque);
 Reloj_munyeco: divisor_munyeco port map(reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
 clk_100M <= clock;
@@ -165,6 +165,8 @@ end process;
 posy <= vcnt-110;
 posx <= hcnt-4+cuenta_pantalla;
 dir_mem <=  posy & posx;
+dir_mem_choque <=  r_my & "00010100";
+
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
 begin
@@ -196,28 +198,40 @@ begin
 		my <= r_my;
 	elsif movimiento_munyeco = arriba then
 		my <= r_my-1;
-	else --movimiento_munyeco = abajo
+	elsif movimiento_munyeco = abajo then
 		my <= r_my+1;
+	else -- movimiento_munyeco = fin
+		my <= "0001000000";
 	end if;
 end process mov_munyeco;
 
-choque_munyeco:process(hcnt, vcnt,r_my, pulsado, color)
+estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color)
 begin
 	if r_my <= 110+6 then 
 		if pulsado = '1' then
 			next_movimiento <= quieto;
-		else next_movimiento <= abajo;
+		else 
+			next_movimiento <= abajo;
 		end if;
 	elsif r_my >= 366-6 then
 		if pulsado = '0' then
 			next_movimiento <= quieto;
-		else next_movimiento <= arriba;
+		else 
+			next_movimiento <= arriba;
 		end if;
 	elsif pulsado = '1' then
-	next_movimiento <= arriba;
+		next_movimiento <= arriba;
+	elsif color_choque = "110110000" then
+		next_movimiento <= fin;
 	else
-	next_movimiento <= abajo;
+		next_movimiento <= abajo;
 	end if;
+	
+end process estado_munyeco;
+
+choque_munyeco:process(hcnt, vcnt, r_my, pulsado, color)
+begin
+	
 	--Choque: color(dirreccionMemoria(r_px,r_py)) = amarillo.Vale ver que chocan
 end process choque_munyeco;
 
