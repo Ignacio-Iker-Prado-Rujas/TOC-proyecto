@@ -36,27 +36,31 @@ signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
  
---Descomentar para implementación
+-- Reloj para la pantalla
 component divisor is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
+-- Reloj para los obstaculos
 component divisor_pantalla is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
+-- Reloj para Barry
 component divisor_munyeco is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
+-- Controlador del teclado
 component control_teclado is
 	port (PS2CLK, reset, PS2DATA: in std_logic;
 	pulsado: out std_logic);
 end component;
 
+-- Para las imagenes
 component ROM_RGB_9b_prueba_obstaculos is
   port (
     clk  : in  std_logic;   -- reloj
@@ -64,7 +68,7 @@ component ROM_RGB_9b_prueba_obstaculos is
     dout : out std_logic_vector(9-1 downto 0) 
   );
 end component ROM_RGB_9b_prueba_obstaculos;
---Descomentar para implementación
+
 
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
@@ -220,21 +224,21 @@ end process choque_munyeco;
 ------------------------------------------------------
 --Pintar:
 -------------------------------------------------------
-pinta_dibujo: process(hcnt, vcnt)
+pinta_fondo: process(hcnt, vcnt)
 begin
 	dibujo <= '0';
-	if hcnt > 4 and hcnt <= 260 and vcnt >= 110 and vcnt < 366 then
+	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then
 			dibujo <= '1';
 	end if;
-end process pinta_dibujo;
+end process pinta_fondo;
 
 -- pinta bordes
 pinta_bordes: process(hcnt, vcnt)
 begin
 	bordes <= '0';
 	if hcnt > 2 and hcnt < 263 then
-		if vcnt >106 and vcnt < 370 then
-			if hcnt <= 4 or hcnt > 260 or vcnt < 110 or vcnt > 366 then
+		if vcnt >107 and vcnt < 370 then
+			if hcnt <= 4 or hcnt > 260 or vcnt <= 110 or vcnt > 366 then
 					bordes <= '1';
 			end if;
 		end if;
