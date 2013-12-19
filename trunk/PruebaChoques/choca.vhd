@@ -20,10 +20,11 @@ end vgacore;
 
 architecture vgacore_arch of vgacore is
 
-type estado_movimiento is (quieto, arriba, abajo, fin);
+type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
 
+signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
-
+signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
@@ -32,9 +33,9 @@ signal color, color_choque: std_logic_vector(8 downto 0);
 signal posy: std_logic_vector(7 downto 0);
 signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
-signal posx_munyeco: std_logic_vector(5 downto 0);
+signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
-signal dir_mem_munyeco: std_logic_vector(11-1 downto 0);
+signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco: std_logic_vector(9-1 downto 0);
 
 --Añadir las señales intermedias necesarias
@@ -56,7 +57,7 @@ end component;
 
 -- Reloj para Barry
 component divisor_munyeco is 
-port (reset, clk_entrada: in STD_LOGIC;
+port (ralentizar, reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
@@ -79,7 +80,7 @@ end component ROM_RGB_9b_prueba_obstaculos;
 component ROM_RGB_9b_Joyride is
   port (
     clk  : in  std_logic;   -- reloj
-    addr : in  std_logic_vector(11-1 downto 0);
+    addr : in  std_logic_vector(9-1 downto 0);
     dout : out std_logic_vector(9-1 downto 0) 
   );
 end component;
@@ -91,7 +92,7 @@ Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
 Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, dir_mem_choque, color, color_choque);
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
-Reloj_munyeco: divisor_munyeco port map(reset, clk_100M, relojMunyeco);
+Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
 clk_100M <= clock;
 clk <= clk_1;
@@ -186,8 +187,8 @@ dir_mem <=  posy & posx;
 dir_mem_choque <=  r_my & "00010100";
 
 --Posiciones de barry trotter
-posx_munyeco <= hcnt(5 downto 0) - 32;
-posy_munyeco <= vcnt(4 downto 0) - 110 - r_my(4 downto 0);
+posx_munyeco <= hcnt - 32;
+posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
@@ -208,6 +209,8 @@ begin
 		r_my <= "0100000000"; -- 128 en decimal
 		movimiento_munyeco <= quieto;
 	elsif RelojMunyeco'event and RelojMunyeco = '1' then 
+		contador_sub <= aux_contador_sub;
+		contador_baj <= aux_contador_baj;
 		r_my <= my;
 		movimiento_munyeco <= next_movimiento;
 	end if;
@@ -218,16 +221,36 @@ mov_munyeco: process(movimiento_munyeco, r_my)
 begin
 	if movimiento_munyeco = quieto then
 		my <= r_my;
+		ralentizar <= '0';
+		aux_contador_sub <= (others => '0');
+		aux_contador_baj <= (others => '0');
+		
+	elsif movimiento_munyeco = acelerar then
+		my <= r_my+1;
+		ralentizar <= '1';
+		aux_contador_sub <= contador_sub +1;
+		
+	elsif movimiento_munyeco = flotar then
+		my <= r_my-1;
+		ralentizar <= '1';
+		aux_contador_baj <= contador_baj +1;
 	elsif movimiento_munyeco = arriba then
 		my <= r_my-1;
+		ralentizar <= '0';
+		aux_contador_sub <= (others => '0');
+		aux_contador_baj <= (others => '0');
 	elsif movimiento_munyeco = abajo then
 		my <= r_my+1;
+		ralentizar <= '0';
+		aux_contador_sub <= (others => '0');	
+		aux_contador_baj <= (others => '0');
+				
 	else -- movimiento_munyeco = fin
 		my <= "0001000000";
 	end if;
 end process mov_munyeco;
 
-estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque)
+estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj)
 begin
 	if r_my <= 110 then 
 		if pulsado = '1' then
@@ -242,9 +265,32 @@ begin
 			next_movimiento <= arriba;
 		end if;
 	elsif pulsado = '1' then
-		next_movimiento <= arriba;
+		if movimiento_munyeco = abajo then
+			next_movimiento <= acelerar;	
+		elsif movimiento_munyeco = flotar then
+			next_movimiento <= acelerar;
+		elsif movimiento_munyeco = quieto then 
+			next_movimiento <= acelerar;
+		elsif movimiento_munyeco = acelerar and contador_sub < "000111111" then
+			next_movimiento <= acelerar;
+		elsif movimiento_munyeco = acelerar and contador_sub = "000111111" then
+			next_movimiento <= arriba;
+		else next_movimiento <= movimiento_munyeco;
+		end if;
 	else
-		next_movimiento <= abajo;
+		if movimiento_munyeco = acelerar then
+			next_movimiento <= flotar;
+		elsif movimiento_munyeco = arriba then 
+			next_movimiento <= flotar;
+		elsif movimiento_munyeco = quieto then 
+			next_movimiento <= quieto;
+		elsif movimiento_munyeco = flotar and contador_baj < "000111111" then
+			next_movimiento <= flotar;
+		elsif movimiento_munyeco = flotar and contador_baj = "000111111" then
+			next_movimiento <= abajo;
+
+		else next_movimiento <= movimiento_munyeco;
+		end if;
 	end if;
 	
 end process estado_munyeco;
@@ -282,9 +328,12 @@ end process pinta_bordes;
 pinta_munyeco: process(hcnt, vcnt, r_my)
 begin
 	munyeco <= '0';
-	if hcnt >= 32 and hcnt < 64 then
-		if vcnt >= r_my and vcnt < r_my+64 then
-			munyeco<='1';
+	if hcnt >= 32 and hcnt < 48 then
+		if vcnt >= r_my and vcnt < r_my+32 then
+			if color_munyeco = "111111111" then
+				munyeco<='0';
+			else munyeco <='1';
+			end if;
 		end if;
 	end if;
 end process pinta_munyeco;
