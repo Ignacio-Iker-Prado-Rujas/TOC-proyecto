@@ -251,12 +251,12 @@ begin
 		aux_contador_baj <= (others => '0');
 		
 	elsif movimiento_munyeco = acelerar then
-		my <= r_my+1;
+		my <= r_my-1;
 		ralentizar <= '1';
 		aux_contador_sub <= contador_sub +1;
 		
 	elsif movimiento_munyeco = flotar then
-		my <= r_my-1;
+		my <= r_my+1;
 		ralentizar <= '1';
 		aux_contador_baj <= contador_baj +1;
 	elsif movimiento_munyeco = arriba then
@@ -283,13 +283,13 @@ begin
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
-			next_movimiento <= abajo;
+			next_movimiento <= flotar;
 		end if;
 	elsif r_my >= 302 then
 		if pulsado = '0' then
 			next_movimiento <= quieto;
 		else 
-			next_movimiento <= arriba;
+			next_movimiento <= acelerar;
 		end if;
 	elsif pulsado = '1' then
 		if movimiento_munyeco = abajo then
@@ -298,9 +298,9 @@ begin
 			next_movimiento <= acelerar;
 		elsif movimiento_munyeco = quieto then 
 			next_movimiento <= acelerar;
-		elsif movimiento_munyeco = acelerar and contador_sub < "000111111" then
+		elsif movimiento_munyeco = acelerar and contador_sub < "000011111" then
 			next_movimiento <= acelerar;
-		elsif movimiento_munyeco = acelerar and contador_sub = "000111111" then
+		elsif movimiento_munyeco = acelerar and contador_sub = "000011111" then
 			next_movimiento <= arriba;
 		else next_movimiento <= movimiento_munyeco;
 		end if;
@@ -311,9 +311,9 @@ begin
 			next_movimiento <= flotar;
 		elsif movimiento_munyeco = quieto then 
 			next_movimiento <= quieto;
-		elsif movimiento_munyeco = flotar and contador_baj < "000111111" then
+		elsif movimiento_munyeco = flotar and contador_baj < "000011111" then
 			next_movimiento <= flotar;
-		elsif movimiento_munyeco = flotar and contador_baj = "000111111" then
+		elsif movimiento_munyeco = flotar and contador_baj = "000011111" then
 			next_movimiento <= abajo;
 
 		else next_movimiento <= movimiento_munyeco;
