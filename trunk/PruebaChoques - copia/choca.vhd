@@ -65,7 +65,7 @@ component ROM_RGB_9b_prueba_obstaculos is
   port (
     clk  : in  std_logic;   -- reloj
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
-    dout, doyt_munyeco : out std_logic_vector(9-1 downto 0) 
+    dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
   );
 end component ROM_RGB_9b_prueba_obstaculos;
 
@@ -229,6 +229,9 @@ begin
 	
 end process estado_munyeco;
 
+------------------------------------------------------
+--Chocar:
+------------------------------------------------------
 choque_munyeco:process(hcnt, vcnt, r_my, pulsado, color)
 begin
 	
@@ -237,7 +240,7 @@ end process choque_munyeco;
 
 ------------------------------------------------------
 --Pintar:
--------------------------------------------------------
+------------------------------------------------------
 pinta_fondo: process(hcnt, vcnt)
 begin
 	dibujo <= '0';
