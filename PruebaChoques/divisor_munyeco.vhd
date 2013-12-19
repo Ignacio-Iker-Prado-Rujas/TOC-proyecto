@@ -16,6 +16,7 @@ USE IEEE.std_logic_unsigned.ALL;
 
 entity divisor_munyeco is
     port (
+		  ralentizar: in STD_LOGIC;
         reset: in STD_LOGIC;
         clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
         clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
@@ -36,7 +37,14 @@ clk_salida <= clk_aux;
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
     ELSIF(clk'EVENT AND clk = '1') THEN
-      IF (cuenta="000111111111111111111") THEN 
+		if ralentizar = '1' then 
+			IF (cuenta="011111111111111111111") THEN 
+				clk_aux <= not clk_aux;
+			  cuenta <= (OTHERS=>'0');
+			ELSE
+			  cuenta <= cuenta + '1';
+			END IF;
+      elsif (cuenta="000111111111111111111") THEN 
 			clk_aux <= not clk_aux;
         cuenta <= (OTHERS=>'0');
       ELSE
