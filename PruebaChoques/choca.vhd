@@ -28,29 +28,18 @@ signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-<<<<<<< .mine
-signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(18-1 downto 0);
+signal dir_mem, dir_mem_choque_arriba: std_logic_vector(19-1 downto 0);
 signal color, color_choque: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
-signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
+signal posx, posx_choque, cuenta_pantalla: std_logic_vector(10 downto 0);
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
-=======
-signal dir_mem, dir_mem_choque: std_logic_vector(18-1 downto 0);
-signal color, color_choque: std_logic_vector(8 downto 0);
-signal posy: std_logic_vector(7 downto 0);
-signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
---SEÑALES DE BARRY TROTTER
-signal posx_munyeco: std_logic_vector(3 downto 0);
-signal posy_munyeco: std_logic_vector(4 downto 0);
-signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
->>>>>>> .r63
 signal color_munyeco: std_logic_vector(9-1 downto 0);
 
 --Añadir las señales intermedias necesarias
-signal clk, relojMovimiento, relojMunyeco: std_logic;
+signal clk, clk2, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
  
@@ -79,13 +68,13 @@ component control_teclado is
 end component;
 
 -- ROM para las imagenes
-component ROM_RGB_9b_prueba_obstaculos is
+component ROM_RGB_9b_nivel_1_0 is
   port (
-    clk  : in  std_logic;   -- reloj
-    addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
+    clk, clk2  : in  std_logic;   -- reloj
+    addr, addr_munyeco : in  std_logic_vector(19-1 downto 0);
     dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
   );
-end component ROM_RGB_9b_prueba_obstaculos;
+end component ROM_RGB_9b_nivel_1_0;
 
 --ROM de barry trotter
 component ROM_RGB_9b_Joyride is
@@ -101,7 +90,7 @@ end component;
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
-Rom: ROM_RGB_9b_prueba_obstaculos port map(clk, dir_mem, dir_mem_choque, color, color_choque);
+Rom: ROM_RGB_9b_nivel_1_0 port map(clk, clk2, dir_mem, dir_mem_choque_arriba, color, color_choque);
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
@@ -190,36 +179,22 @@ end process;
 ----------------------------------------------------------------------------
 --Movimientos:
 ----------------------------------------------------------------------------
-
+--
 --Posiciones de la pantalla
-posy <= vcnt - 110;
-posx <= hcnt - 4 + cuenta_pantalla;
+posy <= vcnt-110;
+posx <= hcnt-4+cuenta_pantalla;
 dir_mem <=  posy & posx;
+--dir_mem_choque <=  r_my & "00010100";
 
---Posiciones para el choque
-posy_choque <= r_my - 110;				--Posicion y del choque
-posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
-dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
---dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
---dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
-
---Posiciones de barry trotter
-posx_munyeco <= hcnt(5 downto 0) - 32;
-posy_munyeco <= vcnt(4 downto 0) - r_my(4 downto 0);
-dir_mem_munyeco <= posy_munyeco & posx_munyeco;
-
-<<<<<<< .mine
-=======
 --Posiciones de barry trotter
 posx_munyeco <= hcnt - 32;
 posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
->>>>>>> .r63
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
 begin
 	if reset='1' then
-		cuenta_pantalla <= "0000000000";
+		cuenta_pantalla <= "00000000000";
 	elsif (relojMovimiento'event and relojMovimiento='1') then
 		cuenta_pantalla <= cuenta_pantalla + 1;
 		-- el reloj a usar es relojDeVelocidadPantalla
@@ -271,15 +246,13 @@ begin
 		aux_contador_baj <= (others => '0');
 				
 	else -- movimiento_munyeco = fin
-		r_my <= "0100000000"; -- 128 en decimal
+		my <= "0100000000";
 	end if;
 end process mov_munyeco;
 
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj)
 begin
-	if color_choque = "111111000" then
-		next_movimiento <= fin;
-	elsif r_my <= 110 then 
+	if r_my <= 110 then 
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
@@ -331,7 +304,7 @@ end process choque_munyeco;
 --Pintar:
 -------------------------------------------------------
 pinta_fondo: process(hcnt, vcnt)
-begin 
+begin
 	dibujo <= '0';
 	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then
 			dibujo <= '1';
@@ -371,7 +344,7 @@ end process pinta_munyeco;
 colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco)
 begin
 	if bordes = '1' then rgb <= "110110000";
-	elsif munyeco = '1' then rgb <= color_munyeco;
+	elsif munyeco = '1' then rgb <= color_munyeco;--"111001100";
 	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
 	end if;
