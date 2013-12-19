@@ -186,8 +186,8 @@ dir_mem <=  posy & posx;
 dir_mem_choque <=  r_my & "00010100";
 
 --Posiciones de barry trotter
-posx_munyeco <= hcnt - 10;
-posy_munyeco <= vcnt - 110 - r_my;
+posx_munyeco <= hcnt(5 downto 0) - 32;
+posy_munyeco <= vcnt(4 downto 0) - 110 - r_my(4 downto 0);
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
@@ -229,13 +229,13 @@ end process mov_munyeco;
 
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque)
 begin
-	if r_my <= 110+6 then 
+	if r_my <= 110 then 
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
 			next_movimiento <= abajo;
 		end if;
-	elsif r_my >= 366-6 then
+	elsif r_my >= 302 then
 		if pulsado = '0' then
 			next_movimiento <= quieto;
 		else 
@@ -243,8 +243,6 @@ begin
 		end if;
 	elsif pulsado = '1' then
 		next_movimiento <= arriba;
-	elsif color_choque = "110110000" then
-		next_movimiento <= fin;
 	else
 		next_movimiento <= abajo;
 	end if;
@@ -254,7 +252,6 @@ end process estado_munyeco;
 choque_munyeco:process(hcnt, vcnt, r_my, pulsado, color)
 begin
 	
-	--Choque: color(dirreccionMemoria(r_px,r_py)) = amarillo.Vale ver que chocan
 end process choque_munyeco;
 
 ------------------------------------------------------
@@ -285,8 +282,8 @@ end process pinta_bordes;
 pinta_munyeco: process(hcnt, vcnt, r_my)
 begin
 	munyeco <= '0';
-	if hcnt > 32 and hcnt < 64 then
-		if vcnt > r_my and vcnt < r_my+32 then
+	if hcnt >= 32 and hcnt < 64 then
+		if vcnt >= r_my and vcnt < r_my+64 then
 			munyeco<='1';
 		end if;
 	end if;
