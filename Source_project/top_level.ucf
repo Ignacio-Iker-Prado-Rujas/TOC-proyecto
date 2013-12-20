@@ -1,0 +1,56 @@
+#######################################################
+## Clock
+NET "clock" LOC = "B8"; 
+
+
+#######################################################
+## Keyboard
+NET "kbClock" LOC = "R12"; 
+NET "kbData"  LOC = "P11";
+NET "kbClock" CLOCK_DEDICATED_ROUTE = FALSE;
+
+
+#######################################################
+## Inputs
+NET "pushButtons<0>" LOC = "B18";
+NET "pushButtons<1>" LOC = "D18";
+NET "pushButtons<2>" LOC = "E18";
+NET "pushButtons<3>" LOC = "H13";
+
+NET "sliderSwitch<0>" LOC = "G18";
+NET "sliderSwitch<1>" LOC = "H18";
+NET "sliderSwitch<2>" LOC = "K18";
+NET "sliderSwitch<3>" LOC = "K17";
+NET "sliderSwitch<4>" LOC = "L14";
+NET "sliderSwitch<5>" LOC = "L13";
+NET "sliderSwitch<6>" LOC = "N17";
+NET "sliderSwitch<7>" LOC = "R17";
+
+ 
+#######################################################
+## VGA out
+NET "pixelColor<0>" LOC = "R9"; # Red 0
+NET "pixelColor<1>" LOC = "T8"; # Red 1
+NET "pixelColor<2>" LOC = "R8"; # Red 2
+NET "pixelColor<3>" LOC = "N8"; # Green 0
+NET "pixelColor<4>" LOC = "P8"; # Green 1
+NET "pixelColor<5>" LOC = "P6"; # Green 2
+NET "pixelColor<6>" LOC = "U5"; # Blue 0
+NET "pixelColor<7>" LOC = "U4"; # Blue 1
+
+NET "horizontalSync" LOC = "T4";
+NET "verticalSync" LOC = "U3";
+
+#######################################################
+## Seven-Segment Display Output
+NET "anodes<0>" LOC= "F17";	#Leftmost Display
+NET "anodes<1>" LOC= "H17";	
+NET "anodes<2>" LOC= "C18";
+NET "anodes<3>" LOC= "F15";	#Rightmost Display
+NET "enc_char<0>" LOC= "L18";	#CA
+NET "enc_char<1>" LOC= "F18"; #CB
+NET "enc_char<2>" LOC= "D17"; #CC
+NET "enc_char<3>" LOC= "D16"; #CD
+NET "enc_char<4>" LOC= "G14"; #CE
+NET "enc_char<5>" LOC= "J17"; #CF
+NET "enc_char<6>" LOC= "H14"; #CG
