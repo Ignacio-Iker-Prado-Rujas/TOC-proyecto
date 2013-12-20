@@ -28,15 +28,17 @@ signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(19-1 downto 0);
+signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(18-1 downto 0);
 signal color, color_choque: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
-signal posx, posx_choque, cuenta_pantalla: std_logic_vector(10 downto 0);
+signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco: std_logic_vector(9-1 downto 0);
+--señales ram
+--signal we : std_logic;
 
 --Añadir las señales intermedias necesarias
 signal clk, relojMovimiento, relojMunyeco: std_logic;
@@ -69,12 +71,12 @@ end component;
 
 -- ROM para las imagenes
 component ROM_RGB_9b_nivel_1_0 is
-  port (
+    port (
     clk, clk2  : in  std_logic;   -- reloj
-    addr, addr_munyeco : in  std_logic_vector(19-1 downto 0);
+    addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
   );
-end component ROM_RGB_9b_nivel_1_0;
+end component;--ROM_RGB_9b_nivel_1_0;
 
 --ROM de barry trotter
 component ROM_RGB_9b_Joyride is
@@ -198,10 +200,12 @@ posx_munyeco <= hcnt - 32;
 posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
+--we<= '0';
+--din <= (others => '0');
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
 begin
 	if reset='1' then
-		cuenta_pantalla <= "00000000000";
+		cuenta_pantalla <= "0000000000";
 	elsif (relojMovimiento'event and relojMovimiento='1') then
 		cuenta_pantalla <= cuenta_pantalla + 1;
 		-- el reloj a usar es relojDeVelocidadPantalla
@@ -216,8 +220,8 @@ begin
 		r_my <= "0100000000"; -- 128 en decimal
 		movimiento_munyeco <= quieto;
 	elsif RelojMunyeco'event and RelojMunyeco = '1' then 
-		contador_sub <= aux_contador_sub;
-		contador_baj <= aux_contador_baj;
+--		contador_sub <= aux_contador_sub;
+--		contador_baj <= aux_contador_baj;
 		r_my <= my;
 		movimiento_munyeco <= next_movimiento;
 	end if;
@@ -228,30 +232,30 @@ mov_munyeco: process(movimiento_munyeco, r_my, contador_sub, contador_baj)
 begin
 	if movimiento_munyeco = quieto then
 		my <= r_my;
-		ralentizar <= '0';
-		aux_contador_sub <= (others => '0');
-		aux_contador_baj <= (others => '0');
+--		ralentizar <= '0';
+--		aux_contador_sub <= (others => '0');
+--		aux_contador_baj <= (others => '0');
 		
-	elsif movimiento_munyeco = acelerar then
-		my <= r_my-1;
-		ralentizar <= '1';
-		aux_contador_sub <= contador_sub +1;
+--	elsif movimiento_munyeco = acelerar then
+--		my <= r_my-1;
+--		ralentizar <= '1';
+--		aux_contador_sub <= contador_sub +1;
 		
-	elsif movimiento_munyeco = flotar then
-		my <= r_my+1;
-		ralentizar <= '1';
-		aux_contador_baj <= contador_baj +1;
+--	elsif movimiento_munyeco = flotar then
+--		my <= r_my+1;
+--		ralentizar <= '1';
+--		aux_contador_baj <= contador_baj +1;
 	elsif movimiento_munyeco = arriba then
 		my <= r_my-1;
-		ralentizar <= '0';
-		aux_contador_sub <= (others => '0');
-		aux_contador_baj <= (others => '0');
+--		ralentizar <= '0';
+--		aux_contador_sub <= (others => '0');
+--		aux_contador_baj <= (others => '0');
 	elsif movimiento_munyeco = abajo then
 		my <= r_my+1;
-		ralentizar <= '0';
-		aux_contador_sub <= (others => '0');	
-		aux_contador_baj <= (others => '0');
-				
+--		ralentizar <= '0';
+--		aux_contador_sub <= (others => '0');	
+--		aux_contador_baj <= (others => '0');
+--				
 	else -- movimiento_munyeco = fin
 		my <= "0100000000"; -- 128 en decimal
 	end if;
@@ -265,41 +269,45 @@ begin
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
-			next_movimiento <= flotar;
+--			next_movimiento <= flotar;
+		next_movimiento <= abajo;
 		end if;
 	elsif r_my >= 302 then
 		if pulsado = '0' then
 			next_movimiento <= quieto;
 		else 
-			next_movimiento <= acelerar;
+--			next_movimiento <= acelerar;
+		next_movimiento <= arriba;
 		end if;
 	elsif pulsado = '1' then
-		if movimiento_munyeco = abajo then
-			next_movimiento <= acelerar;	
-		elsif movimiento_munyeco = flotar then
-			next_movimiento <= acelerar;
-		elsif movimiento_munyeco = quieto then 
-			next_movimiento <= acelerar;
-		elsif movimiento_munyeco = acelerar and contador_sub < "000011111" then
-			next_movimiento <= acelerar;
-		elsif movimiento_munyeco = acelerar and contador_sub = "000011111" then
-			next_movimiento <= arriba;
-		else next_movimiento <= movimiento_munyeco;
-		end if;
+		next_movimiento <= arriba;
+--		if movimiento_munyeco = abajo then
+--			next_movimiento <= acelerar;	
+--		elsif movimiento_munyeco = flotar then
+--			next_movimiento <= acelerar;
+--		elsif movimiento_munyeco = quieto then 
+--			next_movimiento <= acelerar;
+--		elsif movimiento_munyeco = acelerar and contador_sub < "000011111" then
+--			next_movimiento <= acelerar;
+--		elsif movimiento_munyeco = acelerar and contador_sub = "000011111" then
+--			next_movimiento <= arriba;
+--		else next_movimiento <= movimiento_munyeco;
+		--end if;
 	else
-		if movimiento_munyeco = acelerar then
-			next_movimiento <= flotar;
-		elsif movimiento_munyeco = arriba then 
-			next_movimiento <= flotar;
-		elsif movimiento_munyeco = quieto then 
-			next_movimiento <= quieto;
-		elsif movimiento_munyeco = flotar and contador_baj < "000011111" then
-			next_movimiento <= flotar;
-		elsif movimiento_munyeco = flotar and contador_baj = "000011111" then
-			next_movimiento <= abajo;
+		next_movimiento <= abajo;
+--		if movimiento_munyeco = acelerar then
+--			next_movimiento <= flotar;
+--		elsif movimiento_munyeco = arriba then 
+--			next_movimiento <= flotar;
+--		elsif movimiento_munyeco = quieto then 
+--			next_movimiento <= quieto;
+--		elsif movimiento_munyeco = flotar and contador_baj < "000011111" then
+--			next_movimiento <= flotar;
+--		elsif movimiento_munyeco = flotar and contador_baj = "000011111" then
+--			next_movimiento <= abajo;
 
-		else next_movimiento <= movimiento_munyeco;
-		end if;
+--		else next_movimiento <= movimiento_munyeco;
+--		end if;
 	end if;
 	
 end process estado_munyeco;

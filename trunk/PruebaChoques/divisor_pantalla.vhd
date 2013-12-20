@@ -37,7 +37,7 @@ clk_salida <= clk_aux;
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
 		division <= "001111111111111111111";
-		aumentar <= "000";
+		--aumentar <= "000";
 		
     ELSIF(clk'EVENT AND clk = '1') THEN
       IF (cuenta = division) THEN 
