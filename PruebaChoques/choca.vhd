@@ -28,10 +28,19 @@ signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-signal dir_mem, dir_mem_choque_arriba: std_logic_vector(19-1 downto 0);
+signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(19-1 downto 0);
 signal color, color_choque: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(10 downto 0);
+--SEÑALES DE BARRY TROTTER
+signal posx_munyeco: std_logic_vector(3 downto 0);
+signal posy_munyeco: std_logic_vector(4 downto 0);
+signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
+=======
+signal dir_mem, dir_mem_choque: std_logic_vector(18-1 downto 0);
+signal color, color_choque: std_logic_vector(8 downto 0);
+signal posy: std_logic_vector(7 downto 0);
+signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
@@ -179,12 +188,23 @@ end process;
 ----------------------------------------------------------------------------
 --Movimientos:
 ----------------------------------------------------------------------------
---
+
 --Posiciones de la pantalla
-posy <= vcnt-110;
-posx <= hcnt-4+cuenta_pantalla;
+posy <= vcnt - 110;
+posx <= hcnt - 4 + cuenta_pantalla;
 dir_mem <=  posy & posx;
---dir_mem_choque <=  r_my & "00010100";
+
+--Posiciones para el choque
+posy_choque <= r_my - 110;				--Posicion y del choque
+posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
+dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
+--dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
+--dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
+
+--Posiciones de barry trotter
+posx_munyeco <= hcnt(5 downto 0) - 32;
+posy_munyeco <= vcnt(4 downto 0) - r_my(4 downto 0);
+dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
 --Posiciones de barry trotter
 posx_munyeco <= hcnt - 32;
@@ -246,13 +266,15 @@ begin
 		aux_contador_baj <= (others => '0');
 				
 	else -- movimiento_munyeco = fin
-		my <= "0100000000";
+		r_my <= "0100000000"; -- 128 en decimal
 	end if;
 end process mov_munyeco;
 
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj)
 begin
-	if r_my <= 110 then 
+	if color_choque = "111111000" then
+		next_movimiento <= fin;
+	elsif r_my <= 110 then 
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
@@ -294,11 +316,6 @@ begin
 	end if;
 	
 end process estado_munyeco;
-
-choque_munyeco:process(hcnt, vcnt, r_my, pulsado, color)
-begin
-	
-end process choque_munyeco;
 
 ------------------------------------------------------
 --Pintar:
@@ -344,7 +361,7 @@ end process pinta_munyeco;
 colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco)
 begin
 	if bordes = '1' then rgb <= "110110000";
-	elsif munyeco = '1' then rgb <= color_munyeco;--"111001100";
+	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
 	end if;
