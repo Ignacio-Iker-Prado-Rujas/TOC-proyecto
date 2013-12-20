@@ -36,19 +36,10 @@ signal posx, posx_choque, cuenta_pantalla: std_logic_vector(10 downto 0);
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
-=======
-signal dir_mem, dir_mem_choque: std_logic_vector(18-1 downto 0);
-signal color, color_choque: std_logic_vector(8 downto 0);
-signal posy: std_logic_vector(7 downto 0);
-signal posx, cuenta_pantalla: std_logic_vector(9 downto 0);
---SEÑALES DE BARRY TROTTER
-signal posx_munyeco: std_logic_vector(3 downto 0);
-signal posy_munyeco: std_logic_vector(4 downto 0);
-signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco: std_logic_vector(9-1 downto 0);
 
 --Añadir las señales intermedias necesarias
-signal clk, clk2, relojMovimiento, relojMunyeco: std_logic;
+signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
  
@@ -99,7 +90,7 @@ end component;
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
-Rom: ROM_RGB_9b_nivel_1_0 port map(clk, clk2, dir_mem, dir_mem_choque_arriba, color, color_choque);
+Rom: ROM_RGB_9b_nivel_1_0 port map(clk, relojMovimiento, dir_mem, dir_mem_choque_arriba, color, color_choque);
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
@@ -201,10 +192,6 @@ dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cu
 --dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
 --dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
 
---Posiciones de barry trotter
-posx_munyeco <= hcnt(5 downto 0) - 32;
-posy_munyeco <= vcnt(4 downto 0) - r_my(4 downto 0);
-dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
 --Posiciones de barry trotter
 posx_munyeco <= hcnt - 32;
@@ -237,7 +224,7 @@ begin
 
 end process;
 
-mov_munyeco: process(movimiento_munyeco, r_my)
+mov_munyeco: process(movimiento_munyeco, r_my, contador_sub, contador_baj)
 begin
 	if movimiento_munyeco = quieto then
 		my <= r_my;
@@ -266,7 +253,7 @@ begin
 		aux_contador_baj <= (others => '0');
 				
 	else -- movimiento_munyeco = fin
-		r_my <= "0100000000"; -- 128 en decimal
+		my <= "0100000000"; -- 128 en decimal
 	end if;
 end process mov_munyeco;
 
@@ -342,7 +329,7 @@ begin
 end process pinta_bordes;
 
 
-pinta_munyeco: process(hcnt, vcnt, r_my)
+pinta_munyeco: process(hcnt, vcnt, r_my, color_munyeco)
 begin
 	munyeco <= '0';
 	if hcnt >= 32 and hcnt < 48 then

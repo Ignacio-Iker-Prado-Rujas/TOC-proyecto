@@ -38,7 +38,7 @@ clk_salida <= clk_aux;
       cuenta <= (OTHERS=>'0');
     ELSIF(clk'EVENT AND clk = '1') THEN
 		if ralentizar = '1' then 
-			IF (cuenta="011111111111111111111") THEN 
+			IF (cuenta="001000000000000000000") THEN 
 				clk_aux <= not clk_aux;
 			  cuenta <= (OTHERS=>'0');
 			ELSE
