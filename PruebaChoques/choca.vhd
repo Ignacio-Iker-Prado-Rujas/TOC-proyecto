@@ -52,7 +52,7 @@ port (reset, clk_entrada: in STD_LOGIC;
 end component;
 
 -- Reloj para los obstaculos
-component divisor_pantalla is 
+component divisor_movimiento is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
@@ -91,7 +91,7 @@ end component;
 
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
-Reloj_de_movimiento: divisor_pantalla port map(reset, clk_100M, relojMovimiento);
+Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
 Rom: ROM_RGB_9b_nivel_1_0 port map(clk, relojMovimiento, dir_mem, dir_mem_choque_arriba, color, color_choque);
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
