@@ -6,7 +6,7 @@
 -- Module Name:    divisor - divisor_arch 
 -- Project Name: Jetpack
 -- Target Devices: 
--- Description: Creaci—n de un reloj de 190'7 Hz a partir de uno de 100 MHz, dividiendo por 524288.
+-- Description: Creaci—n de un reloj de 190'7 Hz a partir de uno de 100 MHz, dividiendo por 524288 (1 ciclo cada 5'2 ms).
 --				Ojo, se cuenta de 0 a 262143, se cambia el flaco de subida a bajada (o viceversa),
 --				se vuelve a contar de 0 a 262143 y se vuelve a cambiar, luego un ciclo es como de 0 a 524288.
 --
