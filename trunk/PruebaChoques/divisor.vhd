@@ -1,13 +1,14 @@
 ----------------------------------------------------------------------------------
 -- Company: Universidad Complutense de Madrid
--- Engineer: Hortensia Mecha
+-- Engineer: Pikey Team
 -- 
 -- Design Name: divisor 
 -- Module Name:    divisor - divisor_arch 
--- Project Name: 
+-- Project Name: Jetpack
 -- Target Devices: 
--- Description: Creación de un reloj de 1Hz a partir de
---		un clk de 100 MHz
+-- Description: Creaci—n de un reloj de 12'5 MHz a partir de uno de 100 MHz, dividiendo por 8.
+--				Ojo, se cuenta de 0 a 3, se cambia el flaco de subida a bajada (o viceversa),
+--				se vuelve a contar de 0 a 3 y se vuelve a cambiar, luego un ciclo es como de 0 a 7.
 --
 ----------------------------------------------------------------------------------
 library IEEE;
