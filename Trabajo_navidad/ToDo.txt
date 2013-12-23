@@ -9,3 +9,4 @@
 6º- Niveles. Añadir roms.
 7º- Ir documentando.
 8º- Monedas.
+9º- Caminar sobre los obstáculos.
