@@ -83,11 +83,13 @@ state_choques: process(clk, cuenta_pantalla, r_my)
 begin
 	if(clk'event and clk = '1') then
 		state <= next_state;
+		i <= aux_i;
+		j <= aux_j;
 	end if;
 end process state_choques;
 		
 --3: Process combinacional
-comprueba_choques: process(cuenta_pantalla, r_my)
+comprueba_choques: process(cuenta_pantalla, r_my, i, j)
 begin
 	dir_mem_choque <= j & (i + cuenta_pantalla);
 	if color_choque = "111111000" then -- Amarillo = Obstaculo
@@ -97,25 +99,25 @@ begin
 	end if;
 
 	if(state = inicializa) then
-		i <= 28;
-		j <= r_my-106;
+		aux_i <= 28;
+		aux_j <= r_my-106;
 		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a–adir este if, PREGUNTAR A MARCOS	
-			next_state <= comprueba_cabeza;	
+		next_state <= comprueba_cabeza;	
 	elsif(state = comprueba_cabeza)
 		if(i <= 41) then
-			i <= i + 1;
+			aux_i <= i + 1;
 			next_state = comprueba_cabeza;
 		else
 			next_state = comprueba_frente;
 	elsif(state = comprueba_frente)
 		if(j <= r_my-80) then
-			j <= j + 1;
+			aux_j <= j + 1;
 			next_state = comprueba_frente;
 		else
 			next_state = comprueba_pies;
 	elsif(state = comprueba_pies)
 		if(i >= 28) then
-			i <= i - 1;
+			aux_i <= i - 1;
 			next_state = comprueba_pies;
 		else
 			next_state = inicializa;
