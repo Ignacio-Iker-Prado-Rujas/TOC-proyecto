@@ -29,7 +29,7 @@ signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
 signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(18-1 downto 0);
-signal color, color_choque: std_logic_vector(8 downto 0);
+signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
@@ -44,6 +44,7 @@ signal color_munyeco: std_logic_vector(9-1 downto 0);
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
+signal game_over_on, game_over: std_logic;
  
 -- Reloj para la pantalla
 component divisor is 
@@ -207,7 +208,11 @@ begin
 	if reset='1' then
 		cuenta_pantalla <= "0000000000";
 	elsif (relojMovimiento'event and relojMovimiento='1') then
-		cuenta_pantalla <= cuenta_pantalla + 1;
+		if game_over = '0' then 
+			cuenta_pantalla <= cuenta_pantalla + 1;
+		else 
+			cuenta_pantalla <= cuenta_pantalla;
+		end if;
 		-- el reloj a usar es relojDeVelocidadPantalla
 	end if;
 end process mueve_pantalla;
@@ -235,6 +240,19 @@ begin
 --		ralentizar <= '0';
 --		aux_contador_sub <= (others => '0');
 --		aux_contador_baj <= (others => '0');
+
+	elsif movimiento_munyeco = arriba then
+		my <= r_my-1;
+--		ralentizar <= '0';
+--		aux_contador_sub <= (others => '0');
+--		aux_contador_baj <= (others => '0');	
+
+	elsif movimiento_munyeco = abajo then
+		my <= r_my+1;
+--		ralentizar <= '0';
+--		aux_contador_sub <= (others => '0');	
+--		aux_contador_baj <= (others => '0');
+
 		
 --	elsif movimiento_munyeco = acelerar then
 --		my <= r_my-1;
@@ -245,32 +263,22 @@ begin
 --		my <= r_my+1;
 --		ralentizar <= '1';
 --		aux_contador_baj <= contador_baj +1;
-	elsif movimiento_munyeco = arriba then
-		my <= r_my-1;
---		ralentizar <= '0';
---		aux_contador_sub <= (others => '0');
---		aux_contador_baj <= (others => '0');
-	elsif movimiento_munyeco = abajo then
-		my <= r_my+1;
---		ralentizar <= '0';
---		aux_contador_sub <= (others => '0');	
---		aux_contador_baj <= (others => '0');
---				
+		
 	else -- movimiento_munyeco = fin
-		my <= "0100000000"; -- 128 en decimal
+		my <= r_my;
 	end if;
 end process mov_munyeco;
 
-estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj)
+estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj, game_over)
 begin
-	if color_choque = "111111000" then
+	if game_over = '1' then
 		next_movimiento <= fin;
 	elsif r_my <= 110 then 
 		if pulsado = '1' then
 			next_movimiento <= quieto;
 		else 
 --			next_movimiento <= flotar;
-		next_movimiento <= abajo;
+			next_movimiento <= abajo;
 		end if;
 	elsif r_my >= 302 then
 		if pulsado = '0' then
@@ -350,12 +358,26 @@ begin
 	end if;
 end process pinta_munyeco;
 
+
+pinta_game_over: process(hcnt, vcnt, game_over )
+begin
+	game_over_on <= '0';
+	--Buscar zona para pintar game over
+	if hcnt >= 32 and hcnt < 128 then
+		if vcnt >= 248 and vcnt < 345		then
+			if game_over = '1' then
+				game_over_on <= '1';
+			end if;
+		end if;
+	end if;
+end process pinta_game_over;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
-colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco)
+colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco, game_over_on, imagen_game_over)
 begin
 	if bordes = '1' then rgb <= "110110000";
+	elsif game_over_on = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
