@@ -8,5 +8,5 @@
 -----A la vuelta de navidad se probará-------
 6º- Niveles. Añadir roms.
 7º- Ir documentando.
-8º- Monedas.
+8º- Monedas. Contador de monedas y si eso de metros.
 9º- Caminar sobre los obstáculos.
