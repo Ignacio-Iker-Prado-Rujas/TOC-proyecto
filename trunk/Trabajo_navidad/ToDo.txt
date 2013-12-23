@@ -6,7 +6,7 @@
 4º- Añadir el pause. Usar tecla p.
 5º- Probar el aleatorio para el mapa.
 -----A la vuelta de navidad se probará-------
-6º- Niveles. Añadir roms.
+6º- Niveles. Añadir roms. Mapas más complicados, cuando sepamos más de la memoria.
 7º- Ir documentando.
 8º- Monedas. Contador de monedas y si eso de metros.
 9º- Caminar sobre los obstáculos.
