@@ -390,7 +390,7 @@ begin
 	dir_mem_choque <= j & (i + cuenta_pantalla);
 	if state = inicializa then
 		aux_i <= conv_std_logic_vector(28, 10);
-		aux_j <= r_my-conv_std_logic_vector(106, 8);
+		aux_j <= r_my - conv_std_logic_vector(106, 8);
 		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS	
 		next_state <= comprueba_cabeza;	
 	elsif state = comprueba_cabeza then
@@ -417,6 +417,7 @@ begin
 		else
 			next_state <= inicializa;
 		end if;
+		
 	end if;
 end process comprueba_choques;
 ------------------------------------------------------
