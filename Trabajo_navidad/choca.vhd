@@ -22,6 +22,7 @@ architecture vgacore_arch of vgacore is
 
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies);
+type estados_juego is (playing, game_over, pause);
 
 signal state, next_state : estado_choques := inicializa;
 signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
@@ -30,7 +31,8 @@ signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-signal dir_mem, dir_mem_choque_arriba, dir_mem_choque_abajo, dir_mem_choque_derecha: std_logic_vector(18-1 downto 0);
+signal dir_mem: std_logic_vector(18-1 downto 0);
+signal dir_mem_game_over: std_logic_vector(12 downto 0);
 signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
@@ -44,14 +46,17 @@ signal color_munyeco: std_logic_vector(9-1 downto 0);
 
 --Señales para los choques (contadores y direccion de choque):
 signal i, aux_i: std_logic_vector(9 downto 0);
-signal j, aux_j: std_logic_vector(9 downto 0);
-signal dir_mem_choque: std_logic_vector(17 downto 0);
+signal j, aux_j: std_logic_vector(7 downto 0);
+signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 
 --Añadir las señales intermedias necesarias
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
-signal game_over_on, game_over: std_logic;
+
+--Estados del juego
+signal estado_juego, next_estado_juego: estados_juego;
+signal paint_game_over: std_logic;
  
 -- Reloj para la pantalla
 component divisor is 
@@ -78,7 +83,7 @@ component control_teclado is
 end component;
 
 -- ROM para las imagenes
-component ROM_RGB_9b_nivel_1_0 is
+component ROM_RGB_9b_mapa_facil is
     port (
     clk					  : in  std_logic;   -- reloj
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
@@ -95,17 +100,31 @@ component ROM_RGB_9b_Joyride is
   );
 end component;
 
-
+--Rom del game over
+--component ROM_RGB_9b_game_over_negro is
+--  port (
+--    clk  : in  std_logic;   -- reloj
+--    addr : in  std_logic_vector(13-1 downto 0);
+--    dout : out std_logic_vector(9-1 downto 0) 
+--  );
+--end component;
 
 begin
+
+---Reloj
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
-Rom: ROM_RGB_9b_nivel_1_0 port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
-Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
 clk_100M <= clock;
 clk <= clk_1;
+
+---Rom
+Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
+Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
+--Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
+
+
 
 A: process(clk,reset)
 begin
@@ -196,9 +215,9 @@ posx <= hcnt - 4 + cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones para el choque
-posy_choque <= r_my - 110;				--Posicion y del choque
-posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
-dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
+--posy_choque <= r_my - 110;				--Posicion y del choque
+--posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
+--dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
 --dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
 --dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
 
@@ -210,12 +229,12 @@ dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
 --we<= '0';
 --din <= (others => '0');
-mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla)
+mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla, estado_juego)
 begin
 	if reset='1' then
 		cuenta_pantalla <= "0000000000";
 	elsif (relojMovimiento'event and relojMovimiento='1') then
-		if game_over = '0' then 
+		if estado_juego = playing then 
 			cuenta_pantalla <= cuenta_pantalla + 1;
 		else 
 			cuenta_pantalla <= cuenta_pantalla;
@@ -276,9 +295,33 @@ begin
 	end if;
 end process mov_munyeco;
 
-estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj, game_over)
+
+------Controlador de los estados del juego
+clock_estado_juego: process (reset, clk)
 begin
-	if game_over = '1' then
+	if reset = '1' then
+		estado_juego <= playing;
+	elsif clk' event and clk = '1' then
+		estado_juego <= next_estado_juego;
+	end if;
+end process clock_estado_juego;
+
+controla_juego: process(estado_juego, pulsado, color_choque)
+	begin
+	if color_choque = "111111000"  then
+		next_estado_juego <= game_over;
+	elsif pulsado = '1' then
+		next_estado_juego <= playing;
+	else
+		next_estado_juego <= estado_juego;
+	end if;
+		
+end process controla_juego;
+
+--------------------------------------------
+estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj, estado_juego)
+begin
+	if estado_juego = game_over then
 		next_movimiento <= fin;
 	elsif r_my <= 110 then 
 		if pulsado = '1' then
@@ -339,22 +382,19 @@ begin
 	end if;
 end process state_choques;
 		
---Process combinacional que actualiza estados
-comprueba_choques: process(cuenta_pantalla, r_my, i, j, color_choque)
+--Process que actualiza estados
+comprueba_choques: process(cuenta_pantalla, r_my, i, j, color_choque, state)
 begin
+--	i <= cuenta_pantalla + 41;
+--	j <= r_my - 106;
 	dir_mem_choque <= j & (i + cuenta_pantalla);
-	if color_choque = "111111000" then -- Amarillo = Obstaculo
-		game_over <= '1';
-	else 
-		game_over <= game_over OR '0';
-	end if;
-
 	if state = inicializa then
 		aux_i <= conv_std_logic_vector(28, 10);
-		aux_j <= r_my-conv_std_logic_vector(106, 10);
+		aux_j <= r_my-conv_std_logic_vector(106, 8);
 		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS	
 		next_state <= comprueba_cabeza;	
 	elsif state = comprueba_cabeza then
+		aux_j <= j;
 		if i <= 41  then
 			aux_i <= i + 1;
 			next_state <= comprueba_cabeza;
@@ -362,6 +402,7 @@ begin
 			next_state <= comprueba_frente;
 		end if;
 	elsif state = comprueba_frente then
+		aux_i <= i;
 		if j <= r_my-80 then
 			aux_j <= j + 1;
 			next_state <= comprueba_frente;
@@ -369,6 +410,7 @@ begin
 			next_state <= comprueba_pies;
 		end if;
 	elsif state = comprueba_pies then
+		aux_j <= j;
 		if i >= 28 then
 			aux_i <= i - 1;
 			next_state <= comprueba_pies;
@@ -416,14 +458,14 @@ begin
 end process pinta_munyeco;
 
 
-pinta_game_over: process(hcnt, vcnt, game_over )
+pinta_game_over: process(hcnt, vcnt, estado_juego)
 begin
-	game_over_on <= '0';
+	paint_game_over <= '0';
 	--Buscar zona para pintar game over
-	if hcnt >= 32 and hcnt < 128 then
-		if vcnt >= 248 and vcnt < 345		then
-			if game_over = '1' then
-				game_over_on <= '1';
+	if hcnt >= 82 and hcnt < 178 then
+		if vcnt >= 148 and vcnt < 325		then
+			if estado_juego = game_over then
+				paint_game_over <= '1';
 			end if;
 		end if;
 	end if;
@@ -431,10 +473,10 @@ end process pinta_game_over;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
-colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco, game_over_on, imagen_game_over)
+colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco, paint_game_over, imagen_game_over)
 begin
 	if bordes = '1' then rgb <= "110110000";
-	elsif game_over_on = '1' then rgb <= imagen_game_over;
+	elsif paint_game_over = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif dibujo = '1' then rgb <= color;
 	else rgb <= "000000000";
