@@ -75,10 +75,14 @@ end process comprueba_choques;
 --------------------------------------------------------------------------------------------------------
 -- VERSION CON ESTADOS, parece la buena, NO TOCAR, CONSULTAR CON KIKE O IKER O KIKER
 
---1: La ROM, QUITAR UN RELOJ
+HECHO--1: La ROM, QUITAR UN RELOJ
+Tambien he añadido los estados: type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies);
+								signal state, next_state : estado_choques := inicializa;
 Rom: ROM_RGB_9b_nivel_1_0 port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
 			
 --2: Process de los estados
+Tambien defino las señales i, j, aux_i y aux_j: signal i, aux_i: std_logic_vector(9 downto 0);
+												signal j, aux_j: std_logic_vector(9 downto 0);
 state_choques: process(clk, cuenta_pantalla, r_my)
 begin
 	if(clk'event and clk = '1') then
@@ -98,29 +102,32 @@ begin
 		game_over <= game_over OR '0';
 	end if;
 
-	if(state = inicializa) then
+	if state = inicializa then
 		aux_i <= 28;
 		aux_j <= r_my-106;
-		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a–adir este if, PREGUNTAR A MARCOS	
+		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS	
 		next_state <= comprueba_cabeza;	
-	elsif(state = comprueba_cabeza)
-		if(i <= 41) then
+	elsif state = comprueba_cabeza then
+		if i <= 41  then
 			aux_i <= i + 1;
-			next_state = comprueba_cabeza;
+			next_state <= comprueba_cabeza;
 		else
-			next_state = comprueba_frente;
-	elsif(state = comprueba_frente)
-		if(j <= r_my-80) then
+			next_state <= comprueba_frente;
+		end if;
+	elsif state = comprueba_frente then
+		if j <= r_my-80 then
 			aux_j <= j + 1;
-			next_state = comprueba_frente;
+			next_state <= comprueba_frente;
 		else
-			next_state = comprueba_pies;
-	elsif(state = comprueba_pies)
-		if(i >= 28) then
+			next_state <= comprueba_pies;
+		end if;
+	elsif state = comprueba_pies then
+		if i >= 28 then
 			aux_i <= i - 1;
-			next_state = comprueba_pies;
+			next_state <= comprueba_pies;
 		else
-			next_state = inicializa;
+			next_state <= inicializa;
+		end if;
 	end if;
 end process comprueba_choques;
 

@@ -21,7 +21,9 @@ end vgacore;
 architecture vgacore_arch of vgacore is
 
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
+type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies);
 
+signal state, next_state : estado_choques := inicializa;
 signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
 signal ralentizar: std_logic;
@@ -39,6 +41,11 @@ signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco: std_logic_vector(9-1 downto 0);
 --señales ram
 --signal we : std_logic;
+
+--Señales para los choques (contadores y direccion de choque):
+signal i, aux_i: std_logic_vector(9 downto 0);
+signal j, aux_j: std_logic_vector(9 downto 0);
+signal dir_mem_choque: std_logic_vector(17 downto 0);
 
 --Añadir las señales intermedias necesarias
 signal clk, relojMovimiento, relojMunyeco: std_logic;
@@ -73,7 +80,7 @@ end component;
 -- ROM para las imagenes
 component ROM_RGB_9b_nivel_1_0 is
     port (
-    clk, clk2  : in  std_logic;   -- reloj
+    clk					  : in  std_logic;   -- reloj
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
   );
@@ -93,7 +100,7 @@ end component;
 begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
-Rom: ROM_RGB_9b_nivel_1_0 port map(clk, relojMovimiento, dir_mem, dir_mem_choque_arriba, color, color_choque);
+Rom: ROM_RGB_9b_nivel_1_0 port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
@@ -319,7 +326,57 @@ begin
 	end if;
 	
 end process estado_munyeco;
+------------------------------------------------------
+--Choques:
+------------------------------------------------------
+--Process de los estados
+state_choques: process(clk, next_state, aux_i, aux_j)
+begin
+	if(clk'event and clk = '1') then
+		state <= next_state;
+		i <= aux_i;
+		j <= aux_j;
+	end if;
+end process state_choques;
+		
+--Process combinacional que actualiza estados
+comprueba_choques: process(cuenta_pantalla, r_my, i, j, color_choque)
+begin
+	dir_mem_choque <= j & (i + cuenta_pantalla);
+	if color_choque = "111111000" then -- Amarillo = Obstaculo
+		game_over <= '1';
+	else 
+		game_over <= game_over OR '0';
+	end if;
 
+	if state = inicializa then
+		aux_i <= conv_std_logic_vector(28, 10);
+		aux_j <= r_my-conv_std_logic_vector(106, 10);
+		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS	
+		next_state <= comprueba_cabeza;	
+	elsif state = comprueba_cabeza then
+		if i <= 41  then
+			aux_i <= i + 1;
+			next_state <= comprueba_cabeza;
+		else
+			next_state <= comprueba_frente;
+		end if;
+	elsif state = comprueba_frente then
+		if j <= r_my-80 then
+			aux_j <= j + 1;
+			next_state <= comprueba_frente;
+		else
+			next_state <= comprueba_pies;
+		end if;
+	elsif state = comprueba_pies then
+		if i >= 28 then
+			aux_i <= i - 1;
+			next_state <= comprueba_pies;
+		else
+			next_state <= inicializa;
+		end if;
+	end if;
+end process comprueba_choques;
 ------------------------------------------------------
 --Pintar:
 -------------------------------------------------------
