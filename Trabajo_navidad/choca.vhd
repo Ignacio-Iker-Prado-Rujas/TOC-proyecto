@@ -21,7 +21,7 @@ end vgacore;
 architecture vgacore_arch of vgacore is
 
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
-type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies);
+type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies, comprueba_espalda);
 type estados_juego is (playing, game_over, pause);
 
 signal state, next_state : estado_choques := inicializa;
@@ -212,8 +212,8 @@ end process;
 ----------------------------------------------------------------------------
 
 --Posiciones de la pantalla
-posy <= vcnt - 110;
-posx <= hcnt - 4 + cuenta_pantalla;
+posy <= vcnt - 111;
+posx <= hcnt - 5 + cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones para el choque
@@ -391,42 +391,57 @@ begin
 	end if;
 end process state_choques;
 		
+		
+dir_mem_choque <= j & (i + cuenta_pantalla);
 --Process que actualiza estados
 comprueba_choques: process(cuenta_pantalla, r_my, i, j, color_choque, state)
 begin
---	i <= cuenta_pantalla + 41;
---	j <= r_my - 106;
-	dir_mem_choque <= j & (i + cuenta_pantalla);
 	if state = inicializa then
-		aux_i <= conv_std_logic_vector(28, 10);
-		aux_j <= r_my - conv_std_logic_vector(106, 8);
-		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS	
-		next_state <= comprueba_cabeza;	
+		aux_i <= "0000011011"; --Valor 27 (10 bits)
+		aux_j <= r_my - "01101011"; --Valor 107 (8 bits)
+		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS			
+		next_state <= comprueba_cabeza;
 	elsif state = comprueba_cabeza then
-		aux_j <= j;
-		if i <= 41  then
+--		aux_i <= "0000101000";
+--		aux_j <= r_my - "01101011";
+--		next_state <= comprueba_frente;	
+		aux_j <= r_my - "01101011";
+		if i < 40  then
 			aux_i <= i + 1;
 			next_state <= comprueba_cabeza;
 		else
 			next_state <= comprueba_frente;
 		end if;
 	elsif state = comprueba_frente then
-		aux_i <= i;
-		if j <= r_my-80 then
+--		aux_i <= "0000101000";
+--		aux_j <= r_my - "01010010";
+--		next_state <= comprueba_pies;	
+		aux_i <= "0000101000";
+		if j < r_my - 82 then
 			aux_j <= j + 1;
 			next_state <= comprueba_frente;
 		else
 			next_state <= comprueba_pies;
 		end if;
 	elsif state = comprueba_pies then
-		aux_j <= j;
-		if i >= 28 then
+--		aux_i <= "0000011011";
+--		aux_j <= r_my - "01010010";
+--		next_state <= inicializa;	
+		aux_j <= r_my - "01010010";
+		if i > 27 then
 			aux_i <= i - 1;
 			next_state <= comprueba_pies;
 		else
-			next_state <= inicializa;
+			next_state <= comprueba_espalda;
 		end if;
-		
+	elsif state = comprueba_espalda then
+		aux_i <= "0000011011";
+		if j > r_my - 107 then
+			aux_j <= j - 1;
+			next_state <= comprueba_espalda;
+		else
+			next_state <= comprueba_cabeza;
+		end if;
 	end if;
 end process comprueba_choques;
 ------------------------------------------------------
