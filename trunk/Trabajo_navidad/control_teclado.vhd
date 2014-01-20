@@ -24,7 +24,8 @@ use IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 entity control_teclado is
 	port (PS2CLK, reset, PS2DATA: in std_logic;
-	pulsado: out std_logic);
+	pulsado: out std_logic;
+	pausado: out std_logic);
 end control_teclado;
 
 architecture estructural of control_teclado is
@@ -61,9 +62,10 @@ process(Fu, rout, levanta)
 --	elsif levanta = "00100011" then pulsado <= '1';
 --	
 --	else pulsado <= '0';
-	if rout = "11110000" then pulsado <= '0';
-	elsif levanta = "00101001" then pulsado <= '1';
-	else pulsado <= '0';
+	if rout = "11110000" then pulsado <= '0';pausado <= '0'; -- levantado
+	elsif levanta = "00101001" then pulsado <= '1';--pulsado el espacio
+	elsif levanta = "01001101" then pausado <= '1';
+	else pulsado <= '0'; pausado <= '0';
 	end if;
 
 end process;
