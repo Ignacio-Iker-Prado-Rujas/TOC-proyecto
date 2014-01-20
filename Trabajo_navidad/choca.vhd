@@ -53,6 +53,7 @@ signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
+signal pausado: std_logic;--señal de pausa pausa jajajajajjasjaj
 
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
@@ -79,7 +80,8 @@ end component;
 -- Controlador del teclado
 component control_teclado is
 	port (PS2CLK, reset, PS2DATA: in std_logic;
-	pulsado: out std_logic);
+	pulsado: out std_logic;
+	pausado: out std_logic);
 end component;
 
 -- ROM para las imagenes
@@ -115,7 +117,7 @@ begin
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
-Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado);
+Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado, pausado);
 clk_100M <= clock;
 clk <= clk_1;
 
@@ -312,6 +314,11 @@ controla_juego: process(estado_juego, pulsado, color_choque)
 		next_estado_juego <= game_over;
 	elsif pulsado = '1' then
 		next_estado_juego <= playing;
+	elsif pausado = '1' then
+		next_estado_juego <= pause;
+		--if estado_juego = playing then next_estado_juego <= pause;
+		--elsif estado_juego = pause then next_estado_juego <= playing;
+		--end if;
 	else
 		next_estado_juego <= estado_juego;
 	end if;
@@ -322,6 +329,8 @@ end process controla_juego;
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj, estado_juego)
 begin
 	if estado_juego = game_over then
+		next_movimiento <= fin;
+	elsif estado_juego = pause then
 		next_movimiento <= fin;
 	elsif r_my <= 110 then 
 		if pulsado = '1' then
