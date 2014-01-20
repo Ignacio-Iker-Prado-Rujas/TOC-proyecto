@@ -31,10 +31,13 @@ signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
-signal dir_mem: std_logic_vector(18-1 downto 0);
+signal dir_mem: std_logic_vector(16-1 downto 0);
 signal dir_mem_game_over: std_logic_vector(12 downto 0);
 signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
-signal posy, posy_choque: std_logic_vector(7 downto 0);
+--signal posy, posy_choque: std_logic_vector(7 downto 0);
+signal  posy_choque: std_logic_vector(7 downto 0);
+signal posy: std_logic_vector(5 downto 0);
+--comentar lo de arriba
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
@@ -47,7 +50,7 @@ signal color_munyeco: std_logic_vector(9-1 downto 0);
 --Señales para los choques (contadores y direccion de choque):
 signal i, aux_i: std_logic_vector(9 downto 0);
 signal j, aux_j: std_logic_vector(7 downto 0);
-signal dir_mem_choque: std_logic_vector(18-1 downto 0);
+signal dir_mem_choque: std_logic_vector(16-1 downto 0);
 
 --Añadir las señales intermedias necesarias
 signal clk, relojMovimiento, relojMunyeco: std_logic;
@@ -85,10 +88,10 @@ component control_teclado is
 end component;
 
 -- ROM para las imagenes
-component ROM_RGB_9b_mapa_facil is
+component ROM_RGB_9b_pokemonpeque is
     port (
     clk					  : in  std_logic;   -- reloj
-    addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
+    addr, addr_munyeco : in  std_logic_vector(16-1 downto 0);
     dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
   );
 end component;--ROM_RGB_9b_nivel_1_0;
@@ -122,7 +125,7 @@ clk_100M <= clock;
 clk <= clk_1;
 
 ---Rom
-Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
+Rom: ROM_RGB_9b_pokemonpeque port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 --Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
 
@@ -313,7 +316,7 @@ controla_juego: process(estado_juego, pulsado, color_choque)
 	if color_choque = "111111000"  then
 		next_estado_juego <= game_over;
 	elsif pulsado = '1' then
-		next_estado_juego <= playing;
+		next_estado_juego <= playing;--Esta es la línea maestra, aunque kike no se acordaba porque estaba borracho cuando la escribió
 	elsif pausado = '1' then
 		next_estado_juego <= pause;
 		--if estado_juego = playing then next_estado_juego <= pause;
