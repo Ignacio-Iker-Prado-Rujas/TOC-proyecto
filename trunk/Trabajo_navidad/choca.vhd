@@ -32,7 +32,7 @@ signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
 signal dir_mem: std_logic_vector(18-1 downto 0);
-signal dir_mem_game_over: std_logic_vector(12 downto 0);
+signal dir_mem_game_over: std_logic_vector(11 downto 0);
 signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
@@ -58,7 +58,9 @@ signal pausado: std_logic;--señal de pausa pausa jajajajajjasjaj
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
 signal paint_game_over: std_logic;
- 
+signal pos_go_y: std_logic_vector(4 downto 0);
+signal pos_go_x: std_logic_vector(6 downto 0); 
+
 -- Reloj para la pantalla
 component divisor is 
 port (reset, clk_entrada: in STD_LOGIC;
@@ -103,13 +105,13 @@ component ROM_RGB_9b_Joyride is
 end component;
 
 --Rom del game over
---component ROM_RGB_9b_game_over_negro is
---  port (
---    clk  : in  std_logic;   -- reloj
---    addr : in  std_logic_vector(13-1 downto 0);
---    dout : out std_logic_vector(9-1 downto 0) 
---  );
---end component;
+component ROM_RGB_9b_game_over_negro is
+  port (
+    clk  : in  std_logic;   -- reloj
+    addr : in  std_logic_vector(12-1 downto 0);
+    dout : out std_logic_vector(9-1 downto 0) 
+  );
+end component;
 
 begin
 
@@ -124,7 +126,7 @@ clk <= clk_1;
 ---Rom
 Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
---Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
+Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
 
 
 
@@ -212,8 +214,8 @@ end process;
 ----------------------------------------------------------------------------
 
 --Posiciones de la pantalla
-posy <= vcnt - 111;
-posx <= hcnt - 5 + cuenta_pantalla;
+posy <= vcnt - 110;
+posx <= hcnt - 4 + cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones para el choque
@@ -229,8 +231,14 @@ posx_munyeco <= hcnt - 32;
 posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
---we<= '0';
---din <= (others => '0');
+
+
+--Posiciones del game over
+pos_go_y <= vcnt - 222;
+pos_go_x <= hcnt - 68;
+dir_mem_game_over <=  pos_go_y & pos_go_x;
+
+
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla, estado_juego)
 begin
 	if reset='1' then
@@ -399,12 +407,8 @@ begin
 	if state = inicializa then
 		aux_i <= "0000011011"; --Valor 27 (10 bits)
 		aux_j <= r_my - "01101011"; --Valor 107 (8 bits)
-		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS			
 		next_state <= comprueba_cabeza;
 	elsif state = comprueba_cabeza then
---		aux_i <= "0000101000";
---		aux_j <= r_my - "01101011";
---		next_state <= comprueba_frente;	
 		aux_j <= r_my - "01101011";
 		if i < 40  then
 			aux_i <= i + 1;
@@ -413,9 +417,6 @@ begin
 			next_state <= comprueba_frente;
 		end if;
 	elsif state = comprueba_frente then
---		aux_i <= "0000101000";
---		aux_j <= r_my - "01010010";
---		next_state <= comprueba_pies;	
 		aux_i <= "0000101000";
 		if j < r_my - 82 then
 			aux_j <= j + 1;
@@ -424,9 +425,6 @@ begin
 			next_state <= comprueba_pies;
 		end if;
 	elsif state = comprueba_pies then
---		aux_i <= "0000011011";
---		aux_j <= r_my - "01010010";
---		next_state <= inicializa;	
 		aux_j <= r_my - "01010010";
 		if i > 27 then
 			aux_i <= i - 1;
@@ -487,8 +485,8 @@ pinta_game_over: process(hcnt, vcnt, estado_juego)
 begin
 	paint_game_over <= '0';
 	--Buscar zona para pintar game over
-	if hcnt >= 82 and hcnt < 178 then
-		if vcnt >= 148 and vcnt < 325		then
+   if hcnt >= 68 and hcnt < 196 then 
+		if vcnt >= 222 and vcnt < 254	then
 			if estado_juego = game_over then
 				paint_game_over <= '1';
 			end if;
