@@ -214,8 +214,8 @@ end process;
 ----------------------------------------------------------------------------
 
 --Posiciones de la pantalla
-posy <= vcnt - 110;
-posx <= hcnt - 4 + cuenta_pantalla;
+posy <= vcnt - 111;
+posx <= hcnt - 5 + cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones para el choque
