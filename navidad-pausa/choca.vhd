@@ -23,6 +23,7 @@ architecture vgacore_arch of vgacore is
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies);
 type estados_juego is (playing, game_over, pause);
+type estado_niveles is (nivel1, nivel2, nivel3, nivel4, nivel5);
 
 signal state, next_state : estado_choques := inicializa;
 signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
