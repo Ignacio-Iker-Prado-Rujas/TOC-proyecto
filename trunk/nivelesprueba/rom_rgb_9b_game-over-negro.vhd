@@ -29,7 +29,7 @@ library IEEE;
 entity ROM_RGB_9b_game_over_negro is
   port (
     clk  : in  std_logic;   -- reloj
-    addr : in  std_logic_vector(13-1 downto 0);
+    addr : in  std_logic_vector(12-1 downto 0);
     dout : out std_logic_vector(9-1 downto 0) 
   );
 end ROM_RGB_9b_game_over_negro;
