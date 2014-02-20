@@ -1,0 +1,3 @@
+que eres un notas
+Aquí esta el mapa rosa que funciona, sin obstáculos
+quedan añadir los obstáculos y cambiar de nivel, y comprobar cómo de grande se puede hacer el mapa
