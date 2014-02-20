@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
---Pasos: Arreglar el teclado. Hacer los choques. Independizar relojes. Estado quieto.
+--Pasos: Arreglar el teclado. Hacer los choques. Independizar relojes. Estado quieto. Jesús.
 
 entity vgacore is
 	port
@@ -32,11 +32,13 @@ signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
 signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
 signal dir_mem: std_logic_vector(18-1 downto 0);
+signal dir_mem_marcador: std_logic_vector(11-1 downto 0);
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
-signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
+signal color, color_marcador, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
 --SEÑALES DE BARRY TROTTER
+
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
@@ -55,11 +57,18 @@ signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
 signal pausado: std_logic;--señal de pausa pausa jajajajajjasjaj
 
+--Señales de los marcadores
+signal cuenta_metros : integer;
+signal paint_marcador : std_logic;
+
+
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
 signal paint_game_over: std_logic;
 signal pos_go_y: std_logic_vector(4 downto 0);
 signal pos_go_x: std_logic_vector(6 downto 0); 
+signal pos_co_y: std_logic_vector(3 downto 0);
+signal pos_co_x: std_logic_vector(6 downto 0); 
 
 -- Reloj para la pantalla
 component divisor is 
@@ -113,6 +122,15 @@ component ROM_RGB_9b_game_over_negro is
   );
 end component;
 
+--Rom del marcador
+component ROM_RGB_9b_marcador is
+  port (
+    clk  : in  std_logic;   -- reloj
+    addr : in  std_logic_vector(11-1 downto 0);
+    dout : out std_logic_vector(9-1 downto 0) 
+  );
+end component;
+
 begin
 
 ---Reloj
@@ -127,7 +145,7 @@ clk <= clk_1;
 Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
-
+Rom_marcador: ROM_RGB_9b_marcador port map(clk, dir_mem_marcador, color_marcador);
 
 
 A: process(clk,reset)
@@ -237,6 +255,12 @@ dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 pos_go_y <= vcnt - 222;
 pos_go_x <= hcnt - 68;
 dir_mem_game_over <=  pos_go_y & pos_go_x;
+
+
+--Posiciones del marcador
+pos_co_y <= vcnt - 50;
+pos_co_x <= hcnt - 200;
+dir_mem_marcador <=  pos_co_y & pos_co_x;
 
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla, estado_juego)
@@ -493,6 +517,16 @@ begin
 		end if;
 	end if;
 end process pinta_game_over;
+
+pinta_marcador: process(hcnt, vcnt)
+begin
+	paint_marcador <= '0';
+	if hcnt >= 200 and hcnt < 208 then
+		if vcnt >= 50 and vcnt < 66 then
+			paint_marcador <= '1';
+		end if;
+	end if;
+end process pinta_marcador;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
@@ -502,8 +536,21 @@ begin
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif dibujo = '1' then rgb <= color;
+	elsif paint_marcador = '1' then rgb <= color_marcador;
 	else rgb <= "000000000";
 	end if;
 end process colorear;
+--
+--pintamarcador: process(cuenta_pantalla)
+--cuenta_metros <= 7;
+--
+--end process;
+--
+----MARCADOR---
+--actualiza_metros: process(cuenta_pantalla)
+--	cuenta_metros <= cuenta_metros+1;
+--	
+--
+--end process;
 ---------------------------------------------------------------------------
 end vgacore_arch;
