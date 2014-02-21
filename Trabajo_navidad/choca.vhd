@@ -2,8 +2,8 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
+--TrabajoNavidad
 
---Pasos: Arreglar el teclado. Hacer los choques. Independizar relojes. Estado quieto. Jesús.
 
 entity vgacore is
 	port
