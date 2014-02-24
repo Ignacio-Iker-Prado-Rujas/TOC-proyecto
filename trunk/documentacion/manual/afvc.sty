@@ -1,0 +1,32 @@
+
+%%%	OPERADORES	%%%
+\DeclareMathOperator{\dist}{d}		% distancia
+\DeclareMathOperator{\re}{Re}		%	parte real
+\DeclareMathOperator{\im}{Im}	% parte imaginaria
+\DeclareMathOperator{\argum}{arg}	% argumento
+\DeclareMathOperator{\ind}{Ind} 	% Indice de una curva
+\DeclareMathOperator{\har}{Har} 	%Conjunto de las funciones armónicas
+\DeclareMathOperator{\holo}{\mathscr{H}} %Conjunto de funciones holomorfas
+\DeclareMathOperator{\mero}{\mathscr{M}} %Conjunto de funciones meromorfas
+
+
+%%% SOME COMMANDS	%%%
+\newcommand{\iu}{i}						% unidad imaginaria
+\newcommand{\conj}[1]{\overline{#1}}		%conjugado
+\newcommand{\res}[2]{\underset{z=#1}{\textup{\textsf{Res}}}\pa{#2}}		% residuo de #2 en #1
+\newcommand{\discoA}[2]{\textup{\textsf{D}}(#1,#2)}		% disco abierto
+\newcommand{\discoC}[2]{\overline{\textup{\textsf{D}}}(#1,#2)}	% disco cerrado
+\newcommand{\circun}[2]{\textup{\textsf{C}}\pa{#1,#2}}		% circunferencia
+\newcommand{\inside}[1]{\textup{\textsf{Int}}\pa{#1}}	%interior de #1
+\newcommand{\interior}[1]{\overset{~\circ}{#1}}	%interior de #1
+\newcommand{\adherencia}[1]{\overline{#1}}		%adherencia de #1
+\newcommand{\dif}[1]{\hspace{0.05cm} \textrm{d} #1} 	%diferencial de #1
+
+\newcommand\rest[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}		% restriccion to
+
+%%%			%%%
