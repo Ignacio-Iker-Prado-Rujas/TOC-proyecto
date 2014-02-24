@@ -1,0 +1,263 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%%						dgp.sty
+%%					(ver. 2.0.1-20130922)
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%		PAQUETES		%%%%%%
+
+\usepackage{enumerate}
+\usepackage{multicol}			% texto en varias columnas
+\usepackage{pdfpages}		% insertar pdfs
+\usepackage{emptypage}		% para quitar los encabezados de las p?ginas en blanco
+\usepackage{multirow}		% multifilas y multicolumnas en tablas
+\usepackage{supertabular}		% tablas de varias p?ginas
+\usepackage{footnote}		% permite mostrar pies de p?gina que est?n dentro de tablas.
+\usepackage{array}			% mejoras para los entornos array
+\usepackage{appendix}		% uso de ap?ndices
+\usepackage{subcaption}		% anidamiento de im?genes en entornos figure
+\usepackage[normalem]{ulem}	% paquete para el subrayado..
+\usepackage{makeidx}		% paquete para el índice
+\usepackage{nameref}		% nombres para las referencias.
+\usepackage[mathscr]{eucal}	% tipografía mathscr.
+\usepackage{graphicx}		% imagenes
+
+
+%%%%%	CHAPTER STYLE	%%%%%%%
+
+\usepackage[Bjornstrup]{fncychap}
+
+%%%%%	HEADINGS & FOOTNOTES STYLE	%%%%%
+\usepackage{fancyhdr}		% paquete para encabezados y pies de p?gina
+%
+% Los encabezados y pies deben personalizarse en cada documento
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%% PAQUETES PARA LOS MODOS MATEM?TICOS %%%%%%%%
+
+\usepackage{amsmath}	% entornos Amercian Matematics Society
+\usepackage{amsthm}	% paquete AMS theorem
+\usepackage{dsfont}		% para usar "mathds"
+\usepackage{amssymb}	%tipograf?a mathbb
+\usepackage{thmtools}	% paquete para mejorar el estilo de los entornos theorem-like. Debe cargarse despues de amsthm.
+\usepackage{mathabx}		%norma matricial
+
+%%%%% PAQUETES PARA MEJORAR LA "APARIENCIA" DEL MODO MATEM?TICO %%%%%
+
+\usepackage{mathtools}	% s?mbolos
+\usepackage{etextools}	% tratamiento de macros en modo matem?tico
+\usepackage{lmodern}		% tipograf?as m?s cuidadas
+\usepackage{xfrac}		% paquete para varios tipo de fracciones (las peque?as, sfrac)
+\usepackage{ifthen}		% para que funcionen los jodidos newdelimcommand
+\usepackage{centernot}	% para tachar flechas y otros elementos
+\usepackage{cancel}	% también para tachar
+\usepackage{stmaryrd}	% para [| |]
+\usepackage{xargs}		% flechas con texto arriba y abajo.
+
+%%%
+\usepackage{hyperref}		% referencias "clickables" en los pdf (hiperv?nculos)
+\usepackage{cleveref}			% referencias 'inteligentes', debe ser cargado después de hyperref.
+%%%%
+
+%%%%%	NEWDELIMCOMMAND		%%%%%%
+\makeatletter
+\newcommand{\NewDelimCommand}[3]{%
+\expandafter\DeclarePairedDelimiter\csname#1Temp\endcsname{#2}{#3}%
+\expandafter\newcommand\csname#1\endcsname[2][auto]{%
+\ifthenelse{\equal{##1}{auto}}%
+{\csname#1Temp\endcsname*{##2}}%
+{%
+\ifthenelse{\equal{##1}{base}}{\csname#1Temp\endcsname{##2}}{%
+\ifthenelse{\equal{##1}{big}}{\csname#1Temp\endcsname[\big]{##2}}{%
+\ifthenelse{\equal{##1}{Big}}{\csname#1Temp\endcsname[\Big]{##2}}{%
+\ifthenelse{\equal{##1}{bigg}}{\csname#1Temp\endcsname[\bigg]{##2}}{%
+\ifthenelse{\equal{##1}{Bigg}}{\csname#1Temp\endcsname[\Bigg]{##2}}{%
+\csname#1Temp\endcsname*{##2}%
+}}}}}%
+}%
+}%
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%% 		TABLAS CENTRADAS VERTICALMETE	%%%%
+
+\def\correction#1{%
+    \abovedisplayshortskip=#1\baselineskip\relax\belowdisplayshortskip=#1\baselineskip\relax%
+    \abovedisplayskip=#1\baselineskip\relax\belowdisplayskip=#1\baselineskip\relax}
+
+\arrayrulewidth=0.5pt\relax
+\tabcolsep=5pt\relax
+\fboxsep=\tabcolsep\relax
+\fboxrule=\arrayrulewidth\relax
+
+\newcolumntype{A}[2]{%
+    >{\minipage{\dimexpr#1\linewidth-2\tabcolsep-#2\arrayrulewidth\relax}\vspace\tabcolsep}%
+    c<{\vspace\tabcolsep\endminipage}}
+
+%%%%% COLUMNAS DE LAS PE?IS TABLAS	%%%
+\newcolumntype{F}[1]{A{#1}{1.5}}					% F for figures
+\newcolumntype{I}[1]{>{\centering$}A{#1}{1}<{$}}		% I for inline equations
+\newcolumntype{D}[1]{>{\correction{-1}\strut\[}A{#1}{1}<{\]\strut}}	% D for displayed equations
+\newcolumntype{T}[1]{>{\centering}A{#1}{1.5}}		% T for text 
+
+%%%%%%%%%%%%%%%%%%%
+
+%%%				FLECHAS TOPE GUAYS	%%%%%
+\newcommandx{\yaHelper}[2][1=\empty]{%
+\ifthenelse{\equal{#1}{\empty}}%
+  { \ensuremath{ \scriptstyle{ #2 } } } % no offset
+  { \raisebox{ #1 }[0pt][0pt]{ \ensuremath{ \scriptstyle{ #2 } } } }  % with offset
+}   
+
+\newcommandx{\yrightarrow}[4][1=\empty, 2=\empty, 4=\empty, usedefault=@]{%
+  \ifthenelse{\equal{#2}{\empty}}
+  { \xrightarrow{ \protect{ \yaHelper[ #4 ]{ #3 } } } } % there's no text below
+  { \xrightarrow[ \protect{ \yaHelper[ #2 ]{ #1 } } ]{ \protect{ \yaHelper[ #4 ]{ #3 } } } } % there's text below
+}
+
+%%%%%%%%
+
+%%%%%% SOME MATH COMMANDS %%%%%%%%%
+\newcommand{\Z}{\mathds{Z}}	% Numeros enteros
+\newcommand{\R}{\mathds{R}} 	% Numeros reales
+\newcommand{\N}{\mathds{N}}	% Numeros naturales
+\newcommand{\Q}{\mathds{Q}} 	% Racionales
+\newcommand{\C}{\mathds{C}}	% C de complejos
+\newcommand{\I}{\mathds{I}}	% I de irracionales
+\newcommand{\eps}{\varepsilon}	% renombrar el epsilon
+
+\renewcommand{\P}{\mathcal{P}} 	% P de "partes de", sustituye al simbolo de p?rrafo!
+\newcommand{\classC}{\mathcal{C}}	% C de clase.
+\newcommand{\A}{\mathcal{A}}	% A bonita
+
+\newcommand{\tr}{\text{tr}}
+%\newcommand{\det}{\text{det}}
+\renewcommand{\sp}{\text{sp}}
+\newcommand{\cond}{\text{cond}}
+
+
+%%%%%% ENTORNOS MATEM?TICOS %%%%%%
+
+%%% Estilo para poner en upshape las definiciones y los teoremas.
+\declaretheoremstyle[bodyfont=\normalfont]{defn}
+%%%%
+
+\declaretheorem[numberwithin=chapter,name=Ejemplo,refname={ejemplo,ejemplos},
+Refname={Ejemplo,Ejemplos}]{ejemplo} 									% ejemplo
+\declaretheorem[numberwithin=chapter,name=Corolario,refname={corolario,corolarios},
+Refname={Corolario,Corolario}]{corolario}									% corolario
+\declaretheorem[numberwithin=chapter,name=Proposición,refname={proposición,proposiciones},
+Refname={Proposición,Proposiciones}]{proposicion}							% proposicion
+\declaretheorem[numbered=no,style=remark,name=Nota,refname={nota,notas},
+Refname={Nota,Notas}]{nota}												% nota
+\declaretheorem[numberwithin=chapter,name=Lema,refname={lema,lemas},
+Refname={Lema,Lemas}]{lema}											% lema
+\declaretheorem[numberwithin=chapter,name=Definición,refname={definición,definiciones},
+Refname={Definición,definiciones},style=defn]{definicion} 						% definicion
+\declaretheorem[numbered=no,name=Teorema,refname={teorema,teoremas},
+Refname={Teorema,Teoremas},style=defn]{teorema}						%teorema
+\declaretheorem[numberwithin=chapter,name=Observación,refname={observación,observaciones},
+Refname={Observación,Observaciones}]{observacion}						% observación
+\declaretheorem[numbered=no,name=Consecuencia,refname={consecuencia,consecuencias},
+Refname={Consecuencia,Consecuencias}, style=remark]{consecuencias} 		%consecuencias
+\declaretheorem[numbered=no,name=Notación,refname={notación,notaciones},
+Refname={Notación,Notaciones},style=remark]{notacion} 		%notacion
+\declaretheorem[numbered=no,name=Solución,style=defn]{solucion}	%solución
+\declaretheorem[numbered=no,name=Contraejemplo,refname={contraejemplo,contraejemplos},
+Refname={Contraejemplo,Contraejemplos},style=remark]{contraejemplo} %contraejemplo
+\declaretheorem[numberwithin=chapter,name=Principio,refname={principio,principios},
+Refname={Principio,Principios}]{principio} %principio
+\declaretheorem[numberwithin=chapter,name=Ejercicio,refname={ejercicio,ejercicios},Refname={Ejercicio,Ejercicios}]{ejercicio}	%ejercicio
+
+%%%%%%	CORCHETES, PARENTESIS Y DEM?S	%%%%%%
+\NewDelimCommand{cor}{\lbrack}{\rbrack}		% corchetes []
+\NewDelimCommand{set}{\lbrace}{\rbrace}		% conjuntos (igual que \lla, pero la palabra set es m?s propia)
+\NewDelimCommand{pa}{\lparen}{\rparen}		% par?ntesis ()
+\NewDelimCommand{lla}{\lbrace}{\rbrace}		% llaves {}
+\NewDelimCommand{va}{\lvert}{\rvert}			% valor absoluto | |
+\NewDelimCommand{angles}{\langle}{\rangle}	% angulitos < >
+\NewDelimCommand{norm}{\lVert}{\rVert}		% norma || ||
+\NewDelimCommand{normm}{\vvvert}{\vvvert}	% norma matricial |||·|||
+\NewDelimCommand{form}{\llbracket}{\rrbracket}% formular [|  |]
+\NewDelimCommand{ceil}{\lceil}{\rceil}			% redondeo entero a la alza
+\NewDelimCommand{floor}{\lfloor}{\rfloor}		% redondeo entero a la baja
+\newcommand{\escalar}[3][auto]{\angles[#1]{#2,#3}} % producto escalar: \escalar{x}{y} muestra <x,y>
+\NewDelimCommand{eval}{.}{\rbrack}			% evaluaci?n de la integral definida, con un corchete derecho grande
+
+%%%%%	APPENDIX CONTROL	%%%
+\renewcommand{\appendixname}{Anexo}
+\renewcommand{\appendixtocname}{Anexos}
+\renewcommand{\appendixpagename}{Anexos}
+
+
+\newcommand{\rulecero}{\rule{0cm}{0cm}}			%pa que quede chulo las separaciones
+
+\newcommand{\To}[1][]{\yrightarrow[#1][3pt]{}[0pt]}		%converge a; opci?n de poner debajo n \to \infty o similar; ver http://tex.stackexchange.com/questions/94572/xrightarrow-position-of-text-over-an-arrow-should-be-lower
+\newcommand{\into}[1][]{\yrightarrow{#1}[-0.5pt]}
+\newcommand{\leftimplies}{\reflectbox{$\implies$}}			% <=
+%\newcommand{\imp}[2][]{\xRightarrow[#1]{#2}}		%implica, pero con texto arriba {}, y abajo[]
+\newcommand{\imp}{\Rightarrow}				% => Implicación
+\newcommand{\sii}{\Leftrightarrow}	
+\newcommand{\implicado}[2][]{\xLeftarrow[#1]{#2}}		% <= implicado, con texto arriba{} y abajo[]
+\newcommand{\mapsTo}[2][]{\xmapsto[#1]{#2}} 		%mapsto, con texto arriba{} y abajo []
+\newcommand{\inj}[2][]{\xhookrightarrow[#1]{#2}}		% flecha de inyectivo: (con gancho) c_> con texto arriba{} y abajo[]
+
+
+%% comandos de flechas negados %%
+\newcommand{\nimplies}{\centernot\implies}			% no implica
+\newcommand{\niff}{\centernot\iff}					% no si y s?lo si 
+\newcommand{\nleftimplies}{\centernot\leftimplies}	% no <= 
+
+\newcommand{\nimplica}[2][]{\centernot{\xRightarrow[#1]{#2}}}		%implica, pero con texto arriba {}, y abajo[]
+\newcommand{\nimplicado}[2][]{\centernot{\xLeftarrow[#1]{#2}}}		% <= implicado, con texto arriba{} y abajo[]
+\newcommand{\nmapsTo}[2][]{\centernot{\xmapsto[#1]{#2}}}		%mapsto, con texto arriba{} y abajo []
+\newcommand{\ninj}[2][]{\centernot{\xhookrightarrow[#1]{#2}}}		% flecha de inyectivo: (con gancho) c_> con texto arriba{} y abajo[]
+\newcommand{\nTo}[1][]{\centernot{\yrightarrow[#1][3pt]{}[0pt]}}
+\newcommand{\nto}{\centernot\to}
+
+
+%%% espaciado ligero para los forall y exists
+\let\existstemp\exists
+\renewcommand{\exists}{\existstemp\, \hspace{-0.1ex}\!\,}
+\let\nexiststemp\nexists
+\renewcommand{\nexists}{\nexiststemp\, \hspace{-0.1ex}\!\,}
+\let\foralltemp\forall
+\renewcommand{\forall}{\foralltemp\, \hspace{-0.1ex}\!\,}
+
+%%% composici?n	%%%%
+\newcommand{\compos}[7][-2.5pt]{\ensuremath{\begin{tikzcd}[baseline = #1, ampersand replacement = \&] #2 \arrow{r}{#3} \arrow[bend right]{rr}[description]{#7} \& #4 \arrow{r}{#5} \& #6 \end{tikzcd}}}
+\newcommand{\distrib}[4][-0.5ex]{\ensuremath{\begin{tikzcd}[row sep = #1, ampersand replacement = \&]  \& #3 \\ \arrow[bend left = 20]{ur} \arrow[bend right = 20]{dr} #2 \& \\ \& #4 \end{tikzcd}}}
+
+%%%% OPERADORES %%%%%%
+\DeclareMathOperator{\img}{Im}
+\DeclareMathOperator{\card}{Card}	% operador para el cardinal, Card(N) (p.ej.)
+
+%%%% ENTORNO CASEENV %%%%%
+  \newcounter{casectr}
+  \newenvironment{caseenv}
+  {\begin{list}{{\itshape\ \protect{Caso}} \arabic{casectr}.}{%
+   \setlength{\leftmargin}{\labelwidth}
+   \addtolength{\leftmargin}{\parskip}
+   \setlength{\itemindent}{\listparindent}
+   \setlength{\itemsep}{\medskipamount}
+   \setlength{\topsep}{\itemsep}}
+   \setcounter{casectr}{0}
+   \usecounter{casectr}}
+  {\end{list}}
+%%%%%%%%%%%%%%%%%%%%%
+
+%%% SEPARACI�N ENTRE P�RRAFOS
+\setlength{\parskip}{3.5pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
