@@ -40,8 +40,9 @@ signal dir_mem_marcador: std_logic_vector(11-1 downto 0);
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
 
 --Colores
-signal color_obstaculo, color_marcador, color_choque, imagen_game_over, color_fondo: std_logic_vector(8 downto 0);
+signal color_obstaculo, color_marcador,  imagen_game_over, color_fondo: std_logic_vector(8 downto 0);
 signal color1, color2, color3, color4, color5: std_logic_vector(8 downto 0);
+signal color_choque: std_logic;
 ---------
 
 signal posy, posy_choque: std_logic_vector(7 downto 0);
@@ -61,6 +62,7 @@ signal j, aux_j: std_logic_vector(7 downto 0);
 signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 
 --Añadir las señales intermedias necesarias
+signal relojChoques: std_logic;
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
@@ -82,6 +84,11 @@ signal pos_co_x: std_logic_vector(6 downto 0);
 signal posy_fondo: std_logic_vector(7 downto 0);
 signal posx_fondo: std_logic_vector(6 downto 0);
 
+----Conversor de un bit a nueve de los obstáculos
+signal salida_obstaculos: std_logic;
+
+signal debug_choque: std_logic;
+
 --Estado del nivel
 signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a rgb y a color
 	-- el color de cada nivel, con un with select o lo que sea, que este cada uno conectado con
@@ -89,6 +96,12 @@ signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a r
  
 -- Reloj para la pantalla
 component divisor is 
+port (reset, clk_entrada: in STD_LOGIC;
+		clk_salida: out STD_LOGIC);
+end component;
+
+-- Reloj para los choques
+component divisor_choques is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
@@ -117,7 +130,7 @@ component ROM_RGB_9b_mapa_facil is
     port (
     clk					  : in  std_logic;   -- reloj
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
-    dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
+    dout, dout_munyeco : out std_logic
   );
 end component;--ROM_RGB_9b_nivel_1_0;
 
@@ -160,6 +173,7 @@ end component;
 begin
 
 ---Reloj
+Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
@@ -168,7 +182,7 @@ clk_100M <= clock;
 clk <= clk_1;
 
 ---Rom
-Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color_obstaculo, color_choque); 
+Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, salida_obstaculos, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
 
@@ -260,7 +274,7 @@ end process;
 
 --Posiciones de la pantalla (Restar 4 a hcnt)
 posy <= vcnt - 111;
-posx <= hcnt - 4 + cuenta_pantalla;
+posx <= hcnt - 4 cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones de memoria del fondo
@@ -269,7 +283,8 @@ posx_fondo <= hcnt - 4 + cuenta_pantalla;
 dir_mem_fondo <=  posy_fondo & posx_fondo;
 
 --Posiciones para el choque
---posy_choque <= r_my - 110;				--Posicion y del choque
+--
+ <= r_my - 110;				--Posicion y del choque
 --posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
 --dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
 --dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
@@ -370,7 +385,7 @@ end process clock_estado_juego;
 
 controla_juego: process(estado_juego, pulsado, color_choque, pausado)
 	begin
-	if color_choque = "111111000"  then
+	if color_choque = '1'  then
 		next_estado_juego <= game_over;
 	elsif pulsado = '1' then
 		next_estado_juego <= playing;
@@ -442,9 +457,9 @@ end process estado_munyeco;
 --Choques:
 ------------------------------------------------------
 --Process de los estados
-state_choques: process(clk, next_state, aux_i, aux_j)
+state_choques: process(relojChoques, next_state, aux_i, aux_j)
 begin
-	if(clk'event and clk = '1') then
+	if(relojChoques'event and relojChoques = '1') then
 		state <= next_state;
 		i <= aux_i;
 		j <= aux_j;
@@ -507,17 +522,18 @@ end process comprueba_choques;
 ------------------------------------------------------
 --Pintar:
 -------------------------------------------------------
-pinta_obstaculos: process(hcnt, vcnt, color_obstaculo)
+pinta_obstaculos: process(hcnt, vcnt, salida_obstaculos)
 begin
 	obstaculo <= '0';
 	fondo <= '0';
+	color_obstaculo <= "111111111";
 	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then
-		if color_obstaculo = "111111111" then 
-		--El mapa de obstaculos no pinta el blanco y se pinta el fondo
-			obstaculo <= '0';
-			fondo <= '1';
-		else 
+		if salida_obstaculos = '1' then 
+			color_obstaculo <= "111111000";
 			obstaculo <= '1';
+		else 
+			--El mapa de obstaculos no pinta el blanco y se pinta el fondo
+			fondo <= '1';
 		end if;
 	end if;
 end process pinta_obstaculos;
@@ -550,6 +566,7 @@ begin
 end process pinta_munyeco;
 
 
+
 pinta_game_over: process(hcnt, vcnt, estado_juego, imagen_game_over)
 begin
 	paint_game_over <= '0';
@@ -576,6 +593,15 @@ begin
 		end if;
 	end if;
 end process pinta_marcador;
+
+----Deugueo de los choques-----------
+p_ch: process (dir_mem_choque)
+begin
+	debug_choque <= '0';
+	if (j&i) = vcnt & hcnt then
+		debug_choque <= '1';
+	end if;
+end process p_ch;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
@@ -583,7 +609,8 @@ colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
 		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
 			paint_marcador, color_marcador)
 begin
-	if bordes = '1' then rgb <= "110110000";
+	if debug_choque = '1' then rgb <= "111000000";
+	elsif bordes = '1' then rgb <= "110110000";
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif obstaculo = '1' then rgb <= color_obstaculo;

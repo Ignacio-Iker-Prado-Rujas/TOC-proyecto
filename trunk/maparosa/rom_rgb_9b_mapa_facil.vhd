@@ -31,7 +31,7 @@ entity ROM_RGB_9b_mapa_facil is
   port (
     clk					  : in  std_logic;   -- reloj
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
-    dout, dout_munyeco : out std_logic_vector(9-1 downto 0) 
+    dout, dout_munyeco : out std_logic
   );
 end ROM_RGB_9b_mapa_facil;
 
@@ -39,7 +39,7 @@ architecture BEHAVIORAL of ROM_RGB_9b_mapa_facil is
   signal addr_int, addr_munyeco_int  : natural range 0 to 2**18-1;
   type memostruct is array (natural range<>) of std_logic;
   constant filaimg : memostruct := (
-     --"RRRGGGBBB"
+     --"W/Y"
        '0',
        '0',
        '0',
@@ -262194,16 +262194,10 @@ begin
 
   P_ROM: process (clk)
   begin
-    if clk'event and clk='1' then
-		if filaimg(addr_int)='0' then
-			dout <= "111111111";
-		else dout <= "111111000";
-		end if;
-		if filaimg(addr_munyeco_int) = '0' then
-			dout_munyeco <= "111111111";
-		else dout_munyeco <="111111000";
-		end if;
-	end if;
+	 if clk'event and clk='1' then
+		dout <= filaimg(addr_int);
+		dout_munyeco <= filaimg(addr_munyeco_int);
+	 end if;
   end process;
 
 end BEHAVIORAL;
