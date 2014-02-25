@@ -274,7 +274,7 @@ end process;
 
 --Posiciones de la pantalla (Restar 4 a hcnt)
 posy <= vcnt - 111;
-posx <= hcnt - 4 cuenta_pantalla;
+posx <= hcnt - 4 + cuenta_pantalla;
 dir_mem <=  posy & posx;
 
 --Posiciones de memoria del fondo
@@ -283,8 +283,7 @@ posx_fondo <= hcnt - 4 + cuenta_pantalla;
 dir_mem_fondo <=  posy_fondo & posx_fondo;
 
 --Posiciones para el choque
---
- <= r_my - 110;				--Posicion y del choque
+--<= r_my - 110;				--Posicion y del choque
 --posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
 --dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
 --dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
