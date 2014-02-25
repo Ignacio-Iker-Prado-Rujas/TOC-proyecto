@@ -368,7 +368,7 @@ begin
 	end if;
 end process clock_estado_juego;
 
-controla_juego: process(estado_juego, pulsado, color_choque)
+controla_juego: process(estado_juego, pulsado, color_choque, pausado)
 	begin
 	if color_choque = "111111000"  then
 		next_estado_juego <= game_over;
@@ -550,7 +550,7 @@ begin
 end process pinta_munyeco;
 
 
-pinta_game_over: process(hcnt, vcnt, estado_juego)
+pinta_game_over: process(hcnt, vcnt, estado_juego, imagen_game_over)
 begin
 	paint_game_over <= '0';
 	--Buscar zona para pintar game over
@@ -579,7 +579,9 @@ end process pinta_marcador;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
-colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco, color_munyeco, paint_game_over, imagen_game_over)
+colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
+		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
+			paint_marcador, color_marcador)
 begin
 	if bordes = '1' then rgb <= "110110000";
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
