@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
---Pasos: Arreglar el teclado. Hacer los choques. Independizar relojes. Estado quieto.
+--NivelesPrueba
 
 entity vgacore is
 	port
@@ -23,6 +23,7 @@ architecture vgacore_arch of vgacore is
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies, comprueba_espalda);
 type estados_juego is (playing, game_over, pause);
+type estados_niveles is (nivel1, nivel2, nivel3, nivel4, nivel5);
 
 signal state, next_state : estado_choques := inicializa;
 signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
@@ -30,12 +31,22 @@ signal movimiento_munyeco, next_movimiento: estado_movimiento;
 signal ralentizar: std_logic;
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
-signal dibujo, bordes, munyeco: std_logic;					-- rectangulo signal
+signal obstaculo, bordes, munyeco, fondo: std_logic;					-- rectangulo signal
+
+--Direcciones para las rom
 signal dir_mem: std_logic_vector(18-1 downto 0);
+signal dir_mem_fondo: std_logic_vector(15-1 downto 0);
+signal dir_mem_marcador: std_logic_vector(11-1 downto 0);
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
-signal color, color_choque, imagen_game_over: std_logic_vector(8 downto 0);
+
+--Colores
+signal color_obstaculo, color_marcador, color_choque, imagen_game_over, color_fondo: std_logic_vector(8 downto 0);
+signal color1, color2, color3, color4, color5: std_logic_vector(8 downto 0);
+---------
+
 signal posy, posy_choque: std_logic_vector(7 downto 0);
 signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
+
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
@@ -55,12 +66,27 @@ signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
 signal pausado: std_logic;--señal de pausa pausa jajajajajjasjaj
 
+--Señales de los marcadores
+signal cuenta_metros : integer;
+signal paint_marcador : std_logic;
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
 signal paint_game_over: std_logic;
+
+--Posiciones
 signal pos_go_y: std_logic_vector(4 downto 0);
 signal pos_go_x: std_logic_vector(6 downto 0); 
+signal pos_co_y: std_logic_vector(3 downto 0);
+signal pos_co_x: std_logic_vector(6 downto 0); 
 
+signal posy_fondo: std_logic_vector(7 downto 0);
+signal posx_fondo: std_logic_vector(6 downto 0);
+
+--Estado del nivel
+signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a rgb y a color
+	-- el color de cada nivel, con un with select o lo que sea, que este cada uno conectado con
+	-- su ROM correspondiente.
+ 
 -- Reloj para la pantalla
 component divisor is 
 port (reset, clk_entrada: in STD_LOGIC;
@@ -95,6 +121,15 @@ component ROM_RGB_9b_mapa_facil is
   );
 end component;--ROM_RGB_9b_nivel_1_0;
 
+-- ROM para el fondo
+component ROM_RGB_9b_fondo is
+    port (
+    clk					  : in  std_logic;   -- reloj
+    addr: in  std_logic_vector(15-1 downto 0);
+    dout: out std_logic_vector(9-1 downto 0) 
+  );
+end component;
+
 --ROM de barry trotter
 component ROM_RGB_9b_Joyride is
   port (
@@ -113,6 +148,15 @@ component ROM_RGB_9b_game_over_negro is
   );
 end component;
 
+--Rom del marcador
+component ROM_RGB_9b_marcador is
+  port (
+    clk  : in  std_logic;   -- reloj
+    addr : in  std_logic_vector(11-1 downto 0);
+    dout : out std_logic_vector(9-1 downto 0)
+  );
+end component;
+
 begin
 
 ---Reloj
@@ -124,11 +168,12 @@ clk_100M <= clock;
 clk <= clk_1;
 
 ---Rom
-Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color, color_choque); 
+Rom: ROM_RGB_9b_mapa_facil port map(clk, dir_mem, dir_mem_choque, color_obstaculo, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
 
-
+Rom_marcador: ROM_RGB_9b_marcador port map(clk, dir_mem_marcador, color_marcador);
+Rom_fondo: ROM_RGB_9b_fondo port map(clk, dir_mem_fondo, color_fondo);
 
 A: process(clk,reset)
 begin
@@ -213,10 +258,15 @@ end process;
 --Movimientos:
 ----------------------------------------------------------------------------
 
---Posiciones de la pantalla
+--Posiciones de la pantalla (Restar 4 a hcnt)
 posy <= vcnt - 111;
-posx <= hcnt - 5 + cuenta_pantalla;
+posx <= hcnt - 4 + cuenta_pantalla;
 dir_mem <=  posy & posx;
+
+--Posiciones de memoria del fondo
+posy_fondo <= vcnt - 111;
+posx_fondo <= hcnt - 4 + cuenta_pantalla;
+dir_mem_fondo <=  posy_fondo & posx_fondo;
 
 --Posiciones para el choque
 --posy_choque <= r_my - 110;				--Posicion y del choque
@@ -231,13 +281,16 @@ posx_munyeco <= hcnt - 32;
 posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
 
-
-
 --Posiciones del game over
 pos_go_y <= vcnt - 222;
 pos_go_x <= hcnt - 68;
 dir_mem_game_over <=  pos_go_y & pos_go_x;
 
+
+--Posiciones del marcador
+pos_co_y <= vcnt - 50;
+pos_co_x <= hcnt - 200;
+dir_mem_marcador <=  pos_co_y & pos_co_x;
 
 mueve_pantalla: process(reset,relojMovimiento, cuenta_pantalla, estado_juego)
 begin
@@ -256,7 +309,6 @@ end process mueve_pantalla;
 mueve_munyeco: process (relojMunyeco, reset)
 
 begin
-
 	if reset='1' then
 		r_my <= "0100000000"; -- 128 en decimal
 		movimiento_munyeco <= quieto;
@@ -334,7 +386,7 @@ controla_juego: process(estado_juego, pulsado, color_choque)
 end process controla_juego;
 
 --------------------------------------------
-estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color, color_choque, movimiento_munyeco, contador_sub, contador_baj, estado_juego)
+estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color_obstaculo, color_choque, movimiento_munyeco, contador_sub, contador_baj, estado_juego)
 begin
 	if estado_juego = game_over then
 		next_movimiento <= fin;
@@ -407,8 +459,12 @@ begin
 	if state = inicializa then
 		aux_i <= "0000011011"; --Valor 27 (10 bits)
 		aux_j <= r_my - "01101011"; --Valor 107 (8 bits)
+		--if(relojMunyeco'event and relojMunyeco = '1') --Para no estar siempre comprobando se podria a-adir este if, PREGUNTAR A MARCOS			
 		next_state <= comprueba_cabeza;
 	elsif state = comprueba_cabeza then
+--		aux_i <= "0000101000";
+--		aux_j <= r_my - "01101011";
+--		next_state <= comprueba_frente;	
 		aux_j <= r_my - "01101011";
 		if i < 40  then
 			aux_i <= i + 1;
@@ -417,6 +473,9 @@ begin
 			next_state <= comprueba_frente;
 		end if;
 	elsif state = comprueba_frente then
+--		aux_i <= "0000101000";
+--		aux_j <= r_my - "01010010";
+--		next_state <= comprueba_pies;	
 		aux_i <= "0000101000";
 		if j < r_my - 82 then
 			aux_j <= j + 1;
@@ -425,6 +484,9 @@ begin
 			next_state <= comprueba_pies;
 		end if;
 	elsif state = comprueba_pies then
+--		aux_i <= "0000011011";
+--		aux_j <= r_my - "01010010";
+--		next_state <= inicializa;	
 		aux_j <= r_my - "01010010";
 		if i > 27 then
 			aux_i <= i - 1;
@@ -445,13 +507,20 @@ end process comprueba_choques;
 ------------------------------------------------------
 --Pintar:
 -------------------------------------------------------
-pinta_fondo: process(hcnt, vcnt)
+pinta_obstaculos: process(hcnt, vcnt, color_obstaculo)
 begin
-	dibujo <= '0';
+	obstaculo <= '0';
+	fondo <= '0';
 	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then
-			dibujo <= '1';
+		if color_obstaculo = "111111111" then 
+		--El mapa de obstaculos no pinta el blanco y se pinta el fondo
+			obstaculo <= '0';
+			fondo <= '1';
+		else 
+			obstaculo <= '1';
+		end if;
 	end if;
-end process pinta_fondo;
+end process pinta_obstaculos;
 
 -- pinta bordes
 pinta_bordes: process(hcnt, vcnt)
@@ -485,25 +554,53 @@ pinta_game_over: process(hcnt, vcnt, estado_juego)
 begin
 	paint_game_over <= '0';
 	--Buscar zona para pintar game over
-   if hcnt >= 68 and hcnt < 196 then 
+	if hcnt >= 68 and hcnt < 196 then
 		if vcnt >= 222 and vcnt < 254	then
 			if estado_juego = game_over then
-				paint_game_over <= '1';
+				if imagen_game_over = "000000000" then
+					paint_game_over <= '0';
+				else
+					paint_game_over <= '1';
+				end if;
 			end if;
 		end if;
 	end if;
 end process pinta_game_over;
+
+pinta_marcador: process(hcnt, vcnt)
+begin
+	paint_marcador <= '0';
+	if hcnt >= 200 and hcnt < 208 then
+		if vcnt >= 50 and vcnt < 66 then
+			paint_marcador <= '1';
+		end if;
+	end if;
+end process pinta_marcador;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
-colorear: process(hcnt, vcnt, dibujo, color, bordes, munyeco, color_munyeco, paint_game_over, imagen_game_over)
+colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco, color_munyeco, paint_game_over, imagen_game_over)
 begin
 	if bordes = '1' then rgb <= "110110000";
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
-	elsif dibujo = '1' then rgb <= color;
+	elsif obstaculo = '1' then rgb <= color_obstaculo;
+	elsif fondo = '1' then rgb <= color_fondo;
+	elsif paint_marcador = '1' then rgb <= color_marcador;
 	else rgb <= "000000000";
 	end if;
 end process colorear;
+--
+--pintamarcador: process(cuenta_pantalla)
+--cuenta_metros <= 7;
+--
+--end process;
+--
+----MARCADOR---
+--actualiza_metros: process(cuenta_pantalla)
+--	cuenta_metros <= cuenta_metros+1;
+--	
+--
+--end process;
 ---------------------------------------------------------------------------
 end vgacore_arch;
