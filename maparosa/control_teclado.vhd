@@ -62,10 +62,20 @@ process(Fu, rout, levanta)
 --	elsif levanta = "00100011" then pulsado <= '1';
 --	
 --	else pulsado <= '0';
-	if rout = "11110000" then pulsado <= '0';pausado <= '0'; -- levantado
-	elsif levanta = "00101001" then pulsado <= '1';--pulsado el espacio
-	elsif levanta = "01001101" then pausado <= '1';
-	else pulsado <= '0'; pausado <= '0';
+	pulsado <= '0';
+	pausado <= '0';
+	if rout = "11110000" then 
+		pulsado <= '0';
+		pausado <= '0'; -- levantado
+	elsif levanta = "00101001" then
+		pulsado <= '1';--pulsado el espacio
+		pausado <= '0';
+	elsif levanta = "01001101" then
+		pausado <= '1';
+		pulsado <= '0';
+	else
+		pulsado <= '0';
+		pausado <= '0';
 	end if;
 
 end process;
