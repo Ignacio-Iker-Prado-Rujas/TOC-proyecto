@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
---NivelesPrueba
+--Juego con Fondo y obstáculos
 
 entity vgacore is
 	port
@@ -20,48 +20,74 @@ end vgacore;
 
 architecture vgacore_arch of vgacore is
 
+--Define el movimiento de Barry
 type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
+--Define los estados de comprobación de choques 
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies, comprueba_espalda);
+--Define los estados en los que se encuentra el juego en cada momento
 type estados_juego is (playing, game_over, pause);
+--Define el nivel en el que se encuentra actualmente
 type estados_niveles is (nivel1, nivel2, nivel3, nivel4, nivel5);
 
+--Señales
+
+--Estados de los choques, comienza en la inicialización
 signal state, next_state : estado_choques := inicializa;
+--Contador para el flotar de Barry
 signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
+--Estados de los movimientos de Barry
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
+--Indica que Barry se encuentra ralentizando
 signal ralentizar: std_logic;
+--Cuenta horizontal de píxeles de la pantalla
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
-signal vcnt, my, r_my: std_logic_vector(9 downto 0);	-- vertical line counter
-signal obstaculo, bordes, munyeco, fondo: std_logic;					-- rectangulo signal
+--Cuenta vertical de píxeles de pantalla
+signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
+--Posición vertical de Barry, contando desde su cabeza
+signal my, r_my: std_logic_vector(9 downto 0);
+--Indicadores para pintar obstáculos, bordes, Barry y fondo
+signal obstaculo, bordes, munyeco, fondo: std_logic;
 
 --Direcciones para las rom
+
+--Direccion de memoria para los obstaculos
 signal dir_mem: std_logic_vector(18-1 downto 0);
+--Direccion de memoria para el fondo
 signal dir_mem_fondo: std_logic_vector(15-1 downto 0);
+--Direccion de memoria para el marcador
 signal dir_mem_marcador: std_logic_vector(11-1 downto 0);
+--Direccion de memoria para el game over
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
 
 --Colores
+--Salidas de colores de las respectivas rom's 
 signal color_obstaculo, color_marcador,  imagen_game_over, color_fondo: std_logic_vector(8 downto 0);
-signal color1, color2, color3, color4, color5: std_logic_vector(8 downto 0);
+
+--signal color1, color2, color3, color4, color5: std_logic_vector(8 downto 0);
+
+--Salida de la rom de obstaculos, en función de la posición de Barry,
+--	vale 1 si hay un obstáculo y 0 si no lo hay.
 signal color_choque: std_logic;
 ---------
 
-signal posy, posy_choque: std_logic_vector(7 downto 0);
-signal posx, posx_choque, avanza_obstaculos: std_logic_vector(9 downto 0);
+--Posición de refresco de los obstáculos, sirve para construir dir_mem
+signal posy: std_logic_vector(7 downto 0);
+signal posx, avanza_obstaculos: std_logic_vector(9 downto 0);
 
 --SEÑALES DE BARRY TROTTER
+--Posiciones y colores de Barry que permiten pintarlo de la ROM.
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco: std_logic_vector(9-1 downto 0);
---señales ram
---signal we : std_logic;
+
 
 --Señales para los choques (contadores y direccion de choque):
 signal i, aux_i: std_logic_vector(9 downto 0);
 signal j, aux_j: std_logic_vector(7 downto 0);
 signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 
---Añadir las señales intermedias necesarias
+--Relojes a distintas velocidades
 signal relojChoques: std_logic;
 signal relojPintaObstaculos: std_logic; --Refresca los obstáculos
 signal relojMovFondo: std_logic; --Mueve los obstáculos
@@ -73,16 +99,19 @@ signal pausado: std_logic;--señal de pausa
 --Señales de los marcadores
 signal cuenta_metros : integer;
 signal paint_marcador : std_logic;
+
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
 signal paint_game_over: std_logic;
 
 --Posiciones
+--Posiciones para pintar el game over
 signal pos_go_y: std_logic_vector(4 downto 0);
-signal pos_go_x: std_logic_vector(6 downto 0); 
+signal pos_go_x: std_logic_vector(6 downto 0);
+--Posiciones para pintar el contador
 signal pos_co_y: std_logic_vector(3 downto 0);
 signal pos_co_x: std_logic_vector(6 downto 0); 
-
+--Posiciones para pintar el fondo
 signal posy_fondo: std_logic_vector(7 downto 0);
 signal posx_fondo, cuenta_fondo: std_logic_vector(6 downto 0);
 
@@ -180,20 +209,21 @@ end component;
 
 begin
 
----Reloj
+--Reloj que comprueba los choques de barry
 Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
+--Reloj de refresco de la pantalla
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
-Reloj_pantallaObstaculos: divisor port map(reset, clk_100M, relojPintaObstaculos);
-Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, clk_100M, relojMovimiento);
+--Reloj_pantallaObstaculos: divisor port map(reset, clk_100M, relojPintaObstaculos);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado, pausado);
 clk_100M <= clock;
 clk <= clk_1;
---Reloj para el movimiento de los obstáculos
+--Reloj para el movimiento del fondo
 Reloj_de_movimiento_fondo: divisor_movimiento_fondo port map(reset, clk_100M, relojMovFondo);
-
+--Reloj para el movimiento de los obstaculos
+Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, clk_100M, relojMovimiento);
 ---Rom
-Rom: ROM_RGB_9b_mapa_facil port map(relojPintaObstaculos, dir_mem, dir_mem_choque, salida_obstaculos, color_choque); 
+Rom: ROM_RGB_9b_mapa_facil port map(clk_1, dir_mem, dir_mem_choque, salida_obstaculos, color_choque); 
 Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
 Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
 
