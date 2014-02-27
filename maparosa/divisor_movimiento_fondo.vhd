@@ -15,15 +15,15 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 USE IEEE.std_logic_unsigned.ALL;
 
-entity divisor_movimiento is
+entity divisor_movimiento_fondo is
     port (
         reset: in STD_LOGIC;
         clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
         clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
     );
-end divisor_movimiento;
+end divisor_movimiento_fondo;
 
-architecture divisor_arch of divisor_movimiento is
+architecture divisor_arch of divisor_movimiento_fondo is
  SIGNAL cuenta, division: std_logic_vector(20 downto 0);
  SIGNAL clk_aux, clk: std_logic;
 -- signal aumentar: std_logic_vector(2 downto 0);
