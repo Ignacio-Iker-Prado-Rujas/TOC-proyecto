@@ -46,7 +46,7 @@ signal color_choque: std_logic;
 ---------
 
 signal posy, posy_choque: std_logic_vector(7 downto 0);
-signal posx, posx_choque, cuenta_pantalla: std_logic_vector(9 downto 0);
+signal posx, posx_choque, avanza_obstaculos: std_logic_vector(9 downto 0);
 
 --SEÑALES DE BARRY TROTTER
 signal posx_munyeco: std_logic_vector(3 downto 0);
@@ -64,7 +64,7 @@ signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 --Añadir las señales intermedias necesarias
 signal relojChoques: std_logic;
 signal relojPintaObstaculos: std_logic; --Refresca los obstáculos
-signal relojMovObstaculos: std_logic; --Mueve los obstáculos
+signal relojMovFondo: std_logic; --Mueve los obstáculos
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
@@ -108,14 +108,14 @@ port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
--- Reloj para el movimiento del fondo
-component divisor_movimiento is 
+-- Reloj para el movimiento de los obstáculos
+component divisor_movimiento_obstaculos is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
 
--- Reloj para el movimiento de los obstáculos
-component divisor_movimiento_obstaculos is 
+-- Reloj para el movimiento del fondo
+component divisor_movimiento_fondo is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
 end component;
@@ -184,13 +184,13 @@ begin
 Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
 Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
 Reloj_pantallaObstaculos: divisor port map(reset, clk_100M, relojPintaObstaculos);
-Reloj_de_movimiento: divisor_movimiento port map(reset, clk_100M, relojMovimiento);
+Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, clk_100M, relojMovimiento);
 Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado, pausado);
 clk_100M <= clock;
 clk <= clk_1;
 --Reloj para el movimiento de los obstáculos
-Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, clk_100M, relojMovObstaculos);
+Reloj_de_movimiento_fondo: divisor_movimiento_fondo port map(reset, clk_100M, relojMovFondo);
 
 ---Rom
 Rom: ROM_RGB_9b_mapa_facil port map(relojPintaObstaculos, dir_mem, dir_mem_choque, salida_obstaculos, color_choque); 
@@ -285,7 +285,7 @@ end process;
 
 --Posiciones de los obstaculos (Restar 4 a hcnt)
 posy <= vcnt - 111;
-posx <= hcnt - 4 + cuenta_pantalla;
+posx <= hcnt - 4 + avanza_obstaculos;
 dir_mem <=  posy & posx;
 
 --Posiciones de memoria del fondo
@@ -295,8 +295,8 @@ dir_mem_fondo <=  posy_fondo & posx_fondo;
 
 --Posiciones para el choque
 --<= r_my - 110;				--Posicion y del choque
---posx_choque <= 40 + cuenta_pantalla; 		--Posicion x del choque
---dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + cuenta_pantalla, rm_y)
+--posx_choque <= 40 + avanza_obstaculos; 		--Posicion x del choque
+--dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + avanza_obstaculos, rm_y)
 --dir_mem_choque_abajo <= "00" & r_my & "101000";  --Posicion abajo:   (40, 142 + rm_y) CAMBIAR
 --dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
 
@@ -317,25 +317,25 @@ pos_co_y <= vcnt - 50;
 pos_co_x <= hcnt - 200;
 dir_mem_marcador <=  pos_co_y & pos_co_x;
 
-mueve_obstaculos: process(reset,relojMovimiento, cuenta_pantalla, estado_juego)
+mueve_obstaculos: process(reset,relojMovimiento, avanza_obstaculos, estado_juego)
 begin
 	if reset='1' then
-		cuenta_pantalla <= "0000000000";
+		avanza_obstaculos <= "0000000000";
 	elsif (relojMovimiento'event and relojMovimiento='1') then
 		if estado_juego = playing then 
-			cuenta_pantalla <= cuenta_pantalla + 1;
+			avanza_obstaculos <= avanza_obstaculos + 1;
 		else 
-			cuenta_pantalla <= cuenta_pantalla;
+			avanza_obstaculos <= avanza_obstaculos;
 		end if;
 		-- el reloj a usar es relojDeVelocidadPantalla
 	end if;
 end process mueve_obstaculos;
 
-mueve_fondo:process(reset,relojMovObstaculos, estado_juego, cuenta_fondo)
+mueve_fondo:process(reset,relojMovFondo, estado_juego, cuenta_fondo)
 begin
 	if reset='1' then
 		cuenta_fondo <= "0000000";
-	elsif (relojMovObstaculos'event and relojMovObstaculos='1') then
+	elsif (relojMovFondo'event and relojMovFondo='1') then
 		if estado_juego = playing then 
 			cuenta_fondo <= cuenta_fondo + 1;
 		else 
@@ -491,9 +491,9 @@ begin
 end process state_choques;
 		
 		
-dir_mem_choque <= j & (i + cuenta_pantalla);
+dir_mem_choque <= j & (i + avanza_obstaculos);
 --Process que actualiza estados
-comprueba_choques: process(cuenta_pantalla, r_my, i, j, color_choque, state)
+comprueba_choques: process(avanza_obstaculos, r_my, i, j, color_choque, state)
 begin
 	aux_i <= "0000011011"; --Valor 27 (10 bits)
 	aux_j <= r_my - "01101011"; --Valor 107 (8 bits)
@@ -650,13 +650,13 @@ begin
 	end if;
 end process colorear;
 --
---pintamarcador: process(cuenta_pantalla)
+--pintamarcador: process(avanza_obstaculos)
 --cuenta_metros <= 7;
 --
 --end process;
 --
 ----MARCADOR---
---actualiza_metros: process(cuenta_pantalla)
+--actualiza_metros: process(avanza_obstaculos)
 --	cuenta_metros <= cuenta_metros+1;
 --	
 --
