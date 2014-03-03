@@ -14,7 +14,8 @@ entity vgacore is
 		clock: in std_logic;
 		hsyncb: inout std_logic;	-- horizontal (line) sync
 		vsyncb: out std_logic;	-- vertical (frame) sync
-		rgb: out std_logic_vector(8 downto 0) -- red,green,blue colors
+		rgb: out std_logic_vector(8 downto 0); -- red,green,blue colors
+		displayizq, displaydcha: out std_logic_vector(6 downto 0)
 	);
 end vgacore;
 
@@ -97,7 +98,6 @@ signal pulsado: std_logic;
 signal pausado: std_logic;--señal de pausa
 
 --Señales de los marcadores
-signal cuenta_metros : integer;
 signal paint_marcador : std_logic;
 
 --Estados del juego
@@ -114,6 +114,10 @@ signal pos_co_x: std_logic_vector(6 downto 0);
 --Posiciones para pintar el fondo
 signal posy_fondo: std_logic_vector(7 downto 0);
 signal posx_fondo, cuenta_fondo: std_logic_vector(6 downto 0);
+
+--Contador de las monedas
+signal cuenta_monedas: std_logic_vector(6 downto 0) := "0000000";
+
 
 ----Conversor de un bit a nueve de los obstáculos
 signal salida_obstaculos: std_logic;
@@ -206,7 +210,11 @@ component ROM_RGB_9b_marcador is
     dout : out std_logic_vector(9-1 downto 0)
   );
 end component;
-
+--Controlador 7 segmentos
+component contador is
+port (var: in std_logic_vector (6 downto 0);
+		displayi, displayd : out std_logic_vector (6 downto 0));
+end component;
 begin
 
 --Reloj que comprueba los choques de barry
@@ -229,6 +237,9 @@ Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen
 
 Rom_marcador: ROM_RGB_9b_marcador port map(clk, dir_mem_marcador, color_marcador);
 Rom_fondo: ROM_RGB_9b_fondo port map(clk, dir_mem_fondo, color_fondo);
+--7 segmentos
+SieteSeg: contador port map(cuenta_monedas, displayizq, displaydcha);
+
 
 A: process(clk,reset)
 begin
