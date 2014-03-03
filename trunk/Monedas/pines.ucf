@@ -1,0 +1,122 @@
+#salida del oscilador a 100MHz
+#
+NET clock LOC=T9;
+#
+
+	#switches placa superior
+
+NET reset LOC=K4;
+#NET SW<2> LOC=K3;
+#NET SW<3> LOC=K2;
+#NET SW<4> LOC=J4;
+
+	#switches placa extendida
+
+#NET SW<1> LOC=P12;
+#NET SW<2> LOC=J1;
+#NET SW<3> LOC=H1;
+#NET SW<4> LOC=H3;
+#NET SW<5> LOC=G2;
+#NET SW<6> LOC=K15;
+#NET SW<7> LOC=K16;
+#NET SW<8> LOC=F15;
+
+#
+	#push buttons placa superior
+#NET SW2 LOC=E11; 
+#NET SW3 LOC=A13; 
+
+	# Push button placa extendida
+#NET pushb1 LOC=H4;
+#NET pushb2 LOC=L5;
+#NET pushb3 LOC=N2;
+#NET pushb4 LOC=M3;
+
+#Teclado
+NET PS2CLK LOC = B16;
+NET PS2DATA LOC = E13;
+NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
+
+#barra de leds placa extendida
+
+#NET rout<0> LOC=L5;
+#NET rout<1> LOC=N2;
+#NET rout<2> LOC=M3;
+#NET rout<3> LOC=N1;
+#NET rout<4> LOC=T13;
+#NET rout<5> LOC=L15;
+#NET rout<6> LOC=J13;
+#NET rout<7> LOC=H15;
+#NET levanta<9> LOC=J16;
+#NET levanta<10> LOC=J14;
+ 
+
+#Display 7-segmentos 
+#
+#		   S0
+#		   ---
+#	    S5	|	|s1
+#		    S6
+#		   ---
+#	    S4	|	|S2
+#
+#		   ---
+#		   S3
+
+
+#Display 7-segmentos de la placa superior
+
+#net display<0> loc=R10;
+#net display<1> loc=P10;
+#net display<2> loc=M11;
+#NET display<3> loc=M6;
+#NET display<4> loc=N6;
+#NET display<5> loc=T7;
+#NET display<6> loc=R7;
+
+#Display 7-segmentos de la parte izquierda de la placa extendida:
+
+NET displayizq<0> LOC=H14;
+NET displayizq<1> LOC=M4;
+NET displayizq<2> LOC=P1;
+NET displayizq<3> LOC=N3;
+NET displayizq<4> LOC=M15;
+NET displayizq<5> LOC=H13;
+NET displayizq<6> LOC=G16;
+
+
+
+
+#Display 7-segmentos de la parte derecha de la placa extendida
+
+NET displaydcha<0> loc=E2;
+NET displaydcha<1> loc=E1;
+NET displaydcha<2> loc=F3;
+NET displaydcha<3> loc=F2;
+NET displaydcha<4> loc=G4;
+NET displaydcha<5> loc=G3;
+NET displaydcha<6> loc=G1;
+
+#NET VGA-BLUE0 LOC=C9; #BLU0;
+#NET VGA-BLUE1 LOC=E7; #BLU1;
+#NET VGA-BLUE2 LOC=D5; #BLU2;
+#NET VGA-GREEN0 LOC=A8; #GRN0; 
+#NET VGA-GREEN1 LOC=A5; #GRN1;
+#NET VGA-GREEN2 LOC=C3; #GRN2;
+#NET VGA-RED0 LOC=C8; #RED0;
+#NET VGA-RED1 LOC=D6; #RED1;
+#NET VGA-RED2 LOC=B1; #RED2;
+#NET VGA-HSYNC LOC=B7; #HSYNC# 
+#NET VGA-VSYNC LOC=D8; #VSYNC# 
+
+NET rgb<0> LOC=C9; #BLU0;
+NET rgb<1> LOC=E7; #BLU1;
+NET rgb<2> LOC=D5; #BLU2;
+NET rgb<3> LOC=A8; #GRN0; 
+NET rgb<4> LOC=A5; #GRN1;
+NET rgb<5> LOC=C3; #GRN2;
+NET rgb<6> LOC=C8; #RED0;
+NET rgb<7> LOC=D6; #RED1;
+NET rgb<8> LOC=B1; #RED2;
+NET hsyncb LOC=B7; #HSYNC# 
+NET vsyncb LOC=D8; #VSYNC# 
