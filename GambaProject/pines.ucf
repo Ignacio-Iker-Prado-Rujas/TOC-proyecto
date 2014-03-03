@@ -76,26 +76,26 @@ NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
 
 #Display 7-segmentos de la parte izquierda de la placa extendida:
 
-#NET levanta<0> LOC=H14;
-###NET levanta<1> LOC=M4;
-#NET levanta<2> LOC=P1;
-#NET levanta<3> LOC=N3;
-#NET levanta<4> LOC=M15;
-#NET levanta<5> LOC=H13;
-#NET levanta<6> LOC=G16;
+NET displayizq<0> LOC=H14;
+NET displayizq<1> LOC=M4;
+NET displayizq<2> LOC=P1;
+NET displayizq<3> LOC=N3;
+NET displayizq<4> LOC=M15;
+NET displayizq<5> LOC=H13;
+NET displayizq<6> LOC=G16;
 
 
 
 
 #Display 7-segmentos de la parte derecha de la placa extendida
 
-#NET levanta<7> loc=E2;
-#NET displayd<1> loc=E1;
-#NET displayd<2> loc=F3;
-#NET displayd<3> loc=F2;
-#NET displayd<4> loc=G4;
-#NET displayd<5> loc=G3;
-#NET displayd<6> loc=G1;
+NET displaydcha<0> loc=E2;
+NET displaydcha<1> loc=E1;
+NET displaydcha<2> loc=F3;
+NET displaydcha<3> loc=F2;
+NET displaydcha<4> loc=G4;
+NET displaydcha<5> loc=G3;
+NET displaydcha<6> loc=G1;
 
 #NET VGA-BLUE0 LOC=C9; #BLU0;
 #NET VGA-BLUE1 LOC=E7; #BLU1;
