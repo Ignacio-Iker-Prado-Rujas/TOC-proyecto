@@ -37,7 +37,7 @@ clk_salida <= clk_aux;
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
     ELSIF(clk'EVENT AND clk = '1') THEN
-      IF (cuenta="11000100000000000000000000") THEN 
+      IF (cuenta="00100000000000000000000000") THEN 
 			clk_aux <= not clk_aux;
         cuenta <= (OTHERS=>'0');
       ELSE
