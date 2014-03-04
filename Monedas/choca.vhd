@@ -30,7 +30,7 @@ type estados_juego is (playing, game_over, pause);
 --Define el nivel en el que se encuentra actualmente
 type estados_niveles is (nivel1, nivel2, nivel3, nivel4, nivel5);
 --Define los estados en los que puede estar una moneda
-type estados_monedas is (invisible, subiendo, bajando);
+type estados_monedas is (quieto, invisible, subiendo, bajando, moneda_conseguida);
 
 --Señales
 
@@ -76,7 +76,7 @@ signal posy: std_logic_vector(7 downto 0);
 signal posx, avanza_obstaculos: std_logic_vector(9 downto 0);
 
 --Posición de refresco de los obstáculos, sirve para construir dir_mem
-signal posy_moneda, next_posy_moneda: std_logic_vector(7 downto 0);
+signal posy_moneda, next_posy_moneda: std_logic_vector(9 downto 0);
 signal posx_moneda, next_posx_moneda, avanza_moneda: std_logic_vector(9 downto 0);
 
 --SEÑALES DE BARRY TROTTER
@@ -105,6 +105,7 @@ signal pausado: std_logic;--señal de pausa
 signal paint_marcador : std_logic;
 signal paint_game_over: std_logic;
 signal paint_coin: std_logic;
+signal catched: std_logic;
 
 --Estados del juego
 
@@ -113,7 +114,7 @@ signal state, next_state: estado_choques := inicializa;
 --Estados del juego
 signal estado_juego, next_estado_juego: estados_juego;
 --Estados de las monedas 
-signal state_coin, next_state_coin: estados_monedas := invisible; 
+signal state_coin, next_state_coin, pause_state_coin: estados_monedas := invisible; 
 
 
 --Posiciones
@@ -129,7 +130,7 @@ signal posy_fondo: std_logic_vector(7 downto 0);
 signal posx_fondo, cuenta_fondo: std_logic_vector(6 downto 0);
 
 --Contador de las monedas
-signal cuenta_monedas: std_logic_vector(6 downto 0) := "0000000";
+signal cuenta_monedas, next_cuenta_monedas: std_logic_vector(6 downto 0) := "0000000";
 
 
 ----Conversor de un bit a nueve de los obstáculos
@@ -693,60 +694,96 @@ end process pinta_marcador;
 ----------------------------------------------------------------------------
 
 --Process encargado de pintar las monedas y modificar estados_monedas
-pinta_moneda: process(state_coin, hcnt, vcnt)
+pinta_moneda: process(state_coin, hcnt, vcnt, posx_moneda, posy_moneda)
 begin 
 	paint_coin <= '0';
 	if hcnt >= posx_moneda and hcnt <= posx_moneda + 4 then 
 		if vcnt >= posy_moneda and vcnt <= posy_moneda + 8 then
---			if state_coin = bajando or state_coin = subiendo then
+			if state_coin = bajando or state_coin = subiendo then
 				paint_coin <= '1';
-			--end if;
+			end if;
 		end if;
 	end if;
 end process pinta_moneda;
 
 --Hace avanzar a la moneda, tanto hacia arriba como hacia abajo
-mueve_moneda: process (relojMovMoneda, reset)
+mueve_moneda: process (relojMovMoneda, reset, avanza_obstaculos)
 begin
 	if reset='1' then
-		posy_moneda <= "11000000"; -- 128 en decimal
-		posx_moneda <= "0100000100";
+		posy_moneda <= "0011000000"; -- 192 en decimal
+		posx_moneda <= "0100000000"; -- 256 en decimal
 		state_coin <= bajando;
+		--catched <= '0';
+		cuenta_monedas <= "0000000";
 	elsif RelojMovMoneda'event and RelojMovMoneda = '1' then 
+		cuenta_monedas <= next_cuenta_monedas;
 		posy_moneda <= next_posy_moneda;
 		posx_moneda <= next_posx_moneda;
 		state_coin <= next_state_coin;
 	end if;
 end process;
 
-estado_moneda: process(state_coin, posy_moneda, posx_moneda)
+estado_moneda: process(reset, avanza_obstaculos, state_coin, posy_moneda, posx_moneda, estado_juego, paint_coin, munyeco, cuenta_monedas)
 begin
-	if state_coin = subiendo and posy_moneda <= 150 then
+	catched <= catched;
+	if avanza_obstaculos = "1111111111"then
+		catched <= '0';
+		next_state_coin <= bajando;
+	elsif state_coin = subiendo and posy_moneda <= 150 then
 		next_state_coin <= bajando;
 	elsif state_coin = bajando and posy_moneda >= 278 then
 		next_state_coin <= subiendo;
+	elsif estado_juego = pause then
+		--pause_state_coin <= state_coin;
+		next_state_coin <= quieto;
+	elsif estado_juego = playing and state_coin = quieto then
+		--next_state_coin <= pause_state_coin;
+		next_state_coin <= bajando;
+--	elsif state_coin = moneda_conseguida then
+--		next_state_coin <= invisible;
+--	--	cuenta_monedas <= cuenta_monedas + 1;
+	elsif catched = '1' then 
+		next_state_coin <= invisible;
+	elsif state_coin = invisible then
+		catched <= '1';
+		next_state_coin <= state_coin;
+	elsif paint_coin = '1' and munyeco = '1' and catched = '0' then
+		catched <= '1';
+		next_state_coin <= invisible;
+		next_cuenta_monedas <= cuenta_monedas + 1;
 	else 
 		next_state_coin <= state_coin;
 	end if;
 end process estado_moneda;
 
 --Process que modifica lo que hace la moneda en función de sus estados
-direccion_moneda:process(state_coin, posy_moneda, posx_moneda)
+direccion_moneda:process(state_coin, posy_moneda, posx_moneda, avanza_obstaculos)
 begin
-	if state_coin = invisible then
+	if avanza_obstaculos = "1111111111"then
+		next_posy_moneda <= "0011000000"; -- 192 en decimal
+		next_posx_moneda <= "0100000000"; -- 256 en decimal
+	elsif state_coin = invisible or state_coin = quieto then
 		next_posy_moneda <= posy_moneda;
 		next_posx_moneda <= posx_moneda;
 	elsif state_coin = subiendo then
-		next_posy_moneda <= posy_moneda-1;
+		next_posy_moneda <= posy_moneda-2;
 		next_posx_moneda <= posx_moneda-1;
 	elsif state_coin = bajando then
-		next_posy_moneda <= posy_moneda+1;
+		next_posy_moneda <= posy_moneda+2;
 		next_posx_moneda <= posx_moneda-1;
 	else 
 		next_posy_moneda <= posy_moneda;
 		next_posx_moneda <= posx_moneda;
 	end if;
 end process direccion_moneda;
+
+
+--Choque de las monedas
+--for i in 0 to 4 loop
+--	if (posx_moneda + i = ichoque
+--  exit when i = some_var ;
+--  -- blah,blah
+--end loop;
 
 ------------------------------------------------------------
 ----Debugueo de los choques-----------
@@ -760,9 +797,11 @@ end process direccion_moneda;
 ----------------------------------------------------------------------------
 --Colorea
 ----------------------------------------------------------------------------
+
+	
 colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
 		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
-			paint_marcador, color_marcador, debug_choque)
+			paint_marcador, color_marcador, debug_choque, paint_coin)
 begin
 	if debug_choque = '1' then rgb <= "111000000";
 	elsif bordes = '1' then rgb <= "110110000";
@@ -775,17 +814,6 @@ begin
 	else rgb <= "000000000";
 	end if;
 end process colorear;
---
---pintamarcador: process(avanza_obstaculos)
---cuenta_metros <= 7;
---
---end process;
---
-----MARCADOR---
---actualiza_metros: process(avanza_obstaculos)
---	cuenta_metros <= cuenta_metros+1;
---	
---
---end process;
+
 ---------------------------------------------------------------------------
 end vgacore_arch;
