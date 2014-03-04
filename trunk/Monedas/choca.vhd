@@ -105,7 +105,7 @@ signal pausado: std_logic;--señal de pausa
 signal paint_marcador : std_logic;
 signal paint_game_over: std_logic;
 signal paint_coin: std_logic;
-signal catched: std_logic;
+signal catched, next_catched: std_logic;
 
 --Estados del juego
 
@@ -699,7 +699,7 @@ begin
 	paint_coin <= '0';
 	if hcnt >= posx_moneda and hcnt <= posx_moneda + 4 then 
 		if vcnt >= posy_moneda and vcnt <= posy_moneda + 8 then
-			if state_coin = bajando or state_coin = subiendo then
+			if state_coin = bajando or state_coin = subiendo or state_coin = quieto then
 				paint_coin <= '1';
 			end if;
 		end if;
@@ -720,19 +720,22 @@ begin
 		posy_moneda <= next_posy_moneda;
 		posx_moneda <= next_posx_moneda;
 		state_coin <= next_state_coin;
+		catched <= next_catched;
 	end if;
 end process;
 
 estado_moneda: process(reset, avanza_obstaculos, state_coin, posy_moneda, posx_moneda, estado_juego, paint_coin, munyeco, cuenta_monedas)
 begin
-	catched <= catched;
+	next_catched <= catched;
 	if avanza_obstaculos = "1111111111"then
-		catched <= '0';
+		next_catched <= '0';
 		next_state_coin <= bajando;
 	elsif state_coin = subiendo and posy_moneda <= 150 then
 		next_state_coin <= bajando;
 	elsif state_coin = bajando and posy_moneda >= 278 then
 		next_state_coin <= subiendo;
+	elsif posx_moneda <= 5 then
+		next_state_coin <= invisible;
 	elsif estado_juego = pause then
 		--pause_state_coin <= state_coin;
 		next_state_coin <= quieto;
@@ -745,10 +748,10 @@ begin
 	elsif catched = '1' then 
 		next_state_coin <= invisible;
 	elsif state_coin = invisible then
-		catched <= '1';
+		next_catched <= '1';
 		next_state_coin <= state_coin;
 	elsif paint_coin = '1' and munyeco = '1' and catched = '0' then
-		catched <= '1';
+		next_catched <= '1';
 		next_state_coin <= invisible;
 		next_cuenta_monedas <= cuenta_monedas + 1;
 	else 
