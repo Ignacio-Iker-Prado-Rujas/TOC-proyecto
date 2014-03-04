@@ -36,7 +36,9 @@ clk_salida <= clk_aux;
   BEGIN
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
-		division <= "001011111111111111111";
+		--division <= "001011111111111111111";
+		  division <= "001100010011100001111";
+		
 		
     ELSIF(clk'EVENT AND clk = '1') THEN
       IF (cuenta = division) THEN 
