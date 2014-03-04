@@ -26,16 +26,16 @@
 library IEEE;
   use IEEE.STD_LOGIC_1164.ALL;
   use IEEE.NUMERIC_STD.ALL;
-entity ROM_RGB_9b_barryair25 is
+entity ROM_RGB_9b_barryair is
   port (
     clk  : in  std_logic;   -- reloj
     addr : in  std_logic_vector(9-1 downto 0);
     dout : out std_logic_vector(9-1 downto 0) 
   );
-end ROM_RGB_9b_barryair25;
+end ROM_RGB_9b_barryair;
 
 
-architecture BEHAVIORAL of ROM_RGB_9b_barryair25 is
+architecture BEHAVIORAL of ROM_RGB_9b_barryair is
   signal addr_int  : natural range 0 to 2**9-1;
   type memostruct is array (natural range<>) of std_logic_vector(9-1 downto 0);
   constant filaimg : memostruct := (
