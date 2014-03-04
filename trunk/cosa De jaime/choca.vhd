@@ -446,6 +446,8 @@ pos_co_x <= hcnt - 200;
 dir_mem_marcador <=  pos_co_y & pos_co_x;
 
 
+--Process que se encarga de la gestión del avance de los obstaculos
+
 mueve_obstaculos: process(reset,relojMovimiento, avanza_obstaculos, estado_juego)
 begin
 	if reset='1' then
@@ -456,9 +458,11 @@ begin
 		else 
 			avanza_obstaculos <= avanza_obstaculos;
 		end if;
-		-- el reloj a usar es relojDeVelocidadPantalla
+		-- el reloj a usar es relojMovimienro
 	end if;
 end process mueve_obstaculos;
+
+--Process que se ocupa de la gestión del avance del fondo de la pantalla
 
 mueve_fondo:process(reset,relojMovFondo, estado_juego, cuenta_fondo)
 begin
@@ -470,12 +474,13 @@ begin
 		else 
 			cuenta_fondo <= cuenta_fondo;
 		end if;
-		-- el reloj a usar es relojDeVelocidadPantalla
+		-- el reloj a usar es relojMovFondo
 	end if;
 end process mueve_fondo;
 
-mueve_munyeco: process (relojMunyeco, reset)
+--Process que se encarga de actualizar estado y movimiento del munyeco
 
+mueve_munyeco: process (relojMunyeco, reset)
 begin
 	if reset='1' then
 		r_my <= "0100000000"; -- 128 en decimal
@@ -558,8 +563,10 @@ begin
 --		ralentizar <= '1';
 --		aux_contador_baj <= contador_baj +1;
 		
-	else -- movimiento_munyeco = fin
+	elsif movimiento_munyeco = fin then -- movimiento_munyeco = fin
 		my <= r_my;
+	else
+		my <= r_my+1;
 	end if;
 end process mov_munyeco;
 
@@ -576,9 +583,13 @@ end process clock_estado_nivel;
 --jajajaj
 --	elsif obstaculo = '1' then rgb <= color_obstaculo;
 	--elsif fondo = '1' then rgb <= color_fondo;
+	
+	
+--Process que gestiona los niveles del juego-----------------
+
 niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				color_fondo1, salida_obstaculo1, avanza_obstaculos, 
-				salida_obstaculo2, color_fondo2, salida_obstaculo,
+				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
 				color_choque, color_choque1, color_choque2, color_choque3)--Añadir game over
 begin
 	if estado_nivel = nivel1 then
@@ -627,6 +638,8 @@ begin
 	end if;
 end process clock_estado_juego;
 
+--Process que gestiona el cambio de estado del juego
+
 controla_juego: process(estado_juego, pulsado, color_choque, pausado)
 	begin
 	if color_choque = '1'  then
@@ -645,6 +658,8 @@ controla_juego: process(estado_juego, pulsado, color_choque, pausado)
 end process controla_juego;
 
 --------------------------------------------
+--Process que gestiona el movimiento del munyeco
+
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color_obstaculo, color_choque, movimiento_munyeco, contador_sub, contador_baj, estado_juego)
 begin
 	if estado_juego = game_over then
@@ -663,7 +678,7 @@ begin
 			next_movimiento <= quieto;
 		else 
 --			next_movimiento <= acelerar;
-		next_movimiento <= arriba;
+			next_movimiento <= arriba;
 		end if;
 	elsif pulsado = '1' then
 		next_movimiento <= arriba;
@@ -770,7 +785,7 @@ begin
 	end if;
 end process comprueba_choques;
 ------------------------------------------------------
---Pintar:
+--Pintar: Gestiona el fondo y los obstáculos
 -------------------------------------------------------
 pinta_obstaculos: process(hcnt, vcnt, salida_obstaculo)
 begin
@@ -786,7 +801,7 @@ begin
 	end if;
 end process pinta_obstaculos;
 
--- pinta bordes
+-- pinta bordes: Pinta los limites de la pantalla
 pinta_bordes: process(hcnt, vcnt)
 begin
 	bordes <= '0';
@@ -844,6 +859,8 @@ begin
 		end if;
 	end if;
 end process pinta_game_over;
+
+-----Process para pintar la puntuacion en la pantalla. Se deja para version de pago
 
 pinta_marcador: process(hcnt, vcnt)
 begin
