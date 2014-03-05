@@ -79,6 +79,7 @@ Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería
 
 El process $mueve_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve_fondo$ hace lo mismo con el fondo de la pantalla.
 
+$mueve_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
 $mov_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado_munyeco$ son los encargados de actualizar estado y posición de Barry.
 
 El juego tendrá 4 estados:
@@ -90,6 +91,8 @@ El juego tendrá 4 estados:
 \item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
  \end{itemize}
 
+
+$niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
 
 $controla_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
