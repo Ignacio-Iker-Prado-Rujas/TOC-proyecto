@@ -47,22 +47,23 @@ signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
 --Posición vertical de Barry, contando desde su cabeza
 signal my, r_my: std_logic_vector(9 downto 0);
 --Indicadores para pintar obstáculos, bordes, Barry y fondo
-signal obstaculo, salida_obstaculo,  bordes, munyeco, munyeco1, munyeco2, fondo: std_logic;
+signal obstaculo, salida_obstaculo,  bordes, munyeco, munyeco1, munyeco2, fondo, fondo_inter: std_logic;
 signal salida_obstaculo1, salida_obstaculo2, salida_obstaculo3: std_logic;
+signal fondo_inter1, fondo_inter2: std_logic;
 
 --Direcciones para las rom
 
 --Direccion de memoria para los obstaculos
 signal dir_mem: std_logic_vector(18-1 downto 0);
 --Direccion de memoria para el fondo
-signal dir_mem_fondo: std_logic_vector(15-1 downto 0);
+signal dir_mem_fondo, dir_mem_fondo_inter: std_logic_vector(15-1 downto 0);
 
 --Direccion de memoria para el game over
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
 
 --Colores
 --Salidas de colores de las respectivas rom's 
-signal color_obstaculo, imagen_game_over, color_fondo: std_logic_vector(8 downto 0);
+signal color_obstaculo, imagen_game_over, color_fondo, color_inter_fondo: std_logic_vector(8 downto 0);
 --el color fondo 3 son los arboles o nubes, 2 y 3 JAIME
 signal color_fondo1, color_fondo2, color_fondo3: std_logic_vector(8 downto 0);--color de cada nivel de obstáculo
 --color de los obstaculos que estarán conectados a las rom JAIME
@@ -97,7 +98,7 @@ signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 --Relojes a distintas velocidades
 signal relojChoques: std_logic;
 signal relojPintaObstaculos: std_logic; --Refresca los obstáculos
-signal relojMovFondo: std_logic; --Mueve los obstáculos
+signal relojMovFondo, relojMovFondoInter: std_logic; --Mueve los obstáculos
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
 signal pulsado: std_logic;
@@ -114,12 +115,9 @@ signal vuela: std_logic;
 --Posiciones para pintar el game over
 signal pos_go_y: std_logic_vector(4 downto 0);
 signal pos_go_x: std_logic_vector(6 downto 0);
---Posiciones para pintar el contador
-signal pos_co_y: std_logic_vector(3 downto 0);
-signal pos_co_x: std_logic_vector(6 downto 0); 
 --Posiciones para pintar el fondo
-signal posy_fondo: std_logic_vector(7 downto 0);
-signal posx_fondo, cuenta_fondo: std_logic_vector(6 downto 0);
+signal posy_fondo, posy_fondoi: std_logic_vector(7 downto 0);
+signal posx_fondo, posx_fondoi, cuenta_fondo, cuenta_fondo_inter: std_logic_vector(6 downto 0);
 
 ----Conversor de un bit a nueve de los obstáculos
 
@@ -153,6 +151,14 @@ end component;
 component divisor_movimiento_fondo is 
 port (reset, clk_entrada: in STD_LOGIC;
 		clk_salida: out STD_LOGIC);
+end component;
+
+--Reloj para el movimiento del inter fondo
+component divisor_inter_fondo is
+    port (
+        reset, clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
+        clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
+    );
 end component;
 
 -- Reloj para Barry
@@ -290,6 +296,8 @@ clk_100M <= clock;
 clk <= clk_1;
 --Reloj para el movimiento del fondo
 Reloj_de_movimiento_fondo: divisor_movimiento_fondo port map(reset, clk_100M, relojMovFondo);
+Reloj_de_movimiento_inter_fondo: divisor_inter_fondo port map(reset, clk_100M, relojMovFondoInter);
+
 --Reloj para el movimiento de los obstaculos
 Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, clk_100M, relojMovimiento);
 --Reloj para movimiento Simple de Barry JAIME
@@ -307,7 +315,7 @@ Rom_fondo1: ROM_RGB_9b_lab port map(clk, dir_mem_fondo, color_fondo1);
 --port map fondo nubes
 Rom_fondo2: ROM_RGB_9b_nubes port map(clk, dir_mem_fondo, color_fondo2);
 --port map fondo reloj
-Rom_fondo3: ROM_RGB_9b_arboles port map(clk, dir_mem_fondo, color_fondo3);
+Rom_fondo3: ROM_RGB_9b_arboles port map(clk, dir_mem_fondo_inter, color_fondo3);
 --PORT MAP OBSTACULOS
 ---Rom port map mapafacil
 Romobs1: ROM_RGB_9b_mapa_facil port map(clk_1, dir_mem, dir_mem_choque, salida_obstaculo1, color_choque1); 
@@ -408,6 +416,10 @@ posy_fondo <= vcnt - 111;
 posx_fondo <= hcnt - 4 + cuenta_fondo;
 dir_mem_fondo <=  posy_fondo & posx_fondo;
 
+--Posiciones de memoria del fondo intermedio
+posy_fondoi <= vcnt - 111;
+posx_fondoi <= hcnt - 4 + cuenta_fondo_inter;
+dir_mem_fondo_inter <=  posy_fondoi & posx_fondoi;
 --Posiciones para el choque
 --<= r_my - 110;				--Posicion y del choque
 --posx_choque <= 40 + avanza_obstaculos; 		--Posicion x del choque
@@ -426,8 +438,8 @@ pos_go_y <= vcnt - 222;
 pos_go_x <= hcnt - 68;
 dir_mem_game_over <=  pos_go_y & pos_go_x;
 
-
-
+--fondo inter conectado
+fondo_inter <= fondo_inter1 and fondo_inter2;
 
 
 --Process que se encarga de la gestión del avance de los obstaculos
@@ -461,6 +473,20 @@ begin
 		-- el reloj a usar es relojMovFondo
 	end if;
 end process mueve_fondo;
+
+mueve_fondo_inter: process(reset, relojMovFondoInter, estado_juego, cuenta_fondo_inter)
+begin
+	if reset='1' then
+		cuenta_fondo_inter <= "0000000";
+	elsif (relojMovFondoInter'event and relojMovFondoInter='1') then
+		if estado_juego = playing then 
+			cuenta_fondo_inter <= cuenta_fondo_inter + 1;
+		else 
+			cuenta_fondo_inter <= cuenta_fondo_inter;
+		end if;
+		-- el reloj a usar es relojMovFondo
+	end if;
+end process mueve_fondo_inter;
 
 --Process que se encarga de actualizar estado y movimiento del munyeco
 
@@ -572,9 +598,13 @@ end process clock_estado_nivel;
 niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				color_fondo1, salida_obstaculo1, avanza_obstaculos, 
 				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
-				color_choque, color_choque1, color_choque2, color_choque3)--Añadir game over
+				color_choque, color_choque1, color_choque2, color_choque3,
+				fondo_inter1)--Añadir game over
 begin
+	
+	color_inter_fondo <= "111111111";
 	if estado_nivel = nivel1 then
+		fondo_inter1 <= '0';
 		color_choque <= color_choque1;
 		color_fondo <= color_fondo1;
 		--color_obstaculo <= color_obs1;
@@ -584,6 +614,7 @@ begin
 		else sig_estado_nivel <= estado_nivel;
 		end if;
 	elsif estado_nivel = nivel2 then
+		fondo_inter1 <= '0';
 		color_choque <= color_choque2;
 		color_fondo <= color_fondo1;
 		--color_obstaculo <= color_obs2;
@@ -595,6 +626,12 @@ begin
 	elsif estado_nivel = nivel3 then
 		color_choque <= color_choque3;
 		color_fondo <= color_fondo2;
+		if color_fondo3 = "111111111" then 
+			fondo_inter1 <= '0';
+		else
+			fondo_inter1 <= '1';
+			color_inter_fondo <= color_fondo3;
+		end if;
 		--color_obstaculo <= color_obs3;
 		salida_obstaculo <= salida_obstaculo3;
 		if avanza_obstaculos = "1111111111" then
@@ -781,6 +818,7 @@ pinta_obstaculos: process(hcnt, vcnt, salida_obstaculo)
 begin
 	obstaculo <= '0';
 	fondo <= '0';
+	fondo_inter2 <= '0';
 	color_obstaculo <= "111111111";
 	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then--TODO mirar si se puede conectar directamente JAIME
 		if salida_obstaculo = '1' then 
@@ -788,6 +826,7 @@ begin
 			obstaculo <= '1';
 			--fondo <= '0';
 		else fondo <= '1';
+				fondo_inter2 <= '1';
 		end if;
 	end if;
 end process pinta_obstaculos;
@@ -856,13 +895,15 @@ end process pinta_game_over;
 --Colorea
 ----------------------------------------------------------------------------
 colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
-		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo
+		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
+		fondo_inter, color_inter_fondo
 			)
 begin
 	if bordes = '1' then rgb <= "110110000";
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
 	elsif munyeco = '1' then rgb <= color_munyeco;
 	elsif obstaculo = '1' then rgb <= color_obstaculo;
+	elsif fondo_inter = '1' then rgb <= color_inter_fondo;
 	elsif fondo = '1' then rgb <= color_fondo;
 	else rgb <= "000000000";
 	end if;
