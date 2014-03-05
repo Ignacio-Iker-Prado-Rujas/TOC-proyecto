@@ -86,21 +86,70 @@ Además, utilizamos distintas frecuencias para Barry, el fondo y los obstáculos
 \item OJO, PROBABLEMENTE HAYA ALGUNA MAS
 \end{itemize}
 
-Con el fichero \textit{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \textit{pines.ucf}
+Con el fichero \textit{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \textit{pines.ucf}.
+
+Mediante el ficher \textit{control_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la 'p' para pausar la partida.
+
+El ranndomgenerator no se si se usa ¿¿??
+
 
 \section{nombre.bit}
 
 
 \section{Pines y significado}
+Conectaremos el teclado con los pines:
 
+NET PS2CLK LOC = B16;
+NET PS2DATA LOC = E13;
+NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
+
+Mostraremos el número de monedas mediante los displays de la placa extendida:
+\begin{itemize}
+\item placa izquierda:
+
+NET displayizq<0> LOC=H14;
+NET displayizq<1> LOC=M4;
+NET displayizq<2> LOC=P1;
+NET displayizq<3> LOC=N3;
+NET displayizq<4> LOC=M15;
+NET displayizq<5> LOC=H13;
+NET displayizq<6> LOC=G16;
+
+\item placa derecha:
+
+NET displaydcha<0> loc=E2;
+NET displaydcha<1> loc=E1;
+NET displaydcha<2> loc=F3;
+NET displaydcha<3> loc=F2;
+NET displaydcha<4> loc=G4;
+NET displaydcha<5> loc=G3;
+NET displaydcha<6> loc=G1;
+\end{itemize}
+
+Por último, conectaremos los colores y la posición en la pantalla:
+
+NET rgb<0> LOC=C9; #BLU0;
+NET rgb<1> LOC=E7; #BLU1;
+NET rgb<2> LOC=D5; #BLU2;
+NET rgb<3> LOC=A8; #GRN0; 
+NET rgb<4> LOC=A5; #GRN1;
+NET rgb<5> LOC=C3; #GRN2;
+NET rgb<6> LOC=C8; #RED0;
+NET rgb<7> LOC=D6; #RED1;
+NET rgb<8> LOC=B1; #RED2;
+NET hsyncb LOC=B7; #HSYNC# 
+NET vsyncb LOC=D8; #VSYNC# 
 
 \section{Otros aquelarres de inicialización}
+Qué carajos hay que poner aquí??
 
 
 \section{Cómo se ``juega''}
+Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible
 
 
 \section{Qué espero ver}
+La versión para FPGA del juego Jetpack Joyride. 
 
 
 \end{document}
