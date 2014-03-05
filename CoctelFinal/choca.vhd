@@ -23,7 +23,7 @@ end vgacore;
 architecture vgacore_arch of vgacore is
 
 --Define el movimiento de Barry
-type estado_movimiento is (quieto, arriba, abajo, fin, flotar, acelerar);
+type estado_movimiento is (quieto, arriba, abajo, fin);
 --Define los estados de comprobación de choques 
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies, comprueba_espalda);
 --Define los estados en los que se encuentra el juego en cada momento
@@ -560,8 +560,9 @@ end process;
 
 
 --Process corre munyeco Jaime
-corre_munyeco: process(controla_pasa_tiempo, vuela, color_munyeco, color_munyeco1, color_munyeco2, munyeco1, munyeco2, munyeco)
-
+corre_munyeco: process(controla_pasa_tiempo, vuela, color_munyeco,
+							color_munyeco1, color_munyeco2,
+							munyeco1, munyeco2, munyeco, freeze, pasa_tiempo)
 
 begin
 --si el munyeco esta volando debemos colorear el munyeco quieto
@@ -622,7 +623,9 @@ begin
 		
 	elsif movimiento_munyeco = fin then -- movimiento_munyeco = fin
 		my <= r_my;
+		vuela <= '0';
 	else
+		vuela <= '0';
 		my <= r_my+1;
 	end if;
 end process mov_munyeco;
@@ -648,7 +651,7 @@ niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				color_fondo1, salida_obstaculo1, avanza_obstaculos, 
 				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
 				color_choque, color_choque1, color_choque2, color_choque3,
-				fondo_inter1)--Añadir game over
+				fondo_inter1, color_fondo3)--Añadir game over
 begin
 	
 	color_inter_fondo <= "111111111";
@@ -656,7 +659,7 @@ begin
 		fondo_inter1 <= '0';
 		color_choque <= color_choque1;
 		color_fondo <= color_fondo1;
-		--color_obstaculo <= color_obs1;
+		color_obstaculo <= "111111000";
 		salida_obstaculo <= salida_obstaculo1;
 		if avanza_obstaculos = "1111111111" then
 			sig_estado_nivel <= nivel2;
@@ -666,7 +669,7 @@ begin
 		fondo_inter1 <= '0';
 		color_choque <= color_choque2;
 		color_fondo <= color_fondo1;
-		--color_obstaculo <= color_obs2;
+		color_obstaculo <= "000111000";
 		salida_obstaculo <= salida_obstaculo2;
 		if avanza_obstaculos = "1111111111" then
 			sig_estado_nivel <= nivel3;
@@ -681,7 +684,7 @@ begin
 			fondo_inter1 <= '1';
 			color_inter_fondo <= color_fondo3;
 		end if;
-		--color_obstaculo <= color_obs3;
+		color_obstaculo <= "111000000";
 		salida_obstaculo <= salida_obstaculo3;
 		if avanza_obstaculos = "1111111111" then
 			sig_estado_nivel <= nivel1;
@@ -868,14 +871,14 @@ begin
 	obstaculo <= '0';
 	fondo <= '0';
 	fondo_inter2 <= '0';
-	color_obstaculo <= "111111111";
+	--color_obstaculo <= "111111111";
 	if hcnt > 4 and hcnt <= 260 and vcnt > 110 and vcnt <= 366 then--TODO mirar si se puede conectar directamente JAIME
 		if salida_obstaculo = '1' then 
-			color_obstaculo <= "111111000";
+			--color_obstaculo <= "111111000";
 			obstaculo <= '1';
 			--fondo <= '0';
 		else fondo <= '1';
-				fondo_inter2 <= '1';
+			fondo_inter2 <= '1';
 		end if;
 	end if;
 end process pinta_obstaculos;
@@ -982,7 +985,7 @@ end process pinta_moneda;
 
 inicio_aleatorio_moneda <= salida_aleatoria+1;
 --Hace avanzar a la moneda, tanto hacia arriba como hacia abajo
-mueve_moneda: process (relojMovMoneda, reset, avanza_obstaculos)
+mueve_moneda: process (relojMovMoneda, reset, avanza_obstaculos, inicio_aleatorio_moneda)
 begin
 	if reset = '1' then
 		reset_monedas <= '1';
@@ -1039,7 +1042,7 @@ begin
 end process estado_moneda;
 
 --Process que modifica lo que hace la moneda en función de sus estados
-direccion_moneda:process(state_coin, posy_moneda, posx_moneda, avanza_obstaculos)
+direccion_moneda:process(state_coin, posy_moneda, posx_moneda, avanza_obstaculos, inicio_aleatorio_moneda)
 begin
 	if avanza_obstaculos = "1111111111"then
 		next_posy_moneda <=  inicio_aleatorio_moneda+150;
@@ -1075,8 +1078,7 @@ end process direccion_moneda;
 ----------------------------------------------------------------------------
 colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
 		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
-		fondo_inter, color_inter_fondo
-			)
+		fondo_inter, color_inter_fondo, paint_coin)
 begin
 	if bordes = '1' then rgb <= "110110000";
 	elsif paint_game_over = '1' then rgb <= imagen_game_over;
