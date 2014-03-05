@@ -29,7 +29,7 @@ type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueb
 --Define los estados en los que se encuentra el juego en cada momento
 type estados_juego is (playing, game_over, pause);
 --Define el nivel en el que se encuentra actualmente
-type estados_niveles is (nivel1, nivel2, nivel3, nivel4, nivel5);
+type estados_niveles is (nivel1, nivel2, nivel3);--, nivel4, nivel5);
 --Define los estados en los que puede estar una moneda
 type estados_monedas is (quieto, invisible, subiendo, bajando, moneda_conseguida, cuenta);
 
@@ -651,7 +651,8 @@ niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				color_fondo1, salida_obstaculo1, avanza_obstaculos, 
 				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
 				color_choque, color_choque1, color_choque2, color_choque3,
-				fondo_inter1, color_fondo3)--Añadir game over
+				fondo_inter1, color_fondo3,
+				cuenta_monedas)--Añadir game over
 begin
 	
 	color_inter_fondo <= "111111111";
@@ -661,7 +662,7 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "111111000";
 		salida_obstaculo <= salida_obstaculo1;
-		if avanza_obstaculos = "1111111111" then
+		if cuenta_monedas = "0000101" then
 			sig_estado_nivel <= nivel2;
 		else sig_estado_nivel <= estado_nivel;
 		end if;
@@ -671,7 +672,7 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "000111000";
 		salida_obstaculo <= salida_obstaculo2;
-		if avanza_obstaculos = "1111111111" then
+		if cuenta_monedas = "0001010" then
 			sig_estado_nivel <= nivel3;
 		else sig_estado_nivel <= estado_nivel;
 		end if;
@@ -686,7 +687,7 @@ begin
 		end if;
 		color_obstaculo <= "111000000";
 		salida_obstaculo <= salida_obstaculo3;
-		if avanza_obstaculos = "1111111111" then
+		if cuenta_monedas = "0001111" then
 			sig_estado_nivel <= nivel1;
 		else sig_estado_nivel <= estado_nivel;
 		end if;
