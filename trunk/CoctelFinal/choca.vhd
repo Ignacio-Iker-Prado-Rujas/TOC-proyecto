@@ -672,7 +672,7 @@ begin
 			sig_estado_nivel <= nivel3;
 		else sig_estado_nivel <= estado_nivel;
 		end if;
-	elsif estado_nivel = nivel3 then
+	else-- estado_nivel = nivel3 then
 		color_choque <= color_choque3;
 		color_fondo <= color_fondo2;
 		if color_fondo3 = "111111111" then 
