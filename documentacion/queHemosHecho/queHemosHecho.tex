@@ -33,7 +33,7 @@
 
 
 \begin{document} 
-\title{\Huge{\textsc{Proyecto-\\
+\title{\Huge{\textsc{Proyecto -\\
 	Qué hemos hecho}} \\
 	\vspace{0.7cm}
 	 \textsc{\Large{Tecnología y Organización de Computadores}} \\
@@ -70,11 +70,48 @@
 
 
 \section{Controlador/es (y máquinas de estados)}
-En primer lugar, vemos que cargamos separadamente de memoria a Barry, a los mapas y a las monedas de cada mapa.
-Por tanto, necesitaremos
+En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos, las monedas y el cartel de "Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes.
 
+En primer lugar, describamos el código referente a los movimientos:
+Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir_mem$, es la dirección eque utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y "Game Over".
+
+Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería una imagen de la hoja esa de Iker que usamos siempre)
+
+El process $mueve_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve_fondo$ hace lo mismo con el fondo de la pantalla.
+
+$mov_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado_munyeco$ son los encargados de actualizar estado y posición de Barry.
+
+El juego tendrá 4 estados:
+\begin{itemize}
+\item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
+\item Pause: Pulsando la tecla 'p' paramos el juego.
+\item Quieto: Barry no está subiendo ni bajando: puede estar andando o en el techo.
+\item Subiendo: Al pulsar la barra espaciadora activamos los propulsores del Jetpack y Barry sube.
+\item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
+ \end{itemize}
+
+
+$controla_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
+
+... cosas de choques... mejor que lo haga iker
+
+El process $pinta_obstaculos$ lee la ROM de obstáculos y los pinta en la pantalla. En los píxeles donde no haya obstáculos se pintará el fondo del juego. $pinta_munyeco$ hace lo mismo con la ROM de Barry, pintándolo en las posiciones de la pantalla que indica $r_my$, la variable que almacena la posición del protagonista.
+
+Similar es $pinta_game_over$, que además comprobará el estado del juego para cerciorarse de que nos hemos chocado antes de dibujar el "Game Over".
+
+$pinta_bordes$ dibuja los bordes de la pantalla del juego.
+
+Finalmente, $colorear$ decide qué pintamos en cada píxel, eligiendo entre.
+\begin{itemize}
+\item Bordes
+\item Game Over
+\item Barry
+\item Obstáculos
+\item Fondo
+\end{itemize}
 
 \section{Somos los mejores (venderse)}
+Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
 En serio hay alguna duda?
 Orgullosos de algo en particular...
 
@@ -92,10 +129,12 @@ Ha sido de gran utilidad el software de la Universidad Carlos III que permite pa
 Precisamente este fue uno de los principales problemas que encontramos al inicio de nuestro proyecto, y esta herramienta permitió solucionarlo de manera elegante y funcional (más petaqueo)
 \section{Trabajo individual}
 La organización orientativa del trabajo ha sido la sguiente:
-Jaime y Mayra: controlador de teclado y gestión y diseño de mapas.
-Jesús: Imágenes, memorias ROM.
-Iker: Barry, choques.
-Quique: Ser Führer del proyecto, pantalla principal, movimiento de Barry y de los mapas.
+\begin{itemize}
+\item Jaime y Mayra: controlador de teclado, gestión y diseño de mapas, cambio de niveles, movimiento de barry.
+\item Jesús: Imágenes, memorias ROM, monedas.
+\item Iker: Barry, choques, monedas
+\item Quique: Ser Führer del proyecto, pantalla principal, movimiento de Barry y de los mapas, monedas.
+\end{itemize}
 No obstante, al ser cinco integrantes en el proyecto, hemos podido variar la distribución de tareas en función de los requerimientos en cada fase del proceso. 
 
 
