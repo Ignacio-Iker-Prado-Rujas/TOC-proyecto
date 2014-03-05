@@ -262188,16 +262188,16 @@ architecture BEHAVIORAL of ROM_RGB_9b_flappynivelBW is
 
 begin
 
-  --addr_int <= TO_INTEGER(unsigned(addr));
+ -- addr_int <= TO_INTEGER(unsigned(addr));
   --addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
 
   P_ROM: process (clk)
   begin
     if clk'event and clk='1' then
---		dout <= filaimg(addr_int);
---		dout_munyeco <= filaimg(addr_munyeco_int);
-		dout <= '0';
-		dout_munyeco <= '0';
+		--dout <= filaimg(addr_int);
+		--dout_munyeco <= filaimg(addr_munyeco_int);
+	dout <= '0';
+	dout_munyeco <= '0';
     end if;
   end process;
 
