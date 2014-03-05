@@ -66,7 +66,27 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS DOS CARAS APROX.______________________________________________________
 
 \section{Ficheros y dependencias}
+El módulo central de nuestro proyecto es \textit{choca.vhd}. Es ahí dónde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Sin embargo, para leer los datos de memoria utilizamos varias ROMs:
+\begin{itemize}
+\item \textit{rom_rgb_9b_fondo}: Memoria ROM que contiene los datos del fondo del juego.
+\item \textit{rom_rgb_9b_game-over-negro}: Memoria ROM que contiene los datos del "Game Over".
+\item \textit{rom_rgb_9b_Joyride}: Memoria ROM que contiene los datos del fondo del juego.
+\item \textit{rom_rgb_9b_nivel_1_0}: Memoria ROM que contiene los datos del primer nivel del juego.
+\item \textit{rom_rgb_9b_nivel_2_0}: Memoria ROM que contiene los datos del segundo nivel del juego.
+\item OJO, PROBABLEMENTE HAYA ALGUNA MAS
+\end{itemize}
 
+Además, utilizamos distintas frecuencias para Barry, el fondo y los obstáculos, pues cada uno de ellos se mueve a una velocidad diferente. Para ello tenemos varios ficheros divisores:
+\begin{itemize}
+\item \textit{divisor.vhd}: Fichero divisor que controla la velocidad de ???.
+\item \textit{divisor_choques}: Fichero divisor que controla la velocidad de ???.
+\item \textit{divisor_movimiento_fondo}: Fichero divisor que controla la velocidad de movimiento del fondo.
+\item \textit{divisor_movimiento_obstaculos}: Fichero divisor que controla la velocidad de movimiento de los obstáculos.
+\item \textit{divisor_munyeco}: Fichero divisor que controla la velocidad de Barry.
+\item OJO, PROBABLEMENTE HAYA ALGUNA MAS
+\end{itemize}
+
+Con el fichero \textit{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \textit{pines.ucf}
 
 \section{nombre.bit}
 
