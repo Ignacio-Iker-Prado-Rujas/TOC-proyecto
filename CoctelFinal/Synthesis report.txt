@@ -1,0 +1,1685 @@
+Release 14.1 - xst P.15xf (nt64)
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
+ 
+--> Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.08 secs
+ 
+--> Reading design: vgacore.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "vgacore.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "vgacore"
+Output Format                      : NGC
+Target Device                      : xc3s1000-4-ft256
+
+---- Source Options
+Top Module Name                    : vgacore
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 8
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling vhdl file "C:/hlocal/Finally/gestorCambioNivel.vhd" in Library work.
+Architecture behavioral of Entity gestorcambionivel is up to date.
+Compiling vhdl file "C:/hlocal/Finally/control_teclado.vhd" in Library work.
+Architecture estructural of Entity control_teclado is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_movimiento_fondo.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_movimiento_fondo is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_inter_fondo.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_inter_fondo is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_choques.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_choques is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor.vhd" in Library work.
+Architecture divisor_arch of Entity divisor is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_munyeco.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_munyeco is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_movimiento_moneda.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_movimiento_moneda is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_movimiento_obstaculos.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_movimiento_obstaculos is up to date.
+Compiling vhdl file "C:/hlocal/Finally/divisor_corre.vhd" in Library work.
+Architecture divisor_arch of Entity divisor_corre is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_barryair.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_barryair is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_barryair2-5.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_barryair25 is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_game-over-negro.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_game_over_negro is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_lab.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_lab is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_nubes.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_nubes is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_arboles.vhd" in Library work.
+Architecture behavioral of Entity rom_rgb_9b_arboles is up to date.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_mapa_facil.vhd" in Library work.
+Entity <rom_rgb_9b_mapa_facil> compiled.
+Entity <rom_rgb_9b_mapa_facil> (Architecture <behavioral>) compiled.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_flappy-nivelBW.vhd" in Library work.
+Entity <rom_rgb_9b_flappynivelbw> compiled.
+Entity <rom_rgb_9b_flappynivelbw> (Architecture <behavioral>) compiled.
+Compiling vhdl file "C:/hlocal/Finally/rom_rgb_9b_nivelfuegoBW.vhd" in Library work.
+Entity <rom_rgb_9b_nivelfuegobw> compiled.
+Entity <rom_rgb_9b_nivelfuegobw> (Architecture <behavioral>) compiled.
+Compiling vhdl file "C:/hlocal/Finally/contador.vhd" in Library work.
+Architecture behavioral of Entity contador is up to date.
+Compiling vhdl file "C:/hlocal/Finally/randomGenerator.vhd" in Library work.
+Architecture behavioral of Entity randomgenerator is up to date.
+Compiling vhdl file "C:/hlocal/Finally/choca.vhd" in Library work.
+Architecture vgacore_arch of Entity vgacore is up to date.
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for entity <vgacore> in library <work> (architecture <vgacore_arch>).
+
+Analyzing hierarchy for entity <gestorCambioNivel> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <control_teclado> in library <work> (architecture <estructural>).
+
+Analyzing hierarchy for entity <divisor_movimiento_fondo> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_inter_fondo> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_choques> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_munyeco> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_movimiento_moneda> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_movimiento_obstaculos> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <divisor_corre> in library <work> (architecture <divisor_arch>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_barryair> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_barryair25> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_game_over_negro> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_lab> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_nubes> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_arboles> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_mapa_facil> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_flappynivelBW> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <ROM_RGB_9b_nivelfuegoBW> in library <work> (architecture <behavioral>).
+
+Analyzing hierarchy for entity <contador> in library <work> (architecture <behavioral>) with generics.
+	N = 7
+
+Analyzing hierarchy for entity <randomGenerator> in library <work> (architecture <behavioral>).
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing Entity <vgacore> in library <work> (Architecture <vgacore_arch>).
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 561: Width mismatch. <posx_fondo> has a width of 7 bits but assigned expression is 9-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 578: Width mismatch. <posx_munyeco> has a width of 4 bits but assigned expression is 9-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 579: Width mismatch. <posy_munyeco> has a width of 5 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 583: Width mismatch. <pos_go_y> has a width of 5 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 584: Width mismatch. <pos_go_x> has a width of 7 bits but assigned expression is 9-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 933: Width mismatch. <aux_j> has a width of 8 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 936: Width mismatch. <aux_j> has a width of 8 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 943: Width mismatch. <aux_j> has a width of 8 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 967: Width mismatch. <aux_j> has a width of 8 bits but assigned expression is 10-bit wide.
+WARNING:Xst:1610 - "C:/hlocal/Finally/choca.vhd" line 1095: Width mismatch. <inicio_aleatorio_moneda> has a width of 10 bits but assigned expression is 7-bit wide.
+Entity <vgacore> analyzed. Unit <vgacore> generated.
+
+Analyzing Entity <gestorCambioNivel> in library <work> (Architecture <behavioral>).
+Entity <gestorCambioNivel> analyzed. Unit <gestorCambioNivel> generated.
+
+Analyzing Entity <control_teclado> in library <work> (Architecture <estructural>).
+Entity <control_teclado> analyzed. Unit <control_teclado> generated.
+
+Analyzing Entity <divisor_movimiento_fondo> in library <work> (Architecture <divisor_arch>).
+INFO:Xst:2679 - Register <division> in unit <divisor_movimiento_fondo> has a constant value of 001111111111111111111 during circuit operation. The register is replaced by logic.
+Entity <divisor_movimiento_fondo> analyzed. Unit <divisor_movimiento_fondo> generated.
+
+Analyzing Entity <divisor_inter_fondo> in library <work> (Architecture <divisor_arch>).
+INFO:Xst:2679 - Register <division> in unit <divisor_inter_fondo> has a constant value of 001011111111000000000 during circuit operation. The register is replaced by logic.
+Entity <divisor_inter_fondo> analyzed. Unit <divisor_inter_fondo> generated.
+
+Analyzing Entity <divisor_choques> in library <work> (Architecture <divisor_arch>).
+Entity <divisor_choques> analyzed. Unit <divisor_choques> generated.
+
+Analyzing Entity <divisor> in library <work> (Architecture <divisor_arch>).
+Entity <divisor> analyzed. Unit <divisor> generated.
+
+Analyzing Entity <divisor_munyeco> in library <work> (Architecture <divisor_arch>).
+Entity <divisor_munyeco> analyzed. Unit <divisor_munyeco> generated.
+
+Analyzing Entity <divisor_movimiento_moneda> in library <work> (Architecture <divisor_arch>).
+INFO:Xst:2679 - Register <division> in unit <divisor_movimiento_moneda> has a constant value of 001100010011100001111 during circuit operation. The register is replaced by logic.
+Entity <divisor_movimiento_moneda> analyzed. Unit <divisor_movimiento_moneda> generated.
+
+Analyzing Entity <divisor_movimiento_obstaculos> in library <work> (Architecture <divisor_arch>).
+INFO:Xst:2679 - Register <division> in unit <divisor_movimiento_obstaculos> has a constant value of 001001111111111111111 during circuit operation. The register is replaced by logic.
+Entity <divisor_movimiento_obstaculos> analyzed. Unit <divisor_movimiento_obstaculos> generated.
+
+Analyzing Entity <divisor_corre> in library <work> (Architecture <divisor_arch>).
+Entity <divisor_corre> analyzed. Unit <divisor_corre> generated.
+
+Analyzing Entity <ROM_RGB_9b_barryair> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_barryair> analyzed. Unit <ROM_RGB_9b_barryair> generated.
+
+Analyzing Entity <ROM_RGB_9b_barryair25> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_barryair25> analyzed. Unit <ROM_RGB_9b_barryair25> generated.
+
+Analyzing Entity <ROM_RGB_9b_game_over_negro> in library <work> (Architecture <behavioral>).
+WARNING:Xst:790 - "C:/hlocal/Finally/rom_rgb_9b_game-over-negro.vhd" line 4404: Index value(s) does not match array range, simulation mismatch.
+Entity <ROM_RGB_9b_game_over_negro> analyzed. Unit <ROM_RGB_9b_game_over_negro> generated.
+
+Analyzing Entity <ROM_RGB_9b_lab> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_lab> analyzed. Unit <ROM_RGB_9b_lab> generated.
+
+Analyzing Entity <ROM_RGB_9b_nubes> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_nubes> analyzed. Unit <ROM_RGB_9b_nubes> generated.
+
+Analyzing Entity <ROM_RGB_9b_arboles> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_arboles> analyzed. Unit <ROM_RGB_9b_arboles> generated.
+
+Analyzing Entity <ROM_RGB_9b_mapa_facil> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_mapa_facil> analyzed. Unit <ROM_RGB_9b_mapa_facil> generated.
+
+Analyzing Entity <ROM_RGB_9b_flappynivelBW> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_flappynivelBW> analyzed. Unit <ROM_RGB_9b_flappynivelBW> generated.
+
+Analyzing Entity <ROM_RGB_9b_nivelfuegoBW> in library <work> (Architecture <behavioral>).
+Entity <ROM_RGB_9b_nivelfuegoBW> analyzed. Unit <ROM_RGB_9b_nivelfuegoBW> generated.
+
+Analyzing generic Entity <contador> in library <work> (Architecture <behavioral>).
+	N = 7
+Entity <contador> analyzed. Unit <contador> generated.
+
+Analyzing Entity <randomGenerator> in library <work> (Architecture <behavioral>).
+Entity <randomGenerator> analyzed. Unit <randomGenerator> generated.
+
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <gestorCambioNivel>.
+    Related source file is "C:/hlocal/Finally/gestorCambioNivel.vhd".
+WARNING:Xst:1780 - Signal <contadorLimite> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+    Found 1-bit register for signal <estado<0>>.
+    Summary:
+	inferred   1 D-type flip-flop(s).
+Unit <gestorCambioNivel> synthesized.
+
+
+Synthesizing Unit <control_teclado>.
+    Related source file is "C:/hlocal/Finally/control_teclado.vhd".
+WARNING:Xst:647 - Input <reset> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:646 - Signal <Fu<0>> is assigned but never used. This unconnected signal will be trimmed during the optimization process.
+    Found 22-bit register for signal <Fu>.
+    Summary:
+	inferred  22 D-type flip-flop(s).
+Unit <control_teclado> synthesized.
+
+
+Synthesizing Unit <divisor_movimiento_fondo>.
+    Related source file is "C:/hlocal/Finally/divisor_movimiento_fondo.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 21-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_movimiento_fondo> synthesized.
+
+
+Synthesizing Unit <divisor_inter_fondo>.
+    Related source file is "C:/hlocal/Finally/divisor_inter_fondo.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 21-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_inter_fondo> synthesized.
+
+
+Synthesizing Unit <divisor_choques>.
+    Related source file is "C:/hlocal/Finally/divisor_choques.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 6-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_choques> synthesized.
+
+
+Synthesizing Unit <divisor>.
+    Related source file is "C:/hlocal/Finally/divisor.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 4-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor> synthesized.
+
+
+Synthesizing Unit <divisor_munyeco>.
+    Related source file is "C:/hlocal/Finally/divisor_munyeco.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 21-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_munyeco> synthesized.
+
+
+Synthesizing Unit <divisor_movimiento_moneda>.
+    Related source file is "C:/hlocal/Finally/divisor_movimiento_moneda.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 21-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_movimiento_moneda> synthesized.
+
+
+Synthesizing Unit <divisor_movimiento_obstaculos>.
+    Related source file is "C:/hlocal/Finally/divisor_movimiento_obstaculos.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 21-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_movimiento_obstaculos> synthesized.
+
+
+Synthesizing Unit <divisor_corre>.
+    Related source file is "C:/hlocal/Finally/divisor_corre.vhd".
+    Found 1-bit register for signal <clk_aux>.
+    Found 26-bit up counter for signal <cuenta>.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+Unit <divisor_corre> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_barryair>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_barryair.vhd".
+    Found 512x9-bit ROM for signal <dout$rom0000> created at line 564.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_barryair> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_barryair25>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_barryair2-5.vhd".
+    Found 512x9-bit ROM for signal <dout$rom0000> created at line 564.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_barryair25> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_game_over_negro>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_game-over-negro.vhd".
+    Found 4352x9-bit ROM for signal <dout$rom0000> created at line 4404.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_game_over_negro> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_lab>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_lab.vhd".
+    Found 32768x9-bit ROM for signal <dout$rom0000> created at line 32820.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_lab> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_nubes>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_nubes.vhd".
+    Found 32768x9-bit ROM for signal <dout$rom0000> created at line 32820.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_nubes> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_arboles>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_arboles.vhd".
+    Found 32768x9-bit ROM for signal <dout$rom0000> created at line 32820.
+    Found 9-bit register for signal <dout>.
+    Summary:
+	inferred   1 ROM(s).
+	inferred   9 D-type flip-flop(s).
+Unit <ROM_RGB_9b_arboles> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_mapa_facil>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_mapa_facil.vhd".
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0000> created at line 262219.
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0001> created at line 262228.
+    Found 262144x1-bit ROM for signal <dout$rom0000> created at line 262215.
+    Found 262144x1-bit ROM for signal <dout$rom0001> created at line 262227.
+    Found 1-bit register for signal <dout_munyeco>.
+    Found 1-bit register for signal <dout>.
+    Found 10-bit comparator less for signal <dout$cmp_lt0000> created at line 262212.
+    Found 10-bit comparator less for signal <dout_munyeco$cmp_lt0000> created at line 262217.
+    Summary:
+	inferred   4 ROM(s).
+	inferred   2 D-type flip-flop(s).
+	inferred   2 Comparator(s).
+Unit <ROM_RGB_9b_mapa_facil> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_flappynivelBW>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_flappy-nivelBW.vhd".
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0000> created at line 262251.
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0001> created at line 262260.
+    Found 262144x1-bit ROM for signal <dout$rom0000> created at line 262247.
+    Found 262144x1-bit ROM for signal <dout$rom0001> created at line 262259.
+    Found 1-bit register for signal <dout_munyeco>.
+    Found 1-bit register for signal <dout>.
+    Found 10-bit comparator less for signal <dout$cmp_lt0000> created at line 262244.
+    Found 10-bit comparator less for signal <dout_munyeco$cmp_lt0000> created at line 262249.
+    Summary:
+	inferred   4 ROM(s).
+	inferred   2 D-type flip-flop(s).
+	inferred   2 Comparator(s).
+Unit <ROM_RGB_9b_flappynivelBW> synthesized.
+
+
+Synthesizing Unit <ROM_RGB_9b_nivelfuegoBW>.
+    Related source file is "C:/hlocal/Finally/rom_rgb_9b_nivelfuegoBW.vhd".
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0000> created at line 262218.
+    Found 262144x1-bit ROM for signal <dout_munyeco$rom0001> created at line 262227.
+    Found 262144x1-bit ROM for signal <dout$rom0000> created at line 262214.
+    Found 262144x1-bit ROM for signal <dout$rom0001> created at line 262226.
+    Found 1-bit register for signal <dout_munyeco>.
+    Found 1-bit register for signal <dout>.
+    Found 10-bit comparator less for signal <dout$cmp_lt0000> created at line 262211.
+    Found 10-bit comparator less for signal <dout_munyeco$cmp_lt0000> created at line 262216.
+    Summary:
+	inferred   4 ROM(s).
+	inferred   2 D-type flip-flop(s).
+	inferred   2 Comparator(s).
+Unit <ROM_RGB_9b_nivelfuegoBW> synthesized.
+
+
+Synthesizing Unit <contador>.
+    Related source file is "C:/hlocal/Finally/contador.vhd".
+    Found 128x12-bit ROM for signal <var_6_0$rom0000>.
+    Summary:
+	inferred   1 ROM(s).
+Unit <contador> synthesized.
+
+
+Synthesizing Unit <randomGenerator>.
+    Related source file is "C:/hlocal/Finally/randomGenerator.vhd".
+WARNING:Xst:647 - Input <userInput<3>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 7-bit register for signal <random>.
+    Found 1-bit xor4 for signal <random$xor0000> created at line 47.
+    Found 1-bit register for signal <reset>.
+    Found 2-bit up counter for signal <resetCount>.
+    Found 2-bit comparator less for signal <resetCount$cmp_lt0000> created at line 29.
+    Summary:
+	inferred   1 Counter(s).
+	inferred   1 D-type flip-flop(s).
+	inferred   1 Comparator(s).
+	inferred   1 Xor(s).
+Unit <randomGenerator> synthesized.
+
+
+Synthesizing Unit <vgacore>.
+    Related source file is "C:/hlocal/Finally/choca.vhd".
+    Found finite state machine <FSM_0> for signal <estado_nivel>.
+    -----------------------------------------------------------------------
+    | States             | 3                                              |
+    | Transitions        | 14                                             |
+    | Inputs             | 11                                             |
+    | Outputs            | 12                                             |
+    | Clock              | clk                       (rising_edge)        |
+    | Reset              | reset                     (positive)           |
+    | Reset type         | asynchronous                                   |
+    | Reset State        | nivel1                                         |
+    | Power Up State     | nivel1                                         |
+    | Encoding           | automatic                                      |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+WARNING:Xst:737 - Found 1-bit latch for signal <next_catched>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 7-bit latch for signal <next_cuenta_monedas>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+    Using one-hot encoding for signal <estado_juego>.
+INFO:Xst:2117 - HDL ADVISOR - Mux Selector <state> of Case statement line 0 was re-encoded using one-hot encoding. The case statement will be optimized (default statement optimization), but this optimization may lead to design initialization problems. To ensure the design works safely, you can:
+   	- add an 'INIT' attribute on signal <state> (optimization is then done without any risk)
+   	- use the attribute 'signal_encoding user' to avoid onehot optimization
+   	- use the attribute 'safe_implementation yes' to force XST to perform a safe (but less efficient) optimization
+    Using one-hot encoding for signal <state>.
+    Using one-hot encoding for signal <state_coin>.
+    Using one-hot encoding for signal <movimiento_munyeco>.
+INFO:Xst:2117 - HDL ADVISOR - Mux Selector <state_coin> of Case statement line 0 was re-encoded using one-hot encoding. The case statement will be optimized (default statement optimization), but this optimization may lead to design initialization problems. To ensure the design works safely, you can:
+   	- add an 'INIT' attribute on signal <state_coin> (optimization is then done without any risk)
+   	- use the attribute 'signal_encoding user' to avoid onehot optimization
+   	- use the attribute 'safe_implementation yes' to force XST to perform a safe (but less efficient) optimization
+INFO:Xst:2117 - HDL ADVISOR - Mux Selector <state> of Case statement line 0 was re-encoded using one-hot encoding. The case statement will be optimized (default statement optimization), but this optimization may lead to design initialization problems. To ensure the design works safely, you can:
+   	- add an 'INIT' attribute on signal <state> (optimization is then done without any risk)
+   	- use the attribute 'signal_encoding user' to avoid onehot optimization
+   	- use the attribute 'safe_implementation yes' to force XST to perform a safe (but less efficient) optimization
+INFO:Xst:2117 - HDL ADVISOR - Mux Selector <state_coin> of Case statement line 0 was re-encoded using one-hot encoding. The case statement will be optimized (default statement optimization), but this optimization may lead to design initialization problems. To ensure the design works safely, you can:
+   	- add an 'INIT' attribute on signal <state_coin> (optimization is then done without any risk)
+   	- use the attribute 'signal_encoding user' to avoid onehot optimization
+   	- use the attribute 'safe_implementation yes' to force XST to perform a safe (but less efficient) optimization
+    Found 1-bit register for signal <hsyncb>.
+    Found 1-bit register for signal <vsyncb>.
+    Found 10-bit up counter for signal <avanza_obstaculos>.
+    Found 10-bit comparator greater for signal <bordes$cmp_gt0000> created at line 1016.
+    Found 11-bit comparator greater for signal <bordes$cmp_gt0001> created at line 1017.
+    Found 10-bit comparator greater for signal <bordes$cmp_gt0002> created at line 1018.
+    Found 11-bit comparator greater for signal <bordes$cmp_gt0003> created at line 1018.
+    Found 10-bit comparator lessequal for signal <bordes$cmp_le0000> created at line 1018.
+    Found 11-bit comparator lessequal for signal <bordes$cmp_le0001> created at line 1018.
+    Found 10-bit comparator less for signal <bordes$cmp_lt0000> created at line 1016.
+    Found 11-bit comparator less for signal <bordes$cmp_lt0001> created at line 1017.
+    Found 1-bit register for signal <catched>.
+    Found 7-bit up counter for signal <cuenta_fondo>.
+    Found 7-bit up counter for signal <cuenta_fondo_inter>.
+    Found 7-bit register for signal <cuenta_monedas>.
+    Found 10-bit adder for signal <dir_mem_choque$add0000> created at line 928.
+    Found 3-bit register for signal <estado_juego>.
+    Found 9-bit up counter for signal <hcnt>.
+    Found 10-bit comparator less for signal <hcnt$cmp_lt0000> created at line 479.
+    Found 10-bit comparator greatequal for signal <hsyncb$cmp_ge0000> created at line 514.
+    Found 10-bit comparator less for signal <hsyncb$cmp_lt0000> created at line 514.
+    Found 10-bit register for signal <i>.
+    Found 10-bit addsub for signal <i$share0000>.
+    Found 7-bit adder for signal <inicio_aleatorio_moneda$add0000> created at line 1095.
+    Found 8-bit register for signal <j>.
+    Found 8-bit addsub for signal <j$share0000>.
+    Found 4-bit register for signal <movimiento_munyeco>.
+    Found 10-bit adder for signal <munyeco2$add0000> created at line 1045.
+    Found 10-bit comparator greatequal for signal <munyeco2$cmp_ge0000> created at line 1044.
+    Found 10-bit comparator greatequal for signal <munyeco2$cmp_ge0001> created at line 1045.
+    Found 10-bit comparator less for signal <munyeco2$cmp_lt0000> created at line 1044.
+    Found 10-bit comparator less for signal <munyeco2$cmp_lt0001> created at line 1045.
+    Found 10-bit addsub for signal <my$addsub0000>.
+    Found 11-bit comparator greatequal for signal <next_catched$cmp_ge0000> created at line 1135.
+    Found 11-bit comparator lessequal for signal <next_catched$cmp_le0000> created at line 1133.
+    Found 11-bit comparator lessequal for signal <next_catched$cmp_le0001> created at line 1137.
+    Found 7-bit adder for signal <next_cuenta_monedas$addsub0000> created at line 1147.
+    Found 11-bit comparator greatequal for signal <next_movimiento$cmp_ge0000> created at line 865.
+    Found 11-bit comparator lessequal for signal <next_movimiento$cmp_le0000> created at line 858.
+    Found 11-bit comparator greater for signal <next_state$cmp_gt0000> created at line 968.
+    Found 10-bit comparator greater for signal <next_state$cmp_gt0001> created at line 977.
+    Found 11-bit comparator less for signal <next_state$cmp_lt0000> created at line 944.
+    Found 10-bit comparator less for signal <next_state$cmp_lt0001> created at line 956.
+    Found 10-bit subtractor for signal <next_state$sub0000> created at line 956.
+    Found 10-bit subtractor for signal <next_state$sub0001> created at line 977.
+    Found 10-bit comparator greater for signal <obstaculo$cmp_gt0000> created at line 1000.
+    Found 11-bit comparator greater for signal <obstaculo$cmp_gt0001> created at line 1000.
+    Found 10-bit comparator lessequal for signal <obstaculo$cmp_le0000> created at line 1000.
+    Found 11-bit comparator lessequal for signal <obstaculo$cmp_le0001> created at line 1000.
+    Found 10-bit adder for signal <paint_coin$addsub0000> created at line 1077.
+    Found 10-bit adder for signal <paint_coin$addsub0001> created at line 1078.
+    Found 10-bit comparator greatequal for signal <paint_coin$cmp_ge0000> created at line 1077.
+    Found 10-bit comparator greatequal for signal <paint_coin$cmp_ge0001> created at line 1078.
+    Found 10-bit comparator lessequal for signal <paint_coin$cmp_le0000> created at line 1077.
+    Found 10-bit comparator lessequal for signal <paint_coin$cmp_le0001> created at line 1078.
+    Found 10-bit comparator greatequal for signal <paint_game_over$cmp_ge0000> created at line 1059.
+    Found 11-bit comparator greatequal for signal <paint_game_over$cmp_ge0001> created at line 1060.
+    Found 10-bit comparator less for signal <paint_game_over$cmp_lt0000> created at line 1059.
+    Found 11-bit comparator less for signal <paint_game_over$cmp_lt0001> created at line 1060.
+    Found 7-bit subtractor for signal <pos_go_x>.
+    Found 5-bit subtractor for signal <pos_go_y>.
+    Found 10-bit adder for signal <posx>.
+    Found 9-bit subtractor for signal <posx$addsub0000> created at line 556.
+    Found 7-bit adder for signal <posx_fondo>.
+    Found 7-bit adder for signal <posx_fondoi>.
+    Found 7-bit subtractor for signal <posx_fondoi$sub0000> created at line 566.
+    Found 10-bit register for signal <posx_moneda>.
+    Found 10-bit subtractor for signal <posx_moneda$addsub0000>.
+    Found 8-bit subtractor for signal <posy>.
+    Found 10-bit register for signal <posy_moneda>.
+    Found 10-bit addsub for signal <posy_moneda$share0000>.
+    Found 5-bit subtractor for signal <posy_munyeco>.
+    Found 10-bit register for signal <r_my>.
+    Found 1-bit register for signal <reset_monedas>.
+    Found 7-bit register for signal <save_cuenta_monedas>.
+    Found 5-bit register for signal <state>.
+    Found 4-bit register for signal <state_coin>.
+    Found 10-bit up counter for signal <vcnt>.
+    Found 11-bit comparator less for signal <vcnt$cmp_lt0000> created at line 495.
+    Found 11-bit comparator greatequal for signal <vsyncb$cmp_ge0000> created at line 530.
+    Found 11-bit comparator less for signal <vsyncb$cmp_lt0000> created at line 530.
+    Summary:
+	inferred   1 Finite State Machine(s).
+	inferred   5 Counter(s).
+	inferred  41 D-type flip-flop(s).
+	inferred  22 Adder/Subtractor(s).
+	inferred  39 Comparator(s).
+Unit <vgacore> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# ROMs                                                 : 19
+ 128x12-bit ROM                                        : 1
+ 262144x1-bit ROM                                      : 12
+ 32768x9-bit ROM                                       : 3
+ 4352x9-bit ROM                                        : 1
+ 512x9-bit ROM                                         : 2
+# Adders/Subtractors                                   : 22
+ 10-bit adder                                          : 5
+ 10-bit addsub                                         : 3
+ 10-bit subtractor                                     : 3
+ 5-bit subtractor                                      : 2
+ 7-bit adder                                           : 4
+ 7-bit subtractor                                      : 2
+ 8-bit addsub                                          : 1
+ 8-bit subtractor                                      : 1
+ 9-bit subtractor                                      : 1
+# Counters                                             : 14
+ 10-bit up counter                                     : 2
+ 2-bit up counter                                      : 1
+ 21-bit up counter                                     : 5
+ 26-bit up counter                                     : 1
+ 4-bit up counter                                      : 1
+ 6-bit up counter                                      : 1
+ 7-bit up counter                                      : 2
+ 9-bit up counter                                      : 1
+# Registers                                            : 39
+ 1-bit register                                        : 20
+ 10-bit register                                       : 4
+ 22-bit register                                       : 1
+ 3-bit register                                        : 1
+ 4-bit register                                        : 2
+ 5-bit register                                        : 1
+ 7-bit register                                        : 3
+ 8-bit register                                        : 1
+ 9-bit register                                        : 6
+# Latches                                              : 2
+ 1-bit latch                                           : 1
+ 7-bit latch                                           : 1
+# Comparators                                          : 46
+ 10-bit comparator greatequal                          : 6
+ 10-bit comparator greater                             : 4
+ 10-bit comparator less                                : 13
+ 10-bit comparator lessequal                           : 4
+ 11-bit comparator greatequal                          : 4
+ 11-bit comparator greater                             : 4
+ 11-bit comparator less                                : 5
+ 11-bit comparator lessequal                           : 5
+ 2-bit comparator less                                 : 1
+# Xors                                                 : 1
+ 1-bit xor4                                            : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Analyzing FSM <FSM_0> for best encoding.
+Optimizing FSM <estado_nivel/FSM> on signal <estado_nivel[1:2]> with user encoding.
+--------------------
+ State  | Encoding
+--------------------
+ nivel1 | 00
+ nivel2 | 01
+ nivel3 | 10
+--------------------
+WARNING:Xst:1426 - The value init of the FF/Latch state_0 hinder the constant cleaning in the block vgacore.
+   You should achieve better results by setting this init to 0.
+WARNING:Xst:2677 - Node <Fu_0> of sequential type is unconnected in block <Controla_teclado>.
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_arboles>.
+INFO:Xst:3045 - The ROM description <Mrom_dout_rom0000> will be implemented on LUTs because the limited number of device block RAMs. If you want to be implemented as block RAM, please select a larger device.
+Unit <ROM_RGB_9b_arboles> synthesized (advanced).
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_barryair>.
+INFO:Xst:3045 - The ROM description <Mrom_dout_rom0000> will be implemented on LUTs because the limited number of device block RAMs. If you want to be implemented as block RAM, please select a larger device.
+Unit <ROM_RGB_9b_barryair> synthesized (advanced).
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_barryair25>.
+INFO:Xst:3044 - The ROM <Mrom_dout_rom0000> will be implemented as a read-only BLOCK RAM, absorbing the register: <dout>.
+INFO:Xst:3225 - The RAM <Mrom_dout_rom0000> will be implemented as BLOCK RAM
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 512-word x 9-bit                    |          |
+    |     mode           | write-first                         |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to internal node          | high     |
+    |     addrA          | connected to signal <addr>          |          |
+    |     diA            | connected to internal node          |          |
+    |     doA            | connected to signal <dout>          |          |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+Unit <ROM_RGB_9b_barryair25> synthesized (advanced).
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_game_over_negro>.
+INFO:Xst:3044 - The ROM <Mrom_dout_rom0000> will be implemented as a read-only BLOCK RAM, absorbing the register: <dout>.
+INFO:Xst:3225 - The RAM <Mrom_dout_rom0000> will be implemented as BLOCK RAM
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 4352-word x 9-bit                   |          |
+    |     mode           | write-first                         |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to signal <GND>           | high     |
+    |     addrA          | connected to signal <addr>          |          |
+    |     diA            | connected to signal <GND>           |          |
+    |     doA            | connected to signal <dout>          |          |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+Unit <ROM_RGB_9b_game_over_negro> synthesized (advanced).
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_lab>.
+INFO:Xst:3044 - The ROM <Mrom_dout_rom0000> will be implemented as a read-only BLOCK RAM, absorbing the register: <dout>.
+INFO:Xst:3225 - The RAM <Mrom_dout_rom0000> will be implemented as BLOCK RAM
+    -----------------------------------------------------------------------
+    | ram_type           | Block                               |          |
+    -----------------------------------------------------------------------
+    | Port A                                                              |
+    |     aspect ratio   | 32768-word x 9-bit                  |          |
+    |     mode           | write-first                         |          |
+    |     clkA           | connected to signal <clk>           | rise     |
+    |     weA            | connected to internal node          | high     |
+    |     addrA          | connected to signal <addr>          |          |
+    |     diA            | connected to internal node          |          |
+    |     doA            | connected to signal <dout>          |          |
+    -----------------------------------------------------------------------
+    | optimization       | speed                               |          |
+    -----------------------------------------------------------------------
+Unit <ROM_RGB_9b_lab> synthesized (advanced).
+
+Synthesizing (advanced) Unit <ROM_RGB_9b_nubes>.
+INFO:Xst:3045 - The ROM description <Mrom_dout_rom0000> will be implemented on LUTs because the limited number of device block RAMs. If you want to be implemented as block RAM, please select a larger device.
+Unit <ROM_RGB_9b_nubes> synthesized (advanced).
+WARNING:Xst:2677 - Node <Fu_0> of sequential type is unconnected in block <control_teclado>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# FSMs                                                 : 1
+# RAMs                                                 : 3
+ 32768x9-bit single-port block RAM                     : 1
+ 4352x9-bit single-port block RAM                      : 1
+ 512x9-bit single-port block RAM                       : 1
+# ROMs                                                 : 16
+ 128x12-bit ROM                                        : 1
+ 262144x1-bit ROM                                      : 12
+ 32768x9-bit ROM                                       : 2
+ 512x9-bit ROM                                         : 1
+# Adders/Subtractors                                   : 22
+ 10-bit adder                                          : 5
+ 10-bit addsub                                         : 3
+ 10-bit subtractor                                     : 3
+ 5-bit subtractor                                      : 2
+ 7-bit adder                                           : 4
+ 7-bit subtractor                                      : 2
+ 8-bit addsub                                          : 1
+ 8-bit subtractor                                      : 1
+ 9-bit subtractor                                      : 1
+# Counters                                             : 14
+ 10-bit up counter                                     : 2
+ 2-bit up counter                                      : 1
+ 21-bit up counter                                     : 5
+ 26-bit up counter                                     : 1
+ 4-bit up counter                                      : 1
+ 6-bit up counter                                      : 1
+ 7-bit up counter                                      : 2
+ 9-bit up counter                                      : 1
+# Registers                                            : 143
+ Flip-Flops                                            : 143
+# Latches                                              : 2
+ 1-bit latch                                           : 1
+ 7-bit latch                                           : 1
+# Comparators                                          : 46
+ 10-bit comparator greatequal                          : 6
+ 10-bit comparator greater                             : 4
+ 10-bit comparator less                                : 13
+ 10-bit comparator lessequal                           : 4
+ 11-bit comparator greatequal                          : 4
+ 11-bit comparator greater                             : 4
+ 11-bit comparator less                                : 5
+ 11-bit comparator lessequal                           : 5
+ 2-bit comparator less                                 : 1
+# Xors                                                 : 1
+ 1-bit xor4                                            : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1426 - The value init of the FF/Latch state_0 hinder the constant cleaning in the block vgacore.
+   You should achieve better results by setting this init to 0.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs1/Mrom_dout_munyeco_rom0001> <Romobs1/Mrom_dout_munyeco_rom0000> are equivalent, XST will keep only <Romobs1/Mrom_dout_munyeco_rom0001>.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs2/Mrom_dout_munyeco_rom0001> <Romobs2/Mrom_dout_munyeco_rom0000> are equivalent, XST will keep only <Romobs2/Mrom_dout_munyeco_rom0001>.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs3/Mrom_dout_munyeco_rom0000> <Romobs3/Mrom_dout_munyeco_rom0001> are equivalent, XST will keep only <Romobs3/Mrom_dout_munyeco_rom0000>.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs1/Mrom_dout_rom0001> <Romobs1/Mrom_dout_rom0000> are equivalent, XST will keep only <Romobs1/Mrom_dout_rom0001>.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs2/Mrom_dout_rom0001> <Romobs2/Mrom_dout_rom0000> are equivalent, XST will keep only <Romobs2/Mrom_dout_rom0001>.
+INFO:Xst:2146 - In block <vgacore>, ROM <Romobs3/Mrom_dout_rom0001> <Romobs3/Mrom_dout_rom0000> are equivalent, XST will keep only <Romobs3/Mrom_dout_rom0001>.
+WARNING:Xst:1710 - FF/Latch <dout_1> (without init value) has a constant value of 1 in block <ROM_RGB_9b_nubes>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <dout_2> (without init value) has a constant value of 1 in block <ROM_RGB_9b_nubes>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <dout_5> (without init value) has a constant value of 1 in block <ROM_RGB_9b_nubes>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1710 - FF/Latch <dout_3> (without init value) has a constant value of 1 in block <ROM_RGB_9b_arboles>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <dout_5> (without init value) has a constant value of 1 in block <ROM_RGB_9b_arboles>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1895 - Due to other FF/Latch trimming, FF/Latch <dout_6> (without init value) has a constant value of 1 in block <ROM_RGB_9b_arboles>. This FF/Latch will be trimmed during the optimization process.
+
+Optimizing unit <vgacore> ...
+
+Optimizing unit <control_teclado> ...
+
+Optimizing unit <ROM_RGB_9b_barryair> ...
+
+Optimizing unit <ROM_RGB_9b_nubes> ...
+
+Optimizing unit <ROM_RGB_9b_arboles> ...
+
+Optimizing unit <contador> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block vgacore, actual ratio is 115.
+Optimizing block <vgacore> to meet ratio 100 (+ 5) of 7680 slices :
+Area constraint is met for block <vgacore>, final ratio is 105.
+
+Final Macro Processing ...
+
+Processing Unit <vgacore> :
+	Found 3-bit shift register for signal <Controla_teclado/Fu_19>.
+	Found 4-bit shift register for signal <Controla_teclado/Fu_8>.
+Unit <vgacore> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 329
+ Flip-Flops                                            : 329
+# Shift Registers                                      : 2
+ 3-bit shift register                                  : 1
+ 4-bit shift register                                  : 1
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : vgacore.ngr
+Top Level Output File Name         : vgacore
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 29
+
+Cell Usage :
+# BELS                             : 20748
+#      BUF                         : 43
+#      GND                         : 25
+#      INV                         : 41
+#      LUT1                        : 140
+#      LUT2                        : 889
+#      LUT2_D                      : 65
+#      LUT2_L                      : 9
+#      LUT3                        : 4371
+#      LUT3_D                      : 149
+#      LUT3_L                      : 69
+#      LUT4                        : 8360
+#      LUT4_D                      : 497
+#      LUT4_L                      : 339
+#      MULT_AND                    : 1
+#      MUXCY                       : 312
+#      MUXF5                       : 3702
+#      MUXF6                       : 1048
+#      MUXF7                       : 345
+#      MUXF8                       : 130
+#      VCC                         : 1
+#      XORCY                       : 212
+# FlipFlops/Latches                : 339
+#      FD                          : 43
+#      FDC                         : 193
+#      FDCE                        : 30
+#      FDCP                        : 10
+#      FDE                         : 18
+#      FDP                         : 10
+#      FDPE                        : 2
+#      FDR                         : 7
+#      FDS                         : 18
+#      LD_1                        : 1
+#      LDCE_1                      : 7
+# RAMS                             : 24
+#      RAMB16                      : 24
+# Shift Registers                  : 2
+#      SRL16                       : 2
+# Clock Buffers                    : 5
+#      BUFG                        : 3
+#      BUFGP                       : 2
+# IO Buffers                       : 27
+#      IBUF                        : 2
+#      OBUF                        : 25
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 3s1000ft256-4 
+
+ Number of Slices:                     7962  out of   7680   103% (*) 
+ Number of Slice Flip Flops:            339  out of  15360     2%  
+ Number of 4 input LUTs:              14931  out of  15360    97%  
+    Number used as logic:             14929
+    Number used as Shift registers:       2
+ Number of IOs:                          29
+ Number of bonded IOBs:                  29  out of    173    16%  
+ Number of BRAMs:                        24  out of     24   100%  
+ Number of GCLKs:                         5  out of      8    62%  
+
+WARNING:Xst:1336 -  (*) More than 100% of Device resources are used
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+------------------------------------------------------------------+-------------------------------+-------+
+Clock Signal                                                      | Clock buffer(FF name)         | Load  |
+------------------------------------------------------------------+-------------------------------+-------+
+Reloj_pantalla/clk_aux                                            | BUFG                          | 68    |
+Reloj_choque/clk_aux1                                             | BUFG                          | 23    |
+Reloj_de_movimiento_moneda/clk_aux1                               | BUFG                          | 50    |
+hsyncb_OBUF                                                       | NONE(vsyncb)                  | 11    |
+reset_monedas                                                     | NONE(next_catched)            | 1     |
+next_cuenta_monedas_cmp_eq0000(next_cuenta_monedas_cmp_eq000016:O)| NONE(*)(next_cuenta_monedas_0)| 7     |
+Reloj_munyeco/clk_aux                                             | NONE(movimiento_munyeco_3)    | 14    |
+clock                                                             | BUFGP                         | 149   |
+Reloj_de_movimiento_inter_fondo/clk_aux                           | NONE(cuenta_fondo_inter_0)    | 7     |
+Reloj_de_movimiento_obstaculos/clk_aux                            | NONE(avanza_obstaculos_0)     | 10    |
+Reloj_de_movimiento_fondo/clk_aux                                 | NONE(cuenta_fondo_0)          | 7     |
+PS2CLK                                                            | BUFGP                         | 18    |
+------------------------------------------------------------------+-------------------------------+-------+
+(*) This 1 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-------------------------------------------------+----------------------------+-------+
+Control Signal                                   | Buffer(FF name)            | Load  |
+-------------------------------------------------+----------------------------+-------+
+reset                                            | IBUF                       | 228   |
+GenAleatorio/reset(GenAleatorio/reset:Q)         | NONE(GenAleatorio/random_0)| 7     |
+reset_monedas(reset_monedas:Q)                   | NONE(next_cuenta_monedas_0)| 7     |
+posy_moneda_0__and0000(posy_moneda_0__and00001:O)| NONE(posy_moneda_0)        | 1     |
+posy_moneda_0__and0001(posy_moneda_0__and00011:O)| NONE(posy_moneda_0)        | 1     |
+posy_moneda_1__and0000(posy_moneda_1__and00001:O)| NONE(posy_moneda_1)        | 1     |
+posy_moneda_1__and0001(posy_moneda_1__and00011:O)| NONE(posy_moneda_1)        | 1     |
+posy_moneda_2__and0000(posy_moneda_2__and00001:O)| NONE(posy_moneda_2)        | 1     |
+posy_moneda_2__and0001(posy_moneda_2__and00011:O)| NONE(posy_moneda_2)        | 1     |
+posy_moneda_3__and0000(posy_moneda_3__and00001:O)| NONE(posy_moneda_3)        | 1     |
+posy_moneda_3__and0001(posy_moneda_3__and00011:O)| NONE(posy_moneda_3)        | 1     |
+posy_moneda_4__and0000(posy_moneda_4__and00001:O)| NONE(posy_moneda_4)        | 1     |
+posy_moneda_4__and0001(posy_moneda_4__and00011:O)| NONE(posy_moneda_4)        | 1     |
+posy_moneda_5__and0000(posy_moneda_5__and00001:O)| NONE(posy_moneda_5)        | 1     |
+posy_moneda_5__and0001(posy_moneda_5__and00011:O)| NONE(posy_moneda_5)        | 1     |
+posy_moneda_6__and0000(posy_moneda_6__and00001:O)| NONE(posy_moneda_6)        | 1     |
+posy_moneda_6__and0001(posy_moneda_6__and00011:O)| NONE(posy_moneda_6)        | 1     |
+posy_moneda_7__and0000(posy_moneda_7__and00001:O)| NONE(posy_moneda_7)        | 1     |
+posy_moneda_7__and0001(posy_moneda_7__and00011:O)| NONE(posy_moneda_7)        | 1     |
+posy_moneda_8__and0000(posy_moneda_8__and00001:O)| NONE(posy_moneda_8)        | 1     |
+posy_moneda_8__and0001(posy_moneda_8__and00011:O)| NONE(posy_moneda_8)        | 1     |
+posy_moneda_9__and0000(posy_moneda_9__and00001:O)| NONE(posy_moneda_9)        | 1     |
+posy_moneda_9__and0001(posy_moneda_9__and00011:O)| NONE(posy_moneda_9)        | 1     |
+-------------------------------------------------+----------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 30.328ns (Maximum Frequency: 32.972MHz)
+   Minimum input arrival time before clock: 12.179ns
+   Maximum output required time after clock: 22.577ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_pantalla/clk_aux'
+  Clock period: 30.328ns (frequency: 32.972MHz)
+  Total number of paths / destination ports: 582757 / 218
+-------------------------------------------------------------------------
+Delay:               30.328ns (Levels of Logic = 20)
+  Source:            hcnt_2 (FF)
+  Destination:       Romobs2/dout (FF)
+  Source Clock:      Reloj_pantalla/clk_aux rising
+  Destination Clock: Reloj_pantalla/clk_aux rising
+
+  Data Path: hcnt_2 to Romobs2/dout
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q            132   0.720   2.426  hcnt_2 (Msub_pos_go_x_cy<2>)
+     INV:I->O              8   0.551   1.278  pos_go_x<2>1_INV_0 (pos_go_x<2>)
+     LUT2:I1->O            1   0.551   0.000  Madd_posx_lut<2> (Madd_posx_lut<2>)
+     MUXCY:S->O            1   0.500   0.000  Madd_posx_cy<2> (Madd_posx_cy<2>)
+     XORCY:CI->O         387   0.904   3.887  Madd_posx_xor<3> (Romobs1/Mrom_dout_rom00013)
+     BUF:I->O            387   0.551   4.226  Madd_posx_xor<3>_1 (Madd_posx_xor<3>_1)
+     LUT4:I0->O            1   0.551   0.000  posx<6>22017049_SW0_F (N7073)
+     MUXF5:I0->O           1   0.360   0.827  posx<6>22017049_SW0 (N5764)
+     LUT4:I3->O            1   0.551   0.000  posx<6>22017091_F (N6763)
+     MUXF5:I0->O           2   0.360   1.072  posx<6>22017091 (posx<6>_mmx_out66)
+     LUT3:I1->O            3   0.551   1.102  posx<7>175462 (posx<7>_mmx_out40)
+     LUT3:I1->O            1   0.551   0.996  posx<8>5725 (posx<8>582)
+     LUT3:I1->O            1   0.551   0.000  Romobs2/Mrom_dout_rom00014131_2337 (Romobs2/Mrom_dout_rom00014131_2332)
+     MUXF5:I1->O           1   0.360   0.869  Romobs2/Mrom_dout_rom00014131_22_f5_14 (Romobs2/Mrom_dout_rom00014131_22_f515)
+     LUT3:I2->O            1   0.551   0.869  posy<1>622 (posy<1>72)
+     LUT3:I2->O            1   0.551   0.000  Romobs2/Mrom_dout_rom00014131_163 (Romobs2/Mrom_dout_rom00014131_162)
+     MUXF5:I0->O           1   0.360   0.000  Romobs2/Mrom_dout_rom00014131_14_f5 (Romobs2/Mrom_dout_rom00014131_14_f5)
+     MUXF6:I1->O           1   0.342   0.869  Romobs2/Mrom_dout_rom00014131_13_f6 (Romobs2/Mrom_dout_rom00014131_13_f6)
+     LUT3:I2->O            1   0.551   0.827  Romobs2/dout_mux000215 (Romobs2/dout_mux000215)
+     LUT4:I3->O            1   0.551   0.000  Romobs2/dout_mux000257_G (N3908)
+     MUXF5:I1->O           1   0.360   0.000  Romobs2/dout_mux000257 (Romobs2/dout_mux0002)
+     FD:D                      0.203          Romobs2/dout
+    ----------------------------------------
+    Total                     30.328ns (11.081ns logic, 19.247ns route)
+                                       (36.5% logic, 63.5% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_choque/clk_aux1'
+  Clock period: 11.605ns (frequency: 86.170MHz)
+  Total number of paths / destination ports: 1464 / 32
+-------------------------------------------------------------------------
+Delay:               11.605ns (Levels of Logic = 13)
+  Source:            j_0 (FF)
+  Destination:       j_0 (FF)
+  Source Clock:      Reloj_choque/clk_aux1 rising
+  Destination Clock: Reloj_choque/clk_aux1 rising
+
+  Data Path: j_0 to j_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q             342   0.720   3.968  j_0 (j_0)
+     LUT2:I0->O            1   0.551   0.000  Mcompar_next_state_cmp_lt0001_lut<0> (Mcompar_next_state_cmp_lt0001_lut<0>)
+     MUXCY:S->O            1   0.500   0.000  Mcompar_next_state_cmp_lt0001_cy<0> (Mcompar_next_state_cmp_lt0001_cy<0>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<1> (Mcompar_next_state_cmp_lt0001_cy<1>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<2> (Mcompar_next_state_cmp_lt0001_cy<2>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<3> (Mcompar_next_state_cmp_lt0001_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<4> (Mcompar_next_state_cmp_lt0001_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<5> (Mcompar_next_state_cmp_lt0001_cy<5>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<6> (Mcompar_next_state_cmp_lt0001_cy<6>)
+     MUXCY:CI->O           1   0.064   0.000  Mcompar_next_state_cmp_lt0001_cy<7> (Mcompar_next_state_cmp_lt0001_cy<7>)
+     MUXCY:CI->O           4   0.303   1.112  Mcompar_next_state_cmp_lt0001_cy<8> (Mcompar_next_state_cmp_lt0001_cy<8>)
+     LUT4:I1->O            1   0.551   0.869  j_mux0000<0>1_SW1 (N4745)
+     LUT4:I2->O            8   0.551   1.278  j_mux0000<0>1 (N131)
+     LUT4:I1->O            1   0.551   0.000  j_mux0000<7>1 (j_mux0000<7>)
+     FD:D                      0.203          j_7
+    ----------------------------------------
+    Total                     11.605ns (4.378ns logic, 7.227ns route)
+                                       (37.7% logic, 62.3% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'hsyncb_OBUF'
+  Clock period: 9.209ns (frequency: 108.593MHz)
+  Total number of paths / destination ports: 677 / 11
+-------------------------------------------------------------------------
+Delay:               9.209ns (Levels of Logic = 13)
+  Source:            vcnt_0 (FF)
+  Destination:       vcnt_9 (FF)
+  Source Clock:      hsyncb_OBUF rising
+  Destination Clock: hsyncb_OBUF rising
+
+  Data Path: vcnt_0 to vcnt_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             85   0.720   2.352  vcnt_0 (Msub_posy_cy<0>)
+     LUT4:I1->O            4   0.551   0.943  obstaculo_cmp_le00011 (obstaculo_cmp_le00011)
+     LUT4:I3->O            8   0.551   1.422  vcnt_not00011 (vcnt_not0001)
+     LUT3:I0->O            1   0.551   0.000  Mcount_vcnt_lut<0> (Mcount_vcnt_lut<0>)
+     MUXCY:S->O            1   0.500   0.000  Mcount_vcnt_cy<0> (Mcount_vcnt_cy<0>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<1> (Mcount_vcnt_cy<1>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<2> (Mcount_vcnt_cy<2>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<3> (Mcount_vcnt_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<4> (Mcount_vcnt_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<5> (Mcount_vcnt_cy<5>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<6> (Mcount_vcnt_cy<6>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_vcnt_cy<7> (Mcount_vcnt_cy<7>)
+     MUXCY:CI->O           0   0.064   0.000  Mcount_vcnt_cy<8> (Mcount_vcnt_cy<8>)
+     XORCY:CI->O           1   0.904   0.000  Mcount_vcnt_xor<9> (Mcount_vcnt9)
+     FDC:D                     0.203          vcnt_9
+    ----------------------------------------
+    Total                      9.209ns (4.492ns logic, 4.717ns route)
+                                       (48.8% logic, 51.2% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_de_movimiento_moneda/clk_aux1'
+  Clock period: 12.012ns (frequency: 83.250MHz)
+  Total number of paths / destination ports: 1530 / 47
+-------------------------------------------------------------------------
+Delay:               12.012ns (Levels of Logic = 7)
+  Source:            posx_moneda_4 (FF)
+  Destination:       state_coin_3 (FF)
+  Source Clock:      Reloj_de_movimiento_moneda/clk_aux1 rising
+  Destination Clock: Reloj_de_movimiento_moneda/clk_aux1 rising
+
+  Data Path: posx_moneda_4 to state_coin_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              9   0.720   1.463  posx_moneda_4 (posx_moneda_4)
+     LUT4:I0->O            6   0.551   1.342  Madd_paint_coin_addsub0000_cy<5>11 (Madd_paint_coin_addsub0000_cy<5>)
+     LUT3:I0->O            2   0.551   1.072  Madd_paint_coin_addsub0000_cy<7>11 (Madd_paint_coin_addsub0000_cy<7>)
+     LUT3:I1->O            1   0.551   0.000  Mcompar_paint_coin_cmp_le0000_lut<8> (Mcompar_paint_coin_cmp_le0000_lut<8>)
+     MUXCY:S->O            1   0.500   0.000  Mcompar_paint_coin_cmp_le0000_cy<8> (Mcompar_paint_coin_cmp_le0000_cy<8>)
+     MUXCY:CI->O           1   0.303   1.140  Mcompar_paint_coin_cmp_le0000_cy<9> (paint_coin_cmp_le0000)
+     LUT4:I0->O            6   0.551   1.198  paint_coin (paint_coin)
+     LUT4:I1->O            4   0.551   0.917  state_coin_not000217 (state_coin_not0002)
+     FDCE:CE                   0.602          state_coin_0
+    ----------------------------------------
+    Total                     12.012ns (4.880ns logic, 7.132ns route)
+                                       (40.6% logic, 59.4% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'reset_monedas'
+  Clock period: 2.290ns (frequency: 436.681MHz)
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Delay:               2.290ns (Levels of Logic = 1)
+  Source:            next_catched (LATCH)
+  Destination:       next_catched (LATCH)
+  Source Clock:      reset_monedas rising
+  Destination Clock: reset_monedas rising
+
+  Data Path: next_catched to next_catched
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LD_1:G->Q             2   0.633   0.903  next_catched (next_catched)
+     LUT4:I3->O            1   0.551   0.000  next_catched_mux000962 (next_catched_mux0009)
+     LD_1:D                    0.203          next_catched
+    ----------------------------------------
+    Total                      2.290ns (1.387ns logic, 0.903ns route)
+                                       (60.6% logic, 39.4% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'next_cuenta_monedas_cmp_eq0000'
+  Clock period: 2.334ns (frequency: 428.449MHz)
+  Total number of paths / destination ports: 7 / 7
+-------------------------------------------------------------------------
+Delay:               2.334ns (Levels of Logic = 1)
+  Source:            next_cuenta_monedas_2 (LATCH)
+  Destination:       next_cuenta_monedas_2 (LATCH)
+  Source Clock:      next_cuenta_monedas_cmp_eq0000 rising
+  Destination Clock: next_cuenta_monedas_cmp_eq0000 rising
+
+  Data Path: next_cuenta_monedas_2 to next_cuenta_monedas_2
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LDCE_1:G->Q           2   0.633   0.877  next_cuenta_monedas_2 (next_cuenta_monedas_2)
+     MUXF5:S->O            1   0.621   0.000  next_cuenta_monedas_mux0009<2>_f5 (next_cuenta_monedas_mux0009<2>)
+     LDCE_1:D                  0.203          next_cuenta_monedas_2
+    ----------------------------------------
+    Total                      2.334ns (1.457ns logic, 0.877ns route)
+                                       (62.4% logic, 37.6% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_munyeco/clk_aux'
+  Clock period: 10.707ns (frequency: 93.397MHz)
+  Total number of paths / destination ports: 181 / 13
+-------------------------------------------------------------------------
+Delay:               10.707ns (Levels of Logic = 6)
+  Source:            r_my_1 (FF)
+  Destination:       r_my_9 (FF)
+  Source Clock:      Reloj_munyeco/clk_aux rising
+  Destination Clock: Reloj_munyeco/clk_aux rising
+
+  Data Path: r_my_1 to r_my_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             23   0.720   1.769  r_my_1 (r_my_1)
+     LUT3:I2->O            2   0.551   0.945  Maddsub_my_addsub0000_cy<1>1 (Maddsub_my_addsub0000_cy<1>)
+     LUT4:I2->O            3   0.551   0.975  Maddsub_my_addsub0000_cy<3>1 (Maddsub_my_addsub0000_cy<3>)
+     LUT4:I2->O            3   0.551   0.975  Maddsub_my_addsub0000_cy<5>1 (Maddsub_my_addsub0000_cy<5>)
+     LUT4:I2->O            2   0.551   0.945  Maddsub_my_addsub0000_cy<7>1 (Maddsub_my_addsub0000_cy<7>)
+     LUT3:I2->O            1   0.551   0.869  my<9>_SW0 (N1438)
+     LUT4:I2->O            1   0.551   0.000  my<9> (my<9>)
+     FDC:D                     0.203          r_my_9
+    ----------------------------------------
+    Total                     10.707ns (4.229ns logic, 6.478ns route)
+                                       (39.5% logic, 60.5% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clock'
+  Clock period: 7.583ns (frequency: 131.866MHz)
+  Total number of paths / destination ports: 4592 / 157
+-------------------------------------------------------------------------
+Delay:               7.583ns (Levels of Logic = 9)
+  Source:            Corre_barry/cuenta_5 (FF)
+  Destination:       Corre_barry/clk_aux (FF)
+  Source Clock:      clock rising
+  Destination Clock: clock rising
+
+  Data Path: Corre_barry/cuenta_5 to Corre_barry/clk_aux
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              2   0.720   1.216  Corre_barry/cuenta_5 (Corre_barry/cuenta_5)
+     LUT2:I0->O            1   0.551   0.000  Corre_barry/cuenta_cmp_eq0000_wg_lut<0> (Corre_barry/cuenta_cmp_eq0000_wg_lut<0>)
+     MUXCY:S->O            1   0.500   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<0> (Corre_barry/cuenta_cmp_eq0000_wg_cy<0>)
+     MUXCY:CI->O           1   0.064   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<1> (Corre_barry/cuenta_cmp_eq0000_wg_cy<1>)
+     MUXCY:CI->O           1   0.064   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<2> (Corre_barry/cuenta_cmp_eq0000_wg_cy<2>)
+     MUXCY:CI->O           1   0.064   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<3> (Corre_barry/cuenta_cmp_eq0000_wg_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<4> (Corre_barry/cuenta_cmp_eq0000_wg_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  Corre_barry/cuenta_cmp_eq0000_wg_cy<5> (Corre_barry/cuenta_cmp_eq0000_wg_cy<5>)
+     MUXCY:CI->O          27   0.303   2.019  Corre_barry/cuenta_cmp_eq0000_wg_cy<6> (Corre_barry/cuenta_cmp_eq0000)
+     LUT2:I1->O            1   0.551   0.801  Corre_barry/clk_aux_and00001 (Corre_barry/clk_aux_and0000)
+     FDE:CE                    0.602          Corre_barry/clk_aux
+    ----------------------------------------
+    Total                      7.583ns (3.547ns logic, 4.036ns route)
+                                       (46.8% logic, 53.2% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_de_movimiento_inter_fondo/clk_aux'
+  Clock period: 4.383ns (frequency: 228.154MHz)
+  Total number of paths / destination ports: 28 / 7
+-------------------------------------------------------------------------
+Delay:               4.383ns (Levels of Logic = 2)
+  Source:            cuenta_fondo_inter_2 (FF)
+  Destination:       cuenta_fondo_inter_4 (FF)
+  Source Clock:      Reloj_de_movimiento_inter_fondo/clk_aux rising
+  Destination Clock: Reloj_de_movimiento_inter_fondo/clk_aux rising
+
+  Data Path: cuenta_fondo_inter_2 to cuenta_fondo_inter_4
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             4   0.720   1.256  cuenta_fondo_inter_2 (cuenta_fondo_inter_2)
+     LUT4:I0->O            3   0.551   1.102  Mcount_cuenta_fondo_inter_cy<3>11 (Mcount_cuenta_fondo_inter_cy<3>)
+     LUT2:I1->O            1   0.551   0.000  Mcount_cuenta_fondo_inter_xor<4>11 (Result<4>)
+     FDCE:D                    0.203          cuenta_fondo_inter_4
+    ----------------------------------------
+    Total                      4.383ns (2.025ns logic, 2.358ns route)
+                                       (46.2% logic, 53.8% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_de_movimiento_obstaculos/clk_aux'
+  Clock period: 4.586ns (frequency: 218.055MHz)
+  Total number of paths / destination ports: 55 / 10
+-------------------------------------------------------------------------
+Delay:               4.586ns (Levels of Logic = 10)
+  Source:            avanza_obstaculos_1 (FF)
+  Destination:       avanza_obstaculos_9 (FF)
+  Source Clock:      Reloj_de_movimiento_obstaculos/clk_aux rising
+  Destination Clock: Reloj_de_movimiento_obstaculos/clk_aux rising
+
+  Data Path: avanza_obstaculos_1 to avanza_obstaculos_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             5   0.720   1.260  avanza_obstaculos_1 (avanza_obstaculos_1)
+     LUT1:I0->O            1   0.551   0.000  Mcount_avanza_obstaculos_cy<1>_rt (Mcount_avanza_obstaculos_cy<1>_rt)
+     MUXCY:S->O            1   0.500   0.000  Mcount_avanza_obstaculos_cy<1> (Mcount_avanza_obstaculos_cy<1>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<2> (Mcount_avanza_obstaculos_cy<2>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<3> (Mcount_avanza_obstaculos_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<4> (Mcount_avanza_obstaculos_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<5> (Mcount_avanza_obstaculos_cy<5>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<6> (Mcount_avanza_obstaculos_cy<6>)
+     MUXCY:CI->O           1   0.064   0.000  Mcount_avanza_obstaculos_cy<7> (Mcount_avanza_obstaculos_cy<7>)
+     MUXCY:CI->O           0   0.064   0.000  Mcount_avanza_obstaculos_cy<8> (Mcount_avanza_obstaculos_cy<8>)
+     XORCY:CI->O           1   0.904   0.000  Mcount_avanza_obstaculos_xor<9> (Result<9>)
+     FDCE:D                    0.203          avanza_obstaculos_9
+    ----------------------------------------
+    Total                      4.586ns (3.326ns logic, 1.260ns route)
+                                       (72.5% logic, 27.5% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Reloj_de_movimiento_fondo/clk_aux'
+  Clock period: 4.387ns (frequency: 227.946MHz)
+  Total number of paths / destination ports: 28 / 7
+-------------------------------------------------------------------------
+Delay:               4.387ns (Levels of Logic = 2)
+  Source:            cuenta_fondo_2 (FF)
+  Destination:       cuenta_fondo_4 (FF)
+  Source Clock:      Reloj_de_movimiento_fondo/clk_aux rising
+  Destination Clock: Reloj_de_movimiento_fondo/clk_aux rising
+
+  Data Path: cuenta_fondo_2 to cuenta_fondo_4
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDCE:C->Q             5   0.720   1.260  cuenta_fondo_2 (cuenta_fondo_2)
+     LUT4:I0->O            3   0.551   1.102  Mcount_cuenta_fondo_cy<3>11 (Mcount_cuenta_fondo_cy<3>)
+     LUT2:I1->O            1   0.551   0.000  Mcount_cuenta_fondo_xor<4>11 (Result<4>2)
+     FDCE:D                    0.203          cuenta_fondo_4
+    ----------------------------------------
+    Total                      4.387ns (2.025ns logic, 2.362ns route)
+                                       (46.2% logic, 53.8% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'PS2CLK'
+  Clock period: 3.398ns (frequency: 294.291MHz)
+  Total number of paths / destination ports: 17 / 17
+-------------------------------------------------------------------------
+Delay:               3.398ns (Levels of Logic = 0)
+  Source:            Controla_teclado/Mshreg_Fu_19 (FF)
+  Destination:       Controla_teclado/Fu_19 (FF)
+  Source Clock:      PS2CLK rising
+  Destination Clock: PS2CLK rising
+
+  Data Path: Controla_teclado/Mshreg_Fu_19 to Controla_teclado/Fu_19
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     SRL16:CLK->Q          1   3.195   0.000  Controla_teclado/Mshreg_Fu_19 (Controla_teclado/Mshreg_Fu_19)
+     FD:D                      0.203          Controla_teclado/Fu_19
+    ----------------------------------------
+    Total                      3.398ns (3.398ns logic, 0.000ns route)
+                                       (100.0% logic, 0.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'Reloj_de_movimiento_moneda/clk_aux1'
+  Total number of paths / destination ports: 190 / 18
+-------------------------------------------------------------------------
+Offset:              12.179ns (Levels of Logic = 14)
+  Source:            reset (PAD)
+  Destination:       posy_moneda_9 (FF)
+  Destination Clock: Reloj_de_movimiento_moneda/clk_aux1 rising
+
+  Data Path: reset to posy_moneda_9
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           278   0.821   3.601  reset_IBUF (reset_IBUF)
+     LUT2:I0->O            4   0.551   1.256  posy_moneda_mux0002<2>1 (posy_moneda_mux0002<2>)
+     LUT4:I0->O            1   0.551   1.140  posy_moneda_mux0001<1>1 (posy_moneda_mux0001<1>)
+     LUT4:I0->O            1   0.551   0.000  Maddsub_posy_moneda_share0000_lut<1> (Maddsub_posy_moneda_share0000_lut<1>)
+     MUXCY:S->O            1   0.500   0.000  Maddsub_posy_moneda_share0000_cy<1> (Maddsub_posy_moneda_share0000_cy<1>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<2> (Maddsub_posy_moneda_share0000_cy<2>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<3> (Maddsub_posy_moneda_share0000_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<4> (Maddsub_posy_moneda_share0000_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<5> (Maddsub_posy_moneda_share0000_cy<5>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<6> (Maddsub_posy_moneda_share0000_cy<6>)
+     MUXCY:CI->O           1   0.064   0.000  Maddsub_posy_moneda_share0000_cy<7> (Maddsub_posy_moneda_share0000_cy<7>)
+     MUXCY:CI->O           0   0.064   0.000  Maddsub_posy_moneda_share0000_cy<8> (Maddsub_posy_moneda_share0000_cy<8>)
+     XORCY:CI->O           3   0.904   1.102  Maddsub_posy_moneda_share0000_xor<9> (posy_moneda_share0000<9>)
+     LUT4:I1->O            1   0.551   0.000  posy_moneda_mux0000<9>1 (posy_moneda_mux0000<9>)
+     FDCP:D                    0.203          posy_moneda_9
+    ----------------------------------------
+    Total                     12.179ns (5.080ns logic, 7.099ns route)
+                                       (41.7% logic, 58.3% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'clock'
+  Total number of paths / destination ports: 8 / 8
+-------------------------------------------------------------------------
+Offset:              6.376ns (Levels of Logic = 2)
+  Source:            reset (PAD)
+  Destination:       Reloj_de_movimiento_fondo/clk_aux (FF)
+  Destination Clock: clock rising
+
+  Data Path: reset to Reloj_de_movimiento_fondo/clk_aux
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           278   0.821   3.601  reset_IBUF (reset_IBUF)
+     LUT2:I0->O            1   0.551   0.801  Reloj_choque/clk_aux_and00001 (Reloj_choque/clk_aux_and0000)
+     FDE:CE                    0.602          Reloj_choque/clk_aux
+    ----------------------------------------
+    Total                      6.376ns (1.974ns logic, 4.402ns route)
+                                       (31.0% logic, 69.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'Reloj_pantalla/clk_aux'
+  Total number of paths / destination ports: 2 / 2
+-------------------------------------------------------------------------
+Offset:              6.063ns (Levels of Logic = 2)
+  Source:            reset (PAD)
+  Destination:       GestorChangeLevel/estado_0 (FF)
+  Destination Clock: Reloj_pantalla/clk_aux rising
+
+  Data Path: reset to GestorChangeLevel/estado_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O           278   0.821   3.288  reset_IBUF (reset_IBUF)
+     LUT4:I3->O            1   0.551   0.801  GestorChangeLevel/estado_0_not000180 (GestorChangeLevel/estado_0_not0001)
+     FDCE:CE                   0.602          GestorChangeLevel/estado_0
+    ----------------------------------------
+    Total                      6.063ns (1.974ns logic, 4.089ns route)
+                                       (32.6% logic, 67.4% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'PS2CLK'
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Offset:              2.061ns (Levels of Logic = 1)
+  Source:            PS2DATA (PAD)
+  Destination:       Controla_teclado/Mshreg_Fu_19 (FF)
+  Destination Clock: PS2CLK rising
+
+  Data Path: PS2DATA to Controla_teclado/Mshreg_Fu_19
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             1   0.821   0.801  PS2DATA_IBUF (PS2DATA_IBUF)
+     SRL16:D                   0.439          Controla_teclado/Mshreg_Fu_19
+    ----------------------------------------
+    Total                      2.061ns (1.260ns logic, 0.801ns route)
+                                       (61.1% logic, 38.9% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'Reloj_pantalla/clk_aux'
+  Total number of paths / destination ports: 1433 / 10
+-------------------------------------------------------------------------
+Offset:              20.373ns (Levels of Logic = 9)
+  Source:            hcnt_7 (FF)
+  Destination:       rgb<8> (PAD)
+  Source Clock:      Reloj_pantalla/clk_aux rising
+
+  Data Path: hcnt_7 to rgb<8>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             16   0.720   1.576  hcnt_7 (hcnt_7)
+     LUT2:I0->O            3   0.551   1.246  obstaculo_cmp_gt0000111 (N4541)
+     LUT4:I0->O            1   0.551   0.996  bordes103_SW1 (N4725)
+     LUT4:I1->O            1   0.551   0.827  bordes103 (bordes103)
+     LUT4:I3->O            1   0.551   0.996  bordes165 (bordes165)
+     LUT4:I1->O            9   0.551   1.463  bordes197 (bordes)
+     LUT4:I0->O            1   0.551   0.869  rgb<8>2 (rgb<8>2)
+     LUT3:I2->O            1   0.551   0.827  rgb<8>114_SW0 (N3299)
+     LUT4:I3->O            1   0.551   0.801  rgb<8>114 (rgb_8_OBUF)
+     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+    ----------------------------------------
+    Total                     20.373ns (10.772ns logic, 9.601ns route)
+                                       (52.9% logic, 47.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'hsyncb_OBUF'
+  Total number of paths / destination ports: 1681 / 10
+-------------------------------------------------------------------------
+Offset:              21.692ns (Levels of Logic = 9)
+  Source:            vcnt_0 (FF)
+  Destination:       rgb<8> (PAD)
+  Source Clock:      hsyncb_OBUF rising
+
+  Data Path: vcnt_0 to rgb<8>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             85   0.720   2.352  vcnt_0 (Msub_posy_cy<0>)
+     LUT4:I1->O            4   0.551   1.256  obstaculo_cmp_le00011 (obstaculo_cmp_le00011)
+     LUT3:I0->O            1   0.551   0.996  obstaculo_cmp_le000121_SW1 (N3813)
+     LUT4:I1->O            2   0.551   1.216  obstaculo_cmp_le000121 (N651)
+     LUT4:I0->O            1   0.551   1.140  bordes12 (bordes12)
+     LUT4:I0->O            9   0.551   1.463  bordes197 (bordes)
+     LUT4:I0->O            1   0.551   0.869  rgb<8>2 (rgb<8>2)
+     LUT3:I2->O            1   0.551   0.827  rgb<8>114_SW0 (N3299)
+     LUT4:I3->O            1   0.551   0.801  rgb<8>114 (rgb_8_OBUF)
+     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+    ----------------------------------------
+    Total                     21.692ns (10.772ns logic, 10.920ns route)
+                                       (49.7% logic, 50.3% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'Reloj_de_movimiento_moneda/clk_aux1'
+  Total number of paths / destination ports: 1680 / 23
+-------------------------------------------------------------------------
+Offset:              18.975ns (Levels of Logic = 9)
+  Source:            posx_moneda_4 (FF)
+  Destination:       rgb<8> (PAD)
+  Source Clock:      Reloj_de_movimiento_moneda/clk_aux1 rising
+
+  Data Path: posx_moneda_4 to rgb<8>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              9   0.720   1.463  posx_moneda_4 (posx_moneda_4)
+     LUT4:I0->O            6   0.551   1.342  Madd_paint_coin_addsub0000_cy<5>11 (Madd_paint_coin_addsub0000_cy<5>)
+     LUT3:I0->O            2   0.551   1.072  Madd_paint_coin_addsub0000_cy<7>11 (Madd_paint_coin_addsub0000_cy<7>)
+     LUT3:I1->O            1   0.551   0.000  Mcompar_paint_coin_cmp_le0000_lut<8> (Mcompar_paint_coin_cmp_le0000_lut<8>)
+     MUXCY:S->O            1   0.500   0.000  Mcompar_paint_coin_cmp_le0000_cy<8> (Mcompar_paint_coin_cmp_le0000_cy<8>)
+     MUXCY:CI->O           1   0.303   1.140  Mcompar_paint_coin_cmp_le0000_cy<9> (paint_coin_cmp_le0000)
+     LUT4:I0->O            6   0.551   1.342  paint_coin (paint_coin)
+     LUT4:I0->O            6   0.551   1.342  rgb<0>31 (N325)
+     LUT4:I0->O            1   0.551   0.801  rgb<8>114 (rgb_8_OBUF)
+     OBUF:I->O                 5.644          rgb_8_OBUF (rgb<8>)
+    ----------------------------------------
+    Total                     18.975ns (10.473ns logic, 8.502ns route)
+                                       (55.2% logic, 44.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'Reloj_munyeco/clk_aux'
+  Total number of paths / destination ports: 762 / 9
+-------------------------------------------------------------------------
+Offset:              22.577ns (Levels of Logic = 10)
+  Source:            r_my_1 (FF)
+  Destination:       rgb<6> (PAD)
+  Source Clock:      Reloj_munyeco/clk_aux rising
+
+  Data Path: r_my_1 to rgb<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q             23   0.720   2.040  r_my_1 (r_my_1)
+     LUT4:I0->O            1   0.551   1.140  next_movimiento_cmp_le0000216 (next_movimiento_cmp_le0000216)
+     LUT4:I0->O            1   0.551   0.827  next_movimiento_cmp_le0000247_SW0 (N3341)
+     LUT4:I3->O            4   0.551   1.112  next_movimiento_cmp_le0000247 (next_movimiento_cmp_le0000)
+     LUT4:I1->O           10   0.551   1.329  rgb<3>2 (N103)
+     LUT4:I1->O            1   0.551   0.827  munyeco192_SW0 (N3057)
+     LUT4:I3->O           12   0.551   1.186  munyeco192 (munyeco)
+     LUT4:I2->O            1   0.551   0.996  rgb<2>24_SW0 (N4607)
+     LUT4:I1->O            1   0.551   0.996  rgb<2>24 (rgb<2>24)
+     LUT4:I1->O            1   0.551   0.801  rgb<2>114 (rgb_2_OBUF)
+     OBUF:I->O                 5.644          rgb_2_OBUF (rgb<2>)
+    ----------------------------------------
+    Total                     22.577ns (11.323ns logic, 11.254ns route)
+                                       (50.2% logic, 49.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clock'
+  Total number of paths / destination ports: 24 / 9
+-------------------------------------------------------------------------
+Offset:              18.568ns (Levels of Logic = 8)
+  Source:            Corre_barry/clk_aux (FF)
+  Destination:       rgb<6> (PAD)
+  Source Clock:      clock rising
+
+  Data Path: Corre_barry/clk_aux to rgb<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDE:C->Q              2   0.720   1.072  Corre_barry/clk_aux (Corre_barry/clk_aux)
+     LUT4:I1->O            1   0.551   1.140  rgb<3>2_SW0 (N1391)
+     LUT4:I0->O           10   0.551   1.329  rgb<3>2 (N103)
+     LUT4:I1->O            1   0.551   0.827  munyeco192_SW0 (N3057)
+     LUT4:I3->O           12   0.551   1.186  munyeco192 (munyeco)
+     LUT4:I2->O            1   0.551   0.996  rgb<2>24_SW0 (N4607)
+     LUT4:I1->O            1   0.551   0.996  rgb<2>24 (rgb<2>24)
+     LUT4:I1->O            1   0.551   0.801  rgb<2>114 (rgb_2_OBUF)
+     OBUF:I->O                 5.644          rgb_2_OBUF (rgb<2>)
+    ----------------------------------------
+    Total                     18.568ns (10.221ns logic, 8.347ns route)
+                                       (55.0% logic, 45.0% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'PS2CLK'
+  Total number of paths / destination ports: 384 / 9
+-------------------------------------------------------------------------
+Offset:              22.004ns (Levels of Logic = 11)
+  Source:            Controla_teclado/Fu_12 (FF)
+  Destination:       rgb<6> (PAD)
+  Source Clock:      PS2CLK rising
+
+  Data Path: Controla_teclado/Fu_12 to rgb<6>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               2   0.720   1.216  Controla_teclado/Fu_12 (Controla_teclado/Fu_12)
+     LUT4:I0->O            1   0.551   0.000  Controla_teclado/pausado1401 (Controla_teclado/pausado1401)
+     MUXF5:I0->O           2   0.360   1.072  Controla_teclado/pausado140_f5 (Controla_teclado/pausado140)
+     LUT3:I1->O            1   0.551   0.869  Controla_teclado/pausado144 (Controla_teclado/N01)
+     LUT4:I2->O            6   0.551   1.029  Controla_teclado/pulsado1 (pulsado)
+     LUT4:I3->O           10   0.551   1.329  rgb<3>2 (N103)
+     LUT4:I1->O            1   0.551   0.827  munyeco192_SW0 (N3057)
+     LUT4:I3->O           12   0.551   1.186  munyeco192 (munyeco)
+     LUT4:I2->O            1   0.551   0.996  rgb<2>24_SW0 (N4607)
+     LUT4:I1->O            1   0.551   0.996  rgb<2>24 (rgb<2>24)
+     LUT4:I1->O            1   0.551   0.801  rgb<2>114 (rgb_2_OBUF)
+     OBUF:I->O                 5.644          rgb_2_OBUF (rgb<2>)
+    ----------------------------------------
+    Total                     22.004ns (11.683ns logic, 10.321ns route)
+                                       (53.1% logic, 46.9% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 1131.00 secs
+Total CPU time to Xst completion: 1131.67 secs
+ 
+--> 
+
+Total memory usage is 1229320 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings :   28 (   0 filtered)
+Number of infos    :   25 (   0 filtered)
+
