@@ -53,10 +53,8 @@ signal state_coin, next_state_coin, pause_state_coin: estados_monedas := invisib
 -------------------
 -- SEÑALES (varias)
 -------------------
---Contador para el flotar de Barry
-signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
---Indica que Barry se encuentra ralentizando
-signal ralentizar: std_logic;
+--Contador para el flotar de Barry (no se usa)
+--signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
 --Cuenta horizontal de píxeles de la pantalla
 signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 --Cuenta vertical de píxeles de pantalla
@@ -161,8 +159,6 @@ signal posx_fondo, posx_fondoi, cuenta_fondo, cuenta_fondo_inter: std_logic_vect
 signal cuenta_monedas, next_cuenta_monedas, save_cuenta_monedas,  limite_nivel: std_logic_vector(6 downto 0) := "0000000";
 signal reset_monedas: std_logic := '0';
 
-
-signal debug_choque: std_logic;
 
 
  
