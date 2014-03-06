@@ -262208,12 +262208,12 @@ begin
 	 if clk'event and clk='1' then
 		if bloquea = '1' then
 			--if addr(9 downto 8) = "00" then
-			if rango_int < 384 then
+			if rango_int < 512 then
 				dout <= '0';
 			else 
 				dout <= filaimg(addr_int);
 			end if;
-			if rango_int_munyeco < 384 then
+			if rango_int_munyeco < 512 then
 				dout_munyeco <= '0';
 			else dout_munyeco <= filaimg(addr_munyeco_int);
 			end if;
