@@ -51,6 +51,7 @@ signal my, r_my: std_logic_vector(9 downto 0);
 signal obstaculo, salida_obstaculo,  bordes, munyeco, munyeco1, munyeco2, fondo, fondo_inter: std_logic;
 signal salida_obstaculo1, salida_obstaculo2, salida_obstaculo3: std_logic;
 signal fondo_inter1, fondo_inter2: std_logic;
+signal bloquea_obstaculo: std_logic;
 
 --Direcciones para las rom
 
@@ -111,7 +112,7 @@ signal pulsado: std_logic;
 signal pausado: std_logic;--señal de pausa
 signal freeze: std_logic;--señal que indica si se tiene que mover o no
 
-
+signal cambio_nivel: std_logic := '0';
 
 
 
@@ -140,14 +141,14 @@ signal posy_fondo, posy_fondoi: std_logic_vector(7 downto 0);
 signal posx_fondo, posx_fondoi, cuenta_fondo, cuenta_fondo_inter: std_logic_vector(6 downto 0);
 
 --Contador de las monedas
-signal cuenta_monedas, next_cuenta_monedas, save_cuenta_monedas: std_logic_vector(6 downto 0) := "0000000";
+signal cuenta_monedas, next_cuenta_monedas, limite_niveles: std_logic_vector(6 downto 0) := "0000000";
 signal reset_monedas: std_logic := '0';
 
 
 signal debug_choque: std_logic;
 
 --Estado del nivel
-signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a rgb y a color
+signal estado_nivel, sig_estado_nivel: estados_nivele;--Conectamos el color a rgb y a color
 	-- el color de cada nivel, con un with select o lo que sea, que este cada uno conectado con
 	-- su ROM correspondiente.
  
@@ -217,6 +218,7 @@ end component;
 component ROM_RGB_9b_mapa_facil is
     port (
     clk					  : in  std_logic;   -- reloj
+	 bloquea				  : in std_logic; 	--señal que indica si se bloquean las primeras 256 posiciones
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco : out std_logic
   );
@@ -262,6 +264,7 @@ end component;
 component ROM_RGB_9b_flappynivelBW is
   port (
     clk  				: in  std_logic;   -- reloj
+	 bloquea				  : in std_logic; 	--señal que indica si se bloquean las primeras 256 posiciones
     addr, addr_munyeco  : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco  : out std_logic 
   );
@@ -271,6 +274,7 @@ end component;
 component ROM_RGB_9b_nivelfuegoBW is
   port (
     clk  				: in  std_logic;   -- reloj
+	 bloquea				  : in std_logic; 	--señal que indica si se bloquean las primeras 256 posiciones
     addr, addr_munyeco  : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco  : out std_logic 
   );
@@ -325,9 +329,18 @@ port(clock      : in  STD_LOGIC;
 		
 end component;
 
+component gestorCambioNivel is
+	port( reset: in std_logic;
+			cambio_nivel: in std_logic;
+			counter: in std_logic_vector(9 downto 0);
+			clk : in std_logic;
+			salida_obstaculo: out std_logic);
+end component;
+
 
 begin
-
+--Gestor que bloquea los obstáculos en las transiciones de nivel
+GestorCambioNivel: gestorCambioNivel port map( reset, cambio_nivel, avanza_obstaculos, clk_1, bloquea_obstaculo);
 --Reloj que comprueba los choques de barry
 Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
 --Reloj de refresco de la pantalla
@@ -363,14 +376,14 @@ Rom_fondo2: ROM_RGB_9b_nubes port map(clk, dir_mem_fondo, color_fondo2);
 Rom_fondo3: ROM_RGB_9b_arboles port map(clk, dir_mem_fondo_inter, color_fondo3);
 --PORT MAP OBSTACULOS
 ---Rom port map mapafacil
-Romobs1: ROM_RGB_9b_mapa_facil port map(clk_1, dir_mem, dir_mem_choque, salida_obstaculo1, color_choque1); 
-Romobs2: ROM_RGB_9b_flappynivelBW port map(clk_1, dir_mem, dir_mem_choque, salida_obstaculo2, color_choque2); 
-Romobs3: ROM_RGB_9b_nivelfuegoBW port map(clk_1, dir_mem, dir_mem_choque, salida_obstaculo3, color_choque3); 
+Romobs1: ROM_RGB_9b_mapa_facil port map(clk_1, bloquea_obstaculo,dir_mem, dir_mem_choque, salida_obstaculo1, color_choque1); 
+Romobs2: ROM_RGB_9b_flappynivelBW port map(clk_1, bloquea_obstaculo, dir_mem, dir_mem_choque, salida_obstaculo2, color_choque2); 
+Romobs3: ROM_RGB_9b_nivelfuegoBW port map(clk_1, bloquea_obstaculo,dir_mem, dir_mem_choque, salida_obstaculo3, color_choque3); 
 
 --7 segmentos
 SieteSeg: contador port map(cuenta_monedas, displayizq, displaydcha);
 --Generador aleatorio para la posicion de inicio de la moneda
-GenAleatorio: randomGenerator port map(relojMovMoneda, clk, salida_aleatoria);
+GenAleatorio: randomGenerator port map(relojMovMoneda, cuenta_fondo(2), salida_aleatoria);
 
 A: process(clk,reset)
 begin
@@ -652,9 +665,9 @@ niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
 				color_choque, color_choque1, color_choque2, color_choque3,
 				fondo_inter1, color_fondo3,
-				cuenta_monedas)--Añadir game over
+				cuenta_monedas, limite_nivel)--Añadir game over
 begin
-	
+	cambio_nivel <= '0';
 	color_inter_fondo <= "111111111";
 	if estado_nivel = nivel1 then
 		fondo_inter1 <= '0';
@@ -662,8 +675,9 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "111111000";
 		salida_obstaculo <= salida_obstaculo1;
-		if cuenta_monedas = "0000101" then
+		if cuenta_monedas = "0000101" + limite_nivel then
 			sig_estado_nivel <= nivel2;
+			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
 		end if;
 	elsif estado_nivel = nivel2 then
@@ -672,8 +686,9 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "000111000";
 		salida_obstaculo <= salida_obstaculo2;
-		if cuenta_monedas = "0001010" then
+		if cuenta_monedas = "0001010" + limite_nivel then
 			sig_estado_nivel <= nivel3;
+			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
 		end if;
 	else-- estado_nivel = nivel3 then
@@ -687,8 +702,10 @@ begin
 		end if;
 		color_obstaculo <= "111000000";
 		salida_obstaculo <= salida_obstaculo3;
-		if cuenta_monedas = "0001111" then
+		if cuenta_monedas = "0001111" + limite_nivel then
+			limite_nivel <= limite_nivel + "0010100";
 			sig_estado_nivel <= nivel1;
+			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
 		end if;
 	--elsif estado_nivel = nivel4 then

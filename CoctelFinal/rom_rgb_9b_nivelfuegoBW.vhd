@@ -262198,6 +262198,7 @@ begin
 		if bloquea = '1' then
 			if addr(9 downto 8) = "00" then
 				dout <= '0';
+			end if;
 			if addr_munyeco(9 downto 8) = "00" then
 				dout_munyeco <= '0';
 			end if;
