@@ -31,6 +31,7 @@ entity ROM_RGB_9b_mapa_facil is
   port (
     clk					  : in  std_logic;   -- reloj
 	 bloquea				  : in std_logic; 	--señal que indica si se bloquean las primeras 256 posiciones
+--	 avanza_obstaculo   : in std_logic_vector(9 downto 0);
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco : out std_logic
   );
@@ -38,6 +39,12 @@ end ROM_RGB_9b_mapa_facil;
 
 architecture BEHAVIORAL of ROM_RGB_9b_mapa_facil is
   signal addr_int, addr_munyeco_int  : natural range 0 to 2**18-1;
+--  signal bloquea_int : natural range 0 to 2** 18-1;
+--  signal bloquea_avanza: std_logic_vector(18-1 downto 0);
+signal rango : std_logic_vector(9 downto 0);
+signal rango_munyeco : std_logic_vector(9 downto 0);
+	signal rango_int : natural range 0 to 2**12-1;
+	signal rango_int_munyeco : natural range 0 to 2**12-1;
   type memostruct is array (natural range<>) of std_logic;
   constant filaimg : memostruct := (
      --"W/Y"
@@ -262191,20 +262198,31 @@ begin
 
   addr_int <= TO_INTEGER(unsigned(addr));
   addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
-
-
+ -- bloquea_avanza <= addr - "00000000"&avanza_obstaculo;
+	--bloquea_int <= TO_INTEGER(unsigned(bloquea_avanza));
+	rango <= addr(9 downto 0);
+	rango_int <= TO_INTEGER(unsigned(rango));
+	rango_munyeco <= addr_munyeco(9 downto 0);
+	rango_int_munyeco <= TO_INTEGER(unsigned(rango_munyeco));
   P_ROM: process (clk)
   begin
 	 if clk'event and clk='1' then
 		if bloquea = '1' then
-			if addr(9 downto 8) = "00" then
+			--if addr(9 downto 8) = "00" then
+			if rango_int < 384 then
 				dout <= '0';
-			else dout <= filaimg(addr_int);
+			else 
+				dout <= filaimg(addr_int);
 			end if;
-			if addr_munyeco(9 downto 8) = "00" then
+			if rango_int_munyeco < 384 then
 				dout_munyeco <= '0';
 			else dout_munyeco <= filaimg(addr_munyeco_int);
 			end if;
+			--if addr_munyeco(9 downto 8) = "00" then
+			--if addr_munyeco(9 downto 0) < "0100000000" then
+			--	dout_munyeco <= '0';
+			--else dout_munyeco <= filaimg(addr_munyeco_int);
+			--end if;
 		else
 			dout <= filaimg(addr_int);
 			dout_munyeco <= filaimg(addr_munyeco_int);
@@ -262213,6 +262231,8 @@ begin
 		--dout_munyeco <= '0';
 	 end if;
   end process;
+--dout <= '0';
+--dout_munyeco <='0';
 
 end BEHAVIORAL;
 

@@ -38,6 +38,10 @@ end ROM_RGB_9b_flappynivelBW;
 
 architecture BEHAVIORAL of ROM_RGB_9b_flappynivelBW is
   signal addr_int, addr_munyeco_int  : natural range 0 to 2**18-1;
+	signal rango : std_logic_vector(9 downto 0);
+	signal rango_munyeco : std_logic_vector(9 downto 0);
+	signal rango_int : natural range 0 to 2**12-1;
+	signal rango_int_munyeco : natural range 0 to 2**12-1;
   type memostruct is array (natural range<>) of std_logic;
   constant filaimg : memostruct := (
      --"RRRGGGBBB"
@@ -262189,20 +262193,68 @@ architecture BEHAVIORAL of ROM_RGB_9b_flappynivelBW is
 
 begin
 
+--  addr_int <= TO_INTEGER(unsigned(addr));
+--  addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
+--  P_ROM: process (clk)
+--  begin
+--	 if clk'event and clk='1' then
+--		if bloquea = '1' then
+--			if addr(9 downto 8) = "00" then
+--				dout <= '0';
+--			else dout <= filaimg(addr_int);
+--			end if;
+--			--if addr_munyeco(9 downto 8) = "00" then
+--			if addr_munyeco(9 downto 0) < "0100000000" then
+--				dout_munyeco <= '0';
+--			else dout_munyeco <= filaimg(addr_munyeco_int);
+--			end if;
+--		else
+--			dout <= filaimg(addr_int);
+--			dout_munyeco <= filaimg(addr_munyeco_int);
+--		end if;
+--		--dout <= '0';
+--		--dout_munyeco <= '0';
+--	 end if;
+--  end process;
+--P_ROM: process (clk)
+--  begin
+--    if clk'event and clk='1' then
+--		--dout <= filaimg(addr_int);
+--		--dout_munyeco <= filaimg(addr_munyeco_int);
+--		dout <= '0';
+--		dout_munyeco <= '0';
+--    end if;
+--  end process;
+
+
+
   addr_int <= TO_INTEGER(unsigned(addr));
   addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
+ -- bloquea_avanza <= addr - "00000000"&avanza_obstaculo;
+	--bloquea_int <= TO_INTEGER(unsigned(bloquea_avanza));
+	rango <= addr(9 downto 0);
+	rango_int <= TO_INTEGER(unsigned(rango));
+	rango_munyeco <= addr_munyeco(9 downto 0);
+	rango_int_munyeco <= TO_INTEGER(unsigned(rango_munyeco));
   P_ROM: process (clk)
   begin
 	 if clk'event and clk='1' then
 		if bloquea = '1' then
-			if addr(9 downto 8) = "00" then
+			--if addr(9 downto 8) = "00" then
+			if rango_int < 384 then
 				dout <= '0';
-			else dout <= filaimg(addr_int);
+			else 
+				dout <= filaimg(addr_int);
 			end if;
-			if addr_munyeco(9 downto 8) = "00" then
+			if rango_int_munyeco < 384 then
 				dout_munyeco <= '0';
 			else dout_munyeco <= filaimg(addr_munyeco_int);
 			end if;
+			--if addr_munyeco(9 downto 8) = "00" then
+			--if addr_munyeco(9 downto 0) < "0100000000" then
+			--	dout_munyeco <= '0';
+			--else dout_munyeco <= filaimg(addr_munyeco_int);
+			--end if;
 		else
 			dout <= filaimg(addr_int);
 			dout_munyeco <= filaimg(addr_munyeco_int);
@@ -262211,15 +262263,5 @@ begin
 		--dout_munyeco <= '0';
 	 end if;
   end process;
-
 end BEHAVIORAL;
 
---P_ROM: process (clk)
---  begin
---    if clk'event and clk='1' then
---		dout <= filaimg(addr_int);
---		dout_munyeco <= filaimg(addr_munyeco_int);
---		--dout <= '0';
---		--dout_munyeco <= '0';
---    end if;
---  end process;
