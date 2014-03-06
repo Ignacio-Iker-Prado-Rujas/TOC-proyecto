@@ -141,14 +141,14 @@ signal posy_fondo, posy_fondoi: std_logic_vector(7 downto 0);
 signal posx_fondo, posx_fondoi, cuenta_fondo, cuenta_fondo_inter: std_logic_vector(6 downto 0);
 
 --Contador de las monedas
-signal cuenta_monedas, next_cuenta_monedas, limite_niveles: std_logic_vector(6 downto 0) := "0000000";
+signal cuenta_monedas, next_cuenta_monedas, save_cuenta_monedas,  limite_nivel: std_logic_vector(6 downto 0) := "0000000";
 signal reset_monedas: std_logic := '0';
 
 
 signal debug_choque: std_logic;
 
 --Estado del nivel
-signal estado_nivel, sig_estado_nivel: estados_nivele;--Conectamos el color a rgb y a color
+signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a rgb y a color
 	-- el color de cada nivel, con un with select o lo que sea, que este cada uno conectado con
 	-- su ROM correspondiente.
  
@@ -340,7 +340,7 @@ end component;
 
 begin
 --Gestor que bloquea los obstáculos en las transiciones de nivel
-GestorCambioNivel: gestorCambioNivel port map( reset, cambio_nivel, avanza_obstaculos, clk_1, bloquea_obstaculo);
+GestorChangeLevel: gestorCambioNivel port map( reset, cambio_nivel, avanza_obstaculos, clk_1, bloquea_obstaculo);
 --Reloj que comprueba los choques de barry
 Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
 --Reloj de refresco de la pantalla
@@ -645,7 +645,7 @@ end process mov_munyeco;
 
 --------LEVELS
 --------PROCESS CON LOS NIVELES estado_nivel, sig_estado_nivel
-clock_estado_nivel: process (reset, clk)
+clock_estado_nivel: process (reset, clk, sig_estado_nivel)
 begin
 	if reset = '1' then
 		estado_nivel <= nivel1;
