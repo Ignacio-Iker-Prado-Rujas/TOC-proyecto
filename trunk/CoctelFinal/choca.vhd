@@ -323,7 +323,7 @@ end component;
 --Generador aleatorio
 component randomGenerator is
 port(clock      : in  STD_LOGIC;
-	  userInput  : in  STD_LOGIC;
+	  userInput  : in  STD_LOGIC_VECTOR(3 DOWNTO 0);
 	  random_out : out STD_LOGIC_VECTOR(6 downto 0)
 	 );
 		
