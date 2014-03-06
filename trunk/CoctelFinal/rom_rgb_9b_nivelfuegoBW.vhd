@@ -262192,15 +262192,17 @@ begin
   addr_int <= TO_INTEGER(unsigned(addr));
   addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
 
-	P_ROM: process (clk)
+  P_ROM: process (clk)
   begin
 	 if clk'event and clk='1' then
 		if bloquea = '1' then
 			if addr(9 downto 8) = "00" then
 				dout <= '0';
+			else dout <= filaimg(addr_int);
 			end if;
 			if addr_munyeco(9 downto 8) = "00" then
 				dout_munyeco <= '0';
+			else dout_munyeco <= filaimg(addr_munyeco_int);
 			end if;
 		else
 			dout <= filaimg(addr_int);
@@ -262210,7 +262212,6 @@ begin
 		--dout_munyeco <= '0';
 	 end if;
   end process;
-
 end BEHAVIORAL;
 
 --

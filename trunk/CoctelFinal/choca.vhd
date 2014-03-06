@@ -383,7 +383,7 @@ Romobs3: ROM_RGB_9b_nivelfuegoBW port map(clk_1, bloquea_obstaculo,dir_mem, dir_
 --7 segmentos
 SieteSeg: contador port map(cuenta_monedas, displayizq, displaydcha);
 --Generador aleatorio para la posicion de inicio de la moneda
-GenAleatorio: randomGenerator port map(relojMovMoneda, cuenta_fondo(2), salida_aleatoria);
+GenAleatorio: randomGenerator port map(relojMovMoneda, cuenta_fondo(3 downto 0), salida_aleatoria);
 
 A: process(clk,reset)
 begin
