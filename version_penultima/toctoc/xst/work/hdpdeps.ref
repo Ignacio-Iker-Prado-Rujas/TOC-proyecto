@@ -1,0 +1,159 @@
+V3 88
+FL C:/hlocal/tocproyecto/CoctelFinal/choca.vhd 2014/03/06.16:42:11 P.15xf
+EN work/vgacore 1394132988 FL C:/hlocal/tocproyecto/CoctelFinal/choca.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625 \
+      PB ieee/std_logic_arith 1335251623
+AR work/vgacore/vgacore_arch 1394132989 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/choca.vhd EN work/vgacore 1394132988 \
+      CP gestorCambioNivel CP divisor_choques CP divisor CP divisor_munyeco \
+      CP control_teclado CP divisor_movimiento_fondo CP divisor_inter_fondo \
+      CP divisor_movimiento_moneda CP divisor_movimiento_obstaculos \
+      CP divisor_corre CP ROM_RGB_9b_barryair CP ROM_RGB_9b_barryair25 \
+      CP ROM_RGB_9b_game_over_negro CP ROM_RGB_9b_lab CP ROM_RGB_9b_nubes \
+      CP ROM_RGB_9b_arboles CP ROM_RGB_9b_mapa_facil CP ROM_RGB_9b_flappynivelBW \
+      CP ROM_RGB_9b_nivelfuegoBW CP contador CP randomGenerator
+FL C:/hlocal/tocproyecto/CoctelFinal/contador.vhd 2014/03/06.16:16:51 P.15xf
+EN work/contador 1394132984 FL C:/hlocal/tocproyecto/CoctelFinal/contador.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/std_logic_arith 1335251623 \
+      PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/contador/Behavioral 1394132985 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/contador.vhd EN work/contador 1394132984
+FL C:/hlocal/tocproyecto/CoctelFinal/control_teclado.vhd 2014/03/06.16:16:51 P.15xf
+EN work/control_teclado 1394132792 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/control_teclado.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/std_logic_arith 1335251623 \
+      PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/control_teclado/estructural 1394132793 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/control_teclado.vhd \
+      EN work/control_teclado 1394132792
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor 1394132788 FL C:/hlocal/tocproyecto/CoctelFinal/divisor.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor/divisor_arch 1394132789 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor.vhd EN work/divisor 1394132788
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_choques.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_choques 1394132786 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_choques.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_choques/divisor_arch 1394132787 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_choques.vhd \
+      EN work/divisor_choques 1394132786
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_corre.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_corre 1394132802 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_corre.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_corre/divisor_arch 1394132803 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_corre.vhd \
+      EN work/divisor_corre 1394132802
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_inter_fondo.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_inter_fondo 1394132796 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_inter_fondo.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_inter_fondo/divisor_arch 1394132797 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_inter_fondo.vhd \
+      EN work/divisor_inter_fondo 1394132796
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_fondo.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_movimiento_fondo 1394132794 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_fondo.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_movimiento_fondo/divisor_arch 1394132795 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_fondo.vhd \
+      EN work/divisor_movimiento_fondo 1394132794
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_moneda.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_movimiento_moneda 1394132798 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_moneda.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_movimiento_moneda/divisor_arch 1394132799 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_moneda.vhd \
+      EN work/divisor_movimiento_moneda 1394132798
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_obstaculos.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_movimiento_obstaculos 1394132800 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_obstaculos.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_movimiento_obstaculos/divisor_arch 1394132801 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_movimiento_obstaculos.vhd \
+      EN work/divisor_movimiento_obstaculos 1394132800
+FL C:/hlocal/tocproyecto/CoctelFinal/divisor_munyeco.vhd 2014/03/06.16:16:51 P.15xf
+EN work/divisor_munyeco 1394132790 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_munyeco.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/STD_LOGIC_UNSIGNED 1335251625
+AR work/divisor_munyeco/divisor_arch 1394132791 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/divisor_munyeco.vhd \
+      EN work/divisor_munyeco 1394132790
+FL C:/hlocal/tocproyecto/CoctelFinal/gestorCambioNivel.vhd 2014/03/06.16:16:51 P.15xf
+EN work/gestorCambioNivel 1394132784 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/gestorCambioNivel.vhd \
+      PB ieee/std_logic_1164 1335251622
+AR work/gestorCambioNivel/Behavioral 1394132785 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/gestorCambioNivel.vhd \
+      EN work/gestorCambioNivel 1394132784
+FL C:/hlocal/tocproyecto/CoctelFinal/randomGenerator.vhd 2014/03/06.16:16:51 P.15xf
+EN work/randomGenerator 1394132986 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/randomGenerator.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627 LB work
+AR work/randomGenerator/Behavioral 1394132987 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/randomGenerator.vhd \
+      EN work/randomGenerator 1394132986
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_arboles.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_arboles 1394132814 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_arboles.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_arboles/BEHAVIORAL 1394132815 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_arboles.vhd \
+      EN work/ROM_RGB_9b_arboles 1394132814
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_barryair 1394132804 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_barryair/BEHAVIORAL 1394132805 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair.vhd \
+      EN work/ROM_RGB_9b_barryair 1394132804
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair2-5.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_barryair25 1394132806 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair2-5.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_barryair25/BEHAVIORAL 1394132807 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_barryair2-5.vhd \
+      EN work/ROM_RGB_9b_barryair25 1394132806
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_flappy-nivelBW.vhd 2014/03/06.20:06:10 P.15xf
+EN work/ROM_RGB_9b_flappynivelBW 1394132852 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_flappy-nivelBW.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_flappynivelBW/BEHAVIORAL 1394132917 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_flappy-nivelBW.vhd \
+      EN work/ROM_RGB_9b_flappynivelBW 1394132852
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_game-over-negro.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_game_over_negro 1394132808 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_game-over-negro.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_game_over_negro/BEHAVIORAL 1394132809 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_game-over-negro.vhd \
+      EN work/ROM_RGB_9b_game_over_negro 1394132808
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_lab.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_lab 1394132810 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_lab.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_lab/BEHAVIORAL 1394132811 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_lab.vhd \
+      EN work/ROM_RGB_9b_lab 1394132810
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_mapa_facil.vhd 2014/03/06.20:06:08 P.15xf
+EN work/ROM_RGB_9b_mapa_facil 1394132816 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_mapa_facil.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_mapa_facil/BEHAVIORAL 1394132851 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_mapa_facil.vhd \
+      EN work/ROM_RGB_9b_mapa_facil 1394132816
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nivelfuegoBW.vhd 2014/03/06.20:06:12 P.15xf
+EN work/ROM_RGB_9b_nivelfuegoBW 1394132918 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nivelfuegoBW.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_nivelfuegoBW/BEHAVIORAL 1394132983 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nivelfuegoBW.vhd \
+      EN work/ROM_RGB_9b_nivelfuegoBW 1394132918
+FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nubes.vhd 2014/03/06.16:16:51 P.15xf
+EN work/ROM_RGB_9b_nubes 1394132812 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nubes.vhd \
+      PB ieee/std_logic_1164 1335251622 PB ieee/NUMERIC_STD 1335251627
+AR work/ROM_RGB_9b_nubes/BEHAVIORAL 1394132813 \
+      FL C:/hlocal/tocproyecto/CoctelFinal/rom_rgb_9b_nubes.vhd \
+      EN work/ROM_RGB_9b_nubes 1394132812

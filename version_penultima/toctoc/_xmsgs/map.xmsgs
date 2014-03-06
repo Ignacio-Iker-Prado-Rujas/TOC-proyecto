@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated
+     by the Xilinx ISE software.  Any direct editing or
+     changes made to this file may result in unpredictable
+     behavior or data corruption.  It is strongly advised that
+     users do not edit the contents of this file. -->
+<messages>
+<msg type="info" file="MapLib" num="562" delta="old" >No environment variables are currently set.
+</msg>
+
+<msg type="info" file="LIT" num="244" delta="old" >All of the single ended outputs in this design are using slew rate limited output drivers. The delay on speed critical single ended outputs can be dramatically reduced by designating them as fast outputs.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_161</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_15_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_251</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_24_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000013601_236</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom00001041_22_f5_0</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_26</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_25_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_181</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_17_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_272</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_26_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_28</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_27_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_29</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_28_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;8&gt;124151</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs1/Mrom_dout_munyeco_rom00011021_21_f5_5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;7&gt;1759856</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_23_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;8&gt;12471</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs1/Mrom_dout_munyeco_rom00011021_23_f5_5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;7&gt;17556</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_25_f5_2</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;6&gt;2201091</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_26_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;5&gt;165751</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_28_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;7&gt;175102</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_28_f5_5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_211</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_20_f5_0</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_224</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_21_f5_1</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_227</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_21_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_229</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_21_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_233</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5_0</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_239</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5_1</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2310</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5_2</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2317</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5_6</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2415</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_23_f5_2</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2720</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_26_f5_6</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2726</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_26_f5_9</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_289</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_27_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_297</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_28_f5_2</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_303</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_29_f5_0</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/addr&lt;5&gt;_33</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/addr&lt;5&gt;_2_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;8&gt;124151</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs1/Mrom_dout_rom00011021_21_f5_5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;8&gt;12471</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs1/Mrom_dout_rom00011021_23_f5_5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_barrycorre/Mrom_dout_rom000012411</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_barrycorre/Mrom_dout_rom0000211_7_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2287</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_21_f5_32</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2245</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_21_f5_17</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2335</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5_11</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2437</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_23_f5_14</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2452</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_23_f5_23</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2445</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_23_f5_18</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2543</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_24_f5_20</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2542</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_24_f5_19</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2635</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_25_f5_16</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_1821</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_17_f5_16</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_2097</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_19_f5_57</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Madd_posx_fondo_xor&lt;0&gt;_1</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000022981_20_f5_48</arg>.  <arg fmt="%z" index="3">Unable to resolve the conflicts between two or more collections of symbols which have restrictive placement or routing requirements.  The original symbols are:
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_48&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f549)
+	LUT symbol &quot;Madd_posx_fondo_xor&lt;0&gt;_1&quot; (Output Signal = Madd_posx_fondo_xor&lt;0&gt;_1)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_19_f6_17&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_19_f618)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_481&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_48)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_19_f6_17&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_19_f618)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_20_f5_48&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_20_f549)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2278&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2278)
+Failure 1:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_17_f7_10&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_17_f711)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_47&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f548)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_471&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_47)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_472&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_471)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_17_f7_10&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_17_f711)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_20_f5_47&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_20_f548)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2277&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2277)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21105&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21105)
+There is more than one MUXF6.
+Failure 2:  Unable to combine the following symbols into a single slice.
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21_f5_27&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_21_f528)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_21_f5_27&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21_f528)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2344&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2344)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2279&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2279)
+There is more than one F5MUX.
+Failure 3:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_18_f6_28&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_18_f629)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_19_f5_55&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_19_f556)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_18_f6_28&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_18_f629)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_19_f5_55&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_19_f556)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21104&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21104)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2095&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2095)
+There is more than one MUXF6.
+Failure 4:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_19_f6_17&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_19_f618)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_48&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f549)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_481&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_48)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_19_f6_17&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_19_f618)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_20_f5_48&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_20_f549)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2278&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2278)
+	LUT symbol &quot;Madd_posx_fondo_xor&lt;0&gt;_1&quot; (Output Signal = Madd_posx_fondo_xor&lt;0&gt;_1)
+There is more than one MUXF6.
+Failure 5:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_16_f7_15&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_16_f716)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_19_f5_53&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_19_f554)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_16_f7_15&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_16_f716)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_19_f5_53&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_19_f554)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21101&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21101)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2093&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2093)
+There is more than one MUXF6.
+Failure 6:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_15_f8_7&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_15_f88)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_46&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f547)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_461&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_46)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_20_f5_462&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_20_f5_461)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_15_f8_7&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_15_f88)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_20_f5_46&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_20_f547)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2276&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2276)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21103&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21103)
+There is more than one MUXF6.
+Failure 7:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_17_f6_25&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_17_f626)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_18_f5_37&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_18_f538)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_17_f6_25&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_17_f626)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_18_f5_37&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_18_f538)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2092&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2092)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_1955&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_1955)
+There is more than one MUXF6.
+Failure 8:  Unable to combine the following symbols into a single slice.
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_18_f6_27&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_18_f628)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_19_f5_54&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000022981_19_f555)
+	MUXF6 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_18_f6_27&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_18_f628)
+	MUXF5 symbol &quot;Rom_fondo2/Mrom_dout_rom000010441_19_f5_54&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_19_f555)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_21102&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_21102)
+	LUT symbol &quot;Rom_fondo2/Mrom_dout_rom000022981_2094&quot; (Output Signal = Rom_fondo2/Mrom_dout_rom000010441_2094)
+There is more than one MUXF6.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;5&gt;7811</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">posx&lt;5&gt;781_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_31</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_30_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_241</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_23_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="new" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_27</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_26_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_20</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_19_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_29</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_28_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_301</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_29_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_243</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_23_f5_1</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_2419</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_23_f5_7</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_2422</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_23_f5_8</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_2518</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_24_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;8&gt;80241</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_24_f5_14</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;7&gt;175141</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">posx&lt;8&gt;42222</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;6&gt;2201311</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">posx&lt;7&gt;99131</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;5&gt;1651821</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">dir_mem_choque&lt;6&gt;22014733_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;6&gt;220801</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">dir_mem_choque&lt;7&gt;175120_f5</arg>.  <arg fmt="%z" index="3">There is more than one F5MUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo3/Mrom_dout_rom000015931_2326</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo3/Mrom_dout_rom00003131_22_f5_11</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000013601_7</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom00001041_6_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Romobs3/Mrom_dout_munyeco_rom00002861_2926</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs3/Mrom_dout_munyeco_rom00002861_28_f5_10</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;7&gt;1759856</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_23_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;7&gt;17541</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_23_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;6&gt;2201091</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_26_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;6&gt;220661</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_26_f5_6</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;6&gt;220711</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_27_f5_4</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">dir_mem_choque&lt;5&gt;165751</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_munyeco_rom00014131_28_f5_3</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;8&gt;80241</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Romobs2/Mrom_dout_rom00014131_24_f5_14</arg>.  <arg fmt="%z" index="3">There is a conflict for the GYMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_barrycorre/Mrom_dout_rom00001741_92</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_barrycorre/Mrom_dout_rom0000411_7_f5_0</arg>.  <arg fmt="%z" index="3">There is more than one F5MUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">posx&lt;8&gt;80141</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">posx&lt;9&gt;3714133</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_barrycorre/Mrom_dout_rom00001951_92</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_barrycorre/Mrom_dout_rom0000611_7_f5_0</arg>.  <arg fmt="%z" index="3">There is more than one F5MUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_barrycorre/Mrom_dout_rom00001511_81</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_barrycorre/Mrom_dout_rom0000611_7_f5_0</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000013601_215</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom00001041_20_f5_1</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="Pack" num="266" delta="old" >The function generator <arg fmt="%s" index="1">Rom_fondo2/Mrom_dout_rom000022981_232</arg> failed to merge with F5 multiplexer <arg fmt="%s" index="2">Rom_fondo2/Mrom_dout_rom000010441_22_f5</arg>.  <arg fmt="%z" index="3">There is a conflict for the FXMUX.</arg>  The design will exhibit suboptimal timing.
+</msg>
+
+<msg type="warning" file="PhysDesignRules" num="372" delta="old" >Gated clock. Clock net <arg fmt="%s" index="1">next_cuenta_monedas_cmp_eq0000</arg> is sourced by a combinatorial pin. This is not good design practice. Use the CE pin to control the loading of data into the flip-flop.
+</msg>
+
+</messages>
+
