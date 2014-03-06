@@ -131,14 +131,21 @@ Funciona todo porque somos los mejores (ver apartado 3)
 \section{Bibliografía}
 Reutilización de código
 Ha sido de gran utilidad el software de la Universidad Carlos III que permite pasar una imagen en formato PPM (Portable Pixel Map) a ROM. Esto ha posibilitado la carga de mapas muy realistas y que aprovechan al máximo la capacidad de la FPGA (petaqueo excesivo).
-Precisamente este fue uno de los principales problemas que encontramos al inicio de nuestro proyecto, y esta herramienta permitió solucionarlo de manera elegante y funcional (más petaqueo)
+Precisamente este fue uno de los principales problemas que encontramos al inicio de nuestro proyecto, y esta herramienta permitió solucionarlo de manera elegante y funcional. 
+
+El proceso para convertir una imagen cualquiera a una ROM es el siguiente:
+\begin{enumerate}
+\item Convertimos la imagen a formato PPM mediante un programa de edición de imágenes (por ejemplo IrfanView).
+\item Desde línea de comandos, ejecutamos la aplicacion $ppm2rom$ seguida de los parámetros 9(bits por cada pixel) y 1 (número de memorias ROM).
+\item Conectamos la ROM al módulo principal del proyecto, y ya podemos mostrar la imagen por pantalla.
+\end{enumerate}
 \section{Trabajo individual}
 La organización orientativa del trabajo ha sido la sguiente:
 \begin{itemize}
-\item Jaime y Mayra: controlador de teclado, gestión y diseño de mapas, cambio de niveles, movimiento de barry.
+\item Jaime y Mayra: controlador de teclado, gestión y diseño de mapas, cambio de niveles, movimiento de Barry.
 \item Jesús: Imágenes, memorias ROM, monedas.
-\item Iker: Barry, choques, monedas
-\item Quique: Ser Führer del proyecto, pantalla principal, movimiento de Barry y de los mapas, monedas.
+\item Iker: Barry, choques, monedas.
+\item Quique: Coordinar el proyecto, pantalla principal, movimiento de Barry y de los mapas, monedas.
 \end{itemize}
 No obstante, al ser cinco integrantes en el proyecto, hemos podido variar la distribución de tareas en función de los requerimientos en cada fase del proceso. 
 
