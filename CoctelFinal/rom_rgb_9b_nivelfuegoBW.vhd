@@ -29,6 +29,7 @@ library IEEE;
 entity ROM_RGB_9b_nivelfuegoBW is
   port (
     clk  				: in  std_logic;   -- reloj
+	 bloquea				  : in std_logic; 	--señal que indica si se bloquean las primeras 256 posiciones
     addr, addr_munyeco  : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco  : out std_logic 
   );
@@ -262191,15 +262192,34 @@ begin
   addr_int <= TO_INTEGER(unsigned(addr));
   addr_munyeco_int <= TO_INTEGER(unsigned(addr_munyeco));
 
-  P_ROM: process (clk)
+	P_ROM: process (clk)
   begin
-    if clk'event and clk='1' then
-		dout <= filaimg(addr_int);
-		dout_munyeco <= filaimg(addr_munyeco_int);
+	 if clk'event and clk='1' then
+		if bloquea = '1' then
+			if addr(9 downto 8) = "00" then
+				dout <= '0';
+			if addr_munyeco(9 downto 8) = "00" then
+				dout_munyeco <= '0';
+			end if;
+		else
+			dout <= filaimg(addr_int);
+			dout_munyeco <= filaimg(addr_munyeco_int);
+		end if;
 		--dout <= '0';
 		--dout_munyeco <= '0';
-    end if;
+	 end if;
   end process;
 
 end BEHAVIORAL;
+
+--
+--  P_ROM: process (clk)
+--  begin
+--    if clk'event and clk='1' then
+--		dout <= filaimg(addr_int);
+--		dout_munyeco <= filaimg(addr_munyeco_int);
+--		--dout <= '0';
+--		--dout_munyeco <= '0';
+--    end if;
+--  end process;
 
