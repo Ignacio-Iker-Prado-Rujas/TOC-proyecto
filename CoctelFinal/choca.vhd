@@ -1,29 +1,49 @@
+----------------------------------------------------------------------------------
+-- Company: 		Universidad Complutense de Madrid
+--
+-- Engineers: 		PiKey Team
+-- Members:			Jesús Aguirre Pemán
+--						Enrique Ballesteros Horcajo
+--						Mayra Alexandra Castrosqui Florián
+--						Jaime Dan Porras Rhee
+--						Ignacio Iker Prado Rujas
+--					
+-- Project Name: 	Jetpack
+-- Description: 	Game based on Jetpack Joyride running on a FPGA Spartan 3
+--
+----------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 
---Juego con Fondo y obstáculos
 
 
 entity vgacore is
 	port
 	(	
-		PS2CLK: in std_logic;															-- clock del teclado 
-		PS2DATA: in std_logic;															-- datos del teclado
-		reset: in std_logic;																-- reset
-		clock: in std_logic;																-- clock de la FPGA
-		hsyncb: inout std_logic;														-- horizontal (line) sync
-		vsyncb: out std_logic;															-- vertical (frame) sync
-		rgb: out std_logic_vector(8 downto 0); 									-- red, green, blue colors
-		displayizq, displaydcha: out std_logic_vector(6 downto 0)			-- displays 7 segmentos de la FPGA
+		PS2CLK: in std_logic;														-- clock del teclado 
+		PS2DATA: in std_logic;														-- datos del teclado
+		reset: in std_logic;															-- reset
+		clock: in std_logic;															-- clock de la FPGA
+		hsyncb: inout std_logic;													-- horizontal (line) sync
+		vsyncb: out std_logic;														-- vertical (frame) sync
+		rgb: out std_logic_vector(8 downto 0); 								-- red, green, blue colors
+		displayizq, displaydcha: out std_logic_vector(6 downto 0)		-- displays 7 segmentos de la FPGA
 	);
 end vgacore;
 
 architecture vgacore_arch of vgacore is
 
+
+
+
+------------------------------------------------------------------------
+-- SEÑALES
+------------------------------------------------------------------------
 -------------------
--- ESTADOS:
+-- ESTADOS
 -------------------
 --Define el movimiento de Barry
 type estado_movimiento is (quieto, arriba, abajo, fin);
@@ -37,7 +57,7 @@ type estados_niveles is (nivel1, nivel2, nivel3);
 type estados_monedas is (quieto, invisible, subiendo, bajando, moneda_conseguida, cuenta);
 
 -------------------
--- SEÑALES DE LOS ESTADOS:
+-- SEÑALES DE LOS ESTADOS
 -------------------
 --Estados de los movimientos de Barry
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
@@ -48,10 +68,10 @@ signal estado_juego, next_estado_juego: estados_juego;
 --Estado del nivel
 signal estado_nivel, sig_estado_nivel: estados_niveles;
 --Estados de las monedas 
-signal state_coin, next_state_coin, pause_state_coin: estados_monedas := invisible; 
+signal state_coin, next_state_coin: estados_monedas := invisible; --pause_state_coin (no se usa)
 
 -------------------
--- SEÑALES (varias)
+-- SEÑALES DE POSICIONES
 -------------------
 --Contador para el flotar de Barry (no se usa)
 --signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
@@ -61,6 +81,10 @@ signal hcnt: std_logic_vector(8 downto 0);	-- horizontal pixel counter
 signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
 --Posición vertical de Barry, contando desde su cabeza
 signal my, r_my: std_logic_vector(9 downto 0);
+
+-------------------
+-- SEÑALES DE OBSTACULOS Y FONDO
+-------------------
 --Indicadores para pintar obstáculos, bordes, Barry y fondo
 signal obstaculo, salida_obstaculo,  bordes, munyeco, munyeco1, munyeco2, fondo, fondo_inter: std_logic;
 --Distintos tipos de obstaculos
@@ -85,83 +109,124 @@ signal dir_mem_game_over: std_logic_vector(11 downto 0);
 -------------------
 --Salidas de colores de las respectivas ROMs 
 signal color_obstaculo, imagen_game_over, color_fondo, color_inter_fondo: std_logic_vector(8 downto 0);
---El color fondo 3 son los arboles o nubes, 2 y 3. Color de cada nivel de obstáculo
+--Color de cada nivel de obstáculo. El color fondo 3 son los arboles o nubes, 2 y 3 
 signal color_fondo1, color_fondo2, color_fondo3: std_logic_vector(8 downto 0);
---color de los obstaculos que estarán conectados a las rom JAIME
+--Color de los obstaculos que estarán conectados a las rom
 --signal color_obs_1, color_obs_2, color_obs_3: std_logic_vector(8 downto 0);
---Salida de la rom de obstaculos, en función de la posición de Barry,
---	vale 1 si hay un obstáculo y 0 si no lo hay.
+--Salida de la rom de obstaculos, en función de la posición de Barry
+--Vale 1 si hay un obstáculo y 0 si no lo hay.
 signal color_choque: std_logic;
 signal color_choque1, color_choque2, color_choque3: std_logic;
----------
 
+-------------------
+-- COORDENADAS MAPA
+-------------------
 --Posición de refresco de los obstáculos, sirve para construir dir_mem
 signal posy: std_logic_vector(7 downto 0);
 signal posx, avanza_obstaculos: std_logic_vector(9 downto 0);
 
---Posición de refresco de los obstáculos, sirve para construir dir_mem
+-------------------
+-- COORDENADAS MONEDA
+-------------------
+--Posición de la moneda, coordenada y
 signal posy_moneda, next_posy_moneda, inicio_aleatorio_moneda: std_logic_vector(9 downto 0);
+--Posición de la moneda, coordenada x
+signal posx_moneda, next_posx_moneda: std_logic_vector(9 downto 0); --avanza_moneda (no se usa)
+--Coordenada y aleatoria de la salida de la moneda
 signal salida_aleatoria: std_logic_vector(6 downto 0);
-signal posx_moneda, next_posx_moneda, avanza_moneda: std_logic_vector(9 downto 0);
 
---SEÑALES DE BARRY TROTTER
+-------------------
+-- COORDENADAS BARRY TROTTER
+-------------------
 --Posiciones y colores de Barry que permiten pintarlo de la ROM.
 signal posx_munyeco: std_logic_vector(3 downto 0);
 signal posy_munyeco: std_logic_vector(4 downto 0);
 signal dir_mem_munyeco: std_logic_vector(9-1 downto 0);
+
+-------------------
+-- COLORES BARRY TROTTER
+-------------------
 signal color_munyeco: std_logic_vector(9-1 downto 0);
 signal color_munyeco1: std_logic_vector(9-1 downto 0);
 signal color_munyeco2: std_logic_vector(9-1 downto 0);
-signal pasa_tiempo: std_logic;			-- JAIME señal que controla el movimiento de barry
-signal controla_pasa_tiempo: std_logic; -- JAIME para tener en cuenta game over y pausa.
+--Señal que controla el movimiento de las piernas de Barry
+signal pasa_tiempo: std_logic;		
+--Para tener en cuenta game over y pausa (no se usa)
+--signal controla_pasa_tiempo: std_logic; 
 
-
---Señales para los choques (contadores y direccion de choque):
+-------------------
+-- SEÑALES PARA LOS CHOQUES CON OBSTACULOS
+-------------------
+--Señales para los choques (contadores y direccion de choque)
 signal i, aux_i: std_logic_vector(9 downto 0);
 signal j, aux_j: std_logic_vector(7 downto 0);
 signal dir_mem_choque: std_logic_vector(18-1 downto 0);
 
+-------------------
+-- RELOJES
+-------------------
 --Relojes a distintas velocidades
+--Reloj para el control de choques con obstaculos
 signal relojChoques: std_logic;
-signal relojPintaObstaculos: std_logic; --Refresca los obstáculos
-signal relojMovFondo, relojMovFondoInter, relojMovMoneda: std_logic; --Mueve los obstáculos
+--Reloj para el control del pintado de obstaculos (no se usa)
+--signal relojPintaObstaculos: std_logic; --Refresca los obstáculos
+--Relojes para el movimiento del fondo y la moneda
+signal relojMovFondo, relojMovFondoInter, relojMovMoneda: std_logic;
+--Reloj para el control del movimiento
 signal clk, relojMovimiento, relojMunyeco: std_logic;
 signal clk_100M, clk_1: std_logic; --Relojes auxiliares
+
+-------------------
+-- TECLADO y BARRY
+-------------------
+--Para controlar si esta pulsada la barra espaciadora
 signal pulsado: std_logic;
-signal pausado: std_logic;--señal de pausa
-signal freeze: std_logic;--señal que indica si se tiene que mover o no
-
-signal cambio_nivel: std_logic := '0';
-
-
-
-
-
-
-
-
-
-signal paint_game_over: std_logic;
-signal paint_coin: std_logic;
-signal catched, next_catched: std_logic;
+--Para controlar si esta pulsada la P para pausa
+signal pausado: std_logic;
+--Señal que indica si Barry se tiene que mover o no (las piernas)
+signal freeze: std_logic;
+--Señal que indica si Barry vuela
 signal vuela: std_logic;
 
+-------------------
+-- NIVELES
+-------------------
+signal cambio_nivel: std_logic := '0';
 
---Posiciones
---Posiciones para pintar el game over
+-------------------
+-- PAINT PARA RGB
+-------------------
+signal paint_game_over: std_logic;
+signal paint_coin: std_logic;
+
+-------------------
+-- POSICIONES GAME OVER
+-------------------
 signal pos_go_y: std_logic_vector(4 downto 0);
 signal pos_go_x: std_logic_vector(6 downto 0);
---Posiciones para pintar el fondo
+
+-------------------
+-- POSICIONES FONDO
+-------------------
 signal posy_fondo, posy_fondoi: std_logic_vector(7 downto 0);
 signal posx_fondo, posx_fondoi, cuenta_fondo, cuenta_fondo_inter: std_logic_vector(6 downto 0);
 
---Contador de las monedas
-signal cuenta_monedas, next_cuenta_monedas, save_cuenta_monedas,  limite_nivel: std_logic_vector(6 downto 0) := "0000000";
+-------------------
+-- CONTADOR MONEDAS
+-------------------
+signal cuenta_monedas, next_cuenta_monedas, save_cuenta_monedas: std_logic_vector(6 downto 0) := "0000000"; --limite_nivel (no se usa)
 signal reset_monedas: std_logic := '0';
+signal catched, next_catched: std_logic;
 
 
 
- 
+
+
+
+
+------------------------------------------------------------------------
+-- COMOPONENTS
+------------------------------------------------------------------------
 -- Reloj para la pantalla
 component divisor is 
 port (reset, clk_entrada: in STD_LOGIC;
@@ -189,8 +254,8 @@ end component;
 --Reloj para el movimiento del inter fondo
 component divisor_inter_fondo is
     port (
-        reset, clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
-        clk_salida: out STD_LOGIC -- reloj que se utiliza en los process del programa principal
+        reset, clk_entrada: in STD_LOGIC; 
+        clk_salida: out STD_LOGIC 
     );
 end component;
 
@@ -202,12 +267,12 @@ end component;
 
 -- Reloj para Barry
 component divisor_munyeco is 
-port (ralentizar, reset, clk_entrada: in STD_LOGIC;
+port (reset, clk_entrada: in STD_LOGIC; --ralentizar (no se usa)
 		clk_salida: out STD_LOGIC
 		);
 end component;
 
---Reloj de moverse para barry JAIME
+--Reloj de moverse para barry (para el movimiento de piernas)
 component divisor_corre is
  port (
         reset: in STD_LOGIC;
@@ -216,7 +281,6 @@ component divisor_corre is
     );
 end component;
 
-
 -- Controlador del teclado
 component control_teclado is
 	port (PS2CLK, reset, PS2DATA: in std_logic;
@@ -224,7 +288,7 @@ component control_teclado is
 	pausado: out std_logic);
 end component;
 
--- ROM para las imagenes
+-- ROM con los obstaculos del nivel 1
 component ROM_RGB_9b_mapa_facil is
     port (
     clk					  : in  std_logic;   -- reloj
@@ -232,18 +296,9 @@ component ROM_RGB_9b_mapa_facil is
     addr, addr_munyeco : in  std_logic_vector(18-1 downto 0);
     dout, dout_munyeco : out std_logic
   );
-end component;--ROM_RGB_9b_nivel_1_0;
+end component;
 
--- ROM para el fondo
---component ROM_RGB_9b_fondo is
---    port (
---    clk					  : in  std_logic;   -- reloj
---    addr: in  std_logic_vector(15-1 downto 0);
---    dout: out std_logic_vector(9-1 downto 0) 
---  );
---end component;
-
---ROM Fondo laboratorio
+-- ROM con el fondo laboratorio
 component ROM_RGB_9b_lab is
   port (
     clk  : in  std_logic;   -- reloj
@@ -252,7 +307,7 @@ component ROM_RGB_9b_lab is
   );
 end component;
 
---ROM FOndo nubes
+-- ROM con el fondo nubes
 component ROM_RGB_9b_nubes is
   port (
     clk  : in  std_logic;   -- reloj
@@ -261,7 +316,7 @@ component ROM_RGB_9b_nubes is
   );
 end component;
 
---ROM Fondo arboles
+-- ROM con el fondo arboles
 component ROM_RGB_9b_arboles is
   port (
     clk  : in  std_logic;   -- reloj
@@ -270,7 +325,7 @@ component ROM_RGB_9b_arboles is
   );
 end component;
 
---ROM obstaculo flappy
+-- ROM con los obstaculos flappy (tuberias)
 component ROM_RGB_9b_flappynivelBW is
   port (
     clk  				: in  std_logic;   -- reloj
@@ -280,7 +335,7 @@ component ROM_RGB_9b_flappynivelBW is
   );
 end component;
 
---ROM Obstaculo dragon ball
+-- ROM con los obstaculo dragon ball (bolas de fuego rojas)
 component ROM_RGB_9b_nivelfuegoBW is
   port (
     clk  				: in  std_logic;   -- reloj
@@ -290,16 +345,16 @@ component ROM_RGB_9b_nivelfuegoBW is
   );
 end component;
 
---ROM de barry trotter
-component ROM_RGB_9b_Joyride is
-  port (
-    clk  : in  std_logic;   -- reloj
-    addr : in  std_logic_vector(9-1 downto 0);
-    dout : out std_logic_vector(9-1 downto 0) 
-  );
-end component;
+-- ROM de Barry Trotter (antiguo, ahora se usan barryair y barryair25)
+--component ROM_RGB_9b_Joyride is
+--  port (
+--    clk  : in  std_logic;   -- reloj
+--    addr : in  std_logic_vector(9-1 downto 0);
+--    dout : out std_logic_vector(9-1 downto 0) 
+--  );
+--end component;
 
---ROM de Barry trotter corriendo JAIME
+-- ROM de Barry Trotter corriendo
 component ROM_RGB_9b_barryair is
   port (
     clk  : in  std_logic;   -- reloj
@@ -307,6 +362,8 @@ component ROM_RGB_9b_barryair is
     dout : out std_logic_vector(9-1 downto 0) 
   );
 end component;
+
+-- ROM de Barry Trotter corriendo
 component ROM_RGB_9b_barryair25 is
   port (
     clk  : in  std_logic;   -- reloj
@@ -315,8 +372,7 @@ component ROM_RGB_9b_barryair25 is
   );
 end component;
 
-
---Rom del game over
+-- ROM del Game Over
 component ROM_RGB_9b_game_over_negro is
   port (
     clk  : in  std_logic;   -- reloj
@@ -324,13 +380,14 @@ component ROM_RGB_9b_game_over_negro is
     dout : out std_logic_vector(9-1 downto 0) 
   );
 end component;
---Controlador 7 segmentos
+
+-- Controlador 7 segmentos
 component contador is
 port (var: in std_logic_vector (6 downto 0);
 		displayi, displayd : out std_logic_vector (6 downto 0));
 end component;
 
---Generador aleatorio
+-- Generador aleatorio (para la posicion inicial de la moneda)
 component randomGenerator is
 port(clock      : in  STD_LOGIC;
 	  userInput  : in  STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -339,6 +396,7 @@ port(clock      : in  STD_LOGIC;
 		
 end component;
 
+-- Gestiona el cambio entre niveles
 component gestorCambioNivel is
 	port( reset: in std_logic;
 			cambio_nivel: in std_logic;
@@ -348,22 +406,33 @@ component gestorCambioNivel is
 end component;
 
 
+------------------------------------------------------------------------
+-- BEGIN
+------------------------------------------------------------------------
+
 begin
+
+-------------------
+-- PORT MAPs
+-------------------
+
 --Gestor que bloquea los obstáculos en las transiciones de nivel
 GestorChangeLevel: gestorCambioNivel port map( reset, cambio_nivel, avanza_obstaculos, clk_1, bloquea_obstaculo);
---Reloj que comprueba los choques de barry
-Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
---Reloj de refresco de la pantalla
-Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
---Reloj_pantallaObstaculos: divisor port map(reset, clk_100M, relojPintaObstaculos);
-Reloj_munyeco: divisor_munyeco port map(ralentizar, reset, clk_100M, relojMunyeco);
+--Controlador del teclado
 Controla_teclado: control_teclado port map(PS2CLK , reset, PS2DATA, pulsado, pausado);
+
+--Relojes auxiliares
 clk_100M <= clock;
 clk <= clk_1;
 --Reloj para el movimiento del fondo
 Reloj_de_movimiento_fondo: divisor_movimiento_fondo port map(reset, clk_100M, relojMovFondo);
 Reloj_de_movimiento_inter_fondo: divisor_inter_fondo port map(reset, clk_100M, relojMovFondoInter);
-
+--Reloj que comprueba los choques de barry
+Reloj_choque: divisor_choques port map(reset, clk_100M, relojChoques);
+--Reloj de refresco de la pantalla
+Reloj_pantalla: divisor port map(reset, clk_100M, clk_1);
+--Reloj_pantallaObstaculos: divisor port map(reset, clk_100M, relojPintaObstaculos); --(no se usa)
+Reloj_munyeco: divisor_munyeco port map(reset, clk_100M, relojMunyeco); --ralentizar (no se usa)
 --Reloj para el movimiento de las monedas
 Reloj_de_movimiento_moneda: divisor_movimiento_moneda port map(reset, clk_100M, relojMovMoneda);
 --Reloj para el movimiento de los obstaculos
@@ -372,18 +441,20 @@ Reloj_de_movimiento_obstaculos: divisor_movimiento_obstaculos port map(reset, cl
 Corre_barry: divisor_corre port map(reset, clk_100M, pasa_tiempo);
 
 --Rom_barry: ROM_RGB_9b_Joyride port map(clk, dir_mem_munyeco, color_munyeco);
---ROM barry corre JAIME
+--ROM barry corre
 Rom_barrycorre: ROM_RGB_9b_barryair port map(clk, dir_mem_munyeco, color_munyeco1);
 Rom_barrycorre2: ROM_RGB_9b_barryair25 port map(clk, dir_mem_munyeco, color_munyeco2);
---to do process de las rom de cada nivel jaime
+--Game over
 Rom_game_over: ROM_RGB_9b_game_over_negro port map(clk, dir_mem_game_over,imagen_game_over);
---PORT MAP FONDOS
+
+
 --PORT map fondo lab
 Rom_fondo1: ROM_RGB_9b_lab port map(clk, dir_mem_fondo, color_fondo1);
 --port map fondo nubes
 Rom_fondo2: ROM_RGB_9b_nubes port map(clk, dir_mem_fondo, color_fondo2);
 --port map fondo reloj
 Rom_fondo3: ROM_RGB_9b_arboles port map(clk, dir_mem_fondo_inter, color_fondo3);
+
 --PORT MAP OBSTACULOS
 ---Rom port map mapafacil
 Romobs1: ROM_RGB_9b_mapa_facil port map(clk_1, bloquea_obstaculo,dir_mem, dir_mem_choque, salida_obstaculo1, color_choque1); 
@@ -394,6 +465,8 @@ Romobs3: ROM_RGB_9b_nivelfuegoBW port map(clk_1, bloquea_obstaculo,dir_mem, dir_
 SieteSeg: contador port map(cuenta_monedas, displayizq, displaydcha);
 --Generador aleatorio para la posicion de inicio de la moneda
 GenAleatorio: randomGenerator port map(relojMovMoneda, cuenta_fondo(3 downto 0), salida_aleatoria);
+
+
 
 A: process(clk,reset)
 begin
@@ -492,7 +565,8 @@ dir_mem_fondo <=  posy_fondo & posx_fondo;
 posy_fondoi <= vcnt(7 downto 0) - 111;
 posx_fondoi <= hcnt(6 downto 0) - 4 + cuenta_fondo_inter;
 dir_mem_fondo_inter <=  posy_fondoi & posx_fondoi;
---Posiciones para el choque
+
+--Posiciones para el choque (ANTIGUO, no se usa)
 --<= r_my - 110;				--Posicion y del choque
 --posx_choque <= 40 + avanza_obstaculos; 		--Posicion x del choque
 --dir_mem_choque_arriba <= posy_choque & posx_choque;  --Posicion arriba:  (4 + avanza_obstaculos, rm_y)
@@ -500,7 +574,7 @@ dir_mem_fondo_inter <=  posy_fondoi & posx_fondoi;
 --dir_mem_choque_derecha <= "00" & r_my & "110000"; --Posicion derecha: (48, 126 + rm_y) CAMBIAR
 
 
---Posiciones de barry trotter
+--Posiciones de Barry Trotter
 posx_munyeco <= hcnt - 32;
 posy_munyeco <= vcnt - r_my;
 dir_mem_munyeco <= posy_munyeco & posx_munyeco;
@@ -514,8 +588,13 @@ dir_mem_game_over <=  pos_go_y & pos_go_x;
 fondo_inter <= fondo_inter1 and fondo_inter2;
 
 
---Process que se encarga de la gestión del avance de los obstaculos
 
+
+
+----------------------------------------------------------------------------
+--MUEVE MUNYECO, FONDO Y OBSTACULOS
+----------------------------------------------------------------------------
+--Process que se encarga de la gestión del avance de los obstaculos
 mueve_obstaculos: process(reset,relojMovimiento, avanza_obstaculos, estado_juego)
 begin
 	if reset='1' then
@@ -530,8 +609,8 @@ begin
 	end if;
 end process mueve_obstaculos;
 
---Process que se ocupa de la gestión del avance del fondo de la pantalla
 
+--Process que se ocupa de la gestión del avance del fondo de la pantalla
 mueve_fondo:process(reset,relojMovFondo, estado_juego, cuenta_fondo)
 begin
 	if reset='1' then
@@ -546,6 +625,7 @@ begin
 	end if;
 end process mueve_fondo;
 
+--Process que mueve el fondo intermedio
 mueve_fondo_inter: process(reset, relojMovFondoInter, estado_juego, cuenta_fondo_inter)
 begin
 	if reset='1' then
@@ -560,8 +640,8 @@ begin
 	end if;
 end process mueve_fondo_inter;
 
---Process que se encarga de actualizar estado y movimiento del munyeco
 
+--Process que se encarga de actualizar estado y movimiento del munyeco
 mueve_munyeco: process (relojMunyeco, reset)
 begin
 	if reset='1' then
@@ -577,13 +657,13 @@ begin
 end process;
 
 --Process pasa_tiempo
---Conexion control pasa_tiempo JAIME
+--Conexion control pasa_tiempo 
 --controla_pasa_tiempo <= pasa_tiempo or pausado or color_choque;
 --controla_pasa_tiempo(pasa_tiempo, control_pasa_tiempo, pausado, color_choque)
 
 
---Process corre munyeco Jaime
-corre_munyeco: process(controla_pasa_tiempo, vuela, color_munyeco,
+--Process corre munyeco 
+corre_munyeco: process(vuela, color_munyeco,
 							color_munyeco1, color_munyeco2,
 							munyeco1, munyeco2, munyeco, freeze, pasa_tiempo)
 
@@ -605,8 +685,8 @@ begin
 	
 end process;
 
---JAIME
-mov_munyeco: process(pulsado, movimiento_munyeco, r_my, contador_sub, contador_baj, vuela)
+--Process para el movimiento de las piernas de Barry Trotter
+mov_munyeco: process(pulsado, movimiento_munyeco, r_my, vuela)
 begin
 	if movimiento_munyeco = quieto then
 		my <= r_my;
@@ -653,7 +733,10 @@ begin
 	end if;
 end process mov_munyeco;
 
---------LEVELS
+
+----------------------------------------------------------------------------
+--LEVELS
+----------------------------------------------------------------------------
 --------PROCESS CON LOS NIVELES estado_nivel, sig_estado_nivel
 clock_estado_nivel: process (reset, clk, sig_estado_nivel)
 begin
@@ -675,7 +758,7 @@ niveles: process(reset, clk, estado_nivel, sig_estado_nivel,
 				salida_obstaculo2, salida_obstaculo3, color_fondo2, salida_obstaculo,
 				color_choque, color_choque1, color_choque2, color_choque3,
 				fondo_inter1, color_fondo3,
-				cuenta_monedas, limite_nivel)--Añadir game over
+				cuenta_monedas)--Añadir game over
 begin
 	cambio_nivel <= '0';
 	color_inter_fondo <= "111111111";
@@ -685,7 +768,7 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "111111000";
 		salida_obstaculo <= salida_obstaculo1;
-		if cuenta_monedas = "0000101" or cuenta_monedas = "0010100" or cuenta_monedas = "0100101" or cuenta_monedas = "0110010" then
+		if cuenta_monedas = "0000101" or cuenta_monedas = "0010100" or cuenta_monedas = "0100011" or cuenta_monedas = "0110010" then
 			sig_estado_nivel <= nivel2;
 			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
@@ -712,7 +795,7 @@ begin
 		end if;
 		color_obstaculo <= "111000000";
 		salida_obstaculo <= salida_obstaculo3;
-		if cuenta_monedas = "0001111" or cuenta_monedas = "0011101" or cuenta_monedas = "0101101"  then
+		if cuenta_monedas = "0001111" or cuenta_monedas = "0011110" or cuenta_monedas = "0101101"  then
 --			limite_nivel <= limite_nivel + "0001111";
 			sig_estado_nivel <= nivel1;
 			cambio_nivel <= '1';
@@ -756,11 +839,15 @@ controla_juego: process(estado_juego, pulsado, color_choque, pausado)
 		
 end process controla_juego;
 
---------------------------------------------
---Process que gestiona el movimiento del munyeco
----freeze jaime
+
+
+
+
+----------------------------------------------------------------------------
+--MOVIMIENTO BARRY (piernas)
+----------------------------------------------------------------------------
 estado_munyeco:process(hcnt, vcnt, r_my, pulsado, color_obstaculo, color_choque, 
-								movimiento_munyeco, contador_sub, contador_baj, estado_juego
+								movimiento_munyeco, estado_juego
 								, freeze)
 begin
 	if estado_juego = game_over then
@@ -819,9 +906,14 @@ begin
 	end if;
 	
 end process estado_munyeco;
-------------------------------------------------------
---Choques:
-------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------
+--CHOQUES
+----------------------------------------------------------------------------
 --Process de los estados
 state_choques: process(relojChoques, next_state, aux_i, aux_j)
 begin
@@ -891,9 +983,14 @@ begin
 		end if;
 	end if;
 end process comprueba_choques;
-------------------------------------------------------
---Pintar: Gestiona el fondo y los obstáculos
--------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------
+--PINTAR: Gestiona el fondo y los obstáculos
+----------------------------------------------------------------------------
 pinta_obstaculos: process(hcnt, vcnt, salida_obstaculo)
 begin
 	obstaculo <= '0';
@@ -911,6 +1008,7 @@ begin
 	end if;
 end process pinta_obstaculos;
 
+
 -- pinta bordes: Pinta los limites de la pantalla
 pinta_bordes: process(hcnt, vcnt)
 begin
@@ -923,6 +1021,7 @@ begin
 		end if;
 	end if;
 end process pinta_bordes;
+
 
 --pinta a barry corriendo(munyeco1 y 2) JAIME
 pinta_munyeco1: process(hcnt, vcnt, r_my, color_munyeco1)
@@ -938,6 +1037,7 @@ begin
 	end if;
 end process pinta_munyeco1;
 
+
 pinta_munyeco2: process(hcnt, vcnt, r_my, color_munyeco2)
 begin
 	munyeco2 <= '0';
@@ -950,7 +1050,6 @@ begin
 		end if;
 	end if;
 end process pinta_munyeco2;
-
 
 
 pinta_game_over: process(hcnt, vcnt, estado_juego, imagen_game_over)
@@ -971,30 +1070,6 @@ begin
 end process pinta_game_over;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-----------------------------------------------------------------------------
---Moneda
-----------------------------------------------------------------------------
-
 --Process encargado de pintar las monedas y modificar estados_monedas
 pinta_moneda: process(state_coin, hcnt, vcnt, posx_moneda, posy_moneda)
 begin 
@@ -1010,6 +1085,12 @@ begin
 	end if;
 end process pinta_moneda;
 
+
+
+
+----------------------------------------------------------------------------
+--MONEDA
+----------------------------------------------------------------------------
 
 inicio_aleatorio_moneda <= salida_aleatoria+1;
 --Hace avanzar a la moneda, tanto hacia arriba como hacia abajo
@@ -1094,15 +1175,8 @@ end process direccion_moneda;
 
 
 
-
-
-
-
-
-
-
 ----------------------------------------------------------------------------
---Colorea
+--COLOREAR
 ----------------------------------------------------------------------------
 colorear: process(hcnt, vcnt, obstaculo, color_obstaculo, bordes, munyeco,
 		color_munyeco, paint_game_over, imagen_game_over, fondo, color_fondo,
@@ -1118,17 +1192,7 @@ begin
 	else rgb <= "000000000";
 	end if;
 end process colorear;
---
---pintamarcador: process(avanza_obstaculos)
---cuenta_metros <= 7;
---
---end process;
---
-----MARCADOR---
---actualiza_metros: process(avanza_obstaculos)
---	cuenta_metros <= cuenta_metros+1;
---	
---
---end process;
----------------------------------------------------------------------------
+
+
+
 end vgacore_arch;

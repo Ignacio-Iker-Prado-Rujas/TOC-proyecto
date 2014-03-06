@@ -17,7 +17,7 @@ USE IEEE.std_logic_unsigned.ALL;
 
 entity divisor_munyeco is
     port (
-		  ralentizar: in STD_LOGIC;
+		  --ralentizar: in STD_LOGIC;
         reset: in STD_LOGIC;
         clk_entrada: in STD_LOGIC; -- reloj de entrada de la entity superior
         clk_salida: out STD_LOGIC--; -- reloj que se utiliza en los process del programa principal
