@@ -55,11 +55,11 @@ reloj:	process (clk, reset, next_estado)
 		estado <= next_estado;
 	end if;
 end process;
-combinational:	process(cambio_nivel, estado, counter)
+combinational:	process(cambio_nivel, estado, counter, reinicio)
 	begin
 		if reinicio = '1' then
 			next_estado <= bloqueaObstaculos;
-		elsif counter = "1111111111" and estado = bloqueaObstaculos then
+		elsif counter = "1100000000" and estado = bloqueaObstaculos then
 			next_estado <= permiteObstaculos;
 		elsif estado = permiteObstaculos and cambio_nivel = '1' then
 			next_estado <= bloqueaObstaculos;
