@@ -66,31 +66,37 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS DOS CARAS APROX.______________________________________________________
 
 \section{Ficheros y dependencias}
-El módulo central de nuestro proyecto es \textit{choca.vhd}. Es ahí dónde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Sin embargo, para leer los datos de memoria utilizamos varias ROMs:
+El módulo central de nuestro proyecto es \textit{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Sin embargo, para leer los datos de memoria utilizamos varias ROMs:
 \begin{itemize}
-\item \textit{rom_rgb_9b_fondo}: Memoria ROM que contiene los datos del fondo del juego.
-\item \textit{rom_rgb_9b_game-over-negro}: Memoria ROM que contiene los datos del "Game Over".
-\item \textit{rom_rgb_9b_Joyride}: Memoria ROM que contiene los datos del fondo del juego.
-\item \textit{rom_rgb_9b_nivel_1_0}: Memoria ROM que contiene los datos del primer nivel del juego.
-\item \textit{rom_rgb_9b_nivel_2_0}: Memoria ROM que contiene los datos del segundo nivel del juego.
-\item OJO, PROBABLEMENTE HAYA ALGUNA MAS
+\item \textit{rom_rgb_9b_fondo.vhd}: Memoria ROM que contiene los datos del fondo del juego.
+\item \textit{rom_rgb_9b_game-over-negro.vhd}: Memoria ROM que contiene los datos del ''Game Over''.
+\item \textit{rom_rgb_9b_arboles.vhd}: Memoria ROM que contiene los datos del fondo del tercer nivel del juego.
+\item \textit{rom_rgb_9b_barryair.vhd}: Memoria ROM que contiene los datos de Barry.
+\item \textit{rom_rgb_9b_flappy-nivelBW.vhd}: Memoria ROM que contiene los datos de los obstáculos del segundo nivel del juego.
+\item \textit{rom_rgb_9b_game_over_negro.vhd}: Memoria ROM que contiene la imagen de "Game Over".
+\item \textit{rom_rgb_9b_lab.vhd}: Memoria ROM que contiene los datos del fondo de los dos primeros niveles del juego.
+\item \textit{rom_rgb_9b_mapa_facil.vhd}: Memoria ROM que contiene los obstáculos del primer nivel del juego.
+\item \textit{rom_rgb_9b_nivelfuegoBW.vhd}: Memoria ROM que contiene los obstáculos del tercer nivel del juego.
+\item \textit{rom_rgb_9b_nubes.vhd}: Memoria ROM que contiene el fondo del tercer nivel del juego.
 \end{itemize}
 
 Además, utilizamos distintas frecuencias para Barry, el fondo y los obstáculos, pues cada uno de ellos se mueve a una velocidad diferente. Para ello tenemos varios ficheros divisores:
 \begin{itemize}
-\item \textit{divisor.vhd}: Fichero divisor que controla la velocidad de ???.
-\item \textit{divisor_choques}: Fichero divisor que controla la velocidad de ???.
-\item \textit{divisor_movimiento_fondo}: Fichero divisor que controla la velocidad de movimiento del fondo.
-\item \textit{divisor_movimiento_obstaculos}: Fichero divisor que controla la velocidad de movimiento de los obstáculos.
-\item \textit{divisor_munyeco}: Fichero divisor que controla la velocidad de Barry.
-\item OJO, PROBABLEMENTE HAYA ALGUNA MAS
+\item \textit{divisor.vhd}: 
+\item \textit{divisor_choques}: 
+\item \textit{divisor_movimiento_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo.
+\item \textit{divisor_movimiento_inter_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo intermedio(para el último nivel).
+\item \textit{divisor_movimiento_obstaculos.vhd}: Fichero divisor que controla la velocidad de movimiento de los obstáculos.
+\item \textit{divisor_movimiento_moneda.vhd}: Fichero divisor que controla la velocidad de movimiento de las monedas.
+\item \textit{divisor_munyeco.vhd}: Fichero divisor que controla la velocidad de Barry.
+\item \textit{divisor_corre.vhd}: 
 \end{itemize}
 
 Con el fichero \textit{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \textit{pines.ucf}.
 
 Mediante el ficher \textit{control_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la 'p' para pausar la partida.
 
-El ranndomgenerator no se si se usa ¿¿??
+El randomgenerator no se si se usa ¿¿??
 
 
 \section{nombre.bit}
@@ -145,10 +151,17 @@ Qué carajos hay que poner aquí??
 
 
 \section{Cómo se ``juega''}
-Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible
+Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. A medida que recojas monedas, el juego cambiará de nivel.
 
 
 \section{Qué espero ver}
+El juego consta de 3 niveles diferentes:
+\begin{itemize}
+\item \textbf{Nivel 1: obstáculos espaciales y fondo de laboratorio.
+\item \textbf{Nivel 2: tuberías como obstáculos y fondo de laboratorio.
+\item \textbf{Nivel 2: obstáculos de fuego y fondo inspirado en Super Mario.
+Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 3 monedas volveremos al nivel 1, y así sucesivamente hasta llegar a completar el desafío: 60 monedas.
+
 La versión para FPGA del juego Jetpack Joyride. 
 
 
