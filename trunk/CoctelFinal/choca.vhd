@@ -9,36 +9,52 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 entity vgacore is
 	port
 	(	
-		PS2CLK: in std_logic;
-		PS2DATA: in std_logic;
-		reset: in std_logic;	-- reset
-		clock: in std_logic;
-		hsyncb: inout std_logic;	-- horizontal (line) sync
-		vsyncb: out std_logic;	-- vertical (frame) sync
-		rgb: out std_logic_vector(8 downto 0); -- red,green,blue colors
-		displayizq, displaydcha: out std_logic_vector(6 downto 0)
+		PS2CLK: in std_logic;															-- clock del teclado 
+		PS2DATA: in std_logic;															-- datos del teclado
+		reset: in std_logic;																-- reset
+		clock: in std_logic;																-- clock de la FPGA
+		hsyncb: inout std_logic;														-- horizontal (line) sync
+		vsyncb: out std_logic;															-- vertical (frame) sync
+		rgb: out std_logic_vector(8 downto 0); 									-- red, green, blue colors
+		displayizq, displaydcha: out std_logic_vector(6 downto 0)			-- displays 7 segmentos de la FPGA
 	);
 end vgacore;
 
 architecture vgacore_arch of vgacore is
 
+-------------------
+-- ESTADOS:
+-------------------
 --Define el movimiento de Barry
 type estado_movimiento is (quieto, arriba, abajo, fin);
---Define los estados de comprobación de choques 
+--Define los estados de comprobación de choques con obstaculos
 type estado_choques is (inicializa, comprueba_cabeza, comprueba_frente, comprueba_pies, comprueba_espalda);
 --Define los estados en los que se encuentra el juego en cada momento
 type estados_juego is (playing, game_over, pause);
 --Define el nivel en el que se encuentra actualmente
-type estados_niveles is (nivel1, nivel2, nivel3);--, nivel4, nivel5);
+type estados_niveles is (nivel1, nivel2, nivel3);
 --Define los estados en los que puede estar una moneda
 type estados_monedas is (quieto, invisible, subiendo, bajando, moneda_conseguida, cuenta);
 
---Señales
-
---Contador para el flotar de Barry
-signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
+-------------------
+-- SEÑALES DE LOS ESTADOS:
+-------------------
 --Estados de los movimientos de Barry
 signal movimiento_munyeco, next_movimiento: estado_movimiento;
+--Estados de los choques, comienza en la inicialización
+signal state, next_state : estado_choques := inicializa;
+--Estados del juego y del estado de movimiento de barry
+signal estado_juego, next_estado_juego: estados_juego;
+--Estado del nivel
+signal estado_nivel, sig_estado_nivel: estados_niveles;
+--Estados de las monedas 
+signal state_coin, next_state_coin, pause_state_coin: estados_monedas := invisible; 
+
+-------------------
+-- SEÑALES (varias)
+-------------------
+--Contador para el flotar de Barry
+signal contador_sub, aux_contador_sub, contador_baj, aux_contador_baj: std_logic_vector(9 downto 0);
 --Indica que Barry se encuentra ralentizando
 signal ralentizar: std_logic;
 --Cuenta horizontal de píxeles de la pantalla
@@ -49,25 +65,30 @@ signal vcnt: std_logic_vector(9 downto 0);	-- vertical line counter
 signal my, r_my: std_logic_vector(9 downto 0);
 --Indicadores para pintar obstáculos, bordes, Barry y fondo
 signal obstaculo, salida_obstaculo,  bordes, munyeco, munyeco1, munyeco2, fondo, fondo_inter: std_logic;
+--Distintos tipos de obstaculos
 signal salida_obstaculo1, salida_obstaculo2, salida_obstaculo3: std_logic;
+--Fondos intermedios para el nivel 3
 signal fondo_inter1, fondo_inter2: std_logic;
+--Para que no se pinten los obstaculos de golpe al iniciar un nivel
 signal bloquea_obstaculo: std_logic;
 
---Direcciones para las rom
-
+-------------------
+-- DIRECCIONES PARA LAS ROMs
+-------------------
 --Direccion de memoria para los obstaculos
 signal dir_mem: std_logic_vector(18-1 downto 0);
 --Direccion de memoria para el fondo
 signal dir_mem_fondo, dir_mem_fondo_inter: std_logic_vector(15-1 downto 0);
-
 --Direccion de memoria para el game over
 signal dir_mem_game_over: std_logic_vector(11 downto 0);
 
---Colores
---Salidas de colores de las respectivas rom's 
+-------------------
+-- COLORES
+-------------------
+--Salidas de colores de las respectivas ROMs 
 signal color_obstaculo, imagen_game_over, color_fondo, color_inter_fondo: std_logic_vector(8 downto 0);
---el color fondo 3 son los arboles o nubes, 2 y 3 JAIME
-signal color_fondo1, color_fondo2, color_fondo3: std_logic_vector(8 downto 0);--color de cada nivel de obstáculo
+--El color fondo 3 son los arboles o nubes, 2 y 3. Color de cada nivel de obstáculo
+signal color_fondo1, color_fondo2, color_fondo3: std_logic_vector(8 downto 0);
 --color de los obstaculos que estarán conectados a las rom JAIME
 --signal color_obs_1, color_obs_2, color_obs_3: std_logic_vector(8 downto 0);
 --Salida de la rom de obstaculos, en función de la posición de Barry,
@@ -120,17 +141,13 @@ signal cambio_nivel: std_logic := '0';
 
 
 
---Estados del juego y del estado de movimiento de barry
---Estados de los choques, comienza en la inicialización
-signal state, next_state : estado_choques := inicializa;
-signal estado_juego, next_estado_juego: estados_juego;
+
 
 signal paint_game_over: std_logic;
 signal paint_coin: std_logic;
 signal catched, next_catched: std_logic;
 signal vuela: std_logic;
---Estados de las monedas 
-signal state_coin, next_state_coin, pause_state_coin: estados_monedas := invisible; 
+
 
 --Posiciones
 --Posiciones para pintar el game over
@@ -147,10 +164,7 @@ signal reset_monedas: std_logic := '0';
 
 signal debug_choque: std_logic;
 
---Estado del nivel
-signal estado_nivel, sig_estado_nivel: estados_niveles;--Conectamos el color a rgb y a color
-	-- el color de cada nivel, con un with select o lo que sea, que este cada uno conectado con
-	-- su ROM correspondiente.
+
  
 -- Reloj para la pantalla
 component divisor is 

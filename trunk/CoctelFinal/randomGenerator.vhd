@@ -28,7 +28,7 @@ begin
 		
 			if (resetCount < 2) then
 				reset <= '1';
-				resetCount <= resetCount + 1;
+				resetCount <= resetCount + 1; 
 			else
 				reset <= '0';
 			end if;
