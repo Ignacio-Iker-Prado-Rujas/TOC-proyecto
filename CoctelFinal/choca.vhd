@@ -469,18 +469,18 @@ end process;
 ----------------------------------------------------------------------------
 
 --Posiciones de los obstaculos (Restar 4 a hcnt)
-posy <= vcnt - 111;
+posy <= vcnt(7 downto 0) - 111;
 posx <= hcnt - 4 + avanza_obstaculos;
 dir_mem <=  posy & posx;
 
 --Posiciones de memoria del fondo
-posy_fondo <= vcnt - 111;
-posx_fondo <= hcnt - 4 + cuenta_fondo;
+posy_fondo <= vcnt (7 downto 0) - 111;
+posx_fondo <= hcnt (8 downto 0) - 4 + cuenta_fondo;
 dir_mem_fondo <=  posy_fondo & posx_fondo;
 
 --Posiciones de memoria del fondo intermedio
-posy_fondoi <= vcnt - 111;
-posx_fondoi <= hcnt - 4 + cuenta_fondo_inter;
+posy_fondoi <= vcnt(7 downto 0) - 111;
+posx_fondoi <= hcnt(6 downto 0) - 4 + cuenta_fondo_inter;
 dir_mem_fondo_inter <=  posy_fondoi & posx_fondoi;
 --Posiciones para el choque
 --<= r_my - 110;				--Posicion y del choque
@@ -675,7 +675,7 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "111111000";
 		salida_obstaculo <= salida_obstaculo1;
-		if cuenta_monedas = "0000101" + limite_nivel then
+		if cuenta_monedas = "0000101" or cuenta_monedas = "0010100" or cuenta_monedas = "0100101" or cuenta_monedas = "0110010" then
 			sig_estado_nivel <= nivel2;
 			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
@@ -686,7 +686,7 @@ begin
 		color_fondo <= color_fondo1;
 		color_obstaculo <= "000111000";
 		salida_obstaculo <= salida_obstaculo2;
-		if cuenta_monedas = "0001010" + limite_nivel then
+		if cuenta_monedas = "0001010" or cuenta_monedas = "0011001" or cuenta_monedas = "0101000" or cuenta_monedas = "0110111"  then
 			sig_estado_nivel <= nivel3;
 			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
@@ -702,8 +702,8 @@ begin
 		end if;
 		color_obstaculo <= "111000000";
 		salida_obstaculo <= salida_obstaculo3;
-		if cuenta_monedas = "0001111" + limite_nivel then
-			limite_nivel <= limite_nivel + "0010100";
+		if cuenta_monedas = "0001111" or cuenta_monedas = "0011101" or cuenta_monedas = "0101101"  then
+--			limite_nivel <= limite_nivel + "0001111";
 			sig_estado_nivel <= nivel1;
 			cambio_nivel <= '1';
 		else sig_estado_nivel <= estado_nivel;
