@@ -19,9 +19,6 @@ architecture Behavioral of randomGenerator is
 	
 begin	
 
-	---------------------------------------------------------------------------------------------
-	-- initial reset line
-	-----------------
 	process (clock)
 	begin
 		if (rising_edge(clock)) then
