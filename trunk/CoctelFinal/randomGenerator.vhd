@@ -5,7 +5,7 @@ use work.all;
 
 entity randomGenerator is
 port(clock      : in  STD_LOGIC;
-	  userInput  : in  STD_LOGIC;
+	  userInput  : in  STD_LOGIC_VECTOR(3 DOWNTO 0);
 	  random_out : out STD_LOGIC_VECTOR(6 downto 0)
 	 );
 		
@@ -40,11 +40,11 @@ begin
 	begin
 		if (reset = '1') then
 		
-			random <= "1010101";
+			random <= "1110001";
 			
 		elsif (rising_edge(clock)) then
 		
-			random <= random(5 downto 0) & (userInput xor random(2) xor random(1) xor random(0) );
+			random <= random(5 downto 0) & (userInput(0) xor userInput(2) xor userInput(1) xor random(3) );
 			
 		end if;
 	end process;

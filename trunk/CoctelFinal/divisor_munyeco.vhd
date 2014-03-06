@@ -38,16 +38,16 @@ clk_salida <= clk_aux;
     IF (reset = '1') THEN
       cuenta <= (OTHERS=>'0');
     ELSIF(clk'EVENT AND clk = '1') THEN
-		if ralentizar = '1' then 
-			IF (cuenta="001000000000000000000") THEN 
-				clk_aux <= not clk_aux;
-			  cuenta <= (OTHERS=>'0');
-			ELSE
-			  cuenta <= cuenta + '1';
-			END IF;
-      elsif (cuenta="000111111111111111111") THEN 
+		--if ralentizar = '1' then 
+			--IF (cuenta="001000000000000000000") THEN 
+--				clk_aux <= not clk_aux;
+--			  cuenta <= (OTHERS=>'0');
+			--ELSE
+			  --cuenta <= cuenta + '1';
+			--END IF;
+      if (cuenta="000111111111111111111") THEN 
 			clk_aux <= not clk_aux;
-        cuenta <= (OTHERS=>'0');
+			cuenta <= (OTHERS=>'0');
       ELSE
         cuenta <= cuenta + '1';
       END IF;
