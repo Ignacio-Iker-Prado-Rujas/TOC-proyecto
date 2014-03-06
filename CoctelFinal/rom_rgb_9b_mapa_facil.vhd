@@ -262199,9 +262199,11 @@ begin
 		if bloquea = '1' then
 			if addr(9 downto 8) = "00" then
 				dout <= '0';
+			else dout <= filaimg(addr_int);
 			end if;
 			if addr_munyeco(9 downto 8) = "00" then
 				dout_munyeco <= '0';
+			else dout_munyeco <= filaimg(addr_munyeco_int);
 			end if;
 		else
 			dout <= filaimg(addr_int);
