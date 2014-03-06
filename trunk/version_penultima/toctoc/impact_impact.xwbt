@@ -1,0 +1,8 @@
+INTSTYLE=impact
+INFILE=C:\hlocal\toctoc\impact.xsl
+OUTFILE=C:\hlocal\toctoc\impact.xsl
+FAMILY=Single
+PART=Single
+WORKINGDIR=C:\hlocal\toctoc
+LICENSE=iMPACT
+USER_INFO=iMPACT
