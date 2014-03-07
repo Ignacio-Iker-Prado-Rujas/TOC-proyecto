@@ -223,6 +223,10 @@ Finalmente, decidimos pintar los obstáculos de un color determinado para compro
 
 Una vez decidida la estrategia llegaba el momento de implementarla, cosa que fue bastante más complicada de lo esperado, y que finalmente Iker resolvió elegantemente con una comprobación constante circular del perímetro exterior de la imagen de Barry.
 
+
+Al crear nuevos niveles vimos que sería mejor añadir nuevos colores a los obstaculos para añadir más variedad, por eso decidimos modificar la ROM para que solo almacenara un bit en cada posición, significando que si el bit está a uno hay obstáculo y si está a 0 no lo hay. De esta manera se podía elegir el color de cada obstáculo en el nivel correspondiente y en vez de comprobar el color para ver el choque solo hacía falta comprobar si el bit estaba a uno o no. 
+
+
 %monedas (pantalla y contados)
 Ahora teníamos choques y movimiento de los mapas, y faltaba darle un objetivo al juego: conseguir el máximo número posible de monedas.
 
