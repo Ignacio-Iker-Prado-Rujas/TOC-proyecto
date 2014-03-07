@@ -122,13 +122,13 @@ Mediante el fichero \texttt{control\_teclado.vhd} controlamos las teclas que pul
 
 El \texttt{randomGenerator.vhd} es el encargado de generar coordenadas $y$ aleatorias para la posición inicial de la moneda en pantalla. La coordenada $x$ es fija pues siempre aparecen desde el fondo de la pantalla (el lado opuesto de donde se sitúa Barry).
 
-El \texttt{gestorCambioNivel.vhd}  %Jaime
+El \texttt{gestorCambioNivel.vhd}  se encarga de cambiar los fondos y obstáculos adecuadamente, dejando un poco de espacio de tiempo entre uno y otro para que el usuario se acostumbre al cambio. 
 
 Como ya se ha comentado, todos estos ficheros son componentes de \texttt{choca.vhd}, y están conectados a él con las instrucciones correspondientes.
 
 \section{nombre.bit}
 
-\texttt{vgacore.bit}.
+El .bit se llama \texttt{vgacore.bit}, donde esté el juego completo.
 
 \section{Pines y significado}
 Conectaremos el teclado con los pines:
