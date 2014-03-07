@@ -245,7 +245,7 @@ Refname={Principio,Principios}]{principio} %principio
   \newcounter{casectr}
   \newenvironment{caseenv}
   {\begin{list}{{\itshape\ \protect{Caso}} \arabic{casectr}.}{%
-   \setlength{\leftmargin}{\labelwidth}
+   \setlength{\leftmargin}{\labelwidth}v
    \addtolength{\leftmargin}{\parskip}
    \setlength{\itemindent}{\listparindent}
    \setlength{\itemsep}{\medskipamount}
@@ -256,17 +256,10 @@ Refname={Principio,Principios}]{principio} %principio
 
 
 
-%%% composici?n	%%%%
-\newcommand{\compos}[7][-2.5pt]{\ensuremath{\begin{tikzcd}[baseline = #1, ampersand replacement = \&] #2 \arrow{r}{#3} \arrow[bend right]{rr}[description]{#7} \& #4 \arrow{r}{#5} \& #6 \end{tikzcd}}}
-\newcommand{\distrib}[4][-0.5ex]{\ensuremath{\begin{tikzcd}[row sep = #1, ampersand replacement = \&]  \& #3 \\ \arrow[bend left = 20]{ur} \arrow[bend right = 20]{dr} #2 \& \\ \& #4 \end{tikzcd}}}
-
-%%%%%%%%%%%%%%%%%%%%%
-
-
 
 %%% composici?n	%%%%
-\newcommand{\compos}[7][-2.5pt]{\ensuremath{\begin{tikzcd}[baseline = #1, ampersand replacement = \&] #2 \arrow{r}{#3} \arrow[bend right]{rr}[description]{#7} \& #4 \arrow{r}{#5} \& #6 \end{tikzcd}}}
-\newcommand{\distrib}[4][-0.5ex]{\ensuremath{\begin{tikzcd}[row sep = #1, ampersand replacement = \&]  \& #3 \\ \arrow[bend left = 20]{ur} \arrow[bend right = 20]{dr} #2 \& \\ \& #4 \end{tikzcd}}}
+%\newcommand{\compos}[7][-2.5pt]{\ensuremath{\begin{tikzcd}[baseline = #1, ampersand replacement = \&] #2 \arrow{r}{#3} \arrow[bend right]{rr}[description]{#7} \& #4 \arrow{r}{#5} \& #6 \end{tikzcd}}}
+%\newcommand{\distrib}[4][-0.5ex]{\ensuremath{\begin{tikzcd}[row sep = #1, ampersand replacement = \&]  \& #3 \\ \arrow[bend left = 20]{ur} \arrow[bend right = 20]{dr} #2 \& \\ \& #4 \end{tikzcd}}}
 %%%%%%%%%%%%%%%%%%%%%
 
 %%% SEPARACI�N ENTRE P�RRAFOS
