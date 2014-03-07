@@ -78,14 +78,18 @@
 
 \section{Ruta de datos}
 	Podemos distinguir tres entradas de datos diferentes:
-	\begin{itemize}	Las relativas al teclado: PS2CLK es el reloj propio del teclado PS2 que funciona a  su propia frecuencia independiente 
- 	del reloj de la fpga. PS2DATA es el bus bidireccional de un bit del tecladoel teclado que manda los códigos de las teclas pulsadas de manera secuencia.
+	\begin{itemize}	
+	\item Las relativas al teclado: PS2CLK es el reloj propio del teclado PS2 que funciona a  su propia frecuencia independiente 
+ 	del reloj de la FPGA. PS2DATA es el bus bidireccional de un bit del teclado que manda los códigos de las teclas pulsadas de manera secuencia.
 	
 	La gestión del teclado la realiza el módulo "control\_teclado":	Las únicas teclas reconocidas son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} si se presiona la barra espaciadora y \texttt{pausado} si se pulsa la tecla "p".	
 	Estas dos señales controlan el movimiento del muñeco (Barry) gestionadas por la máquina de estados del juego: Si nos encontramos en "playing" y se pulsa la "p"  pasaremos al estado "pausa". Si se detecta la barra espaciadora, pasaremos
 	 a "playing" y tanto Barry como el mapa comenzarán a moverse. El pause y el game over se consiguen mediante el control de los contadores de avance, que mueven el fondo, la moneda y los obstáculos, así como con el control del estado de Barry.
 	Mediante estos contadores vamos accediendo a las posiciones de memoria de las rom's que queremos en cada momento, con lo que controlamos la salida "rgb" , que va a la pantalla, a nuestro gusto. Esta salida le indica el color que debe dar a cada pixel
 	 la pantalla en función de las señales hsyncb y vsyncb.
+
+	\item El reset:
+	
 \end{itemize}
 
 \section{Synthesis Report}
