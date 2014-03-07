@@ -190,7 +190,7 @@ Finalmente, $colorear$ decide qué pintamos en cada píxel. La pantalla se pinta
 \end{itemize}
 
 \section{Somos los mejores }
-
+\subsection{Cronología y detalles del proceso de desarrollo}
 %inicio del protecto
 Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
 El problema ahora era generar la ROM.
@@ -220,23 +220,26 @@ Para ello teníamos que pintarlas, chocarnos con ellas, y borrarlas de la pantal
 
 Detectar el choque ya sabíamos cómo, pero eliminar la moneda y aumentar el contador se tornó más difícil de lo que parecía, puesto que había que realizar una gran distinción de casos según el estado de la moneda (subiendo, bajando, quieta, invisible...). Además, una vez chocara con Barry había que borrarla de la pantalla hasta que volviera a aparecer metros más adelante en el mapa. El hecho de que la moneda se moviera y no estuviese quieta en el mapa complicó la implementación pero dotó al juego de un aspecto visual mucho más desarrollado.
 
-Global:
-En serio hay alguna duda?
+
 
 Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
 
-Orgullosos de algo en particular...
+\subsection{Orgullosos de algo en particular...}
+
 Orgullosos de utilizar fondos reales creados por la mejor diseñadora gráfica del doble grado. Orgullosos de jugar con un muñeco real en vez de mover un pixel. Orgullosos de unos choques tan
  currados que permitirían generalizar las colisiones a tres dimensiones, pues son independientes del buffer de pantalla. 
 
 Orgullosos de la habilidad del mejor petaqueador del doble grado para buscar en la web programas útiles. 
 
-Por qué ha sido bueno ser 5...
+\subsection{Por qué ha sido bueno ser 5...}
 Formar un equipo de 5 personas ha sido clave para el éxito de nuestro proyecto, puesto que nos ha permitido trabajar en paralelo en un mínimo de 3 tareas simultáneas. Nos ha 
 permitido crear una aplicación de gran envergadura que no habría sido manejable para un equipo más pequeño.
+Además, aporta muchos puntos de vista diferentes para resolver un problema que surja durante el desarrollo del juego.
 
-Dificultades añadidas por ser 5...
-Al ser 5, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Este desarrollo en paralelo
+
+\subsection{Dificultades añadidas por ser 5...}
+
+Al ser 5 personas, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Este desarrollo en paralelo
 creaba en ocasiones bastantes dificultades, ya que podía ocurrir que en distintas líneas de desarrollo del trabajo se tocara la misma parte del código, 
 , lo cual creaba complicaciones a la hora de juntar el trabajo. Además, 
 obligaba a crear unos buenos comentarios para que cada grupo entendiese el trabajo del otro. 
