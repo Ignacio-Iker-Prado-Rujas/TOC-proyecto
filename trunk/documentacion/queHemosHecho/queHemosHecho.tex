@@ -13,15 +13,25 @@
 
 \renewcommand{\thepage}{\arabic{page}}% Arabic page numbers\fancyhead{}
 \pagestyle{fancy}
+%\fancyfoot{}
+%\fancyhead[RO]{}	%encabezado de pares: nombre de la sección
+%\fancyfoot[LE,RO]{\thepage}	%abajo a izqda en pares, derecha en impares: numero de pagina
+%\fancyhead[C]{Tecnología y Organización de Computadores} %cuadro izquierdo de pagina par: parte y contador
+%\fancyfoot[CE]{Tecnología y Organización de Computadores} 
+%\fancyfoot[CO]{Doble Grado Informática-Matemáticas - Universidad Complutense}
+\renewcommand{\footrulewidth}{0.4pt}
+%\renewcommand{\headrulewidth}{0.4pt}		% linea por debajo del encabezado
+%\renewcommand{\sectionmark}[1]{\markright{{\thesection. #1}}}	
+
+\fancyhead{}
 \fancyfoot{}
-\fancyhead[RO]{}	%encabezado de pares: nombre de la sección
+\fancyhead[C]{Qué hemos hecho}	%encabezado de pares: nombre de la sección
 \fancyfoot[LE,RO]{\thepage}	%abajo a izqda en pares, derecha en impares: numero de pagina
-\fancyhead[LE]{\nouppercase{\leftmark}} %cuadro izquierdo de pagina par: parte y contador
+%\fancyhead[LE]{\nouppercase{\leftmark}} %cuadro izquierdo de pagina par: parte y contador
 \fancyfoot[CE]{Tecnología y Organización de Computadores} 
 \fancyfoot[CO]{Doble Grado Informática-Matemáticas - Universidad Complutense}
-\renewcommand{\footrulewidth}{0.4pt}
-\renewcommand{\headrulewidth}{0.4pt}		% linea por debajo del encabezado
-\renewcommand{\sectionmark}[1]{\markright{\textbf{\thesection. #1}}}	%negrita
+
+
 \renewcommand{\labelitemi}{$\circ$} %Primer itemize con circunferencia vacia
 \renewcommand{\labelitemii}{$\cdot$} %Segundo itemize con punto pequeño
 \renewcommand*{\thesection}{\arabic{section}}	% Hace que no apareca el indice de capitulos y que comience en section, GRACIAS A RUBEN
@@ -33,7 +43,7 @@
 
 
 \begin{document} 
-\title{\Huge{\textsc{Proyecto -\\
+\title{\Huge{\textsc{Jetpack -\\
 	Qué hemos hecho}} \\
 	\vspace{0.7cm}
 	 \textsc{\Large{Tecnología y Organización de Computadores}} \\
@@ -86,7 +96,7 @@ $mov\_munyeco$ actualiza la posición de Barry en función de su estado, y $muev
 El juego tendrá 4 estados:
 \begin{itemize}
 \item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
-\item Pause: Pulsando la tecla `p'  \ paramos el juego.
+\item Pause: Pulsando la tecla `P'  \ paramos el juego.
 \item Quieto: Barry no está subiendo ni bajando: puede estar andando o en el techo.
 \item Subiendo: Al pulsar la barra espaciadora activamos los propulsores del Jetpack y Barry sube.
 \item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
@@ -96,9 +106,9 @@ El juego tendrá 4 estados:
 $niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
 Hay tres estados en los niveles:
 \begin{itemize}
-\item \texttt{Nivel1}: en este nivel se cargan el fondo de laboratorio y los obstáculos de trampas eléctricas. Una vez se hayan conseguido $5$ ó  $5+15n<60,\ n\in\mathbb{N}$  monedas se pasará al \texttt{nivel 2}, y se activará la señal $bloquea\_obstaculo$ que evita que los obstáculos del nivel siguiente se activen de golpe, a través del \texttt{gestorCambioNivel} que hace que los obstáculos se cambien gradualmente. 
-\item \texttt{Nivel2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel3}, activando a su vez \textit{bloquea\_obstáculos}.
-\item \texttt{Nivel3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
+\item \texttt{Nivel 1}: en este nivel se cargan el fondo de laboratorio y los obstáculos de trampas eléctricas. Una vez se hayan conseguido $5$ ó  $5+15n<60,\ n\in\mathbb{N}$  monedas se pasará al \texttt{nivel 2}, y se activará la señal $bloquea\_obstaculo$ que evita que los obstáculos del nivel siguiente se activen de golpe, a través del \texttt{gestorCambioNivel} que hace que los obstáculos se cambien gradualmente. 
+\item \texttt{Nivel 2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel3}, activando a su vez \textit{bloquea\_obstáculos}.
+\item \texttt{Nivel 3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
 \end{itemize}
 
 $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
