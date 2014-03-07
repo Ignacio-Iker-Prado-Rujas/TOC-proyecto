@@ -70,22 +70,22 @@
 
 
 \section{Controlador/es (y máquinas de estados)}
-En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de "Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
+En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
 
 A continuación, describamos el código referente a los movimientos:
-Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y "Game Over".
+Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir\_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y ``Game Over".
 
 Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería una imagen de la hoja esa de Iker que usamos siempre)
 
-El process $mueve_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve_fondo$ hace lo mismo con el fondo de la pantalla.
+El process $mueve\_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve\_fondo$ hace lo mismo con el fondo de la pantalla.
 
-$mueve_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
-$mov_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado_munyeco$ son los encargados de actualizar estado y posición de Barry.
+$mueve\_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
+$mov\_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve\_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado\_munyeco$ son los encargados de actualizar estado y posición de Barry.
 
 El juego tendrá 4 estados:
 \begin{itemize}
 \item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
-\item Pause: Pulsando la tecla 'p' paramos el juego.
+\item Pause: Pulsando la tecla `p'  \ paramos el juego.
 \item Quieto: Barry no está subiendo ni bajando: puede estar andando o en el techo.
 \item Subiendo: Al pulsar la barra espaciadora activamos los propulsores del Jetpack y Barry sube.
 \item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
@@ -94,15 +94,15 @@ El juego tendrá 4 estados:
 
 $niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
 
-$controla_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
+$controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
 ... cosas de choques... mejor que lo haga iker
 
-El process $pinta_obstaculos$ lee la ROM de obstáculos y los pinta en la pantalla. En los píxeles donde no haya obstáculos se pintará el fondo del juego. $pinta_munyeco$ hace lo mismo con la ROM de Barry, pintándolo en las posiciones de la pantalla que indica $r_my$, la variable que almacena la posición del protagonista.
+El process $pinta\_obstaculos$ lee la ROM de obstáculos y los pinta en la pantalla. En los píxeles donde no haya obstáculos se pintará el fondo del juego. $pinta\_munyeco$ hace lo mismo con la ROM de Barry, pintándolo en las posiciones de la pantalla que indica $r\_my$, la variable que almacena la posición del protagonista.
 
-Similar es $pinta_game_over$, que además comprobará el estado del juego para cerciorarse de que nos hemos chocado antes de dibujar el "Game Over".
+Similar es $pinta\_game\_over$, que además comprobará el estado del juego para cerciorarse de que nos hemos chocado antes de dibujar el ``Game Over".
 
-$pinta_bordes$ dibuja los bordes de la pantalla del juego.
+$pinta\_bordes$ dibuja los bordes de la pantalla del juego.
 
 Finalmente, $colorear$ decide qué pintamos en cada píxel, eligiendo entre.
 \begin{itemize}
@@ -143,12 +143,19 @@ Por qué ha sido bueno ser 5...
 Formar un equipo de 5 personas ha sido clave para el éxito de nuestro proyecto, puesto que nos ha permitido trabajar en paralelo en un mínimo de 3 tareas simultáneas. 
 
 \section{Qué y por qué no funciona}
-Funciona todo porque somos los mejores (ver apartado 3)
-
+Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros añadidos si hubiésemos dispuesto de más tiempo podrían ser:
+\begin{itemize}
+\item Menú principal.
+\item Posibilidad de elegir personaje.
+\item Vehículos utilizables al almacenar un número determinado de monedas. En este caso, los mapas cambiarían pasado un tiempo en lugar de cada 5 monedas recogidas.
+\item Mejorar la  manejabilidad del personaje para que acelerase al subir y flotase al comienzo de la bajada. Este apartado se intentó implementar pero fue descartado puesto que el tiempo que requería no era consonante con la mejora del juego con su añadido.
+\item Contador de número de metros recorridos. Este apartado también fue considerado y comenzado, pero requería un tiempo del que no disponíamos.
+\end{itemize}
 
 
 \section{Bibliografía}
-Reutilización de código
+Reutilización de código:
+
 Ha sido de gran utilidad el software de la Universidad Carlos III que permite pasar una imagen en formato PPM (Portable Pixel Map) a ROM. Esto ha posibilitado la carga de mapas muy realistas y que aprovechan al máximo la capacidad de la FPGA (petaqueo excesivo).
 Precisamente este fue uno de los principales problemas que encontramos al inicio de nuestro proyecto, y esta herramienta permitió solucionarlo de manera elegante y funcional. 
 
@@ -158,6 +165,7 @@ El proceso para convertir una imagen cualquiera a una ROM es el siguiente:
 \item Desde línea de comandos, ejecutamos la aplicacion $ppm2rom$ seguida de los parámetros 9(bits por cada pixel) y 1 (número de memorias ROM).
 \item Conectamos la ROM al módulo principal del proyecto, y ya podemos mostrar la imagen por pantalla.
 \end{enumerate}
+
 \section{Trabajo individual}
 La organización orientativa del trabajo ha sido la sguiente:
 \begin{itemize}
