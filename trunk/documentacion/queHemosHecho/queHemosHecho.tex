@@ -77,8 +77,16 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS 10-15 CARAS APROX.____________________________________________________
 
 \section{Ruta de datos}
-Se cuenta con dos dispositivos de entrada: el teclado y el reset, y con dos de salida: la pantalla y el display LED de 7 segmentos. 
-Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecla `P'. El controlador del teclado detecta dichas teclas y activa las señales \textit{pulsado} y \textit{pausado} que son las que se encargan de la lógica del movimiento de Barry y del fondo. 
+	Podemos distinguir tres entradas de datos diferentes:
+	\begin{itemize}	Las relativas al teclado: PS2CLK es el reloj propio del teclado PS2 que funciona a  su propia frecuencia independiente 
+ 	del reloj de la fpga. PS2DATA es el bus bidireccional de un bit del tecladoel teclado que manda los códigos de las teclas pulsadas de manera secuencia.
+	
+	La gestión del teclado la realiza el módulo "control\_teclado":	Las únicas teclas reconocidas son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} si se presiona la barra espaciadora y \texttt{pausado} si se pulsa la tecla "p".	
+	Estas dos señales controlan el movimiento del muñeco (Barry) gestionadas por la máquina de estados del juego: Si nos encontramos en "playing" y se pulsa la "p"  pasaremos al estado "pausa". Si se detecta la barra espaciadora, pasaremos
+	 a "playing" y tanto Barry como el mapa comenzarán a moverse. El pause y el game over se consiguen mediante el control de los contadores de avance, que mueven el fondo, la moneda y los obstáculos, así como con el control del estado de Barry.
+	Mediante estos contadores vamos accediendo a las posiciones de memoria de las rom's que queremos en cada momento, con lo que controlamos la salida "rgb" , que va a la pantalla, a nuestro gusto. Esta salida le indica el color que debe dar a cada pixel
+	 la pantalla en función de las señales hsyncb y vsyncb.
+\end{itemize}
 
 \section{Synthesis Report}
 
@@ -86,11 +94,19 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
 	\begin{itemize}
 	\item Señales no usadas o asignadas: Dado que el Xilinx las elimina en la optimización no le hemos dado especial importancia a estos warning.
 	\item Latches: Los latches que serán borrados en la optimización tampoco les hemos tenido en cuenta. No obstante, tenemos varios latches que no hemos eliminado porque 
-	facilitan el código y su eliminación exigiría un tiempo que no merece la pena.
+	facilitan el código y su eliminación exigiría un tiempo que no merece la pena.	Tenemos un latch de un bit para la señal "next\_catched". Esta señal indica si se ha cogido una moneda,
+	es de vital importancia para el funcionamiento de la contabilización de las monedas, por lo que hemos optado por dejar el latch. Con más tiempo podría se eliminado haciendo un 
+	estudio del valor que debe tomar en los casos para los que no está definida.	También tenemos un latch de 7 bits para la señal "next\_cuenta\_monedas". Esta señal gestiona
+	 la cuenta de las monedas que lleva el jugador así como el incremento del contador cuando una nueva es capturada. Es de vital importancia, y ante la falta de un análisis detallado
+	del valor que debe tomar para cada caso  hemos optado por dejar el latch. Puede observarse que los latch que tenemos pertenecen al módulo de las monedas, el último
+	 que hemos implementado y para el cual no hemos podido realizar un trabajo perfecto por lo tiempos ajustados.	
 	\item Width mismatch: En el código realizamos varios truncamientos de logic vectors. Como sabemos que xilinx los realiza correctamente no nos hemos preocupado de eliminar
 	estos warnings, por lo que aparecen varios de este tipo.
 	\item Not match array range: En la rom del game over hay una parte que no utilizamos de la imagen pero que está en memoria. Este warning se soluciona volviendo a generar una rom correcta.
 	 No hemos considerado de suficiente interés corregirlo.
+	\item More than 100\%: Este warning se debe a la escasa memoria que tiene la spartan3. Nuestros mapas, al no caber en memoria, son cableados y acaban usando toda la fpga. La optimización del xilinx 
+	consigue reducir por debajo del 100\% este uso normalmente, pero no siempre. En la última sintetización tenemos: More than 100\% of Device resources are used. Siendo más concretos:	
+	Number of Slices:  7962  out of   7680   103\%. 
 \end{itemize}
 	Datos de interés:
 	\begin{itemize}
@@ -109,7 +125,8 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
    	\item Maximum output required time after clock: 22.577ns
 
 \end{itemize}
-
+	Memorias RAM:
+	
 	Number of BRAMs:    24  out of     24   100\%  
 
 	Como ocupamos todas las RAM'S de la fpga, y ésta no son suficientes para almacenar todos los mapas, para ciertos mapas tenemos:
