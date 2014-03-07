@@ -220,10 +220,14 @@ El problema ahora era generar la ROM.
 Para imágenes pequeñas, como podía ser el caso de la imagen de Barry, se puede escribir manualmente el valor de cada pixel de la ROM. Sin embargo, para cargar los mapas era virtualmente imposible. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM. Paso seguido comenzamos a diseñar los niveles que posteriormente se pasarían a ROM con la ayuda de dicho programa. Para tal efecto se usó el programa Adobe Photoshop, creando mapas adaptados 
 
  %creando fondos y obstaculos (.BMP)
-Se crearon dos fondos, el laboratorio y el de nubes y árboles. Se comprobó que cargando fondos muy grandes y con gran cantidad de colores la rom que se generaba era demasiado pesada para Xilinx y la FPGA . 
+Se crearon dos fondos, el laboratorio y el de nubes y árboles. Se comprobó que cargando fondos muy grandes y con gran cantidad de colores la rom que se generaba era demasiado pesada para Xilinx y la FPGA . Entonces, decidimos que el máximo número de colores sería 3 para cada fondo con su ROM correspondiente. En el caso del fonde de nubes y árboles, al ser dos fondos en uno, cada uno con su propia ROM, se consiguió mostrar el doble de colores. Además la imagen guardada en cada ROM es solo un fragmento pequeño del fondo que se ve en pantalla, el efecto se consiguió repitiendo la imagen.
+
+Para los obstáculos, que tenían que ser tres, decidimos que solo tuvieran dos colores, es decir, que fueran imágenes binarias, lo que conllevó a que la ROM nos indicara donde había obstáculo y donde no. Gracias a esto último los obstáculos se pintan del color que se indica en el programa principal y no en la ROM.
+
+La imagen de Barry y el primer fondo se inspiraran fielmente en los originales de \emph{Halfbrick Studios}. El resto de fondos y todos los obstáculos fueron dibujados a mano por el equipo. La imágenes debían ser todas mapa de bits BMP para poder restringir bien los colores y luego se transformaban a PPM para seguir el proceso de transformado y llegar al programa.
 
 %movimiento de fondo y obstaculos
-Una vez solventado ese problema, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
+Una vez solventado la carga de imágenes a nuestra aplicación, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
 Además, necesitábamos capturar las pulsaciones de teclado que hacen que Barry suba y baje y que el juego se pause, lo cual fue relativamente sencillo gracias a los ejemplos vistos en clase.
 
 %transicion entre niveles
