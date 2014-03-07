@@ -66,9 +66,9 @@
 
 \tableofcontents 							%INDICE hipervinculado
 
-\newpage
-\mbox{}
-\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
+%\newpage
+%\mbox{}
+%\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
 \newpage
 
 \pagenumbering{arabic}						% Pone el contador de paginas a 1 y ahora en numeros normales
@@ -78,7 +78,7 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS DOS CARAS APROX.______________________________________________________
 
 \section{Ficheros y dependencias}
-El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos, monedas... Sin embargo, para cargar las imágenes del juego desde memoria utilizamos varias ROMs:
+El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos, monedas... Para cargar las imágenes del juego desde memoria utilizamos varias ROMs:
 
 \begin{itemize}
 
@@ -128,7 +128,7 @@ Como ya se ha comentado, todos estos ficheros son componentes de \texttt{choca.v
 
 \section{nombre.bit}
 
-\texttt{vgacore.bit}. O qué??
+\texttt{vgacore.bit}.
 
 \section{Pines y significado}
 Conectaremos el teclado con los pines:
@@ -189,25 +189,29 @@ Nada en especial que comentar aquí. Lo único reseñable es que dependiendo del
 
 
 \section{Cómo se juega}
-El juego comienza en el primer nivel con 0 monedas recogidas. Después, tras el despegue, simplemente se debe pulsar la barra espaciadora para ascender y soltarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. 
+El juego comienza en el primer nivel con 0 monedas recogidas. Después, tras el despegue, simplemente se debe pulsar la barra espaciadora para ascender y soltarla para descender. El objetivo del juego es conseguir que Barry esquive todos los obstáculos, y recoja el mayor número de monedas posible, 60 es la meta. 
 
-A medida que se recogen monedas, el juego cambiará de nivel. Si desea pausar el juego se debe pulsar la letra `P'. Para salir de la pausa simplemente volver a pausar la barra espaciadora. El juego acaba al chocar con algún obstáculo. \footnote{En el video de presentación se puede observar que después de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso está puesto así a propósito ya que de este modo es más fácil grabar el video de la presentación de cada nivel y testear el funcionamiento.}
+A medida que se recogen monedas, el juego cambia de nivel. Si desea pausar el juego se debe pulsar la tecla `P'. Para salir de la pausa simplemente volvemos a pulsar la barra espaciadora. El juego acaba cuando Barry choca con algún obstáculo.
+
+%\footnote{
+Como observación, se debe tener en cuenta que en el video de presentación, a pesar de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso hemos deshabilitado el ``Game Over'' a propósito, ya que de este modo es más fácil mostrar el proceso de juego en los distintos niveles.
+%}
 
 
 \section{Qué espero ver}
-Se trata de un juego para FPGA inspirado en el Jetpack Joyride del grupo Halfbrick Studios, que está disponible de manera gratuita para plataformas Android e iOS. El juego consta de 3 niveles diferentes:
+Se trata de un juego para FPGA inspirado en el  \emph{Jetpack Joyride} del grupo  \emph{Halfbrick Studios}, que está disponible de manera gratuita para plataformas Android e iOS. Nuestro juego consta de 3 niveles diferentes:
 
 \begin{itemize}
 	\item \textbf{Nivel 1}: obstáculos espaciales y fondo de laboratorio.
 	\item \textbf{Nivel 2}: tuberías estilo \emph{Flappy Bird} como obstáculos y fondo de laboratorio.
-	\item \textbf{Nivel 3}: obstáculos de fuego y fondo inspirado en \emph{Super Mario}, con árboles y nubes en dos capas.
+	\item \textbf{Nivel 3}: obstáculos de fuego y fondo inspirado en \emph{Super Mario}, con árboles y nubes en dos capas con distintas velocidades.
 \end{itemize}
 
-Cuando Barry está en el suelo, se alternarán dos fotogramas suyos (que están en sus ROMs correspondientes, ver el primer apartado de este documento) dando la sensación de que camina. 
+Cuando Barry está en el suelo, se alternarán dos fotogramas suyos (que están en su ROM correspondiente, ver el primer apartado de este documento) dando la sensación de que camina. 
 
-El número de monedas recogidas se mostrará por los displays. Al resetear volverá la cuenta a 0. Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 5 monedas volveremos al nivel 1. Sucesivamente, cada 5 monedas recogidas cambiaremos de nivel hasta llegar a completar el desafío: 60 monedas. Si se alcanza dicho número el juego permanece en el nivel 3.
+El número de monedas recogidas se mostrará por los displays. Al resetear volverá la cuenta a 0. Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 5 monedas volveremos al nivel 1. Sucesivamente, cada 5 monedas recogidas cambiaremos de nivel hasta llegar a completar el desafío: 60 monedas. Si se alcanza dicho número el juego permanece en el nivel 3 y se puede seguir jugando y cogiendo monedas.
 
-Al pausar el juego, si hubiera alguna moneda en pantalla se pausará también, reanudando su camino al continuar jugando. No pasa ésto con el ``Game Over'', ya que al chocar con un obstáculo, las monedas seguirán su curso, como es lógico. \footnote{Ésto se puede apreciar en el video en el escenario 2.}
+Al pausar el juego, si hubiera alguna moneda en pantalla se pausará también, reanudando su camino al continuar jugando. No pasa ésto con el ``Game Over'', ya que al chocar con un obstáculo, Barry se quedará quieto en el lugar del choque pero las monedas seguirán su curso, como es lógico. Además de estos efectos, si se choca con un obstáculo se verán las palabras ``Game Over'' en el centro de la pantalla.\footnote{El ``Game Over'' y sus efectos se pueden apreciar en el video en el escenario 2.}.
 
 
 \end{document}
