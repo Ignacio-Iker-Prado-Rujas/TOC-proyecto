@@ -67,7 +67,8 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS 10-15 CARAS APROX.____________________________________________________
 
 \section{Ruta de datos}
-
+Se cuenta con dos dispositivos de entrada: el teclado y el reset, y con dos de salida: la pantalla y el display LED de 7 segmentos. 
+Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} y \texttt{pausado} que son las que se encargan de la lógica del movimiento de Barry y del fondo. 
 
 \section{Controlador/es (y máquinas de estados)}
 En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
@@ -93,6 +94,12 @@ El juego tendrá 4 estados:
 
 
 $niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
+Hay tres estados en los niveles:
+\begin{itemize}
+\item \texttt{Nivel1}: en este nivel se cargan el fondo de laboratorio y los obstáculos de trampas eléctricas. Una vez se hayan conseguido $5$ ó  $5+15n<60,\ n\in\mathbb{N}$  monedas se pasará al \texttt{nivel 2}, y se activará la señal $bloquea\_obstaculo$ que evita que los obstáculos del nivel siguiente se activen de golpe, a través del \texttt{gestorCambioNivel} que hace que los obstáculos se cambien gradualmente. 
+\item \texttt{Nivel2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel3}, activando a su vez $bloquea\_obstáculos$.
+\item \texttt{Nivel3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
+\end{itemize}
 
 $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
