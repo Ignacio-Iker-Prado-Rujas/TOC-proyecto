@@ -175,6 +175,7 @@ Hay tres estados en los niveles:
 \item \texttt{nivel 2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel3}, activando a su vez \textit{bloquea\_obstáculos}.
 \item \texttt{nivel 3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
 \end{itemize}
+Si quisiéramos generalizar esto para que el juego no acabara al coger 60 monedas se podría haber añadido un contador $j$ que se inicializara a 0 e incrementara cada vez que se pasa del nivel 3 al 1. De esta manera, para pasar al siguiente nivel habría que comprobar, desde el nivel 1 que los ultimos 5 bits (que representan los números del 0 al 15) de cuenta de monedas, a los que llamaremos cuenta, valgan $j\cdot 15 + 5$, desde el nivel 2 que la cuenta  valga $j\cdot 15 + 10$ y desde el nivel 3 que valga $j\cdot + 15$. 
 
 El process $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
