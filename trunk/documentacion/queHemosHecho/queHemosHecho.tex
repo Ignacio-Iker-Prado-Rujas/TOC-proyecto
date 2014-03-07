@@ -80,6 +80,38 @@
 Se cuenta con dos dispositivos de entrada: el teclado y el reset, y con dos de salida: la pantalla y el display LED de 7 segmentos. 
 Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} y \texttt{pausado} que son las que se encargan de la lógica del movimiento de Barry y del fondo. 
 
+\section{Synthesis Report}
+
+	Warnings:
+	\begin{itemize}
+	\item Señales no usadas o asignadas: Dado que el Xilinx las elimina en la optimización no le hemos dado especial importancia a estos warning.
+	\item Latches: Los latches que serán borrados en la optimización tampoco les hemos tenido en cuenta. No obstante, tenemos varios latches que no hemos eliminado porque 
+	facilitan el código y su eliminación exigiría un tiempo que no merece la pena.
+	\item Width mismatch: En el código realizamos varios truncamientos de logic vectors. Como sabemos que xilinx los realiza correctamente no nos hemos preocupado de eliminar
+	estos warnings, por lo que aparecen varios de este tipo.
+	\item Not match array range: En la rom del game over hay una parte que no utilizamos de la imagen pero que está en memoria. Este warning se soluciona volviendo a generar una rom correcta.
+	 No hemos considerado de suficiente interés corregirlo.
+\end{itemize}
+	Datos de interés:
+	\begin{itemize}
+	\item BELS: 20748
+	\item FlipFlops/Latches: 339
+	\item RAM'S: 24
+	\item  Number of 4 input LUTs:  14931  out of  15360    97\%  
+
+
+\end{itemize}
+	Clocks:
+	\begin{itemize}
+	\item  Minimum period: 30.328ns 
+	\item 	Maximum Frequency: 32.972MHz
+ 	\item  Minimum input arrival time before clock: 12.179ns
+   	\item Maximum output required time after clock: 22.577ns
+
+\end{itemize}
+
+	Total REAL time to Xst completion: 1131.00 secs (18.85 min).
+
 \section{Controlador/es (y máquinas de estados)}
 En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
 
