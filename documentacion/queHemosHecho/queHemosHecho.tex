@@ -65,9 +65,9 @@
 
 \tableofcontents 							%INDICE hipervinculado
 
-\newpage
-\mbox{}
-\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
+%\newpage
+%\mbox{}
+%\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
 \newpage
 
 \pagenumbering{arabic}						% Pone el contador de paginas a 1 y ahora en numeros normales
@@ -78,7 +78,7 @@
 
 \section{Ruta de datos}
 Se cuenta con dos dispositivos de entrada: el teclado y el reset, y con dos de salida: la pantalla y el display LED de 7 segmentos. 
-Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} y \texttt{pausado} que son las que se encargan de la lógica del movimiento de Barry y del fondo. 
+Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecla `P'. El controlador del teclado detecta dichas teclas y activa las señales \textit{pulsado} y \textit{pausado} que son las que se encargan de la lógica del movimiento de Barry y del fondo. 
 
 \section{Synthesis Report}
 
@@ -86,19 +86,11 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
 	\begin{itemize}
 	\item Señales no usadas o asignadas: Dado que el Xilinx las elimina en la optimización no le hemos dado especial importancia a estos warning.
 	\item Latches: Los latches que serán borrados en la optimización tampoco les hemos tenido en cuenta. No obstante, tenemos varios latches que no hemos eliminado porque 
-	facilitan el código y su eliminación exigiría un tiempo que no merece la pena.	Tenemos un latch de un bit para la señal "next\_catched". Esta señal indica si se ha cogido una moneda,
-	es de vital importancia para el funcionamiento de la contabilización de las monedas, por lo que hemos optado por dejar el latch. Con más tiempo podría se eliminado haciendo un 
-	estudio del valor que debe tomar en los casos para los que no está definida.	También tenemos un latch de 7 bits para la señal "next\_cuenta\_monedas". Esta señal gestiona
-	 la cuenta de las monedas que lleva el jugador así como el incremento del contador cuando una nueva es capturada. Es de vital importancia, y ante la falta de un análisis detallado
-	del valor que debe tomar para cada caso  hemos optado por dejar el latch. Puede observarse que los latch que tenemos pertenecen al módulo de las monedas, el último
-	 que hemos implementado y para el cual no hemos podido realizar un trabajo perfecto por lo tiempos ajustados.	
+	facilitan el código y su eliminación exigiría un tiempo que no merece la pena.
 	\item Width mismatch: En el código realizamos varios truncamientos de logic vectors. Como sabemos que xilinx los realiza correctamente no nos hemos preocupado de eliminar
 	estos warnings, por lo que aparecen varios de este tipo.
 	\item Not match array range: En la rom del game over hay una parte que no utilizamos de la imagen pero que está en memoria. Este warning se soluciona volviendo a generar una rom correcta.
 	 No hemos considerado de suficiente interés corregirlo.
-	\item More than 100\%: Este warning se debe a la escasa memoria que tiene la spartan3. Nuestros mapas, al no caber en memoria, son cableados y acaban usando toda la fpga. La optimización del xilinx 
-	consigue reducir por debajo del 100\% este uso normalmente, pero no siempre. En la última sintetización tenemos: More than 100\% of Device resources are used. Siendo más concretos:	
-	Number of Slices:  7962  out of   7680   103\%. 
 \end{itemize}
 	Datos de interés:
 	\begin{itemize}
@@ -117,8 +109,7 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
    	\item Maximum output required time after clock: 22.577ns
 
 \end{itemize}
-	Memorias RAM:
-	
+
 	Number of BRAMs:    24  out of     24   100\%  
 
 	Como ocupamos todas las RAM'S de la fpga, y ésta no son suficientes para almacenar todos los mapas, para ciertos mapas tenemos:
@@ -135,21 +126,13 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
 En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
 
 A continuación, describamos el código referente a los movimientos:
-Las señales $posy$ y $posx$ nos indican en qué posición estamos pintando los obstáculos, y su concatenación, $dir\_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, Barry y ``Game Over".
+Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir\_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y ``Game Over".
 
-Para cuadrar en la pantalla lo que leemos de memoria hicimos varios cálculos. Tenemos dos referencias: una en $(0, 0)$, que es la pantalla entera y otra en $(5, 111)$, que es la zona de juego (sin los bordes amarillos). La zona de juego tiene vértices en $(5, 111), (260, 111), (5, 366), (260, 366)$. Por tanto $hcnt \in [5, 260]$ y $vcnt \in [111, 366]$.
-
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[scale=0.2]{calculos.jpg}
-		\caption{Algunos cálculos de píxeles y algunos relojes}
-	\end{figure}
-	
-También son importante las medidas de Barry. La imagen tiene 32x16 píxeles, se encuentra a 32 píxeles del final de la pantalla y a 27 del borde de la zona de juego. La distancia de la cabeza del muñeco hasta el final de la pantalla es de $r\_my$ píxeles, y de $r\_my-110$ hasta el borde de la zona de juego. Así, la zona de Barry es $hcnt \in [27, 40]$ y $vcnt \in [r\_my-107, r\_my -82]$.
+Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería una imagen de la hoja esa de Iker que usamos siempre)
 
 El process $mueve\_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve\_fondo$ hace lo mismo con el fondo de la pantalla.
 
-$mueve\_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
+El process $mueve\_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
 $mov\_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve\_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado\_munyeco$ son los encargados de actualizar estado y posición de Barry.
 
 El juego tendrá 5 estados:
@@ -162,15 +145,15 @@ El juego tendrá 5 estados:
 \end{itemize}
 
 
-$niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
+El process $niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
 Hay tres estados en los niveles:
 \begin{itemize}
-\item \texttt{Nivel 1}: en este nivel se cargan el fondo de laboratorio y los obstáculos de trampas eléctricas. Una vez se hayan conseguido $5$ ó  $5+15n<60,\ n\in\mathbb{N}$  monedas se pasará al \texttt{nivel 2}, y se activará la señal $bloquea\_obstaculo$ que evita que los obstáculos del nivel siguiente se activen de golpe, a través del \texttt{gestorCambioNivel} que hace que los obstáculos se cambien gradualmente. 
-\item \texttt{Nivel 2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel 3}, activando a su vez \textit{bloquea\_obstáculos}.
-\item \texttt{Nivel 3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel 1}, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
+\item \texttt{nivel 1}: en este nivel se cargan el fondo de laboratorio y los obstáculos de trampas eléctricas. Una vez se hayan conseguido $5$ ó  $5+15n<60,\ n\in\mathbb{N}$  monedas se pasará al \texttt{nivel 2}, y se activará la señal $bloquea\_obstaculo$ que evita que los obstáculos del nivel siguiente se activen de golpe, a través del \texttt{gestorCambioNivel} que hace que los obstáculos se cambien gradualmente. 
+\item \texttt{nivel 2: }en este nivel se cargan el fondo de laboratorio y los obstáculos de tuberías. Al conseguir  $10+15n<60,\ n\in\mathbb{N}$ monedas se pasará al \texttt{nivel3}, activando a su vez \textit{bloquea\_obstáculos}.
+\item \texttt{nivel 3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
 \end{itemize}
 
-$controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
+El process $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
 ... cosas de choques... mejor que lo haga iker
 
@@ -180,29 +163,40 @@ Similar es $pinta\_game\_over$, que además comprobará el estado del juego para
 
 $pinta\_bordes$ dibuja los bordes de la pantalla del juego.
 
-Finalmente, $colorear$ decide qué pintamos en cada píxel, eligiendo entre.
+Finalmente, $colorear$ decide qué pintamos en cada píxel. La pantalla se pinta pixel a pixel a una gran velocidad, para cada pixel se decide si pintar un objeto u otro según su nivel de prioridad, dejando los fondos con la menor prioridad y a Barry y los obstáculos por encima. La lista completa ordenada de los objetos que pintamos es:
 \begin{itemize}
-\item Bordes
-\item Game Over
-\item Barry
-\item Obstáculos
-\item Fondo
+	\item Bordes
+	\item Game Over
+	\item Barry
+	\item Obstáculos
+	\item Fondo
 \end{itemize}
 
-\section{Somos los mejores (venderse)}
+\section{Somos los mejores }
+
+%inicio del protecto
 Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
 El problema ahora era generar la ROM.
 
-Incluso para imágenes pequeñas, como podía ser el caso de la imagen de Barry (32x16=512 píxeles ), el número de píxeles a guardar es enorme. Para cargar los mapas era virtualmente imposible, con 256x1024 = 262144 colores RGB a guardar. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM
+%paso de imagenes a la FPGA mediante ROMs (diferenciacion entre fondos RGB y obstaculos BINario)
+Para imágenes pequeñas, como podía ser el caso de la imagen de Barry, se puede escribir manualmente el valor de cada pixel de la ROM. Sin embargo, para cargar los mapas era virtualmente imposible. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM
 
+ %creando fondos y obstaculos (.BMP)
+
+%movimiento de fondo y obstaculos
 Una vez solventado ese problema, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
 Además, necesitábamos capturar las pulsaciones de teclado que hacen que Barry suba y baje y que el juego se pause, lo cual fue relativamente sencillo gracias a los ejemplos vistos en clase.
 
+%transicion entre niveles
+
+%choques
 No obstante, este juego no tendría sentido sin obstáculos de por medio con los que chocarse.
 Este fue uno de los grandes escollos del proyecto: detectar el choque.
 Finalmente, decidimos pintar los obstáculos de un color determinado para comprobar si Barry ocupaba el mismo píxel que el obstáculo y dar por finalizada la partida.
 
 Una vez decidida la estrategia llegaba el momento de implementarla, cosa que fue bastante más complicada de lo esperado, y que finalmente Iker resolvió elegantemente con una comprobación constante circular del perímetro exterior de la imagen de Barry.
+
+%monedas (pantalla y contados)
 Ahora teníamos choques y movimiento de los mapas, y faltaba darle un objetivo al juego: conseguir el máximo número posible de monedas.
 
 Para ello teníamos que pintarlas, chocarnos con ellas, y borrarlas de la pantalla tras el choque, además de mostrar por el display 7 segmentos el número de monedas acumuladas.
@@ -212,10 +206,10 @@ Detectar el choque ya sabíamos cómo, pero eliminar la moneda y aumentar el con
 Global:
 En serio hay alguna duda?
 
-Hemos conseguido reproducir fidedignamente el videojuego \emph{Jetpack Joyride}, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
+Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
 
 Orgullosos de algo en particular...
-Orgullosos de utilizar fondos reales creados por la mejor diseñadora gráfica del doble grado, así como de unas transiciones entre mapas que te dejan tiempo a acostumbrarte a la distribución de los nuevos obstáculos. Orgullosos de jugar con un muñeco real en vez de mover un pixel. Orgullosos de unos choques tan
+Orgullosos de utilizar fondos reales creados por la mejor diseñadora gráfica del doble grado. Orgullosos de jugar con un muñeco real en vez de mover un pixel. Orgullosos de unos choques tan
  currados que permitirían generalizar las colisiones a tres dimensiones, pues son independientes del buffer de pantalla. 
 
 Orgullosos de la habilidad del mejor petaqueador del doble grado para buscar en la web programas útiles. 
@@ -228,21 +222,14 @@ Dificultades añadidas por ser 5...
 Al ser 5, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Además, 
 obligaba a crear unos buenos comentarios para que cada grupo entendiese el trabajo del otro. 
 
-Otra dificultad añadida es la de coincidir los 5  en el laboratorio para trabajar conjuntamente con las FPGAs.
+Otra dificultad añadida es la de coincidir los 5  en el laboratorio para trabajar conjuntamente con las fpgas.
 
 \section{Qué y por qué no funciona}
 Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros añadidos si hubiésemos dispuesto de más tiempo podrían ser:
 	
 \begin{itemize}
 	\item Menú principal.
-	\item Posibilidad de elegir personaje. Se barajaron varias opciones, incluso llegando a dibujarlas (cortesía de Daniel Báscones) como la de la imagen, pero no fue posible incluirlo.
-	
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[scale=3]{natalia.png}
-		\caption{Otro personaje del juego: Natbarry.}
-	\end{figure}
-	
+	\item Posibilidad de elegir personaje.
 	\item Vehículos utilizables al almacenar un número determinado de monedas. En este caso, los mapas cambiarían pasado un tiempo en lugar de cada 5 monedas recogidas.
 	\item Mejorar la  manejabilidad del personaje para que acelerase al subir y flotase al comienzo de la bajada. 
 	Este apartado se intentó implementar pero fue descartado puesto que el tiempo que requería no era consonante con la mejora del juego con su añadido.
@@ -251,14 +238,13 @@ Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros aña
 	\item Generador aleatorio de obstáculos, utilizando el de las monedas con ciertas modificaciones en la práctica.
 	\item Contador de monedas y contador de metros recorridos en pantalla.
 	\item Creación de un juego paralelo independiente que solo consiste en coger monedas que aparecen aleatoriamente. Dada nuestra experiencia jugando, creemos que este minijuego podría llegar a arrasar a nivel mundial.
-	\item Mejora de la exactitud de los choques. Nótese que la forma en que están implementados los choques se aproxima la figura de Barry como un rectángulo. Esto podría mejorarse con una aproximación con más segmentos a su figura, pero llevaría muchos más cálculos e implementación que no añaden demasiado. Ésta inexactitud se nota sobre todo al chocar con la parte de atrás de los pies del muñeco.
 \end{itemize}
 
 
 \section{Bibliografía}
 Reutilización de código:
 
-Ha sido de gran utilidad el software de la Universidad Rey Juan Carlos que permite pasar una imagen en formato PPM (Portable Pixel Map) a ROM. Esto ha posibilitado la carga de mapas muy realistas y que aprovechan al máximo la capacidad de la FPGA.
+Ha sido de gran utilidad el software de la Universidad Carlos III que permite pasar una imagen en formato PPM (Portable Pixel Map) a ROM. Esto ha posibilitado la carga de mapas muy realistas y que aprovechan al máximo la capacidad de la FPGA (petaqueo excesivo).
 Precisamente este fue uno de los principales problemas que encontramos al inicio de nuestro proyecto, y esta herramienta permitió solucionarlo de manera elegante y funcional. 
 
 El proceso para convertir una imagen cualquiera a una ROM es el siguiente:
