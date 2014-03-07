@@ -5,6 +5,11 @@
 \usepackage[top=2.5cm, bottom=2.25cm, outer=2.75cm, inner=2.75cm, heightrounded, marginparwidth=2.5cm, marginparsep=0.3cm]{geometry}	%márgenes originalmente
 \usepackage{dpg}
 \usepackage{afvc}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata,positioning}
+\tikzstyle{accepting by double}= [double distance=1.6pt,double,outer sep=.5\pgflinewidth+.8pt] % esto es algo estético.
+\renewcommand\shorthandsspanish{}  % para compatibilizar spanish con tikz
 %Figuras
 \usepackage[vflt]{floatflt}		%Entorno float-figure
 %\graphicspath{/Temas/Tema01/Imagenes}
@@ -65,9 +70,9 @@
 
 \tableofcontents 							%INDICE hipervinculado
 
-%\newpage
-%\mbox{}
-%\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
+\newpage
+\mbox{}
+\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
 \newpage
 
 \pagenumbering{arabic}						% Pone el contador de paginas a 1 y ahora en numeros normales
@@ -155,7 +160,7 @@
 	
 	Total REAL time to Xst completion: 1131.00 secs (18.85 min).
 
-\section{Controlador/es (y máquinas de estados)}
+\section{Controladores}
 La función de cada señal esta explicada en \texttt{choca.vhd} y sería pesado e innecesario volver a reproducirla aquí, por lo que optamos por omitirlo.
 Veamos ahora unos diagramas de las diferentes máquinas de estados
 %graficos de iker
@@ -164,8 +169,16 @@ En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas
 
 A continuación, describamos el código referente a los movimientos:
 Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir\_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y ``Game Over".
-
 Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería una imagen de la hoja esa de Iker que usamos siempre)
+
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.2]{calculos.jpg}
+		\caption{Algunos cálculos de píxeles y algunos relojes}
+	\end{figure}
+	
+También son importante las medidas de Barry. La imagen tiene 32x16 píxeles, se encuentra a 32 píxeles del final de la pantalla y a 27 del borde de la zona de juego. La distancia de la cabeza del muñeco hasta el final de la pantalla es de $r\_my$ píxeles, y de $r\_my-110$ hasta el borde de la zona de juego. Así, la zona de Barry es $hcnt \in [27, 40]$ y $vcnt \in [r\_my-107, r\_my -82]$.
+
 
 El process $mueve\_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve\_fondo$ hace lo mismo con el fondo de la pantalla.
 
@@ -193,7 +206,14 @@ Si quisiéramos generalizar esto para que el juego no acabara al coger 60 moneda
 
 El process $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
-... cosas de choques... mejor que lo haga iker
+En cuanto al process \emph{comprueba\_choques}, es el encargado, como su nombre indica, de ir calculando las coordenas $(i, j)$ adecuadas a comprobar si Barry ha colisionado con algún obstáculo. La idea es sencilla: en cada ciclo del reloj \emph{relojChoques} se comprueba un pixel del borde de Barry. Comenzamos en la esquina superior izquierda y vamos recorriendo los segmentos superior, derecho, inferior e izquierdo de manera continua, en el sentido de las agujas del reloj. Esto se consigue con una máguina de estados \emph{estado\_choques}, incrementando $i$ y $j$ de manera adecuada. Una vez que tenemos las coordenadas $(i, j)$ hacemos la concatenación $dir\_mem\_choque <= j\ \&\ (i + avanza\_obstaculos)$ que se conecta a las ROMs de obstáculos, obteniendo en la salida un bit que nos dice si hay o no choque, resultando en ``Game Over''. En la imagen se pueden apreciar mejor los bordes (aunque los números que ahí aparecen no son totalmente exactos).
+
+
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.39]{barryMedidas.png}
+		\caption{Algunos cálculos de píxeles y algunos relojes}
+	\end{figure}
 
 El process $pinta\_obstaculos$ lee la ROM de obstáculos y los pinta en la pantalla. En los píxeles donde no haya obstáculos se pintará el fondo del juego. $pinta\_munyeco$ hace lo mismo con la ROM de Barry, pintándolo en las posiciones de la pantalla que indica $r\_my$, la variable que almacena la posición del protagonista.
 
@@ -210,6 +230,64 @@ Finalmente, $colorear$ decide qué pintamos en cada píxel. La pantalla se pinta
 	\item Fondo
 \end{itemize}
 
+\section{Máquinas de estados}
+
+Principales máquinas de estados:
+
+\begin{enumerate}
+
+\item Niveles del juego: 
+
+		\begin{center}
+			
+			\begin{tikzpicture}[->,>= stealth',shorten >=1pt, auto, node distance=4cm, thick, inner sep=4pt, bend angle=20, draw=black]
+				\tikzset{every loop/.style={min distance=2mm,in=20,out=50,looseness=7}}
+				\tikzstyle{every state}=[fill=blue!20,very thick, draw=blue,text=blue]
+
+				%ESTADOS
+				\node[state,initial]		(q0) []	{Nivel 1};
+				\node[state]			(q1) [above right of=q0]	{Nivel 2};
+				\node[state]         		(q2) [below right of=q1]	{Nivel 3};
+
+				%TRANSICIONES
+ 				\path 
+					(q0)	edge [bend left]			node [] 		{$5+15n<60,\ n\in\mathbb{N}$}		(q1)
+				        (q1)	edge [bend left] 			node [] 		{$10+15n<60,\ n\in\mathbb{N}$}		(q2)
+					(q2)	edge [bend left]			node [] 		{$15n<60,\ n\in\mathbb{N}$}		(q0)
+					(q2)	edge [loop]			node [] 		{$> 60$}		();	
+																
+			\end{tikzpicture}
+	
+		\end{center}
+
+\item Estado del juego:
+
+\begin{center}
+			
+			\begin{tikzpicture}[->,>= stealth',shorten >=1pt, auto, node distance=4cm, thick, inner sep=4pt, bend angle=20, draw=black]
+				\tikzset{every loop/.style={min distance=2mm,in=20,out=50,looseness=7}}
+				\tikzstyle{every state}=[fill=blue!20,very thick, draw=blue,text=blue]
+
+				%ESTADOS
+				\node[state,initial]		(q0) []	{Playing};
+				\node[state]			(q1) [above right of=q0]	{Game Over};
+				\node[state]         		(q2) [below right of=q1]	{Pause};
+
+
+
+
+
+
+				%TRANSICIONES
+ 				\path 
+					(q0)	edge [bend left]			node [] 		{$color\_choque = 1$}		(q1)
+					(q0)	edge [bend left]			node [] 		{$pausado = 1$}		(q2)
+				        (q1)	edge [loop] 			node [] 		{}		()
+					(q2)	edge [bend left]			node [] 		{$pulsado = 1$}		(q0);																
+			\end{tikzpicture}
+	
+		\end{center}
+\end{enumerate}
 \section{Somos los mejores }
 \subsection{Cronología y detalles del proceso de desarrollo}
 %inicio del protecto
@@ -253,6 +331,14 @@ Detectar el choque ya sabíamos cómo, pero eliminar la moneda y aumentar el con
 
 
 
+
+
+
+
+
+
+
+
 Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
 
 \subsection{Orgullosos de algo en particular...}
@@ -268,6 +354,8 @@ permitido crear una aplicación de gran envergadura que no habría sido manejabl
 Además, aporta muchos puntos de vista diferentes para resolver un problema que surja durante el desarrollo del juego.
 
 
+
+
 \subsection{Dificultades añadidas por ser 5...}
 
 Al ser 5 personas, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Este desarrollo en paralelo
@@ -281,6 +369,13 @@ Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros aña
 	
 \begin{itemize}
 	\item Menú principal.
+	\item Posibilidad de elegir personaje. Se barajaron varias opciones, incluso llegando a dibujarlas (cortesía de Daniel Báscones) como la de la imagen, pero no fue posible incluirlo.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=3]{natalia.png}
+		\caption{Otro personaje del juego: Natbarry.}
+	\end{figure}
 	\item Posibilidad de elegir personaje.
 	\item Vehículos utilizables al almacenar un número determinado de monedas. En este caso, los mapas cambiarían pasado un tiempo en lugar de cada 5 monedas recogidas.
 	\item Mejorar la  manejabilidad del personaje para que acelerase al subir y flotase al comienzo de la bajada. 
@@ -290,6 +385,11 @@ Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros aña
 	\item Generador aleatorio de obstáculos, utilizando el de las monedas con ciertas modificaciones en la práctica.
 	\item Contador de monedas y contador de metros recorridos en pantalla.
 	\item Creación de un juego paralelo independiente que solo consiste en coger monedas que aparecen aleatoriamente. Dada nuestra experiencia jugando, creemos que este minijuego podría llegar a arrasar a nivel mundial.
+		\item Mejora de la exactitud de los choques.
+		Nótese que la forma en que están implementados los 
+		choques se aproxima la figura de Barry como un rectángulo.
+		Esto podría mejorarse con una aproximación con más segmentos a su figura, pero llevaría muchos más cálculos e implementación que no añaden demasiado. Ésta inexactitud se nota sobre todo al chocar 
+		con la parte de atrás de los pies del muñeco.
 \end{itemize}
 
 
@@ -331,6 +431,5 @@ La organización temporal aproximada del proyecto es la siguiente:
 \item Febrero: Elaboración de varios niveles, creación de mapas independientes de obstáculos
 \item Marzo: Transición entre niveles, monedas, revisión final, documentación.
 \end{itemize}
-
 
 \end{document}
