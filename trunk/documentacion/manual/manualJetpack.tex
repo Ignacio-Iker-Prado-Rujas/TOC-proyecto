@@ -78,46 +78,57 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS DOS CARAS APROX.______________________________________________________
 
 \section{Ficheros y dependencias}
-El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Sin embargo, para leer los datos de memoria utilizamos varias ROMs:
+El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos, monedas... Sin embargo, para cargar las imágenes del juego desde memoria utilizamos varias ROMs:
 
 \begin{itemize}
 
-	\item \texttt{rom\_rgb\_9b\_fondo.vhd}: Memoria ROM que contiene los datos del fondo del juego.
-	\item \texttt{rom\_rgb\_9b\_game-over-negro.vhd}: Memoria ROM que contiene los datos del Game Over.
-	\item \texttt{rom\_rgb\_9b\_arboles.vhd}: Memoria ROM que contiene los datos del fondo del tercer nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_barryair.vhd}: Memoria ROM que contiene los datos de Barry.
-	\item \texttt{rom\_rgb\_9b\_flappy-nivelBW.vhd}: Memoria ROM que contiene los datos de los obstáculos del segundo nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_game\_over\_negro.vhd}: Memoria ROM que contiene la imagen de Game Over.
+	\item \texttt{rom\_rgb\_9b\_barryair.vhd}: Memoria ROM que contiene una de las dos imágenes de Barry.	Hay dos para generar el efecto de que el muñeco camina sobre el suelo.
+	\item \texttt{rom\_rgb\_9b\_barryair2-5.vhd}: Memoria ROM que contiene la otra imagen de Barry.
 	\item \texttt{rom\_rgb\_9b\_lab.vhd}: Memoria ROM que contiene los datos del fondo de los dos primeros niveles del juego.
 	\item \texttt{rom\_rgb\_9b\_mapa\_facil.vhd}: Memoria ROM que contiene los obstáculos del primer nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_flappy-nivelBW.vhd}: Memoria ROM que contiene los datos de los obstáculos del segundo nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_arboles.vhd}: Memoria ROM que contiene los datos de los árboles del fondo del tercer nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_nubes.vhd}: Memoria ROM que contiene el fondo con las nubes y el cielo del tercer nivel del juego.
 	\item \texttt{rom\_rgb\_9b\_nivelfuegoBW.vhd}: Memoria ROM que contiene los obstáculos del tercer nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_nubes.vhd}: Memoria ROM que contiene el fondo del tercer nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_game-over-negro.vhd}: Memoria ROM que contiene los datos de la imagen del ``Game Over''.
 	
 \end{itemize}
 
 Además, utilizamos distintas frecuencias para Barry, el fondo y los obstáculos, pues cada uno de ellos se mueve a una velocidad diferente. Para ello tenemos varios ficheros divisores:
 \begin{itemize}
 
-	\item \texttt{divisor.vhd}: 
-	\item \texttt{divisor\_choques}: 
-	\item \texttt{divisor\_movimiento\_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo.
-	\item \texttt{divisor\_movimiento\_inter\_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo intermedio(para el último nivel).
-	\item \texttt{divisor\_movimiento\_obstaculos.vhd}: Fichero divisor que controla la velocidad de movimiento de los obstáculos.
-	\item \texttt{divisor\_movimiento\_moneda.vhd}: Fichero divisor que controla la velocidad de movimiento de las monedas.
-	\item \texttt{divisor\_munyeco.vhd}: Fichero divisor que controla la velocidad de Barry.
-	\item \texttt{divisor\_corre.vhd}: 
+	\item \texttt{divisor.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{clk\_1}, cuya frecuencia es de 12,5 MHz. Éste, a su vez, va conectado directamente al \emph{clk}. Por tanto, divide por 8. 
+	
+	\item \texttt{divisor\_choques}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojChoques}, cuya frecuencia es de 1 MHz. Por tanto, divide por 100. 
+	
+	\item \texttt{divisor\_munyeco.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojMunyeco}, cuya frecuencia es de 190,7 Hz. Por tanto, divide por 524288.
+	
+	\item \texttt{divisor\_corre.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{pasa\_tiempo}, cuya frecuencia es de 5,96 Hz. Por tanto, divide por 16777218.
+	
+	\item \texttt{divisor\_movimiento\_fondo.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojMovFondo}, cuya frecuencia es de 95,4 Hz. Por tanto, divide por 1048576.
+	
+	\item \texttt{divisor\_movimiento\_inter\_fondo.vhd}: Para el reloj del fondo intermedio del tercer escenario. Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojMovFondoInter}, cuya frecuencia es de 127,3 Hz. Por tanto, divide por 785410.
+	
+	\item \texttt{divisor\_movimiento\_obstaculos.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojMovimiento}, cuya frecuencia es de 152,5 Hz. Por tanto, divide por 655360.
+	
+	
+	\item \texttt{divisor\_movimiento\_moneda.vhd}: Tiene como entrada al \emph{clk\_100M} (con frecuencia 100 MHz) y salida \emph{relojMovMoneda}, cuya frecuencia es de 124 Hz. Por tanto, divide por 806432.
 	
 \end{itemize}
 
 Con el fichero \texttt{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \texttt{pines.ucf}.
 
-Mediante el fichero \texttt{control\_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la `P'\ para pausar la partida.
+Mediante el fichero \texttt{control\_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la `P'\ para pausar la partida. Es importante tener en cuenta que si mientras estamos pulsando la barra espaciadora además pulsamos cualquier otra tecla (distinta de `P') el controlador deja de detectar el espacio debido a la nueva tecla pulsada y Barry caerá hacia el suelo.
 
-El randomgenerator no se si se usa ¿¿??
+El \texttt{randomGenerator.vhd} es el encargado de generar coordenadas $y$ aleatorias para la posición inicial de la moneda en pantalla. La coordenada $x$ es fija pues siempre aparecen desde el fondo de la pantalla (el lado opuesto de donde se sitúa Barry).
 
+El \texttt{gestorCambioNivel.vhd}  %Jaime
+
+Como ya se ha comentado, todos estos ficheros son componentes de \texttt{choca.vhd}, y están conectados a él con las instrucciones correspondientes.
 
 \section{nombre.bit}
 
+\texttt{vgacore.bit}. O qué??
 
 \section{Pines y significado}
 Conectaremos el teclado con los pines:
@@ -129,7 +140,7 @@ Conectaremos el teclado con los pines:
 \end{lstlisting}
 
 
-Mostraremos el número de monedas mediante los displays de la placa extendida:
+Mostraremos el número de monedas mediante los displays siete segmentos de la placa extendida:
 
 \textbf{Placa izquierda:}
 
@@ -173,23 +184,30 @@ Por último, conectaremos los colores y la posición en la pantalla:
 \end{lstlisting}
 
 \section{Otros aquelarres de inicialización}
-Qué carajos hay que poner aquí??
+
+Nada en especial que comentar aquí. Lo único reseñable es que dependiendo del puesto de laboratorio en el que se ejecute puede haber diferencias en la posición de la zona de juego o en los colores (en algún caso salían los colores rosados). Ésto es debido a la configuración y uso de cada pantalla concreta.
 
 
-\section{Cómo se ``juega''}
-Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. A medida que recojas monedas, el juego cambiará de nivel. \footnote{En el video se puede observar que después de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso está puesto así a propósito ya que de este modo era más fácil grabar el video de la presentación de cada nivel.}
+\section{Cómo se juega}
+El juego comienza en el primer nivel con 0 monedas recogidas. Después, tras el despegue, simplemente se debe pulsar la barra espaciadora para ascender y soltarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. 
+
+A medida que se recogen monedas, el juego cambiará de nivel. Si desea pausar el juego se debe pulsar la letra `P'. Para salir de la pausa simplemente volver a pausar la barra espaciadora. El juego acaba al chocar con algún obstáculo. \footnote{En el video de presentación se puede observar que después de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso está puesto así a propósito ya que de este modo es más fácil grabar el video de la presentación de cada nivel y testear el funcionamiento.}
 
 
 \section{Qué espero ver}
-El juego consta de 3 niveles diferentes:
+Se trata de un juego para FPGA inspirado en el Jetpack Joyride del grupo Halfbrick Studios, que está disponible de manera gratuita para plataformas Android e iOS. El juego consta de 3 niveles diferentes:
+
 \begin{itemize}
 	\item \textbf{Nivel 1}: obstáculos espaciales y fondo de laboratorio.
-	\item \textbf{Nivel 2}: tuberías como obstáculos y fondo de laboratorio.
-	\item \textbf{Nivel 2}: obstáculos de fuego y fondo inspirado en Super Mario.
+	\item \textbf{Nivel 2}: tuberías estilo \emph{Flappy Bird} como obstáculos y fondo de laboratorio.
+	\item \textbf{Nivel 3}: obstáculos de fuego y fondo inspirado en \emph{Super Mario}, con árboles y nubes en dos capas.
 \end{itemize}
-Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 3 monedas volveremos al nivel 1, y así sucesivamente hasta llegar a completar el desafío: 60 monedas.
 
-La versión para FPGA del juego Jetpack Joyride. 
+Cuando Barry está en el suelo, se alternarán dos fotogramas suyos (que están en sus ROMs correspondientes, ver el primer apartado de este documento) dando la sensación de que camina. 
+
+El número de monedas recogidas se mostrará por los displays. Al resetear volverá la cuenta a 0. Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 5 monedas volveremos al nivel 1. Sucesivamente, cada 5 monedas recogidas cambiaremos de nivel hasta llegar a completar el desafío: 60 monedas. Si se alcanza dicho número el juego permanece en el nivel 3.
+
+Al pausar el juego, si hubiera alguna moneda en pantalla se pausará también, reanudando su camino al continuar jugando. No pasa ésto con el ``Game Over'', ya que al chocar con un obstáculo, las monedas seguirán su curso, como es lógico. \footnote{Ésto se puede apreciar en el video en el escenario 2.}
 
 
 \end{document}
