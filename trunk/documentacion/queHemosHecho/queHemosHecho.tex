@@ -152,7 +152,7 @@ El process $mueve\_obstaculos$ es el encargado de refrescar la pantalla y pintar
 $mueve\_munyeco$ se ocupa de dar la sensación de movimiento a Barry: cuando esté en el suelo, se cargarán alternativamente dos imágenes diferentes para que parezca que sus piernas se mueven.
 $mov\_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve\_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado\_munyeco$ son los encargados de actualizar estado y posición de Barry.
 
-El juego tendrá 4 estados:
+El juego tendrá 5 estados:
 \begin{itemize}
 \item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
 \item Pause: Pulsando la tecla `P'  \ paramos el juego.
@@ -190,12 +190,13 @@ Finalmente, $colorear$ decide qué pintamos en cada píxel, eligiendo entre.
 \end{itemize}
 
 \section{Somos los mejores (venderse)}
-Jesús:  Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
+Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
 El problema ahora era generar la ROM.
 
 Incluso para imágenes pequeñas, como podía ser el caso de la imagen de Barry (32x16=512 píxeles ), el número de píxeles a guardar es enorme. Para cargar los mapas era virtualmente imposible, con 256x1024 = 262144 colores RGB a guardar. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM
 
 Una vez solventado ese problema, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
+Además, necesitábamos capturar las pulsaciones de teclado que hacen que Barry suba y baje y que el juego se pause, lo cual fue relativamente sencillo gracias a los ejemplos vistos en clase.
 
 No obstante, este juego no tendría sentido sin obstáculos de por medio con los que chocarse.
 Este fue uno de los grandes escollos del proyecto: detectar el choque.
@@ -267,8 +268,14 @@ El proceso para convertir una imagen cualquiera a una ROM es el siguiente:
 \item Conectamos la ROM al módulo principal del proyecto, y ya podemos mostrar la imagen por pantalla.
 \end{enumerate}
 
+Aunque no se trata de reutilización de código, el uso de Photoshop ha sido clave para el tratamiento de imágenes y mapas.
+
+Jaye y Mayra tiraros el rollo aqui
+
+
+
 \section{Trabajo individual}
-La organización orientativa del trabajo ha sido la sguiente:
+La organización orientativa del trabajo por persona ha sido la sguiente:
 \begin{itemize}
 \item Jaime y Mayra: controlador de teclado, gestión y diseño de mapas, cambio de niveles, movimiento de Barry.
 \item Jesús: Imágenes, memorias ROM, monedas.
@@ -276,6 +283,16 @@ La organización orientativa del trabajo ha sido la sguiente:
 \item Quique: Coordinar el proyecto, pantalla principal, movimiento de Barry y de los mapas, monedas.
 \end{itemize}
 No obstante, al ser cinco integrantes en el proyecto, hemos podido variar la distribución de tareas en función de los requerimientos en cada fase del proceso. 
+
+La organización temporal aproximada del proyecto es la siguiente:
+\begin{itemize}
+\item Octubre: Decisión de proyecto, primeras ideas, organización de equipos para la repartición de tareas. También realizamos proyectos paralelos para tomar contacto con el lenguaje VHDL.
+\item Noviembre: Tratamiento de imágenes, capturar las pulsaciones de teclado, movimiento de barry y mostrar el mapa por pantalla.
+\item Diciembre: Movimiento de mapas, colisiones, elaboración de mapas complejos, depuración del movimiento de Barry
+\item Enero: Parada temporal del proyecto debido a exámenes.
+\item Febrero: Elaboración de varios niveles, creación de mapas independientes de obstáculos
+\item Marzo: Transición entre niveles, monedas, revisión final.
+\end{itemize}
 
 
 \end{document}
