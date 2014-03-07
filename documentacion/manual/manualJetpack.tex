@@ -7,22 +7,32 @@
 \usepackage{afvc}
 %Figuras
 \usepackage[vflt]{floatflt}		%Entorno float-figure
-\usepackage{listings}  %codigos
 %\graphicspath{/Temas/Tema01/Imagenes}
+\usepackage{listings}
 
 %%%%%%		chapter's style		%%%%%%%%%%%%%%%%%%%
 
 \renewcommand{\thepage}{\arabic{page}}% Arabic page numbers\fancyhead{}
 \pagestyle{fancy}
+%\fancyfoot{}
+%\fancyhead[RO]{}	%encabezado de pares: nombre de la sección
+%\fancyfoot[LE,RO]{\thepage}	%abajo a izqda en pares, derecha en impares: numero de pagina
+%\fancyhead[C]{Tecnología y Organización de Computadores} %cuadro izquierdo de pagina par: parte y contador
+%\fancyfoot[CE]{Tecnología y Organización de Computadores} 
+%\fancyfoot[CO]{Doble Grado Informática-Matemáticas - Universidad Complutense}
+\renewcommand{\footrulewidth}{0.4pt}
+%\renewcommand{\headrulewidth}{0.4pt}		% linea por debajo del encabezado
+%\renewcommand{\sectionmark}[1]{\markright{{\thesection. #1}}}	
+
+\fancyhead{}
 \fancyfoot{}
-\fancyhead[RO]{}	%encabezado de pares: nombre de la sección
+\fancyhead[C]{Manual Jetpack}	%encabezado de pares: nombre de la sección
 \fancyfoot[LE,RO]{\thepage}	%abajo a izqda en pares, derecha en impares: numero de pagina
-\fancyhead[LE]{\nouppercase{\leftmark}} %cuadro izquierdo de pagina par: parte y contador
+%\fancyhead[LE]{\nouppercase{\leftmark}} %cuadro izquierdo de pagina par: parte y contador
 \fancyfoot[CE]{Tecnología y Organización de Computadores} 
 \fancyfoot[CO]{Doble Grado Informática-Matemáticas - Universidad Complutense}
-\renewcommand{\footrulewidth}{0.4pt}
-\renewcommand{\headrulewidth}{0.4pt}		% linea por debajo del encabezado
-\renewcommand{\sectionmark}[1]{\markright{\textbf{\thesection. #1}}}	%negrita
+
+
 \renewcommand{\labelitemi}{$\circ$} %Primer itemize con circunferencia vacia
 \renewcommand{\labelitemii}{$\cdot$} %Segundo itemize con punto pequeño
 \renewcommand*{\thesection}{\arabic{section}}	% Hace que no apareca el indice de capitulos y que comience en section, GRACIAS A RUBEN
@@ -33,12 +43,13 @@
 \newcommand*{\PKT}{\hbox{P}\kern-2.5pt\lower3.5pt\hbox{\small{K}}\kern-2.8pt\hbox{T}\kern-2pt}	%PiKey Team en bonito
 
 
+
 \begin{document} 
 \title{\Huge{\textsc{Manual Jetpack}} \\
 	\vspace{0.7cm}
 	 \textsc{\Large{Tecnología y Organización de Computadores}} \\
 	\includegraphics[scale=0.3]{ucm.pdf}}
-\author{{\Large{PiKey Team-}} \PKT \ : \vspace{0.2cm} \\
+\author{\Large{PiKey Team-} \PKT \ : \vspace{0.2cm} \\
 	Jesús Aguirre Pemán \\
 	 Enrique Ballesteros Horcajo \\
 	 Mayra Alexandra Castrosqui Florián\\
@@ -55,9 +66,9 @@
 
 \tableofcontents 							%INDICE hipervinculado
 
-%\newpage
-%\mbox{}
-%\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
+\newpage
+\mbox{}
+\thispagestyle{empty}						% Hoja en blanco, sin numeros ni nada
 \newpage
 
 \pagenumbering{arabic}						% Pone el contador de paginas a 1 y ahora en numeros normales
@@ -67,39 +78,40 @@
 %ESTE FICHERO DEBERÍA SER DE UNAS DOS CARAS APROX.______________________________________________________
 
 \section{Ficheros y dependencias}
-El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Para leer los datos de memoria utilizamos varias ROMs:
+El módulo central de nuestro proyecto es \texttt{choca.vhd}. Es ahí donde se gestionan las posiciones de Barry, el fondo, obstáculos y monedas. Sin embargo, para leer los datos de memoria utilizamos varias ROMs:
 
 \begin{itemize}
-	\item \texttt{rom\_rgb\_9b\_barryair.vhd}: Memoria ROM que contiene los datos de Barry en la posición 1.
-	\item \texttt{rom\_rgb\_9b\_barryair2-5.vhd}: Memoria ROM que contiene los datos de Barry en la posición 2.
+
+	\item \texttt{rom\_rgb\_9b\_fondo.vhd}: Memoria ROM que contiene los datos del fondo del juego.
+	\item \texttt{rom\_rgb\_9b\_game-over-negro.vhd}: Memoria ROM que contiene los datos del Game Over.
+	\item \texttt{rom\_rgb\_9b\_arboles.vhd}: Memoria ROM que contiene los datos del fondo del tercer nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_barryair.vhd}: Memoria ROM que contiene los datos de Barry.
+	\item \texttt{rom\_rgb\_9b\_flappy-nivelBW.vhd}: Memoria ROM que contiene los datos de los obstáculos del segundo nivel del juego.
+	\item \texttt{rom\_rgb\_9b\_game\_over\_negro.vhd}: Memoria ROM que contiene la imagen de Game Over.
 	\item \texttt{rom\_rgb\_9b\_lab.vhd}: Memoria ROM que contiene los datos del fondo de los dos primeros niveles del juego.
-	\item \texttt{rom\_rgb\_9b\_nubes.vhd}: Memoria ROM que contiene el primer fondo del tercer nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_arboles.vhd}: Memoria ROM que contiene lel segundol fondo del tercer nivel del juego.
 	\item \texttt{rom\_rgb\_9b\_mapa\_facil.vhd}: Memoria ROM que contiene los obstáculos del primer nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_flappy-nivelBW.vhd}: Memoria ROM que contiene los obstáculos del segundo nivel del juego.
 	\item \texttt{rom\_rgb\_9b\_nivelfuegoBW.vhd}: Memoria ROM que contiene los obstáculos del tercer nivel del juego.
-	\item \texttt{rom\_rgb\_9b\_game-over-negro.vhd}: Memoria ROM que contiene los datos del ''Game Over''.
+	\item \texttt{rom\_rgb\_9b\_nubes.vhd}: Memoria ROM que contiene el fondo del tercer nivel del juego.
+	
 \end{itemize}
 
 Además, utilizamos distintas frecuencias para Barry, el fondo y los obstáculos, pues cada uno de ellos se mueve a una velocidad diferente. Para ello tenemos varios ficheros divisores:
-
 \begin{itemize}
 
 	\item \texttt{divisor.vhd}: 
-	\item \texttt{divisor\_choques.vhd}: 
+	\item \texttt{divisor\_choques}: 
 	\item \texttt{divisor\_movimiento\_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo.
 	\item \texttt{divisor\_movimiento\_inter\_fondo.vhd}: Fichero divisor que controla la velocidad de movimiento del fondo intermedio(para el último nivel).
 	\item \texttt{divisor\_movimiento\_obstaculos.vhd}: Fichero divisor que controla la velocidad de movimiento de los obstáculos.
 	\item \texttt{divisor\_movimiento\_moneda.vhd}: Fichero divisor que controla la velocidad de movimiento de las monedas.
 	\item \texttt{divisor\_munyeco.vhd}: Fichero divisor que controla la velocidad de Barry.
 	\item \texttt{divisor\_corre.vhd}: 
-
+	
 \end{itemize}
 
 Con el fichero \texttt{contador.vhd} controlaremos el número de monedas cogidas, que se mostrarán en los displays 7 segmentos de la placa mediante el fichero \texttt{pines.ucf}.
 
-Mediante el fichero \texttt{control\_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la 'P' para pausar la partida.
-
+Mediante el fichero \texttt{control\_teclado.vhd} controlamos las teclas que pulsamos: la barra espaciadora para hacer ascender a Barry, y la `P'\ para pausar la partida.
 
 El randomgenerator no se si se usa ¿¿??
 
@@ -107,103 +119,75 @@ El randomgenerator no se si se usa ¿¿??
 \section{nombre.bit}
 
 
-
-
-
-
 \section{Pines y significado}
 Conectaremos el teclado con los pines:
 
-\begin{lstlisting}
-NET PS2CLK LOC = B16;
-NET PS2DATA LOC = E13;
-NET PS2CLK CLOCK\_DEDICATED\_ROUTE = FALSE;
+\begin{lstlisting}[language=VHDL]
+	NET PS2CLK LOC = B16;
+	NET PS2DATA LOC = E13;
+	NET PS2CLK CLOCK_DEDICATED_ROUTE = FALSE;
 \end{lstlisting}
+
 
 Mostraremos el número de monedas mediante los displays de la placa extendida:
 
-\begin{itemize}
-	\item placa izquierda:
-	\begin{lstlisting}
-	NET displayizq\<0\> LOC=H14;
-	NET displayizq\<1\> LOC=M4;
-	NET displayizq\<2\> LOC=P1;
-	NET displayizq\<3\> LOC=N3;
-	NET displayizq\<4\> LOC=M15;
-	NET displayizq\<5\> LOC=H13;
-	NET displayizq\<6\> LOC=G16;
-	\end{lstlisting}
+\textbf{Placa izquierda:}
 
-	\item placa derecha:
-	\begin{lstlisting}
-	NET displaydcha\<0\> loc=E2;
-	NET displaydcha\<1\> loc=E1;
-	NET displaydcha\<2\> loc=F3;
-	NET displaydcha\<3\> loc=F2;
-	NET displaydcha\<4\> loc=G4;
-	NET displaydcha\<5\> loc=G3;
-	NET displaydcha\<6\> loc=G1;
-	\end{lstlisting}
-\end{itemize}
+\begin{lstlisting}[language=VHDL]
+	NET displayizq<0> LOC = H14;
+	NET displayizq<1> LOC = M4;
+	NET displayizq<2> LOC = P1;
+	NET displayizq<3> LOC = N3;
+	NET displayizq<4> LOC = M15;
+	NET displayizq<5> LOC = H13;
+	NET displayizq<6> LOC = G16;
+\end{lstlisting}
 
-Por último, conectaremos los colores y la posición en la pantalla:
-
-\begin{lstlisting}
-NET rgb<0> LOC=C9; \# BLU0;
-NET rgb<1> LOC=E7; \# BLU1;
-NET rgb<2> LOC=D5; \# BLU2;
-NET rgb<3> LOC=A8; \# GRN0; 
-NET rgb<4> LOC=A5; \#  GRN1;
-NET rgb<5> LOC=C3; \# GRN2;
-NET rgb<6> LOC=C8; \# RED0;
-NET rgb<7> LOC=D6; \# RED1;
-NET rgb<8> LOC=B1; \# RED2;
-NET hsyncb LOC=B7; \# HSYNC \# 
-NET vsyncb LOC=D8; \# VSYNC \# 
+\textbf{Placa derecha:}
+	
+\begin{lstlisting}[language=VHDL]
+	NET displaydcha<0> LOC = E2;
+	NET displaydcha<1> LOC = E1;
+	NET displaydcha<2> LOC = F3;
+	NET displaydcha<3> LOC = F2;
+	NET displaydcha<4> LOC = G4;
+	NET displaydcha<5> LOC = G3;
+	NET displaydcha<6> LOC = G1;
 \end{lstlisting}
 
 
+Por último, conectaremos los colores y la posición en la pantalla:
 
-
-
-
-
+\begin{lstlisting}[language=VHDL]
+	NET rgb<0> LOC = C9; #BLU0;
+	NET rgb<1> LOC = E7; #BLU1;
+	NET rgb<2> LOC = D5; #BLU2;
+	NET rgb<3> LOC = A8; #GRN0; 
+	NET rgb<4> LOC = A5; #GRN1;
+	NET rgb<5> LOC = C3; #GRN2;
+	NET rgb<6> LOC = C8; #RED0;
+	NET rgb<7> LOC = D6; #RED1;
+	NET rgb<8> LOC = B1; #RED2;
+	NET hsyncb LOC = B7; #HSYNC# 
+	NET vsyncb LOC = D8; #VSYNC# 
+\end{lstlisting}
 
 \section{Otros aquelarres de inicialización}
 Qué carajos hay que poner aquí??
-El aquelarre o sabbat es una reunión nocturna de brujas y brujos presidida por Satanás que generalmente se presenta en forma de macho cabrío. Fuente: wikipedia.
-
-
 
 
 \section{Cómo se ``juega''}
-Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender.  El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. A medida que recojas monedas, el juego cambiará de nivel.
-Si deseas pausar el juego debes pulsar la tecla `P'.\\
-Si deseas salir de la pausa para seguir jugando debes pulsar la barra espaciadora. \\
-Al chocar con un obstáculo el juego se parará mostrando un mensaje de Game Over.  Si pulsamos la barra espaciadora el juego comenzará de nuevo. \footnote{En el video se puede observar que después de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso está puesto así a propósito ya que de este modo era más fácil grabar el video de la presentación de cada nivel.}\\
-Si deseamos empezar el juego desde el principio debemos activar la señal de reset y desactivarla tras un instante. 
-
+Tras el despegue, simplemente pulsa la barra espaciadora para ascender y deja de pulsarla para descender. El objetivo es esquivar todos los obstáculos, y recoger el mayor número de monedas posible. A medida que recojas monedas, el juego cambiará de nivel. \footnote{En el video se puede observar que después de haber chocado con un obstáculo, al pulsar el espacio se puede seguir jugando normalmente. En este caso está puesto así a propósito ya que de este modo era más fácil grabar el video de la presentación de cada nivel.}
 
 
 \section{Qué espero ver}
 El juego consta de 3 niveles diferentes:
-
 \begin{itemize}
-
-\item \textbf{Nivel 1}: obstáculos espaciales y fondo de laboratorio.
-\item \textbf{Nivel 2}: tuberías como obstáculos y fondo de laboratorio.
-\item \textbf{Nivel 3}: obstáculos de fuego y fondo inspirado en Super Mario.
+	\item \textbf{Nivel 1}: obstáculos espaciales y fondo de laboratorio.
+	\item \textbf{Nivel 2}: tuberías como obstáculos y fondo de laboratorio.
+	\item \textbf{Nivel 2}: obstáculos de fuego y fondo inspirado en Super Mario.
 \end{itemize}
-
-
 Empezamos en el nivel 1, y al conseguir 5 monedas pasaremos al nivel 2. Cuando obtengamos 5 monedas más, avanzaremos al nivel 3, y recogiendo otras 3 monedas volveremos al nivel 1, y así sucesivamente hasta llegar a completar el desafío: 60 monedas.
-\end{itemize}
-
-
-
-
-
-
 
 La versión para FPGA del juego Jetpack Joyride. 
 
