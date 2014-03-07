@@ -114,6 +114,21 @@ Finalmente, $colorear$ decide qué pintamos en cada píxel, eligiendo entre.
 \end{itemize}
 
 \section{Somos los mejores (venderse)}
+Jesús:  Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
+El problema ahora era generar la ROM.
+Para imágenes pequeñas, como podía ser el caso de la imagen de Barry, se puede escribir manualmente el valor de cada pixel de la ROM. Sin embargo, para cargar los mapas era virtualmente imposible. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM
+
+Una vez solventado ese problema, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
+
+No obstante, este juego no tendría sentido sin obstáculos de por medio con los que chocarse.
+Este fue uno de los grandes escollos del proyecto: detectar el choque.
+Finalmente, decidimos pintar los obstáculos de un color determinado para comprobar si Barry ocupaba el mismo píxel que el obstáculo y dar por finalizada la partida.
+Una vez decidida la estrategia llegaba el momento de implementarla, cosa que fue bastante más complicada de lo esperado, y que finalmente Iker resolvió elegantemente con una comprobación constante circular del perímetro exterior de la imagen de Barry.
+Ahora teníamos choques y movimiento de los mapas, y faltaba darle un objetivo al juego: conseguir el máximo número posible de monedas.
+Para ello teníamos que pintarlas, chocarnos con ellas, y borrarlas de la pantalla tras el choque, además de mostrar por el display 7 segmentos el número de monedas acumuladas.
+Detectar el choque ya sabíamos cómo, pero eliminar la moneda y aumentar el contador se tornó más difícil de lo que parecía, puesto que había que realizar una gran distinción de casos según el estado de la moneda (subiendo, bajando, quieta, invisible...). Además, una vez chocara con Barry había que borrarla de la pantalla hasta que volviera a aparecer metros más adelante en el mapa. El hecho de que la moneda se moviera y no estuviese quieta en el mapa complicó la implementación pero dotó al juego de un aspecto visual mucho más desarrollado.
+
+Global:
 En serio hay alguna duda?
 
 Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incluyendo varios niveles diferentes, posibilidad de recoger monedas (y contar cuántas hemos recogido)...
