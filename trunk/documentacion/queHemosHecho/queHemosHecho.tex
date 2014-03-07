@@ -144,6 +144,8 @@
 	Total REAL time to Xst completion: 1131.00 secs (18.85 min).
 
 \section{Controlador/es (y máquinas de estados)}
+La función de cada señal esta explicada en \texttt{choca.vhd} y sería pesado e innecesario volver a reproducirla aquí, por lo que optamos por omitirlo.
+Veamos ahora unos diagramas de las diferentes máquinas de estados
 En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
 
 A continuación, describamos el código referente a los movimientos:
