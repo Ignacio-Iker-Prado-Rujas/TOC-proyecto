@@ -179,7 +179,7 @@ Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla.
 El problema ahora era generar la ROM.
 
 %paso de imagenes a la FPGA mediante ROMs (diferenciacion entre fondos RGB y obstaculos BINario)
-Para imágenes pequeñas, como podía ser el caso de la imagen de Barry, se puede escribir manualmente el valor de cada pixel de la ROM. Sin embargo, para cargar los mapas era virtualmente imposible. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM
+Para imágenes pequeñas, como podía ser el caso de la imagen de Barry, se puede escribir manualmente el valor de cada pixel de la ROM. Sin embargo, para cargar los mapas era virtualmente imposible. La solución estaba clara: mediante un programa generar la ROM automáticamente. Afortunadamente, tras investigar a fondo sobre las memorias ROM y su uso en códigos VHDL, conseguimos encontrar un programa, hecho por la Universidad Rey Juan Carlos, que convertía las imágenes en PPM a ROM. Paso seguido comenzamos a diseñar los niveles que posteriormente se pasarían a ROM con la ayuda de dicho programa. Para tal efecto se usó el programa Adobe Photoshop, creando mapas adaptados 
 
  %creando fondos y obstaculos (.BMP)
 
@@ -219,7 +219,9 @@ Formar un equipo de 5 personas ha sido clave para el éxito de nuestro proyecto,
 permitido crear una aplicación de gran envergadura que no habría sido manejable para un equipo más pequeño.
 
 Dificultades añadidas por ser 5...
-Al ser 5, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Además, 
+Al ser 5, en todo momento había dos grupos trabajando simultáneamente sobre la aplicación, lo que obligaba a hacer un merge todos los días tras este trabajo. Este desarrollo en paralelo
+creaba en ocasiones bastantes dificultades, ya que podía ocurrir que en distintas líneas de desarrollo del trabajo se tocara la misma parte del código, 
+, lo cual creaba complicaciones a la hora de juntar el trabajo. Además, 
 obligaba a crear unos buenos comentarios para que cada grupo entendiese el trabajo del otro. 
 
 Otra dificultad añadida es la de coincidir los 5  en el laboratorio para trabajar conjuntamente con las fpgas.
