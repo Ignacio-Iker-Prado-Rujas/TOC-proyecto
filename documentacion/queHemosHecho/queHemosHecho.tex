@@ -119,6 +119,16 @@ Las únicas teclas reconocidas por el teclado son la barra espaciadora y la tecl
 \end{itemize}
 	Memorias RAM:
 	
+	Number of BRAMs:    24  out of     24   100\%  
+
+	Como ocupamos todas las RAM'S de la fpga, y ésta no son suficientes para almacenar todos los mapas, para ciertos mapas tenemos:
+		The ROM description  will be implemented on LUTs because the limited number of device block RAMs.
+	Esto hace que ciertos mapas se cableen, lo que ralentiza la sintetización y hace que se ocupen la mayor parte de las LUT'S de la fpga.
+	Un efecto secundario de utilizar toda la fpga es que el clock skew se convierte en un grave problema, ya que debe llegar a todas 
+	 las partes de la fpga.
+
+	Otros datos de interés:
+	
 	Total REAL time to Xst completion: 1131.00 secs (18.85 min).
 
 \section{Controlador/es (y máquinas de estados)}
