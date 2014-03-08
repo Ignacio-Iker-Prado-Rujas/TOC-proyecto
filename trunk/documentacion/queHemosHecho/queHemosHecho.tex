@@ -161,20 +161,26 @@
 	Total REAL time to Xst completion: 1131.00 secs (18.85 min).
 
 \section{Controladores}
+\subsection{Introducción y estados del juego}
 La función de cada señal esta explicada en \texttt{choca.vhd} y sería pesado e innecesario volver a reproducirla aquí, por lo que optamos por omitirlo.
-Veamos ahora unos diagramas de las diferentes máquinas de estados
-%graficos de iker
 
 En primer lugar, vemos que cargamos separadamente de memoria a Barry,  los mapas, los obstáculos y el cartel de ``Game Over". Por tanto, necesitaremos 5 memorias ROM diferentes. Para mostrar a Barry corriendo tenemos dos ROM, y a esto hay que sumarle las tres ROM de fondos junto a las 3 ROM de obstáculos, haciendo un total de 9 ROMs, cada una del tamaño correspondiente. 
 
-A continuación, describamos el código referente a los \textbf{movimientos}:
+El juego tendrá 5 estados:
+\begin{itemize}
+\item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
+\item Pause: Pulsando la tecla `P'  \ paramos el juego.
+\item Quieto: Barry no está subiendo ni bajando: puede estar andando o en el techo.
+\item Subiendo: Al pulsar la barra espaciadora activamos los propulsores del Jetpack y Barry sube.
+\item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
+\end{itemize}
+
+\subsection{Imágenes y movimientos}
+%A continuación, describamos el código referente a las \textbf{imágenes y movimientos}:
 
 Las señales $posy$ y $posx$ nos indican en qué posición estamos pintandolos obstáculos, y su concatenación, $dir\_mem$, es la dirección que utilizaremos para leer de memoria. Lo mismo ocurre con el fondo, barry, y ``Game Over".
 
 La señal $fondo\_inter$ conecta los dos fondos que tiene el Nivel 3 (inspirado en ``Super Mario").
-
-
-Para cuadrar en la pantalla lo que leemos de memoria bla bla bla (aquí metería una imagen de la hoja esa de Iker que usamos siempre)
 
 El process $mueve\_obstaculos$ es el encargado de refrescar la pantalla y pintar los obstáculos que salen a medida que avanzamos en el juego. Para ello borra la primera columna, desplaza el resto de columnas a la izquierda, e inserta la nueva columna a la derecha. El process $mueve\_fondo$ hace lo mismo con el fondo de la pantalla, y $mueve\_fondo\_inter$, con el fondo intermedio del Nivel 3.
 
@@ -194,16 +200,9 @@ El process $mueve\_munyeco$ se ocupa de dar la sensación de movimiento a Barry:
 $mov\_munyeco$ actualiza la posición de Barry en función de su estado, y $mueve\_munyeco$ actualiza el estado del muñeco en función del estado anterior y la entrada de teclado (máquina de de estados). Junto con $estado\_munyeco$ son los encargados de actualizar estado y posición de Barry.
 
 
-El juego tendrá 5 estados:
-\begin{itemize}
-\item Game Over: Nos hemos chocado, y por tanto, la partida se ha acabado.
-\item Pause: Pulsando la tecla `P'  \ paramos el juego.
-\item Quieto: Barry no está subiendo ni bajando: puede estar andando o en el techo.
-\item Subiendo: Al pulsar la barra espaciadora activamos los propulsores del Jetpack y Barry sube.
-\item Bajando: Cuando soltamos la barra espaciadora, cortamos el combustible y Barry cae.
-\end{itemize}
+\subsection{Niveles}
+%Pasemos a analizar la parte de los \textbf{niveles}.
 
-Pasemos a analizar la parte de los \textbf{niveles}.
 $clock\_estado\_nivel$ actualiza secuencialmente en cada flanco de reloj el nivel en el que nos encontramos.
 El process $niveles$ se encarga del paso entre los diferentes niveles: al aguantar sin chocarnos cierta cantidad de tiempo en un nivel pasamos al siguiente, para lo que hay que cambiar obstáculos y fondo.
 Hay tres estados en los niveles:
@@ -213,6 +212,9 @@ Hay tres estados en los niveles:
 \item \texttt{nivel 3: }en este nivel se cargan el fondo con nubes y montañas y los obstáculos de bolas de fuego. Al conseguir $15n<60,\ n\in\mathbb{N}$ monedas se pasará al nivel 1, y una vez se haya llegado a las 60 no se cambiará de nivel, aunque el juego continuará. 
 \end{itemize}
 Si quisiéramos generalizar esto para que el juego no acabara al coger 60 monedas se podría haber añadido un contador $j$ que se inicializara a 0 e incrementara cada vez que se pasa del nivel 3 al 1. De esta manera, para pasar al siguiente nivel habría que comprobar, desde el nivel 1 que los ultimos 5 bits (que representan los números del 0 al 15) de cuenta de monedas, a los que llamaremos cuenta, valgan $j\cdot 15 + 5$, desde el nivel 2 que la cuenta  valga $j\cdot 15 + 10$ y desde el nivel 3 que valga $j\cdot + 15$. 
+
+\subsection{Choques y obstáculos}
+%Pasemos a analizar los \textbf{choques y obstáculos}
 
 El process $controla\_juego$ es el encargado de parar y reanudar el juego, así como de terminar la partida cuando nos choquemos.
 
