@@ -297,6 +297,37 @@ Principales máquinas de estados:
 			\end{tikzpicture}
 	
 		\end{center}
+
+\item Estados de la moneda y transiciones principales:
+
+\begin{center}
+			
+			\begin{tikzpicture}[->,>= stealth',shorten >=1pt, auto, node distance=5.5cm, thick, inner sep=4pt, bend angle=20, draw=black]
+				\tikzset{every loop/.style={min distance=2mm,in=20,out=50,looseness=7}}
+				\tikzstyle{every state}=[fill=blue!20,very thick, draw=blue,text=blue]
+
+				%ESTADOS
+				\node[state]				(q0) []				{Invisible};
+				\node[state,initial]			(q1) [below left of=q0]	{Bajando};
+				\node[state]         			(q2) [below right of=q0]	{Subiendo};
+				\node[state]         			(q3) [below right of=q1]	{Quieto};
+
+
+				%TRANSICIONES
+ 				\path 
+					(q2)	edge [bend right=8]			node [swap] 			{$posy\_moneda \le 115$}		(q1)
+					(q1)	edge [bend right=8]			node [swap] 			{$posy\_moneda \ge 310$}		(q2)
+				        (q1)	edge [bend right=5] 			node [swap] 		{$catched = 1$}				(q0)
+					(q2)	edge [bend right] 			node [swap] 			{$catched = 1$}				(q0)
+				        (q1)	edge [bend right] 			node [swap] 			{$estado\_juego = pause$}		(q3)
+				        (q2)	edge [bend left] 			node [] 			{$estado\_juego = pause$}		(q3)
+				        (q0)	edge [bend right] 			node [swap] 			{$avanza\_obstaculos = (1023)_{10}$}	(q1)
+				        (q3)	edge [bend right=5] 			node [swap] 			{$playing$}		(q1);														
+			\end{tikzpicture}
+	
+		\end{center}
+
+
 \end{enumerate}
 \section{Somos los mejores }
 \subsection{Cronología y detalles del proceso de desarrollo}
@@ -358,7 +389,7 @@ Hemos conseguido reproducir fidedignamente el videojuego $Jetpack Joyride$, incl
 Orgullosos de utilizar fondos reales creados por la mejor diseñadora gráfica del doble grado. Orgullosos de jugar con un muñeco real en vez de mover un pixel. Orgullosos de unos choques tan
  currados que permitirían generalizar las colisiones a tres dimensiones, pues son independientes del buffer de pantalla. 
 
-Orgullosos de la habilidad del mejor petaqueador del doble grado para buscar en la web programas útiles. 
+Orgullosos de la habilidad del mejor 'finder' del doble grado para buscar en la web programas útiles. Y orgullosos de que Barry corra cuando está en el suelo.
 
 \subsection{Por qué ha sido bueno ser 5...}
 Formar un equipo de 5 personas ha sido clave para el éxito de nuestro proyecto, puesto que nos ha permitido trabajar en paralelo en un mínimo de 3 tareas simultáneas. Nos ha 
