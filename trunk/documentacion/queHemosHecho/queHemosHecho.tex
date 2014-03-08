@@ -85,26 +85,32 @@
 	Podemos distinguir cuatro entradas de datos diferentes:
 	\begin{itemize}	
 	\item Las relativas al teclado: PS2CLK es el reloj propio del teclado PS2 que funciona a  su propia frecuencia independiente 
- 	del reloj de la FPGA. PS2DATA es el bus bidireccional de un bit del teclado que manda los códigos de las teclas pulsadas de manera secuencia.
+ 	del reloj de la FPGA. PS2DATA es el bus bidireccional de un bit del teclado que manda los códigos de las teclas pulsadas de manera secuencial.
 	
-	La gestión del teclado la realiza el módulo "control\_teclado":	Las únicas teclas reconocidas son la barra espaciadora y la tecla $P$. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} si se presiona la barra espaciadora y \texttt{pausado} si se pulsa la tecla "p".	
-	Estas dos señales controlan el movimiento del muñeco (Barry) gestionadas por la máquina de estados del juego: Si nos encontramos en "playing" y se pulsa la "p"  pasaremos al estado "pausa". Si se detecta la barra espaciadora, pasaremos
-	 a "playing" y tanto Barry como el mapa comenzarán a moverse. El pause y el game over se consiguen mediante el control de los contadores de avance, que mueven el fondo, la moneda y los obstáculos, así como con el control del estado de Barry.
-	Mediante estos contadores vamos accediendo a las posiciones de memoria de las rom's que queremos en cada momento, con lo que controlamos la salida "rgb"  que va a la pantalla, a nuestro gusto. Esta salida "rgb" le indica a la pantalla el color que debe dar a cada pixel
-	en función de las señales hsyncb y vsyncb.
+	La gestión del teclado la realiza el módulo `control\_teclado":	Las únicas teclas reconocidas son la barra espaciadora y la tecla ``P''. El controlador del teclado detecta dichas teclas y activa las señales \texttt{pulsado} si se presiona la barra espaciadora y \texttt{pausado} si se pulsa la tecla ``P''.	
+	Estas dos señales controlan el movimiento del muñeco (Barry) gestionadas por la máquina de estados del juego: Si nos encontramos en "playing" y se pulsa la ``P''  pasaremos al estado ``pausa''. Si se detecta la barra espaciadora, pasaremos
+	 a ``playing'' y tanto Barry como el mapa comenzarán a moverse. El pause y el Game Over se consiguen mediante el control de los contadores de avance, que mueven el fondo, la moneda y los obstáculos, así como con el control del estado de Barry.
+	Mediante estos contadores vamos accediendo a las posiciones de memoria de las ROMs que queremos en cada momento, con lo que controlamos la salida ``rgb''  que va a la pantalla, a nuestro gusto. Esta salida ``rgb'' le indica a la pantalla el color que debe dar a cada pixel
+	en función de las señales \texttt{hsyncb} y \texttt{vsyncb}.
 
-	\item El reset:	Esta señal, asíncrona, está conectada a un switch de la FPGA y reinicia todo el juego. Pone el nivel en el primero, por lo que se cargan tanto el fondo como los obstáculos correspondientes. Se genera un retardo para que no aparezcan de golpe. Además el contador de monedas se reinicia a uno.
+	\item El reset:	Esta señal, asíncrona, está conectada a un switch de la FPGA (en concreto el switch 1 de la placa superior correspondiente al LOC = K4) y reinicia todo el juego. Pone el nivel en el primero, por lo que se cargan tanto el fondo como los obstáculos correspondientes. Se genera un retardo para que no aparezcan de golpe. Además el contador de monedas se reinicia a cero. Se aprecia la posición del reset en la imagen.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[scale=0.2]{fpga.jpg}
+		\caption{Reset y 7 segmentos indicados en verde y azul respectivamente}
+	\end{figure}
+	
 	\item Clock: Es el reloj de la FPGA. Está conectado a múltiples divisores que ralentizan la señal a las velocidades que se necesitan. El movimiento de los fondos, el movimiento de los obstáculos y el movimiento de Barry se gestionan mediante
 	estos divisores. Además, hay uno dedicado al refresco de la pantalla que trabaja a 12,5MHz y que es el que gestiona
 	
 \end{itemize}
 	Además podemos distinguir cinco salidas de datos:
 	\begin{itemize}
-	\item Las correspondientes a los siete segmentos: Las señales "displayizq" y "displaydcha" que se corresponden con los siete segmentos de la placa extendida de la FPGA. Para su gestión tenemos el módulo "contador" que recibe un número
-	binario entre 0 y 99 y lo convierte a la salida por los siete segmentos de su representación decimal correspondiente. La estrada de este módulo la tenemos conectada a la señal "cuenta\_monedas", que lleva el número de monedas que ha 
+	\item Las correspondientes a los siete segmentos: Las señales ``displayizq'' y ``displaydcha'' que se corresponden con los siete segmentos de la placa extendida de la FPGA. Para su gestión tenemos el módulo ``contador'' que recibe un número
+	binario entre 0 y 99 y lo convierte a la salida por los siete segmentos de su representación decimal correspondiente. La entrada de este módulo la tenemos conectada a la señal ``cuenta\_monedas'', que lleva el número de monedas que ha 
 	cogido el jugador.
-	\item Las correspondientes a la pantalla: La señal "rgb" que indica el color de pixel a pintar como "hsyncb" y "vsyncb" que gestionan la posición de pantalla a pintar. La señal "rgb" está conectada a varias rom's y señales, y en el process "colorear" se 
-	gestiona qué conexión se utiliza en cada momento.
+	\item Las correspondientes a la pantalla: La señal ``rgb'' que indica el color de pixel a pintar como \texttt{hsyncb} y \texttt{vsyncb} que gestionan la posición de pantalla a pintar. La señal ``rgb'' está conectada a varias ROM y señales, y en el process ``colorear'' se gestiona qué conexión se utiliza en cada momento.
 	
 \end{itemize}
 
