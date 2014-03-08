@@ -301,7 +301,7 @@ Principales máquinas de estados:
 \section{Somos los mejores }
 \subsection{Cronología y detalles del proceso de desarrollo}
 %inicio del protecto
-Tras decidir el proyecto, lo primero fue conseguir pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
+Tras decidir el proyecto, una de las primeras cosas que  necesitábamos era capturar las pulsaciones de teclado que hacen que Barry suba y baje, lo cual fue relativamente sencillo gracias a los ejemplos vistos en clase. Otra necesidad fue pintar imágenes en pantalla. Dibujarlas mediante process fue fácil, pero el nivel de complejidad de los dibujos era muy bajo. Tras estudiar diferentes opciones finalmente se decidió cargarlas desde ROM.
 El problema ahora era generar la ROM.
 
 %paso de imagenes a la FPGA mediante ROMs (diferenciacion entre fondos RGB y obstaculos BINario)
@@ -313,11 +313,16 @@ La razón de usar dos fondos en uno en el nivel 3 fue que así, poniendo un relo
 
 Para los obstáculos, que tenían que ser tres, decidimos que solo tuvieran dos colores, es decir, que fueran imágenes binarias, lo que conllevó a que la ROM nos indicara donde había obstáculo y donde no. Gracias a esto último los obstáculos se pintan del color que se indica en el programa principal y no en la ROM.
 
-La imagen de Barry y el primer fondo se inspiraran fielmente en los originales de \emph{Halfbrick Studios}. El resto de fondos y todos los obstáculos fueron dibujados a mano por el equipo. La imágenes debían ser todas mapa de bits BMP para poder restringir bien los colores y luego se transformaban a PPM para seguir el proceso de transformado y llegar al programa.
+La imagen de Barry y el primer fondo se inspiraron fielmente en los originales de \emph{Halfbrick Studios}. El resto de fondos y todos los obstáculos fueron dibujados a mano por el equipo. La imágenes debían ser todas mapa de bits BMP para poder restringir bien los colores y luego se transformaban a PPM para seguir el proceso de transformado y llegar al programa.
+
+
+%%%%%%%%%%%%%images, if u want%%%%%%%%%%%%%
+
+
 
 %movimiento de fondo y obstaculos
 Una vez solventado la carga de imágenes a nuestra aplicación, había que darle movimiento a los mapas, lo cual avanzó enormemente el apartado visual del proyecto.
-Además, necesitábamos capturar las pulsaciones de teclado que hacen que Barry suba y baje y que el juego se pause, lo cual fue relativamente sencillo gracias a los ejemplos vistos en clase.
+
 
 %transicion entre niveles
 
@@ -328,14 +333,11 @@ Finalmente, decidimos pintar los obstáculos de un color determinado para compro
 
 Una vez decidida la estrategia llegaba el momento de implementarla, cosa que fue bastante más complicada de lo esperado, y que finalmente Iker resolvió elegantemente con una comprobación constante circular del perímetro exterior de la imagen de Barry.
 
-
 Al crear nuevos niveles vimos que sería mejor añadir nuevos colores a los obstaculos para añadir más variedad, por eso decidimos modificar la ROM para que solo almacenara un bit en cada posición, significando que si el bit está a uno hay obstáculo y si está a 0 no lo hay. De esta manera se podía elegir el color de cada obstáculo en el nivel correspondiente y en vez de comprobar el color para ver el choque solo hacía falta comprobar si el bit estaba a uno o no. 
 
 
 %monedas (pantalla y contados)
-Ahora teníamos choques y movimiento de los mapas, y faltaba darle un objetivo al juego: conseguir el máximo número posible de monedas.
-
-Para ello teníamos que pintarlas, chocarnos con ellas, y borrarlas de la pantalla tras el choque, además de mostrar por el display 7 segmentos el número de monedas acumuladas.
+Ahora teníamos choques y movimiento de los mapas, y faltaba darle un objetivo al juego: conseguir el máximo número posible de monedas. Para ello teníamos que pintarlas, chocarnos con ellas, y borrarlas de la pantalla tras el choque, además de mostrar por el display 7 segmentos el número de monedas acumuladas.
 
 Detectar el choque ya sabíamos cómo, pero eliminar la moneda y aumentar el contador se tornó más difícil de lo que parecía, puesto que había que realizar una gran distinción de casos según el estado de la moneda (subiendo, bajando, quieta, invisible...). Además, una vez chocara con Barry había que borrarla de la pantalla hasta que volviera a aparecer metros más adelante en el mapa. El hecho de que la moneda se moviera y no estuviese quieta en el mapa complicó la implementación pero dotó al juego de un aspecto visual mucho más desarrollado.
 
@@ -380,12 +382,6 @@ Funciona todo porque somos los mejores (ver apartado 3). Sin embargo, otros aña
 \begin{itemize}
 	\item Menú principal.
 	\item Posibilidad de elegir personaje. Se barajaron varias opciones, incluso llegando a dibujarlas (cortesía de Daniel Báscones) como la de la imagen, pero no fue posible incluirlo.
-	
-	\begin{figure}[!h]
-		\centering
-		\includegraphics[scale=3]{natalia.png}
-		\caption{Otro personaje del juego: Natbarry.}
-	\end{figure}
 	\item Posibilidad de elegir personaje.
 	\item Vehículos utilizables al almacenar un número determinado de monedas. En este caso, los mapas cambiarían pasado un tiempo en lugar de cada 5 monedas recogidas.
 	\item Mejorar la  manejabilidad del personaje para que acelerase al subir y flotase al comienzo de la bajada. 
@@ -424,7 +420,7 @@ Aunque no se trata de reutilización de código, el uso de Photoshop  e Infranvi
 \section{Trabajo individual}
 La organización orientativa del trabajo por persona ha sido la siguiente:
 \begin{itemize}
-\item Jaime: controlador de teclado, cambio de niveles, movimiento de Barry, gestión y diseño de mapas.
+\item Jaime: Controlador de teclado, cambio de niveles, ROMs binarias, movimiento de Barry, gestión y diseño de mapas.
 \item Mayra: Controlador de teclado,  cambio de niveles, ROMs binarias; gestión y diseño de mapas, obstáculos y personaje.
 \item Jesús: Imágenes, memorias ROM, monedas.
 \item Iker: Barry, choques, monedas.
